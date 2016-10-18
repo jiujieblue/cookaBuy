@@ -17,7 +17,7 @@
               <img v-bind:src="logoUrl">
             </div>
             <div class="shop-name">
-              <h4>{{store}}</h4>
+              <h4>{{store_name}}</h4>
               <p>本店{{productNum}}件商品</p>
             </div>
             <div class="shop-conn">
@@ -28,10 +28,10 @@
           <div class="shopping-detail">
             <div class="img-box">
               <div class="img-show">
-                <img v-bind:src="carousel[img_t]">
+                <img v-bind:src="carousel[img_t] && carousel[img_t].tb_url">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}">
               </div>
             </div>
             <div class="shopping-desc">
@@ -67,13 +67,13 @@
               <div class="desc-color">
                 <div>颜<b class="em_5"></b>色 : </div>
                 <div>
-                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.image" v-bind:title="imgItem.name" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.a" v-bind:title="imgItem" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
                 </div>
               </div>
               <div class="desc-size">
                 <div>尺<b class="em_5"></b>码 : </div>
                 <div>
-                  <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem.name" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
+                  <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
                 </div>
               </div>
               <div class="desc-num">
@@ -155,15 +155,10 @@
               <div class="specif-tab">
                 <table>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>2</td>
-                      <td></td>
+                    <tr v-for="(arr,index) in item_props">
+                      <td>{{arr[0].p_name}} : {{arr[0].p_value}}</td>
+                      <td>{{arr[1].p_name}} : {{arr[1].p_value}}</td>
+                      <td>{{arr[2].p_name}} : {{arr[2].p_value}}</td>
                     </tr>
                   </tbody>    
                 </table>
@@ -196,12 +191,13 @@
         data: {},
         storeId: '',
         logoUrl: '',
-        store: '',
+        store_name: '',
         productNum: '',
         phone: '',
         addr: '',
         carousel: [],
         tit: '',
+        skus: [],
         colorItem: [],
         sizeItem: [],
         totalAmount: '',
@@ -215,6 +211,7 @@
         hasPreviousPage: false,
         newList: [],
         tabList: 1,
+        item_props: [],
         description: ''
       }
     },
@@ -288,37 +285,56 @@
     },
     mounted () {
       var p = window.location.href.split('?')[1];
-      this.$http.get('/cooka-productDetail-web/productDetail?' + p)
+      this.$http.get('/api/items/526975405598')
         .then(function (ret) {
-          this.data = ret.data
-          this.storeId = ret.data.storeProfileForm.store.storeId
-          this.carousel = ret.data.carousel
-          this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
-          this.store = ret.data.storeProfileForm.store.store
-          this.productNum = ret.data.storeProfileForm.productNum
-          this.phone = ret.data.storeProfileForm.storeProfile.phone
-          this.addr = ret.data.storeProfileForm.storeProfile.state + ' ' + ret.data.storeProfileForm.storeProfile.city + ' ' + ret.data.storeProfileForm.storeProfile.region + ' ' + ret.data.storeProfileForm.storeProfile.market + '-' + ret.data.storeProfileForm.storeProfile.floor + 'F-' + ret.data.storeProfileForm.storeProfile.stalls
-          this.tit = ret.data.tit
-          this.colorItem = ret.data.combination
-          this.sizeItem = ret.data.combination[0].child
-          this.totalAmount = ret.data.totalAmount
-          this.description = ret.data.description
-          this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)
-            .then(function (ret) {
-              this.recommend = ret.data.list
-              this.hasPreviousPage = ret.data.hasPreviousPage
-              this.hasNextPage = ret.data.hasNextPage
-              this.$http.get('/cooka-productDetail-web/newestProducts?' + p)
-                .then(function (ret) {
-                  this.newList = ret.data
-                },
-                function (err) {
-                  console.log(err)
-                })
-            },
-            function (err) {
-              console.log(err)
-            })
+          this.data = ret.data.data
+          // this.storeId = ret.data.storeProfileForm.store.storeId
+          this.carousel = ret.data.data.item_imgs
+          // this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
+          this.store_name = ret.data.data.store.store_name
+          // this.productNum = ret.data.storeProfileForm.productNum
+          this.phone = ret.data.data.store.mobile
+          this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
+          this.tit = ret.data.data.title
+          for(var i = 0;i < ret.data.data.skus.length;i++){
+            var diff = ret.data.data.skus[i].properties_name.split(';')
+            for(var j = 0 ;j < diff.length;j++){
+              diff[j] = diff[j].split(':')           
+            }   
+            this.colorItem.push(diff[1][1])
+            this.sizeItem.push(diff[0][1])         
+          }
+          
+          var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
+          var n = 0;
+          for(var i = 0;i < l;i++){
+            var arr = [];
+            for(var j = 0; j < 3; j++){
+              if(ret.data.data.item_props[n]){
+                arr.push(ret.data.data.item_props[n])
+                n++
+              }              
+            }
+            this.item_props.push(arr)       
+          }
+          // this.totalAmount = ret.data.totalAmount
+          this.description = ret.data.data.desc
+          // this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)
+          //   .then(function (ret) {
+          //     this.recommend = ret.data.list
+          //     this.hasPreviousPage = ret.data.hasPreviousPage
+          //     this.hasNextPage = ret.data.hasNextPage
+          //     this.$http.get('/cooka-productDetail-web/newestProducts?' + p)
+          //       .then(function (ret) {
+          //         this.newList = ret.data
+          //       },
+          //       function (err) {
+          //         console.log(err)
+          //       })
+          //   },
+          //   function (err) {
+          //     console.log(err)
+          //   })
         },
         function (err) {
           console.log(err)

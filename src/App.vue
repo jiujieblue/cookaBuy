@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <hello></hello>
+    <detail></detail>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Detail from './components/detail'
 
 export default {
   components: {
-    Hello
+    Detail
   }
 }
 </script>

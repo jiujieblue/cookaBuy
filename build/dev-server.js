@@ -13,32 +13,11 @@ var port = process.env.PORT || config.dev.port
 // https://github.com/chimurai/http-proxy-middleware
 // var proxyTable = config.dev.proxyTable
 var proxyTable = {
-  '/cooka-productDetail-web/productDetail': {
-    target: 'http://localhost',
+  '/api/items/': {
+    target: 'http://localhost:4000',
     changeOrigin: true,
     pathRewrite: {
-      '^/cooka-productDetail-web/productDetail': '/cooka-productDetail-web/productDetail'
-    }
-  },
-  '/cooka-productDetail-web/recommendProducts': {
-    target: 'http://localhost',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/cooka-productDetail-web/recommendProducts': '/cooka-productDetail-web/recommendProducts'
-    }
-  },
-  '/cooka-productDetail-web/newestProducts': {
-    target: 'http://localhost',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/cooka-productDetail-web/newestProducts': '/cooka-productDetail-web/newestProducts'
-    }
-  },
-  '/cooka-productDetail-web/m/addToCart': {
-    target: 'http://localhost',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/cooka-productDetail-web/m/addToCart': '/cooka-productDetail-web/m/addToCart'
+      '^/api/items/': '/api/items/'
     }
   }
 }

@@ -5,8 +5,7 @@ import App from './App'
 import '../src/assets/css/icons.css'
 const VueResource = require('vue-resource')
 Vue.use(VueResource)
-import Hello from './components/Hello.vue'
-import Test from './components/Test.vue'
+import Detail from './components/detail.vue'
 import VueRouter from 'vue-router'
 /* eslint-disable no-new */
 Vue.use(VueRouter)
@@ -14,8 +13,7 @@ Vue.use(VueRouter)
 var router = new VueRouter({
   mode:'hash',
   routes: [
-    {path:'/hello',component:Hello},
-    {path:'/test',component:Test}
+    {path:'/detail',component:Detail}
   ]
 })
 new Vue({
