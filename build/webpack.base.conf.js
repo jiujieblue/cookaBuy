@@ -3,10 +3,11 @@ var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
+var glob = require('glob');
+var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
+
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
+  entry: entries,
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
@@ -41,6 +42,10 @@ module.exports = {
         loader: 'json'
       },
       {
+        test: /\.html$/,
+        loader: 'vue-html'
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
@@ -59,11 +64,21 @@ module.exports = {
     ]
   },
   vue: {
-    loaders: utils.cssLoaders(),
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 2 versions']
-      })
-    ]
+    loaders: utils.cssLoaders()
   }
+}
+
+function getEntry(globPath) {
+  var entries = {},
+    basename, tmp, pathname;
+
+  glob.sync(globPath).forEach(function (entry) {
+    basename = path.basename(entry, path.extname(entry));
+    tmp = entry.split('/').splice(-3);
+    pathname = tmp.splice(0, 1) + '/' + basename; // 正确输出js和html的路径
+    entries[pathname] = entry;
+  });
+  console.log("base-entrys:");
+  console.log(entries);
+  return entries;
 }

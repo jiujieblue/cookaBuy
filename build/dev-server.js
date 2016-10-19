@@ -11,7 +11,6 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
 var port = process.env.PORT || config.dev.port
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-// var proxyTable = config.dev.proxyTable
 var proxyTable = {
   '/api/items/': {
     target: 'http://localhost:4000',

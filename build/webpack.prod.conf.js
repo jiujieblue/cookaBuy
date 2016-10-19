@@ -6,9 +6,13 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var env = config.build.env
+var env = process.env.NODE_ENV === 'testing'
+  ? require('../config/test.env')
+  : config.build.env
 
-var webpackConfig = merge(baseWebpackConfig, {
+var glob = require('glob');
+
+module.exports = merge(baseWebpackConfig, {
   module: {
     loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
@@ -40,20 +44,22 @@ var webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: config.build.index,
-      template: 'index.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: process.env.NODE_ENV === 'testing'
+    //     ? 'index.html'
+    //     : config.build.index,
+    //   template: 'index.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: 'dependency'
+    // }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -95,4 +101,37 @@ if (config.build.productionGzip) {
   )
 }
 
-module.exports = webpackConfig
+function getEntry(globPath) {
+  var entries = {},
+    basename, tmp, pathname;
+
+  glob.sync(globPath).forEach(function (entry) {
+    basename = path.basename(entry, path.extname(entry));
+    tmp = entry.split('/').splice(-3);
+    pathname = tmp.splice(0, 1) + '/' + basename; // 正确输出js和html的路径
+    entries[pathname] = entry;
+  });
+  console.log("prod-entrys:");
+  console.log(entries);
+  return entries;
+}
+
+var pages = getEntry('./src/module/**/*.html');
+console.log("prod pages-----");
+for (var pathname in pages) {
+	console.log("filename:"+pathname + '.html');
+  console.log("template:"+pages[pathname]);
+  // 配置生成的html文件，定义路径等
+  var conf = {
+    filename: pathname + '.html',
+    template: pages[pathname], // 模板路径
+    minify:{                   //
+      removeComments:true,
+      collapseWhitespace: false
+    },
+    inject: true,             // js插入位置
+    chunks: [pathname, "vendor", "manifest"]        // 每个html引用的js模块，也可以在这里加上vendor等公用模块
+  };
+  // 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象
+  module.exports.plugins.push(new HtmlWebpackPlugin(conf));
+}

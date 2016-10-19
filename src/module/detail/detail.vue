@@ -185,6 +185,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
+  import Vue from 'vue'
+  const VueResource = require('vue-resource')
+  Vue.use(VueResource)
   export default{
     data () {
       return {
@@ -343,5 +346,7 @@
   }
 </script>
 <style lang="less">
-  @import "../assets/less/detail.less";
+  @import "../../assets/less/detail.less";
+  @import '../../assets/css/icons.css';
+  @import '../../assets/css/bootstrap.css';
 </style>
