@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from 'components/App'
+import index from './index.vue'
 
 /* eslint-disable no-new */
 new Vue({
-  el: 'body',
-  render: h => h(App)
+  el: '#index',
+  render: h => h(index)
 })
