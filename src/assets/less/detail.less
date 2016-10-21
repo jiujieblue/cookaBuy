@@ -204,11 +204,28 @@
           }
           .desc-oth{
             margin-top:20px;
-            span{
+            overflow:hidden;
+            div{
+              float:left;
               margin-left:10px;
             }
-            span:first-child{
+            div:first-child{
               margin-left:50px;
+            }
+            div:last-child{
+              margin-left:55px;
+              span{
+                margin-right:5px;
+              }
+              img{
+                display:none;
+                margin-left:10px;
+              }
+              &:hover{
+                img{
+                  display:inline-block;
+                }
+              }
             }
           }
         }
