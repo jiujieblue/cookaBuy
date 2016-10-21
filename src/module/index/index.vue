@@ -522,7 +522,7 @@
 </template>
 
 <script>
-
+import Hello from 'components/Hello.vue'
 import Vue from 'vue'
 import 'bootstrap/dist/js/bootstrap.js'
 const VueResource = require('vue-resource')
@@ -534,7 +534,10 @@ export default {
     	return {
     		list:[]
     	}
-	}
+	},
+  components: {
+	  Hello
+  }
 	/*mounted(){
 		this.$http.get('/cooka-user-web/getIndexGroupProducts?groupId=1')
 		.then(
@@ -552,7 +555,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
-@import "../../assets/css/icons.css";
+@import '../../assets/css/icons.css';
 @import '../../assets/css/bootstrap.css';
 @import "../../assets/less/index.less";
 @import "../../assets/less/public.less";

@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="desc-trans" style="display:none;">
-                配<b class="em_5"></b>送 : 广东广州 至 
+                配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
                   <option>bbb</option>
@@ -126,7 +126,7 @@
                     <p>&yen; {{newItem.price}}</p>
                     <p>50分钟前</p>
                   </div>
-                </div>   
+                </div>
               </div>
             </div>
         </div>
@@ -160,9 +160,9 @@
                       <td>{{arr[1].p_name}} : {{arr[1].p_value}}</td>
                       <td>{{arr[2].p_name}} : {{arr[2].p_value}}</td>
                     </tr>
-                  </tbody>    
+                  </tbody>
                 </table>
-              </div> 
+              </div>
               <div class="detail-desc">
                 <div class="sanjiao"></div>
                 <div>图文详情</div>
@@ -170,12 +170,12 @@
               </div>
               <div class="detail-desc-des">
                 <div v-html="description"></div>
-              </div> 
+              </div>
             </div>
             <div v-else>
               <h2>我是评论</h2>
             </div>
-          </div>         
+          </div>
         </div>
       </div>
     </div>
@@ -302,12 +302,12 @@
           for(var i = 0;i < ret.data.data.skus.length;i++){
             var diff = ret.data.data.skus[i].properties_name.split(';')
             for(var j = 0 ;j < diff.length;j++){
-              diff[j] = diff[j].split(':')           
-            }   
+              diff[j] = diff[j].split(':')
+            }
             this.colorItem.push(diff[1][1])
-            this.sizeItem.push(diff[0][1])         
+            this.sizeItem.push(diff[0][1])
           }
-          
+
           var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
           var n = 0;
           for(var i = 0;i < l;i++){
@@ -316,9 +316,9 @@
               if(ret.data.data.item_props[n]){
                 arr.push(ret.data.data.item_props[n])
                 n++
-              }              
+              }
             }
-            this.item_props.push(arr)       
+            this.item_props.push(arr)
           }
           // this.totalAmount = ret.data.totalAmount
           this.description = ret.data.data.desc
