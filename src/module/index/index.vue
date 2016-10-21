@@ -526,7 +526,6 @@
 </template>
 
 <script>
-import Hello from 'components/Hello.vue'
 import Vue from 'vue'
 import headerComponent from 'components/header'
 import footerComponent from 'components/footer'

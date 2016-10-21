@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  
+
 
   <div class="bg-t">
     <div class="container detail">
@@ -93,7 +93,7 @@
                 <div style="display:none;">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
                 <div>
                   <a href="#"><span class="icon-fenxiang"></span>分享</a>
-                  <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>                 
+                  <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
               </div>
@@ -254,7 +254,7 @@
             if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
               this.totalAmount = totalAmount
             }
-          } 
+          }
         }
       },
       fanye (t) {
@@ -322,7 +322,7 @@
           // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
           this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
-<<<<<<< HEAD
+
           this.tit = ret.data.data.title
           for(var i = 0;i < ret.data.data.skus.length;i++){
             var diff = ret.data.data.skus[i].properties_name.split(';')
@@ -334,17 +334,7 @@
           }
 
           var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
-=======
-          this.tit = ret.data.data.title       
-          for(var i = 0;i < ret.data.data.sku_props[0].sku_prop_vals.length;i++){
-            this.sizeItem.push(ret.data.data.sku_props[0].sku_prop_vals[i].name)
-          }
-          for(var i = 0;i < ret.data.data.sku_props[1].sku_prop_vals.length;i++){
-            this.colorItem.push(ret.data.data.sku_props[1].sku_prop_vals[i].name)
-          }
-          
-          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
->>>>>>> 9b22a37ac6a2d009a93d8d2614d3306fdb703f14
+
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
