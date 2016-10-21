@@ -552,6 +552,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
+@import '../../assets/css/icons.css';
 @import '../../assets/css/bootstrap.css';
 @import "../../assets/less/index.less";
 @import "../../assets/less/public.less";
