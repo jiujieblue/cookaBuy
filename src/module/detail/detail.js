@@ -3,6 +3,6 @@ import detail from './detail.vue'
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#detail',
+  el: 'detail',
   render: h => h(detail)
 })

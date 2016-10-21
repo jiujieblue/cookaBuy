@@ -1,6 +1,9 @@
 .DS_Store
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 518262b9da3459cfe94985b3315755ea5a243a47
 dist/
 
 npm-debug.log
