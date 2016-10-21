@@ -7,6 +7,7 @@
       </div>
     </div>
   </div>
+  
 
   <div class="bg-t">
     <div class="container detail">
@@ -88,9 +89,13 @@
                 <button>去购物车结算</button>
               </div>
               <div class="desc-oth">
-                <span style="display:none;">收藏</span>
-                <span style="display:none;">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</span>
-                <span style="margin-left:55px;"><a href="#">分享</a></span>
+                <div style="display:none;">收藏</div>
+                <div style="display:none;">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
+                <div>
+                  <a href="#"><span class="icon-fenxiang"></span>分享</a>
+                  <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>                 
+                  <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
+                </div>
               </div>
             </div>
           </div>
@@ -133,8 +138,8 @@
       </div>
     </div>
   </div>
-  <div class="bg-b">
-    <div class="container oth">
+  <div class="container bg-b">
+    <div class="oth">
       <div class="row">
         <div class="col-md-12">
           <div class="detail-det">
@@ -155,10 +160,10 @@
               <div class="specif-tab">
                 <table>
                   <tbody>
-                    <tr v-for="(arr,index) in item_props">
-                      <td>{{arr[0].p_name}} : {{arr[0].p_value}}</td>
-                      <td>{{arr[1].p_name}} : {{arr[1].p_value}}</td>
-                      <td>{{arr[2].p_name}} : {{arr[2].p_value}}</td>
+                    <tr v-for="(item,index) in item_props">
+                      <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
+                      <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
+                      <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -225,13 +230,31 @@
       chooseColor (t) {
         this.color_t = t
         if (this.size_t !== -1) {
-          this.totalAmount = this.colorItem[t].child[this.size_t].amount
+          for(var i = 0;i < this.skus.length;i++){
+            var arr = this.skus[i].properties_name.split(';')
+            var totalAmount = this.skus[i].quantity
+            for(var j = 0;j < arr.length;j++){
+              arr[j] = arr[j].split(':')
+            }
+            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
+              this.totalAmount = totalAmount
+            }
+          }
         }
       },
       chooseSize (t) {
         this.size_t = t
         if (this.color_t !== -1) {
-          this.totalAmount = this.colorItem[this.color_t].child[t].amount
+          for(var i = 0;i < this.skus.length;i++){
+            var arr = this.skus[i].properties_name.split(';')
+            var totalAmount = this.skus[i].quantity
+            for(var j = 0;j < arr.length;j++){
+              arr[j] = arr[j].split(':')
+            }
+            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
+              this.totalAmount = totalAmount
+            }
+          } 
         }
       },
       fanye (t) {
@@ -291,6 +314,7 @@
       this.$http.get('/api/items/526975405598')
         .then(function (ret) {
           this.data = ret.data.data
+          this.skus = ret.data.data.skus
           // this.storeId = ret.data.storeProfileForm.store.storeId
           this.carousel = ret.data.data.item_imgs
           // this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
@@ -298,6 +322,7 @@
           // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
           this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
+<<<<<<< HEAD
           this.tit = ret.data.data.title
           for(var i = 0;i < ret.data.data.skus.length;i++){
             var diff = ret.data.data.skus[i].properties_name.split(';')
@@ -309,18 +334,28 @@
           }
 
           var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
+=======
+          this.tit = ret.data.data.title       
+          for(var i = 0;i < ret.data.data.sku_props[0].sku_prop_vals.length;i++){
+            this.sizeItem.push(ret.data.data.sku_props[0].sku_prop_vals[i].name)
+          }
+          for(var i = 0;i < ret.data.data.sku_props[1].sku_prop_vals.length;i++){
+            this.colorItem.push(ret.data.data.sku_props[1].sku_prop_vals[i].name)
+          }
+          
+          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
+>>>>>>> 9b22a37ac6a2d009a93d8d2614d3306fdb703f14
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
             for(var j = 0; j < 3; j++){
-              if(ret.data.data.item_props[n]){
-                arr.push(ret.data.data.item_props[n])
+              if(ret.data.data.com_props[n]){
+                arr.push(ret.data.data.com_props[n])
                 n++
               }
             }
             this.item_props.push(arr)
           }
-          // this.totalAmount = ret.data.totalAmount
           this.description = ret.data.data.desc
           // this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)
           //   .then(function (ret) {
