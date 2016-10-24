@@ -13,12 +13,19 @@ var port = process.env.PORT || config.dev.port
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = {
   '/api/items/': {
-    target: 'http://localhost:4000',
+    target: 'http://localhost',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items/': '/api/items/'
     }
-  }
+  },
+  '/cooka': {
+		target: 'http://localhost',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/cooka': '/cooka'
+		}
+	}
 }
 
 var app = express()
