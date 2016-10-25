@@ -1,30 +1,18 @@
+@import "./C.less";
 .clear:after{
 	content: '';
 	display: table;
 	clear: both;
 }
-#app{
-  color: #645c59;
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  background: #f7f7f7;
-	h1,h2,h3,h4,h5,ul,li,p,dl,dt,dd{
-		padding: 0;
-		margin: 0;
-	}
+#search{
 	.em{
 		display: inline-block;
 		width: 1em;
 	}
 	.container{
-		.header{
-			text-align: center;
-			h1{
-				color: red;
-				height: 100px;
-			}
-		}
-		a{
-		  color: #337ab7;
+		ul,li,p,dl,dt,dd{
+			padding: 0;
+			margin: 0;
 		}
 		.icon-shoucang{
 			cursor: pointer;
@@ -35,6 +23,7 @@
 		}
 		&-list{
 			>ul{
+				.clearfix();
 				margin: 20px 0;
 				>li{
 					float: left;
@@ -43,7 +32,7 @@
 						padding: 5px 10px;
 						padding-right: 15px;
 						margin-left: 5px;
-						border: 1px solid #2e2e2e;
+						border: 1px solid #ccc;
 						cursor: pointer;
 						&:after{
 							content: '';
@@ -71,11 +60,7 @@
 			>div{
 				margin-bottom: 20px;
 				ul{
-					&:after{
-						content: '';
-						display: table;
-						clear: both;
-					}
+					.clearfix();
 					li{
 						float: left;
 					}
@@ -83,11 +68,11 @@
 				>ul{
 					position: relative;
 					&:last-child li:first-child{
-						border-bottom: 1px solid #ececec;
+						border-bottom: 1px solid #e1e1e1;
 					}
 					&:first-child{
 						>li:last-child{
-						 	border-top: 1px solid #ececec;
+						 	border-top: 1px solid #e1e1e1;
 						 	>ul{
 						 		width: 90%;
 						 		float: left;
@@ -136,12 +121,18 @@
 							width: 100%;
 							padding-left: 125px;
 							padding-bottom: 0;
-							border-bottom: 1px solid #ececec;
-							border-right: 1px solid #ececec;
+							border-bottom: 1px solid #e1e1e1;
+							border-right: 1px solid #e1e1e1;
 							>ul{
 								>li{
 									margin-right: 15px;
 									margin-bottom: 10px;
+									a{
+										color: #645c59;
+										&:hover{
+											color: #fcc505;
+										}
+									}
 								}
 							}
 						}
@@ -221,7 +212,7 @@
 				font-size: 18px;
 				color: #7b7b7b;
 				cursor: pointer;
-				&.select{
+				&.selected{
 					color: #fcc505;
 					background: #fff;
 				}
@@ -236,6 +227,7 @@
 					float: left;
 					width: 83%;
 					>ul{
+						.clearfix();
 						>li{
 							float: left;
 							width: 23.95%;
@@ -245,7 +237,6 @@
 							margin: 0 10px 10px 0;
 							position: relative;
 							border: 1px solid transparent;
-							transition: all 0.3s linear;
 							>div{
 								display: none;
 								height: 100.5%;
@@ -259,6 +250,9 @@
 								img{
 									border: 1px solid #ccc;
 									margin: 10px;
+									&:hover{
+										opacity: 0.8;
+									}
 								}
 							}
 							>a>img{
@@ -287,6 +281,7 @@
 										}
 									}
 									&:nth-child(3){
+										color: #999;
 										span{
 											float: right;
 										}
@@ -381,9 +376,9 @@
 				float: left;
 				width: 17%;
 				>p{
-					padding: 15px 0;
-					margin-bottom: 5px;
-					background: #fff;
+					padding: 10px 0;
+					border-bottom: 1px solid #ececec;
+					margin-bottom: 10px;
 					font-size: 18px;
 					span{
 						padding: 0 5px;
@@ -409,6 +404,72 @@
 						}
 						>a{
 							color: #999;
+						}
+					}
+				}
+			}
+		}
+		&-cookabuy{
+			margin: 20px -15px;
+			hr{
+				width: 45%;
+				border-bottom: 1px solid #ececec;
+				&:first-child{
+					float: left;
+				}
+				&:last-child{
+					float: right;
+				}
+			}
+			p{
+				width: 10%;
+				float: left;
+				height: 38px;
+				line-height: 38px;
+				text-align: center;
+			}
+		}
+		&-aginsearch{
+			width: 600px;
+			margin: 0 auto;
+			p{
+				color: #999;
+			}
+			.ck-search{
+				margin-top: 10px;
+			}
+		}
+		&-recommended{
+			width: 100%;
+			p{
+				padding-bottom: 10px;
+				border-bottom: 1px solid #1a1a1a;
+				font-size: 15px;
+				margin: 50px 0 30px;
+				margin-right: -30px;
+				span{
+					padding: 0 5px;
+					margin-right: 5px;
+					background: red;
+					color: #fff;
+				}
+			}
+			>ul{
+				margin-right: -30px;
+				>li{
+					width: 19.6594%;
+					height: 350px;
+					margin-right: 5px;
+					padding: 2px;
+					&:nth-child(5n){
+						margin-right: 0;
+					}
+					>ul{
+						padding: 0 10px;
+						>li{
+							&:last-child{
+								display: block;
+							}
 						}
 					}
 				}

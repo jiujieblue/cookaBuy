@@ -1,279 +1,337 @@
 <style lang="less">
+	@import '../../assets/css/icons.css';
+	@import '../../assets/css/bootstrap.css';
 	@import '../../assets/less/search.less';
 </style>
+
 <template>
 <div id='app'>
-	<div class="container">
-	  <div class="row">
-	    <div class="col-md-12 header">
-	      <h2>我是头部</h2>
+	<headerComponent></headerComponent>
+	<div id='search'>
+		<div class="container">
+	  	<div class="row container-list">
+	  		<ul>
+	  			<li>所有分类</li>
+	  			<li> > <span>所有分类</span></li>
+	  			<li> > <span>所有分类</span></li>
+	  		</ul>
+	  		<div>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  					<span>更多</span>
+	  				</li>
+	  			</ul>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  				</li>
+	  			</ul>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  				</li>
+	  			</ul>
+	  		</div>
+	  	</div>
+	    <nav class="row container-nav">
+	    	<ul>
+	    		<li>综合排序<i></i></li>
+	    		<li>上架时间<i></i></li>
+	    		<li>销量<i></i></li>
+	    		<li>价格<i></i></li>
+	    	</ul>
+	    	<p>
+	    		<span>￥</span>
+	    		<input type="text" placeholder="最低价" />
+	    		<b>~&nbsp;</b>
+	    		<span>￥</span>
+	    		<input type="text" placeholder="最高价" />
+	    		<button>确定</button>
+	    	</p>
+	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
+	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
+	    </nav>
+	    <div class="row container-product">
+	    	<div class="container-product-left-grid" v-if='isGridOrBar == 0'>
+	    		<ul>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    	<div class="container-product-left-bar" v-if='isGridOrBar == 1'>
+	    		<ul>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
+	    				<ul>
+	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
+	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
+	    				</ul>
+	    				<ul>
+	    					<li><b>￥ 520.00</b>人气：2025</li>
+	    					<li>预留图片</li>
+	    				</ul>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
+	    				<ul>
+	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
+	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
+	    				</ul>
+	    				<ul>
+	    					<li><b>￥ 520.00</b>人气：2025</li>
+	    					<li>预留图片</li>
+	    				</ul>
+	    			</li>
+	    			<li>
+	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
+	    				<ul>
+	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
+	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
+	    				</ul>
+	    				<ul>
+	    					<li><b>￥ 520.00</b>人气：2025</li>
+	    					<li>预留图片</li>
+	    				</ul>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    	<div class="container-product-right">
+	    		<p><span>HOT</span><b>热销商品</b></p>
+	    		<ul>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    		</ul>
+	    	</div>
 	    </div>
-	  </div>
-  	<div class="row container-list">
-  		<ul class="clear">
-  			<li>所有分类</li>
-  			<li> > <span>所有分类</span></li>
-  			<li> > <span>所有分类</span></li>
-  		</ul>
-  		<div>
-  			<ul>  				
-  				<li>分<link class="em">类</li>
-  				<li>
-  					<ul>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  					</ul>
-  					<span>更多</span>
-  				</li>
-  			</ul>
-  			<ul>  				
-  				<li>分<link class="em">类</li>
-  				<li>
-  					<ul>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  						<li>皮衣</li>
-  					</ul>
-  				</li>
-  			</ul>
-  			<ul>  				
-  				<li>分<link class="em">类</li>
-  				<li>
-  					<ul>
-  						<li>皮衣</li>
-  					</ul>
-  				</li>
-  			</ul>
-  		</div>
-  	</div>
-    <nav class="row container-nav">
-    	<ul class="clear">
-    		<li>综合排序<i></i></li>
-    		<li>上架时间<i></i></li>
-    		<li>销量<i></i></li>
-    		<li>价格<i></i></li>
-    	</ul>
-    	<p class="clear">
-    		<span>￥</span>
-    		<input type="text" placeholder="最低价" />
-    		<b>~&nbsp;</b>
-    		<span>￥</span>
-    		<input type="text" placeholder="最高价" />
-    		<button>确定</button>
-    	</p>
-    	<span rel="stylesheet" class="icon-liebiao select" @click='gridOrBar(1)'></span>
-    	<span rel="stylesheet" class="icon-pingpumoshi" @click='gridOrBar(0)'></span>
-    </nav>
-    <div class="row container-product clear">
-    	<div class="container-product-left-grid" v-if='isGridOrBar == 0'>
-    		<ul class="clear">
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#"></a></span></li>
-    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#">大西豪 823档</a></span></li>
-    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#">大西豪 823档</a></span></li>
-    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#">大西豪 823档</a></span></li>
-    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#">大西豪 823档</a></span></li>
-    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    			<li>
-    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-    				<ul>
-    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-    					<li><a href="#">宝丽美服饰</a><span><a href="#">大西豪 823档</a></span></li>    					<li>图片</li>
-    				</ul>
-    				<div>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-    				</div>
-    			</li>
-    		</ul>
-    	</div>
-    	<div class="container-product-left-bar" v-if='isGridOrBar == 1'>
-    		<ul>
-    			<li class="clear">
-    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
-    				<ul>
-    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
-    				</ul>
-    				<ul>
-    					<li><b>￥ 520.00</b>人气：2025</li>
-    					<li>预留图片</li>
-    				</ul>
-    			</li>
-    			<li class="clear">
-    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
-    				<ul>
-    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
-    				</ul>
-    				<ul>
-    					<li><b>￥ 520.00</b>人气：2025</li>
-    					<li>预留图片</li>
-    				</ul>
-    			</li>
-    			<li class="clear">
-    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
-    				<ul>
-    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
-    				</ul>
-    				<ul>
-    					<li><b>￥ 520.00</b>人气：2025</li>
-    					<li>预留图片</li>
-    				</ul>
-    			</li>
-    		</ul>
-    	</div>
-    	<div class="container-product-right">
-    		<p><span>HOT</span><b>推荐商品</b></p>
-    		<ul>
-    			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
-    				<b>￥&nbsp;2510.0</b>
-    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
-    				<a href="#">宝立美服饰</a>
-    			</li>
-    			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
-    				<b>￥&nbsp;2510.0</b>
-    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
-    				<a href="#">宝立美服饰</a>
-    			</li>
-    			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
-    				<b>￥&nbsp;2510.0</b>
-    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
-    				<a href="#">宝立美服饰</a>
-    			</li>
-    			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
-    				<b>￥&nbsp;2510.0</b>
-    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
-    				<a href="#">宝立美服饰</a>
-    			</li>
-    		</ul>
-    	</div>
-    </div>
+	    <div class="row container-cookabuy">
+	    	<hr/><p>cookabuy.com</p><hr/>
+	    </div>
+	    <div class="row container-aginsearch">
+	   		<p>没有找到合适的商品？您可以搜索：</p>
+	   		<CkSearch></CkSearch>
+	    </div>
+	    <div class="row container-recommended container-product-left-grid">
+	    	<p><span>HTO</span><b>人气推荐</b></p>
+	    	<ul>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    	</ul>
+	    </div>
+	 	</div>
  	</div>
+	<goTop></goTop>
+	<footerComponent></footerComponent>
 </div>
 </template>
 
 <script>
 	import Vue from 'vue'
+	import headerComponent from 'components/header'
+	import footerComponent from 'components/footer'
+	import CkSearch from 'components/CkSearch'
+	import goTop from 'components/goTop'
 	export default {
 	  data () {
 	    return {
@@ -281,9 +339,16 @@
 	    }
 	  },
 	  methods: {
-	  	gridOrBar (n){
+	  	gridOrBar (e,n) {
+	  		$(e.target).addClass('selected').siblings('.selected').removeClass('selected')
 	  		this.isGridOrBar = n 
 	  	}
+	  },
+	  components: {
+	  	headerComponent,
+	  	footerComponent,
+	  	CkSearch,
+	  	goTop
 	  }
 	}
 </script>
