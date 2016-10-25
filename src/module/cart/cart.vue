@@ -1,5 +1,24 @@
 <template>
   <div>
+  <!-- use the modal component, pass in the prop -->
+    <div v-if="showModal" class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3>提示</h3>
+          </div>
+
+          <div class="modal-body">
+            确定要删除该宝贝吗？
+          </div>
+
+          <div class="modal-footer">
+            <button @click="showModal=false">关闭</button>
+            <button @click="_del">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="cart-m">
       <div class="container">      
           <div class="row">
@@ -7,7 +26,7 @@
               <div class="cart">
                 <ul class="cart-menu">
                   <li class="menu-all">
-                    <input type="checkbox">
+                    <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
                     <label>全选</label>
                   </li>
                   <li class="menu-shp">商品</li>
@@ -20,7 +39,7 @@
 
                 <div class="cart-detail">
                   <div class="detail-tit">
-                    <input type="checkbox">
+                    <input type="checkbox" v-bind:checked="checkShp[0]" v-on:change="_checkShp(0,$event)">
                     <div class="shp-logo">SHOP</div>
                     <div>ABCDE</div>
                     <span class="icon-dianhua"></span>
@@ -29,7 +48,7 @@
                   <div class="detail-shp">
                     <div class="detail-list">
                       <div class="list-shp">
-                        <input type="checkbox">
+                        <input type="checkbox" v-on:change="_checkOne(0,0,$event)" v-bind:checked="checkOne[0][0]">
                         <img src="../../assets/images/cart-show.jpg" height="80" width="80">
                         <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
                       </div>
@@ -53,12 +72,12 @@
                         &yen; 1255.00
                       </div>
                       <div class="list-act">
-                        <a>删除</a> | <a>收藏</a>
+                        <a @click="_showModal">删除</a> | <a>收藏</a>
                       </div>
                     </div>
                     <div class="detail-list">
                       <div class="list-shp">
-                        <input type="checkbox">
+                        <input type="checkbox" v-on:change="_checkOne(0,1,$event)" v-bind:checked="checkOne[0][1]">
                         <img src="../../assets/images/cart-show.jpg" height="80" width="80">
                         <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
                       </div>
@@ -101,7 +120,7 @@
 
                 <div class="cart-detail">
                   <div class="detail-tit">
-                    <input type="checkbox">
+                    <input type="checkbox" v-bind:checked="checkShp[1]" v-on:change="_checkShp(1,$event)">
                     <div class="shp-logo">SHOP</div>
                     <div>ABCDE</div>
                     <span class="icon-dianhua"></span>
@@ -110,7 +129,7 @@
                   <div class="detail-shp">
                     <div class="detail-list">
                       <div class="list-shp">
-                        <input type="checkbox">
+                        <input type="checkbox" v-on:change="_checkOne(1,0,$event)" v-bind:checked="checkOne[1][0]">
                         <img src="../../assets/images/cart-show.jpg" height="80" width="80">
                         <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
                       </div>
@@ -153,7 +172,7 @@
 
                 <div class="cart-oth">
                   <div class="oth-l">
-                    <input type="checkbox">
+                    <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
                     <label>全选</label>
                     <a>删除</a>
                     <a>收藏</a>
@@ -182,11 +201,83 @@
   export default{
     data () {
       return {
-       
+        showModal: false,
+        checkOne: [[false,false],[false]],
+        checkShp: [false,false],
+        checkAll: false
       }
     },
     methods: {
-    
+      _showModal () {
+        this.showModal = true
+      },
+      _del () {
+        this.showModal = false
+      },
+      _checkOne (t1,t2,e) {
+        this.checkOne[t1][t2] = e.target.checked
+        for(var i = 0; i < this.checkOne.length;i++){
+          for(var j = 0; j < this.checkOne[i].length;j++){
+            if(!this.checkOne[i][j]){
+              break;
+            }
+          }
+          if(j == this.checkOne[i].length){
+            this.checkShp[i] = true;
+          }
+          else{
+            this.checkShp[i] = false;
+          }           
+        }
+        for(var k = 0; k < this.checkShp.length;k++){
+          if(!this.checkShp[k]){
+            break;
+          }
+        }
+        if(k == this.checkShp.length){
+          this.checkAll = true;
+        }
+        else{
+          this.checkAll = false;
+        }
+        console.log(this.checkOne)
+        console.log(this.checkShp)
+        console.log(this.checkAll)
+      },
+      _checkShp (t,e) {
+        this.checkShp[t] = e.target.checked
+        for(var i = 0; i < this.checkOne[t].length; i++){
+          this.checkOne[t][i] = e.target.checked
+        }
+        for(var j = 0; j< this.checkShp.length; j++){
+          if(!this.checkShp[j]){
+            break;
+          }
+        }
+        if(j == this.checkShp.length){
+          this.checkAll = true;
+        }
+        else{
+          this.checkAll = false;
+        }
+        console.log(this.checkOne)
+        console.log(this.checkShp)
+        console.log(this.checkAll)
+      },
+      _checkAll (e) {
+        this.checkAll = e.target.checked
+        for(var i = 0; i < this.checkShp.length;i++){
+          this.checkShp[i] = e.target.checked
+        }
+        for(var i = 0; i < this.checkOne.length;i++){
+          for(var j = 0; j < this.checkOne[i].length;j++){
+            this.checkOne[i][j] = e.target.checked
+          }
+        }
+        console.log(this.checkOne)
+        console.log(this.checkShp)
+        console.log(this.checkAll)
+      }
     },
     mounted () {
       
