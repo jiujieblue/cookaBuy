@@ -1,0 +1,205 @@
+body{
+  .em{
+    display: inline-block;
+    width: 1em;
+  }
+  .em_5{
+    display: inline-block;
+    width: .5em;
+  }
+  ul, ol, li, p,  h1, h2, h3,h4,  h5, h6, dl, dt, dd {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+  }
+  a{
+    cursor: pointer;
+  }
+  font-family: "Microsoft Yahei";
+  background: #fff;
+}
+.cart-m{
+  margin-top: 50px;
+  .cart{
+    .cart-menu{
+      padding: 15px 0;
+      background: #eee;
+      overflow: hidden;
+      li{
+        float: left;
+        text-align: center;
+      }
+      .menu-all{
+        margin-left: 25px;
+      }
+      .menu-shp{
+        margin-left: 145px;
+      }
+      .menu-sty{
+        margin-left: 205px;
+      }
+      .menu-num{
+        margin-left: 120px;
+      }
+      .menu-pri,.menu-tot{
+        margin-left: 115px;
+      }
+      .menu-act{
+        margin-left: 112px;
+      }
+    }
+    .cart-detail{
+      .detail-tit{
+        padding: 15px 25px;
+        overflow: hidden;
+        >input{
+          float: left;
+          margin-right: 10px;
+        }
+        >div{
+          float: left;
+          margin-right: 15px;
+        }
+        .shp-logo{
+          background: #000;
+          color: #fff;
+          font-size: 12px;
+          margin-top: 1px;
+        }
+        >span{
+          float: left;
+          margin-right: 3px;
+          color: #fcc505;
+          margin-top: 3px;
+        }
+      }
+      .detail-shp{
+        background: #f9f9f9;
+        border: 1px solid #dfdfdf;
+        padding: 0 25px;
+        .detail-list{
+          overflow: hidden;
+          padding: 25px 0;
+          border-bottom: 1px solid #dfdfdf;
+          >div{
+            float: left;
+            text-align: center;
+          }
+          .list-shp{
+            overflow: hidden;
+            input{
+              float: left;
+              margin-top: 30px;
+            }
+            img{
+              float: left;
+              margin-left: 20px;
+              margin-right: 25px;
+            }
+            div{
+              float: left;
+              margin-top: 30px;
+              width: 220px;
+              text-align: left;
+            }
+          }
+          .list-sty,.list-num,.list-pri,.list-tot,.list-act{
+            margin-top: 30px;
+          }
+          .list-sty{
+            width: 160px;
+          }
+          .list-num{
+            width: 140px;
+            >div:first-child{
+              overflow: hidden;
+              >button{
+                float: left;
+                width: 28px;
+                height: 28px;
+                background: #fff;
+                border: 1px solid #dfdfdf;
+                line-height: 26px;
+                &:hover{
+                  background: #efefef;
+                }
+                &:focus{
+                  outline: none;
+                }
+              }
+              >button:first-child{
+                border-right: none;
+              }
+              >button:last-child{
+                border-left: none;
+              }
+              input{
+                float: left;
+                width: 80px;
+                text-align: center;
+                height: 28px;
+                border: 1px solid #dfdfdf;
+                outline: none;
+              }
+            }
+          }
+          .list-pri,.list-tot,.list-act{
+            width: 140px;
+            a{
+              color: #666;
+            }
+          }
+        }  
+        .detail-send{
+          padding: 25px 0;
+          overflow: hidden;
+          >div{
+            float: left;
+            margin-right: 15px;
+            label{
+              color: #666;  
+            }
+          }
+        }      
+      }
+    }
+    .cart-oth{
+      margin-top: 20px;
+      border: 1px solid #dfdfdf; 
+      overflow: hidden; 
+      .oth-l{
+        margin-left: 25px;
+        float: left;
+        height: 70px;
+        line-height: 70px;
+        a{
+          margin-left: 25px;
+          color: #666;
+        }
+      }
+      .oth-r{
+        float: right;
+        span{
+          margin-right: 25px;
+        }
+        mark{
+          background: #fff;
+          color: #ff3c14;
+          font-size: 18px;
+        }
+        button{
+          background: #ff5615;
+          width: 140px;
+          height: 70px;
+          outline: none;
+          border: none;
+          margin-right: -2px;
+          color: #fff;
+          &:hover{
+            background: #ff6d32;
+          }
+        }
+      }
+    }
+  }
+}
