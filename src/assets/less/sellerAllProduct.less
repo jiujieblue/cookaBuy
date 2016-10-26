@@ -1,12 +1,5 @@
-.clear:after{
-	content: '';
-	display: table;
-	clear: both;
-}
+@import "./C.less";
 #app{
-  color: #2c3e50;
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  background: #f7f7f7;
 	h1,h2,h3,h4,h5,ul,li,p,dl,dt,dd{
 		padding: 0;
 		margin: 0;
@@ -32,6 +25,7 @@
 		}
 		&-list{
 			>ul{
+				.clearfix();
 				li{
 					float: left;
 					padding: 10px 25px;
@@ -50,6 +44,7 @@
 				padding: 0 20px;
 				background: #fff;
 				p{
+					.clearfix();
 					padding: 10px 0;
 					border-bottom: 1px solid #fcc505;
 					color: #999;
@@ -67,10 +62,8 @@
 					max-height: 50px;
 	    		overflow: hidden;
 					>span{
-						display: none;
 						float: left;
-						padding-right: 10px;
-						width: 10%;
+						width: 11%;
 						&:last-child{
 							width: 8%;
 							float: right;
@@ -156,18 +149,19 @@
 				padding: 5px 30px;
 				line-height: 28px;
 				input{
-					width: 80px;
+					width: 100px;
 					padding-left: 30px;
+					padding-right: 10px;
 					outline: none;
 					border: none;
-					&+span{
-						position: relative;
-						right: 70px;
-					}
+				}
+				span{
+					position: relative;
+					left: 25px;
 				}
 				b{
 					position: relative;
-					right: 7px;
+					left: 10px;
 				}
 			}
 		}

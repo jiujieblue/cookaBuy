@@ -1,4 +1,6 @@
 <style lang="less">
+	@import '../../assets/css/icons.css';
+	@import '../../assets/css/bootstrap.css';
 	@import '../../assets/less/sellerAllProduct.less';
 </style>
 <template>
@@ -8,16 +10,16 @@
 	    <h1>头部</h1>
 	  </header>
   	<div class="row container-list">
-  		<ul class="clear">
+  		<ul>
 	    	<li class="active">全部商品</li>
 	    	<li style="display:none">会员专区</li>
 	    </ul>
 	    <div>
-	    	<p class="clear">
+	    	<p>
 	    		<span>商品分类</span>
 	    		<span>共520件相关商品</span>
 	    	</p>
-	    	<div class="clear">
+	    	<div>
 	    		<span>女士/女士精品：</span>
 		    	<ul>
 		    		<li v-for="sub in subs">
@@ -29,22 +31,22 @@
 	    </div>
   	</div>
     <nav class="row container-nav">
-    	<ul class="clear">
+    	<ul>
     		<li>销量<i></i></li>
     		<li>上新时间<i></i></li>
     		<li>价格<i></i></li>
     	</ul>
-    	<p class="clear">
+    	<p>
+    		<span>￥</span>
     		<input type="text" placeholder="最低价" />
+    		<b>~</b>
     		<span>￥</span>
-    		<b>~&nbsp;</b>
     		<input type="text" placeholder="最高价" />
-    		<span>￥</span>
     	</p>
     </nav>
-    <div class="row container-product clear">
+    <div class="row container-product">
     	<div class="container-product-left">
-    		<ul class="clear">
+    		<ul>
     			<li v-for="list in lists">
     				<img v-bind:src="list.imageUrl" v-bind:data-productId="list.productId" alt="产品图片">
     				<ul>

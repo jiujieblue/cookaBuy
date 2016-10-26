@@ -1,9 +1,4 @@
 @import "./C.less";
-.clear:after{
-	content: '';
-	display: table;
-	clear: both;
-}
 #search{
 	.em{
 		display: inline-block;
@@ -67,7 +62,7 @@
 				}
 				>ul{
 					position: relative;
-					&:last-child li:first-child{
+					&:last-child >li:first-child{
 						border-bottom: 1px solid #e1e1e1;
 					}
 					&:first-child{
@@ -128,7 +123,6 @@
 									margin-right: 15px;
 									margin-bottom: 10px;
 									a{
-										color: #645c59;
 										&:hover{
 											color: #fcc505;
 										}
@@ -210,7 +204,7 @@
 				padding: 11px 15px;
 				background: #ececec;
 				font-size: 18px;
-				color: #7b7b7b;
+				color: #87807d;
 				cursor: pointer;
 				&.selected{
 					color: #fcc505;
@@ -231,7 +225,7 @@
 						>li{
 							float: left;
 							width: 23.95%;
-							height: 350px;
+							height: 360px;
 							background: #fff;
 							padding: 10px 15px;
 							margin: 0 10px 10px 0;
@@ -262,9 +256,6 @@
 								margin: 15px 0 10px;
 								li{
 									margin-bottom: 10px;
-									a{
-										color: #999;
-									}
 									&:first-child{
 										b{
 											color: red;
@@ -272,16 +263,19 @@
 										}
 										p{
 											float: right;
+											color: #c4bebc;
 											span.icon-liulan{
 												font-size: 16px;
 												position: relative;
-												top: 2px;
-												right: 3px;
+												right: 2px;
 											}
 										}
 									}
+									&:nth-child(2) a{
+										color: #665c59;
+									}
 									&:nth-child(3){
-										color: #999;
+										color: #a89d99;
 										span{
 											float: right;
 										}
@@ -332,9 +326,8 @@
 										position: absolute;
 										bottom: 10px;
 										left: 0;
-										color: #999;
+										color: #87807d;
 										a{
-											color: #999;
 											margin-right: 30px;
 										}
 									}
@@ -345,13 +338,19 @@
 									>li{
 										&:first-child{
 											font-size: 17px;
+											a{
+												color: #87807d;
+											}
+										}
+										&:last-child{
+											color: #a89d99;
 										}
 									}
 								}
 								&:last-child{
 									>li{
 										&:first-child{
-											color: #999;
+											color: #c4bebc;
 											b{
 												font-size: 16px;
 												color: red;
@@ -402,9 +401,6 @@
 						>p{
 							margin: 10px 0;
 						}
-						>a{
-							color: #999;
-						}
 					}
 				}
 			}
@@ -433,7 +429,7 @@
 			width: 600px;
 			margin: 0 auto;
 			p{
-				color: #999;
+				color: #c4bebc;
 			}
 			.ck-search{
 				margin-top: 10px;

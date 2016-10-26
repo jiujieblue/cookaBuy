@@ -106,82 +106,12 @@
 	    <div class="row container-product">
 	    	<div class="container-product-left-grid" v-if='isGridOrBar == 0'>
 	    		<ul>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<li v-for="(product,index) in hitsProductList" :data-id='product._source.id'>
+	    				<a href="#"><img :src="product._source.pic_url"></a>
 	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
-	    					<li>图片</li>
-	    				</ul>
-	    				<div>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-	    				</div>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
-	    					<li>图片</li>
-	    				</ul>
-	    				<div>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-	    				</div>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
-	    					<li>图片</li>
-	    				</ul>
-	    				<div>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-	    				</div>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
-	    					<li>图片</li>
-	    				</ul>
-	    				<div>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-	    				</div>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
-	    					<li>图片</li>
-	    				</ul>
-	    				<div>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
-	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
-	    				</div>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
-	    				<ul>
-	    					<li><b>￥&nbsp;5644</b><p><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-	    					<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    					<li><a href="#">宝丽美服饰</a><span>大西豪 823档</span></li>
+	    					<li><b>￥&nbsp;{{ product._source.price }}</b><p style="display:none"><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li><a href="">{{ product._source.title }}</a></li>
+	    					<li><a href="#">{{ product._source.store_name }}</a><span>{{ product._source.market }} {{ product._source.store_num }}</span></li>
 	    					<li>图片</li>
 	    				</ul>
 	    				<div>
@@ -194,36 +124,14 @@
 	    	</div>
 	    	<div class="container-product-left-bar" v-if='isGridOrBar == 1'>
 	    		<ul>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
+	    			<li v-for="(product,index) in hitsProductList" :data-id="product._source.id">
+	    				<a href="#"><img :src="product._source.pic_url" ></a>
 	    				<ul>
-	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
+	    					<li><a href="">{{ product._source.title }}</a></li>
+	    					<li><a href="#">{{ product._source.store_name }}</a>{{ product._source.market }} {{ product._source.store_num }}</li>
 	    				</ul>
 	    				<ul>
-	    					<li><b>￥ 520.00</b>人气：2025</li>
-	    					<li>预留图片</li>
-	    				</ul>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
-	    				<ul>
-	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
-	    				</ul>
-	    				<ul>
-	    					<li><b>￥ 520.00</b>人气：2025</li>
-	    					<li>预留图片</li>
-	    				</ul>
-	    			</li>
-	    			<li>
-	    				<a href="#"><img src="../../assets/images/detail-new.jpg" ></a>
-	    				<ul>
-	    					<li>战地吉普男装牛仔卫裤2016春装新款</li>
-	    					<li><a href="#">宝立美服饰</a>大西豪 823档</li>
-	    				</ul>
-	    				<ul>
-	    					<li><b>￥ 520.00</b>人气：2025</li>
+	    					<li><b>￥ {{ product._source.price }}</b><span style="display:none">人气：2025</span></li>
 	    					<li>预留图片</li>
 	    				</ul>
 	    			</li>
@@ -335,8 +243,21 @@
 	export default {
 	  data () {
 	    return {
-	      isGridOrBar: 0
+	      isGridOrBar: 0,
+	      hitsProduct: '',
+	      hitsProductList: []
 	    }
+	  },
+	  mounted () {
+	  	this.$http.get('/item02/_search')
+	  	.then(function (res) {
+	  		this.hitsProduct = res.data.hits
+	  		this.hitsProductList = res.data.hits.hits
+	  		console.log(res.data)
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
 	  },
 	  methods: {
 	  	gridOrBar (e,n) {

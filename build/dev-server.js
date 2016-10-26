@@ -25,6 +25,13 @@ var proxyTable = {
 		pathRewrite: {
 			'^/cooka': '/cooka'
 		}
+	},
+  '/item02': {
+		target: 'http://119.29.224.238:9200',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/item02': '/item02'
+		}
 	}
 }
 
