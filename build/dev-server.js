@@ -14,12 +14,13 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = {
   // detail
   '/api/items/': {
-    target: 'http://localhost:4000',
+    target: 'http://localhost',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items/': '/api/items/'
     }
   },
+<<<<<<< HEAD
   // register
   '/checkAvaiable': {
     target: 'http://localhost:8080',
@@ -79,6 +80,22 @@ var proxyTable = {
       '^/modifyPassword': '/modifyPassword'
     }
   }
+=======
+  '/cooka': {
+		target: 'http://localhost',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/cooka': '/cooka'
+		}
+	},
+  '/item02': {
+		target: 'http://119.29.224.238:9200',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/item02': '/item02'
+		}
+	}
+>>>>>>> e7dc05faaea8dbba7d9325cedf4bec90681927e1
 }
 
 var app = express()
