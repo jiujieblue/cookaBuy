@@ -20,7 +20,6 @@ var proxyTable = {
       '^/api/items/': '/api/items/'
     }
   },
-<<<<<<< HEAD
   // register
   '/checkAvaiable': {
     target: 'http://localhost:8080',
@@ -79,8 +78,7 @@ var proxyTable = {
     pathRewrite: {
       '^/modifyPassword': '/modifyPassword'
     }
-  }
-=======
+  },
   '/cooka': {
 		target: 'http://localhost',
 		changeOrigin: true,
@@ -95,7 +93,6 @@ var proxyTable = {
 			'^/item02': '/item02'
 		}
 	}
->>>>>>> e7dc05faaea8dbba7d9325cedf4bec90681927e1
 }
 
 var app = express()
