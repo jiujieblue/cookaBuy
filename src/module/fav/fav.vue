@@ -14,7 +14,7 @@
           <div class="fav-shp">
             <div class="shp-l">
               <div class="l-t">
-                <img src="../../assets/images/default_avatar.png" height="126" width="126">
+                <img src="../../assets/images/default_avatar.png" height="80" width="80">
                 <div>
                   <h4>吴江市甜心服饰</h4>
                   <p>12345612345</p>
@@ -38,11 +38,11 @@
               <div class="r-slider">
                 <div>
                   <swiper :options="swiperOption">
-                    <swiper-slide><img src="../../assets/images/my-fav.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/my-fav.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/my-fav.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/my-fav.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/my-fav.jpg" height="150" width="150"></swiper-slide>
+                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
+                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
+                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
+                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
+                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
                     <div class="swiper-button-prev swiper-button-black" slot="button-prev"></div>
                     <div class="swiper-button-next swiper-button-black" slot="button-next"></div>
                   </swiper>
