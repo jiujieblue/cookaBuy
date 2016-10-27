@@ -68,7 +68,7 @@ body{
         }
       }
       form{
-        width: 200px;
+        width: 210px;
         margin-left: 150px;
         padding-bottom: 20px;
         >div{
@@ -76,15 +76,15 @@ body{
           margin-top: 35px;
           >span{
             float: left;
-            padding: 8px;
+            padding: 12px;
             border:1px solid #a89d97;
             border-right: none;
           }
           input{
             float: left;
-            height: 32px;
-            padding: 0 5px;
+            padding: 8px 5px;
             outline: none;
+            letter-spacing:2px;
           }
         }
         .form-oth{
@@ -99,14 +99,23 @@ body{
             float: right;
           }
         }
+        .form-err{
+          text-align: center;
+          color: #fc7546;
+          margin-top: 10px;
+          margin-bottom: -15px;
+        }
         .form-login{
           button{
             background: #fcc505;
-            width: 200px;
+            width: 210px;
             height: 34px;
             border: none;
             border-radius: 15px;
             color: #362e19;
+            &:focus{
+              outline: none;
+            }
           }
         }
       }

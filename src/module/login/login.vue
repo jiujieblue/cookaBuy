@@ -42,26 +42,29 @@
                 还没有账号 ? <a href="#">立即注册</a>
               </div>
             </div>
-            <form>
+            <form v-on:submit="_submit">
               <div class="form-zhanghao">
                 <span class="icon-zhanghao"></span>
-                <input type="text" name="zhanghao" placeholder="请输入您的手机号码">
+                <input type="text" name="username" placeholder="请输入您的手机号码" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
               </div>
               <div class="form-psd">
                 <span class="icon-mima"></span>
-                <input type="password" name="psd" placeholder="请输入密码">
+                <input type="password" name="password" placeholder="请输入密码">
               </div>
               <div class="form-oth">
                 <div class="form-oth-member">
                   <input type="checkbox" name="member">
-                  <label>记住密码</label>
+                  <label>记住账号</label>
                 </div>
                 <div class="form-oth-wjmima">
                   <a href="#">忘记密码</a>
                 </div>
               </div>
+              <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
+                {{error}}
+              </div>
               <div class="form-login">
-                <button type="submit">登<span class="em"></span><span class="em"></span>录</button>
+                <button>登<span class="em"></span><span class="em"></span>录</button>
               </div>
             </form>
           </div>
@@ -90,14 +93,56 @@
   import Vue from 'vue'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
+  const fto = require('form_to_object')
+  Vue.use(fto)
   export default{
     data () {
       return {
-       
+        error: ''
       }
     },
     methods: {
-    
+      _checkPhone (e) {
+        if((!e.target.value) || (e.target.value && !(/^1[\d]{10}$/.test(this.$refs.phone.value)))){
+          this.error = '请输入正确的手机号码'
+        }
+      },
+      _writePhone () {
+        this.error = ''
+      },
+      _submit (e) {
+        e.preventDefault();
+        var data = fto(e.target);
+        console.log(data);
+        if (!data.username) {
+          this.error = '手机号码不能为空'
+          return false;
+        }
+        else{
+          this.error = '';
+        }
+        if(!(/^1[\d]{10}$/.test(data.username))){
+          this.error = '请输入正确的手机号码'
+          return false;
+        }
+        else{
+          this.error = ''
+        }
+        if(!data.password){          
+          this.error = '密码不能为空'
+          return false;
+        }
+        else{
+          this.error = ''
+        }
+        this.$http.post('/login',data)
+          .then(function(ret){
+            console.log(ret.data)
+          },
+          function(err){
+            console.log(err)
+          })
+      }
     },
     mounted () {
       
