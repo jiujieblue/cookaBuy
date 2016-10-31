@@ -1,0 +1,276 @@
+<style lang="less">
+	@import '../../assets/css/icons.css';
+	@import '../../assets/css/bootstrap.css';
+	@import '../../assets/less/search.less';
+</style>
+
+<template>
+<div id='app'>
+	<headerComponent></headerComponent>
+	<div id='search'>
+		<div class="container">
+	  	<div class="row container-list">
+	  		<ul>
+	  			<li>所有分类</li>
+	  			<li> > <span>所有分类</span></li>
+	  			<li> > <span>所有分类</span></li>
+	  		</ul>
+	  		<div>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  					<span>更多</span>
+	  				</li>
+	  			</ul>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  				</li>
+	  			</ul>
+	  			<ul>  				
+	  				<li>分<link class="em">类</li>
+	  				<li>
+	  					<ul>
+	  						<li><a href="">皮衣</a></li>
+	  					</ul>
+	  				</li>
+	  			</ul>
+	  		</div>
+	  	</div>
+	    <nav class="row container-nav">
+	    	<ul>
+	    		<li>综合排序<i></i></li>
+	    		<li>上架时间<i></i></li>
+	    		<li>销量<i></i></li>
+	    		<li>价格<i></i></li>
+	    	</ul>
+	    	<p>
+	    		<span>￥</span>
+	    		<input type="text" placeholder="最低价" />
+	    		<b>~&nbsp;</b>
+	    		<span>￥</span>
+	    		<input type="text" placeholder="最高价" />
+	    		<button>确定</button>
+	    	</p>
+	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
+	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
+	    </nav>
+	    <div class="row container-product">
+	    	<div class="container-product-left-grid" v-if='isGridOrBar == 0'>
+	    		<ul>
+	    			<li v-for="(product,index) in hitsProductList" :data-id='product._source.id'>
+	    				<a href="#"><img :src="product._source.pic_url"></a>
+	    				<ul>
+	    					<li><b>￥&nbsp;{{ product._source.price }}</b><p style="display:none"><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
+	    					<li><a href="">{{ product._source.title }}</a></li>
+	    					<li><a href="#">{{ product._source.store_name }}</a><span>{{ product._source.market }} {{ product._source.store_num }}</span></li>
+	    					<li>图片</li>
+	    				</ul>
+	    				<div>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片1"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片2"></a>
+	    					<a href="#"><img src="../../assets/images/detail-list.jpg" alt="图片3"></a>
+	    				</div>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    	<div class="container-product-left-bar" v-if='isGridOrBar == 1'>
+	    		<ul>
+	    			<li v-for="(product,index) in hitsProductList" :data-id="product._source.id">
+	    				<a href="#"><img :src="product._source.pic_url" ></a>
+	    				<ul>
+	    					<li><a href="">{{ product._source.title }}</a></li>
+	    					<li><a href="#">{{ product._source.store_name }}</a>{{ product._source.market }} {{ product._source.store_num }}</li>
+	    				</ul>
+	    				<ul>
+	    					<li><b>￥ {{ product._source.price }}</b><span style="display:none">人气：2025</span></li>
+	    					<li>预留图片</li>
+	    				</ul>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    	<div class="container-product-right">
+	    		<p><span>HOT</span><b>热销商品</b></p>
+	    		<ul>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    			<li>
+	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
+	    				<b>￥&nbsp;2510.0</b>
+	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
+	    				<a href="#">宝立美服饰</a>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    </div>
+	    <div class="row container-cookabuy">
+	    	<hr/><p>cookabuy.com</p><hr/>
+	    </div>
+	    <div class="row container-aginsearch">
+	   		<p>没有找到合适的商品？您可以搜索：</p>
+	   		<CkSearch></CkSearch>
+	    </div>
+	    <div class="row container-recommended container-product-left-grid">
+	    	<p><span>HTO</span><b>人气推荐</b></p>
+	    	<ul>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    		<li>
+	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    			<ul>
+	    				<li><b>￥520.00</b></li>
+	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
+	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    			</ul>
+	    		</li>
+	    	</ul>
+	    </div>
+	 	</div>
+ 	</div>
+	<goTop></goTop>
+	<footerComponent></footerComponent>
+</div>
+</template>
+
+<script>
+	import Vue from 'vue'
+	import headerComponent from 'components/header'
+	import footerComponent from 'components/footer'
+	import CkSearch from 'components/CkSearch'
+	import goTop from 'components/goTop'
+	export default {
+	  data () {
+	    return {
+	      isGridOrBar: 0,
+	      hitsProduct: '',
+	      hitsProductList: []
+	    }
+	  },
+	  mounted () {
+	  	this.$http.get('/item02/_search')
+	  	.then(function (res) {
+	  		this.hitsProduct = res.data.hits
+	  		this.hitsProductList = res.data.hits.hits
+	  		console.log(res.data)
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
+	  },
+	  methods: {
+	  	gridOrBar (e,n) {
+	  		$(e.target).addClass('selected').siblings('.selected').removeClass('selected')
+	  		this.isGridOrBar = n 
+	  	}
+	  },
+	  components: {
+	  	headerComponent,
+	  	footerComponent,
+	  	CkSearch,
+	  	goTop
+	  }
+	}
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->

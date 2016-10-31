@@ -1,12 +1,6 @@
 <template>
 <div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 header">
-        <h2>我是头部</h2>
-      </div>
-    </div>
-  </div>
+  <headerComponent></headerComponent>
   
 
   <div class="bg-t">
@@ -185,15 +179,22 @@
       </div>
     </div>
   </div>
+  <footerComponent></footerComponent>
 </div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
   import Vue from 'vue'
+  import headerComponent from 'components/header'
+  import footerComponent from 'components/footer'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   export default{
+    components:{
+      headerComponent,
+      footerComponent
+    },
     data () {
       return {
         data: {},
