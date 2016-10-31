@@ -11,6 +11,9 @@
   "dependencies": {
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "lodash": "^4.16.4",
+    "lodash-node": "^3.10.2",
+    "qs": "^6.3.0",
     "vue": "^2.0.1"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@
 <template>
 <div id='app'>
 	<headerComponent></headerComponent>
-	<div id='sellerWithdrawal'>
+	<div class='sellerWithdrawal'>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
@@ -112,7 +112,7 @@
 	  		}else if(!regM.test(val)){
 	  			this.moneyHtml = '请输入正确的金额数目!'
 	  		}else if(parseInt(val)<20){
-	  			this.moneyHtml = '提取不能小于20!'
+	  			this.moneyHtml = '提取金额不能小于20!'
 	  		}else{
 	  			this.moneyHtml = ''
 	  		}
