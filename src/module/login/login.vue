@@ -45,11 +45,17 @@
             <form v-on:submit="_submit">
               <div class="form-zhanghao">
                 <span class="icon-zhanghao"></span>
-                <input type="text" name="username" placeholder="请输入您的手机号码" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                <input type="text" name="username" placeholder="请输入您的手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+              </div>
+              <div class="form-err" v-bind:style="{visibility: error == '请输入正确的手机号码' || error == '手机号码不能为空' ? 'visible' : 'hidden'}">
+                {{error}}
               </div>
               <div class="form-psd">
                 <span class="icon-mima"></span>
                 <input type="password" name="password" placeholder="请输入密码">
+              </div>
+              <div class="form-err" v-bind:style="{visibility: error=='密码不能为空' ? 'visible' : 'hidden'}">
+                {{error}}
               </div>
               <div class="form-oth">
                 <div class="form-oth-member">
@@ -59,9 +65,6 @@
                 <div class="form-oth-wjmima">
                   <a href="#">忘记密码</a>
                 </div>
-              </div>
-              <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
-                {{error}}
               </div>
               <div class="form-login">
                 <button>登<span class="em"></span><span class="em"></span>录</button>
@@ -114,7 +117,7 @@
         e.preventDefault();
         var data = fto(e.target);
         console.log(data);
-        if (!data.username) {
+        if (!data || !data.username) {
           this.error = '手机号码不能为空'
           return false;
         }

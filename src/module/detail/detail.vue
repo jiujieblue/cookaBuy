@@ -47,7 +47,7 @@
                   <p>50件以上</p>
                 </div>
               </div>
-              <div class="desc-trans" style="display:none;">
+              <div class="desc-trans">
                 配<b class="em_5"></b>送 : 广东广州 至 
                 <select class="trans-addr">
                   <option>aaa</option>
@@ -72,24 +72,38 @@
                 </div>
               </div>
               <div class="desc-num">
-                <p style="display:none;">数<b class="em_5"></b>量 : </p>
-                <button style="display:none;" class="num-del" v-on:click="_chooseNum(-1)">-</button>
-                <input style="display:none;" type="text" v-on:change="_changeNum" v-bind:value="chooseNum">
-                <button style="display:none;" class="num-add" v-on:click="_chooseNum(1)">+</button>
+                <p>数<b class="em_5"></b>量 : </p>
+                <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
+                <input type="text" v-on:change="_changeNum" v-bind:value="chooseNum">
+                <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>
-              <div class="desc-action" style="display:none;">
+              <div class="desc-action">
                 <button v-on:click="_addCart">加入进货单</button>
                 <button>去购物车结算</button>
               </div>
               <div class="desc-oth">
-                <div style="display:none;">收藏</div>
-                <div style="display:none;">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
+                <div>收藏</div>
+                <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
                 <div>
                   <a href="#"><span class="icon-fenxiang"></span>分享</a>
                   <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>                 
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
+              </div>
+              <div class="desc-choosed">
+                <div class="choosed-tishi">
+                  <div class="yixuan">已选清单(共<span>5</span>件)</div>
+                  <div class="sanjiao"></div>
+                </div>
+                <div class="choosed-list">
+                  <div>choosedafs</div>
+                  <div>chooseadfaf</div>
+                  <div>chooseadf</div>
+                  <div>chooseafd</div>
+                  <div>choose</div>
+                  <div>choose</div>
+                </div>  
               </div>
             </div>
           </div>
@@ -100,7 +114,18 @@
             <p>本店推荐</p>
           </div>
           <div class="recommend-list">
-            <img v-for="imgItem in recommend" v-bind:src="imgItem.imageUrl">
+            <div class="list-side">
+              <img src="../../assets/images/detail-new.jpg">
+              <div class="price">&yen; 100.00</div>
+            </div>
+            <div class="list-side">
+              <img src="../../assets/images/detail-new.jpg">
+              <div class="price">&yen; 100.00</div>
+            </div>
+            <div class="list-side">
+              <img src="../../assets/images/detail-new.jpg">
+              <div class="price">&yen; 100.00</div>
+            </div>
             <div class="recommend-page">
               <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
               <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
@@ -108,31 +133,72 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-            <div class="detail-news">
-              <div class="news-tit">
-                <p>最新上架</p>
-                <a href="#"><span class="icon-more"></span></a>
-              </div>
-              <div class="news-list">
-                <div v-for="newItem in newList" class="news-img">
-                  <img v-bind:src="newItem.imageUrl">
-                  <a class="img-tit">
-                    {{newItem.title}}
-                  </a>
-                  <div class="img-info">
-                    <p>&yen; {{newItem.price}}</p>
-                    <p>50分钟前</p>
-                  </div>
-                </div>   
-              </div>
-            </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class="container bg-b">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="detail-news">
+            <div class="news-tit">
+              <span>NEW</span>
+              <p>最新上架</p>
+              <a href="#"><span class="icon-more"></span></a>
+            </div>
+            <div class="news-list">
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div> 
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>  
+            </div>
+          </div>
+      </div>
+    </div>
     <div class="oth">
       <div class="row">
         <div class="col-md-12">
@@ -148,7 +214,7 @@
             <div v-if="tabList==1">
               <div class="specif">
                 <div class="sanjiao"></div>
-                <div>规格参数</div>
+                <div class="text">规格参数</div>
                 <div class="hr"></div>
               </div>
               <div class="specif-tab">
@@ -164,7 +230,7 @@
               </div> 
               <div class="detail-desc">
                 <div class="sanjiao"></div>
-                <div>图文详情</div>
+                <div class="text">图文详情</div>
                 <div class="hr"></div>
               </div>
               <div class="detail-desc-des">
@@ -312,7 +378,7 @@
     },
     mounted () {
       var p = window.location.href.split('?')[1];
-      this.$http.get('/api/items/526975405598')
+      this.$http.get('/api/items/' + p)
         .then(function (ret) {
           this.data = ret.data.data
           this.skus = ret.data.data.skus
