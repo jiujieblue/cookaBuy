@@ -1,25 +1,27 @@
 <template>
 <div>
   <div v-if="showModal" class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <div class="modal-header">
-            <h3>提示</h3>
-          </div>
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>提示</h3>
+        </div>
 
-          <div class="modal-body">
-            确定要删除该卡吗？
-          </div>
+        <div class="modal-body">
+          确定要删除该卡吗？
+        </div>
 
-          <div class="modal-footer">
-            <button @click="showModal=false">关闭</button>
-            <button @click="_del">确定</button>
-          </div>
+        <div class="modal-footer">
+          <button @click="showModal=false">关闭</button>
+          <button @click="_del">确定</button>
         </div>
       </div>
     </div>
+  </div>
+
   <SellerCenterHeader></SellerCenterHeader>
-  <div class="seller-public-box">
+
+  <div>
     <div class="container">
       <div class="row">
         <div class="col-md-2">

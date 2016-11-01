@@ -1,7 +1,7 @@
 <template>
 <div>
   <SellerCenterHeader></SellerCenterHeader>
-  <div class="seller-public-box">
+  <div>
     <div class="container">
       <div class="row">
         <div class="col-md-2">

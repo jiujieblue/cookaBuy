@@ -2,7 +2,6 @@
 <div>
   <headerComponent></headerComponent>
   
-
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -245,6 +244,7 @@
       </div>
     </div>
   </div>
+  
   <footerComponent></footerComponent>
 </div>
 </template>
