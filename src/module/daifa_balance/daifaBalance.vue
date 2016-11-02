@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <SellerCenterSideBar></SellerCenterSideBar>
+          <DaifaSideBar></DaifaSideBar>
         </div>
         <div class="col-md-10">
           <div class="daifa-balance">
@@ -98,7 +98,7 @@
   import Vue from 'vue'
   import SellerCenterHeader from 'components/SellerCenterHeader'
   import fot from 'components/footer'
-  import SellerCenterSideBar from 'components/SellerCenterSideBar'
+  import DaifaSideBar from 'components/DaifaSideBar'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   const fto = require('form_to_object')
@@ -107,7 +107,7 @@
     components: {
       SellerCenterHeader,
       fot,
-      SellerCenterSideBar
+      DaifaSideBar
     },
     data () {
       return {
