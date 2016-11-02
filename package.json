@@ -15,7 +15,8 @@
     "lodash-node": "^3.10.2",
     "qs": "^6.3.0",
     "vue": "^2.0.1",
-    "vue-awesome-swiper": "^2.2.0"
+    "vue-awesome-swiper": "^2.2.0",
+    "bootstrap-datepicker": "^1.6.4"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

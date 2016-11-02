@@ -43,7 +43,7 @@ body{
     }
     .login-form{
       color: #a89d97;
-      margin-top: 35px;
+      margin-top: 30px;
       background: #fff;
       padding: 0;
       .login-tit{    
@@ -68,50 +68,66 @@ body{
         }
       }
       form{
-        width: 210px;
-        margin-left: 150px;
+        width: 306px;
+        margin: 0 auto;
         padding-bottom: 20px;
         >div{
           overflow: hidden;
-          margin-top: 35px;
           >span{
             float: left;
-            padding: 12px;
-            border:1px solid #a89d97;
+            padding: 15px;
+            border:1px solid #dfdfdf;
             border-right: none;
           }
-          input{
+          >input{
             float: left;
-            padding: 8px 5px;
+            padding: 12px 5px;
             outline: none;
             letter-spacing:2px;
+            border: 1px solid #dfdfdf;
+            width: 260px;
           }
         }
+        .form-zhanghao{
+          margin-top: 30px;
+        }
         .form-oth{
+          overflow: hidden;
           &-member{
             float: left;
+            overflow: hidden;
             input{
+              float: left;
               height: 14px;
               margin-right: 5px;
+            }
+            label{
+              float: left;
+              font-weight: normal;
             }
           }        
           &-wjmima{
             float: right;
+            a{
+              color: #a89d97;
+            }
           }
         }
         .form-err{
           text-align: center;
           color: #fc7546;
-          margin-top: 10px;
-          margin-bottom: -15px;
+          height: 32px;
+          line-height: 32px;
         }
         .form-login{
+          margin-top: 20px;
+          margin-bottom: 15px;
           button{
             background: #fcc505;
-            width: 210px;
-            height: 34px;
+            width: 306px;
+            height: 46px;
             border: none;
-            border-radius: 15px;
+            border-radius: 23px;
             color: #362e19;
             &:focus{
               outline: none;
@@ -127,5 +143,6 @@ body{
   background: #f7f7f7;
   &-tit{
     text-align: center;
+    color: #665c59;
   }
 }
