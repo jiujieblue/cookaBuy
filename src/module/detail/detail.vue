@@ -1,7 +1,6 @@
 <template>
 <div>
   <headerComponent></headerComponent>
-  
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -47,7 +46,7 @@
                 </div>
               </div>
               <div class="desc-trans">
-                配<b class="em_5"></b>送 : 广东广州 至 
+                配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
                   <option>bbb</option>
@@ -86,7 +85,7 @@
                 <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
                 <div>
                   <a href="#"><span class="icon-fenxiang"></span>分享</a>
-                  <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>                 
+                  <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
               </div>
@@ -102,7 +101,7 @@
                   <div>chooseafd</div>
                   <div>choose</div>
                   <div>choose</div>
-                </div>  
+                </div>
               </div>
             </div>
           </div>
@@ -153,16 +152,6 @@
                   <p>&yen; 58.00</p>
                   <p>50分钟前</p>
                 </div>
-              </div> 
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
               </div>
               <div class="news-img">
                 <img src="../../assets/images/detail-new.jpg">
@@ -193,7 +182,17 @@
                   <p>&yen; 58.00</p>
                   <p>50分钟前</p>
                 </div>
-              </div>  
+              </div>
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>
             </div>
           </div>
       </div>
@@ -224,9 +223,9 @@
                       <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
                       <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
                     </tr>
-                  </tbody>    
+                  </tbody>
                 </table>
-              </div> 
+              </div>
               <div class="detail-desc">
                 <div class="sanjiao"></div>
                 <div class="text">图文详情</div>
@@ -234,17 +233,17 @@
               </div>
               <div class="detail-desc-des">
                 <div v-html="description"></div>
-              </div> 
+              </div>
             </div>
             <div v-else>
               <h2>我是评论</h2>
             </div>
-          </div>         
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <footerComponent></footerComponent>
 </div>
 </template>
@@ -321,7 +320,7 @@
             if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
               this.totalAmount = totalAmount
             }
-          } 
+          }
         }
       },
       fanye (t) {
@@ -389,15 +388,19 @@
           // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
           this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
-          this.tit = ret.data.data.title       
-          for(var i = 0;i < ret.data.data.sku_props[0].sku_prop_vals.length;i++){
-            this.sizeItem.push(ret.data.data.sku_props[0].sku_prop_vals[i].name)
+
+          this.tit = ret.data.data.title
+          for(var i = 0;i < ret.data.data.skus.length;i++){
+            var diff = ret.data.data.skus[i].properties_name.split(';')
+            for(var j = 0 ;j < diff.length;j++){
+              diff[j] = diff[j].split(':')
+            }
+            this.colorItem.push(diff[1][1])
+            this.sizeItem.push(diff[0][1])
           }
-          for(var i = 0;i < ret.data.data.sku_props[1].sku_prop_vals.length;i++){
-            this.colorItem.push(ret.data.data.sku_props[1].sku_prop_vals[i].name)
-          }
-          
-          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
+
+          var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
+
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
@@ -405,9 +408,9 @@
               if(ret.data.data.com_props[n]){
                 arr.push(ret.data.data.com_props[n])
                 n++
-              }              
+              }
             }
-            this.item_props.push(arr)       
+            this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
           // this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)

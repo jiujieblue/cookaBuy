@@ -526,11 +526,9 @@
 </template>
 
 <script>
-
 import Vue from 'vue'
 import headerComponent from 'components/header'
 import footerComponent from 'components/footer'
-
 import 'bootstrap/dist/js/bootstrap.js'
 const VueResource = require('vue-resource')
 Vue.use(VueResource)

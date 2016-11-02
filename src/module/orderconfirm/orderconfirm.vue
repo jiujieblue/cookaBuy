@@ -4,6 +4,7 @@
 		<div class="orderconfirm">
 			<div class="container">
 				<ri></ri>
+				<od></od>
 			</div>
 		</div>
 		<fc></fc>
@@ -15,6 +16,7 @@
 	import oh from 'components/OrderHeader'
 	import fc from 'components/footer'
 	import ri from './receiptinfo.vue'
+	import od from './orderdetail.vue'
 	export default{
 		data(){
 			return{
@@ -24,7 +26,8 @@
 		components:{
 			oh,
 			fc,
-			ri
+			ri,
+			od
 		},
 		mounted(){
 

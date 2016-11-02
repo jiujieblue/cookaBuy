@@ -37,7 +37,7 @@
 				position: relative;
 				cursor: pointer;
 				padding: 10px 0;
-				i{	
+				i{
 					padding-left: 10px;
 					display: inline-block;
 					width: 25px;
@@ -45,7 +45,7 @@
 					color: #ff3c00;
 				}
 				input{
-					display: none; 
+					display: none;
 				}
 				label{
 					cursor: pointer;
@@ -106,7 +106,7 @@
 			padding-top: 10px;
 			padding-bottom: 10px;
 			background-color: #fff;
-			
+
 			div:nth-child(1){
 				margin-left: 8px;
 				cursor: pointer;
@@ -137,10 +137,10 @@
 					}
 				}
 			}
-			
+
 			.newaddrdiv{
 				div:nth-child(1){
-					p{	
+					p{
 						margin:20px 0px 0px 84px;
 						font-size: 14px;
 						span{
@@ -173,7 +173,20 @@
 									width: 80px;
 									height: 30px;
 								}
-							}
+                select{
+                  appearance:none;
+                  -moz-appearance:none;
+                  -webkit-appearance:none;
+                  background: url("../images/icons/jiantoud.svg")
+                              no-repeat
+                              scroll
+                              90%
+                              center
+                              transparent;
+                  background-size: 10px 10px;
+                }
+                select::-ms-expand { display: none; }
+              }
 							&:nth-child(2){
 								input{
 									margin-left: 12px;
@@ -227,13 +240,87 @@
 									height: 34px;
 									&:nth-child(1){
 										background-color: @ck-main;
-										border: none;								
+										border: none;
 									}
 									&:nth-child(2){
-										margin-left: 50px; 
+										margin-left: 50px;
 										background-color: #dedede;
-										border: none;								
+										border: none;
 									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.orderdetail-box{
+		.title{
+			margin: 20px 0;
+			font-size: 20px;
+		}
+		.daifa-box{
+			&-top{
+				margin-bottom: 20px;
+				width: 100px;
+				height: 34px;
+				background-color: @ck-main;
+				font-size: 18px;
+				padding-left: 28px;
+				line-height: 34px;
+				letter-spacing: 10px;
+			}
+			&-body{
+				.daifa_tb{
+					width: 100%;
+					font-size: 14px;
+					tr:first-child{
+						background-color: #EEEEEE;
+						>td{
+							border: 1px solid #000;
+							width: 10%;
+							text-align: center;
+							color: #989898;
+							padding: 10px 0;
+						}
+						td:nth-child(1){
+							width: 40%;
+						}
+					}
+				}
+				.shop{
+					&-title{
+						margin: 20px;
+						font-size: 14px;
+						color: #000;
+						i{
+							color: @ck-main;
+						}
+						span:first-child{
+							color: #fff;
+							background-color: #000;
+							padding: 0 6px;
+						}
+						span:nth-child(2){
+							padding: 0 6px;
+						}
+						span:nth-child(3){
+							padding-left: 10px; 
+						}
+					}
+					&-body{
+						.shop_tb{
+							width: 100%;
+							font-size: 14px;
+							tr:first-child{
+								background-color: #fff;
+								>td{
+									border: 1px solid #000;
+									width: 10%;
+								}
+								td:nth-child(1){
+									width: 40%;
 								}
 							}
 						}
