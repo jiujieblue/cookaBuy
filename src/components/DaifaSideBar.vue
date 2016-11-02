@@ -34,28 +34,29 @@
 		mounted(){
 			var me=this;
 			window.onload=function(){
-			$('.daifa-side>ul>li').click(function(e){
-				e.stopPropagation();
-				$('.daifa-side>ul>li').css({
-					'background':'',
-					'color': ''
-				});
-				$('.daifa-side>ul>li span').css('display','none');
-				$(this).css({
-					'background':'#e7e7e7',
-					'color': '#000'
-				});
-				$(this).children().css('display','inline-block');
-				this.menuN=e.target.textContent
-				console.log(this.menuN)
-			})
+				$('.daifa-side>ul>li').click(function(e){
+					e.stopPropagation();
+					$('.daifa-side>ul>li').css({
+						'background':'',
+						'color': ''
+					});
+					$('.daifa-side>ul>li span').css('display','none');
+					$(this).css({
+						'background':'#e7e7e7',
+						'color': '#000'
+					});
+					$(this).children().css('display','inline-block');
+						this.menuN = e.target.textContent
+					console.log(this.menuN)
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="less">
-	@import '../../assets/css/icons.css';
-	@import "../../assets/less/daifa_sidebar.less";
-	@import "../../assets/less/public.less";
-	@import "../../assets/less/C.less";
+	@import "../assets/css/icons.css";
+	@import "../assets/less/daifa_sidebar.less";
+	@import "../assets/less/public.less";
+	@import "../assets/less/C.less";
 </style>
