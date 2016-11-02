@@ -7,13 +7,13 @@
 <template>
 	<div class="ck-pagination">
     <ul>
-      <li v-if="showFirst" class="ck-pagination-text"><a @click="pageNum--" class="icon-xiangqian" :href="pathname + '?' + qs.stringify({page: prePage})"></a></li>
+      <li v-if="showFirst" class="ck-pagination-text"><a class="icon-xiangqian" :href="pathname + '?' + qs.stringify({page: prePage})"></a></li>
       <li class="ck-pagination-text" v-for='index in indexs'>
       	<a :class="{active : index == pageNum}" :href="pathname + '?' + qs.stringify({page: index})" @click='btnClick(index)'>{{ index }}</a>
       </li>
       <li class="ck-pagination-text" v-if='shennueRight'>...</li>
       <li class="ck-pagination-text"><a :class="{active : pageNum == pages}" :href="pathname + '?' + qs.stringify({page: pages})">{{ this.pages }}</a></li>
-      <li class="ck-pagination-text" v-if="showLast"><a @click="pageNum++" class="icon-xianghou" :href="pathname + '?' + qs.stringify({page: nextPage})"></a></li>
+      <li class="ck-pagination-text" v-if="showLast"><a class="icon-xianghou" :href="pathname + '?' + qs.stringify({page: nextPage})"></a></li>
       <li class="ck-pagination-input">到 <input type="text" ref="go_num"> 页</li>
      	<li class="ck-pagination-input"><button @click='go_num($event)'>确定</button></li>
     </ul>

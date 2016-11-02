@@ -1,20 +1,18 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/sellerInfo.less';
+	@import '../../assets/less/SellerInfo.less';
 </style>
 
 <template>
-	<div id="app">
-		<div style="text-align:center;margin: 50px 0;">
-			<h1>我是商家</h1>
-		</div>
-		<div class="container marketInfo">
+	<div id="sellerInfo">
+		<SellerCenterHeader></SellerCenterHeader>
+		<div class="container">
 			<div class="row">
 				<div class="col-md-2">
 					侧边栏
 				</div>
-				<div class="col-md-10 marketInfo-col-md-10">
+				<div class="col-md-10 marketInfo">
 					<div class="row marketInfo-title">
 						<span>当前位置：账户管理 ></span> 商家资料
 					</div>
@@ -137,6 +135,7 @@
 <script>
 	import Vue from 'vue'
 	import footerComponent from 'components/footer'
+	import SellerCenterHeader from 'components/SellerCenterHeader'
 	import goTop from 'components/goTop'
 	export default {
 	  data () {
@@ -178,7 +177,8 @@
 	  	}
 	  },
 	 	components: {
-	 		footerComponent
+	 		footerComponent,
+	 		SellerCenterHeader
 	 	}
 	}
 </script>

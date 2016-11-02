@@ -1,15 +1,14 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/search.less';
+	@import '../../assets/less/Search.less';
 </style>
 
 <template>
-<div id='app'>
+<div id='search'>
 	<headerComponent></headerComponent>
-	<div class='search'>
-		<div class="container">
-	  	<div class="row container-list">
+	<div class='search container'>
+	  	<div class="row search-list">
 	  		<ul>
 	  			<li>所有分类</li>
 	  			<li> > <span>所有分类</span></li>
@@ -85,7 +84,7 @@
 	  			</ul>
 	  		</div>
 	  	</div>
-	    <nav class="row container-nav">
+	    <nav class="row search-nav">
 	    	<ul>
 	    		<li>综合排序<i></i></li>
 	    		<li>上架时间<i></i></li>
@@ -103,11 +102,11 @@
 	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
 	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
 	    </nav>
-	    <div class="row container-product">
-	    	<div class="container-product-left-grid" v-if='isGridOrBar == 0'>
+	    <div class="row search-product">
+	    	<div class="search-product-left-grid" v-if='isGridOrBar == 0'>
 	    		<ul>
 	    			<li v-for="(product,index) in hitsProductList" :data-id='product._id'>
-	    				<div  class="container-product-left-gridRecommended">
+	    				<div  class="search-product-left-gridRecommended">
 		    				<a href="#"><img :ref="'Img_'+index" :src="product._source.pic_url"></a>
 		    				<ul>
 		    					<li><b>￥&nbsp;{{ product._source.price }}</b><p style="display:none"><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
@@ -122,7 +121,7 @@
 	    			</li>
 	    		</ul>
 	    	</div>
-	    	<div class="container-product-left-bar" v-if='isGridOrBar == 1'>
+	    	<div class="search-product-left-bar" v-if='isGridOrBar == 1'>
 	    		<ul>
 	    			<li v-for="(product,index) in hitsProductList" :data-id="product._source.id">
 	    				<a href="#"><img :src="product._source.pic_url" ></a>
@@ -137,7 +136,7 @@
 	    			</li>
 	    		</ul>
 	    	</div>
-	    	<div class="container-product-right">
+	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
 	    			<li>
@@ -170,17 +169,17 @@
 	    <div class="row">
 	    	<CkPagination pages=10 prePage=1 pageNum=2 nextPage=3></CkPagination>
 	    </div>
-	    <div class="row container-cookabuy">
+	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
 	    </div>
-	    <div class="row container-aginsearch">
+	    <div class="row search-aginsearch">
 	   		<p>没有找到合适的商品？您可以搜索：</p>
 	   		<CkSearch></CkSearch>
 	    </div>
-	    <div class="row container-recommended container-product-left-grid">
+	    <div class="row search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
 	    	<ul>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -188,7 +187,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -196,7 +195,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -204,7 +203,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -212,7 +211,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -220,7 +219,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -228,7 +227,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -236,7 +235,7 @@
 	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
 	    			</ul>
 	    		</li>
-	    		<li class="container-product-left-gridRecommended">
+	    		<li class="search-product-left-gridRecommended">
 	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
 	    			<ul>
 	    				<li><b>￥520.00</b></li>
@@ -246,7 +245,6 @@
 	    		</li>
 	    	</ul>
 	    </div>
-	 	</div>
  	</div>
 	<goTop></goTop>
 	<footerComponent></footerComponent>

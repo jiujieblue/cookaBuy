@@ -1,15 +1,15 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/sellerAllProduct.less';
+	@import '../../assets/less/SellerAllProduct.less';
 </style>
 <template>
-<div id='app'>
-	<div class="container">
+<div id='sellerAllProduct'>
+	<div class="container sellerAllProduct">
 	  <header class="header">
 	    <h1>头部</h1>
 	  </header>
-  	<div class="row container-list">
+  	<div class="row sellerAllProduct-list">
   		<ul>
 	    	<li class="active">全部商品</li>
 	    	<li style="display:none">会员专区</li>
@@ -30,7 +30,7 @@
 	    	</div>
 	    </div>
   	</div>
-    <nav class="row container-nav">
+    <nav class="row sellerAllProduct-nav">
     	<ul>
     		<li>销量<i></i></li>
     		<li>上新时间<i></i></li>
@@ -44,8 +44,8 @@
     		<input type="text" placeholder="最高价" />
     	</p>
     </nav>
-    <div class="row container-product">
-    	<div class="container-product-left">
+    <div class="row sellerAllProduct-product">
+    	<div class="sellerAllProduct-product-left">
     		<ul>
     			<li v-for="list in lists">
     				<img v-bind:src="list.imageUrl" v-bind:data-productId="list.productId" alt="产品图片">
@@ -57,34 +57,46 @@
     			</li>
     		</ul>
     	</div>
-    	<div class="container-product-right">
+    	<div class="sellerAllProduct-product-right">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
+    				<a href="">
+    					<img src="../../assets/images/hot-sale-side.jpg" />
+    				</a>
     				<b>￥&nbsp;2510.0</b>
     			</li>
     			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
+    				<a href="">
+    					<img src="../../assets/images/hot-sale-side.jpg" />
+    				</a>
     				<b>￥&nbsp;2510.0</b>
     			</li>
     			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
+    				<a href="">
+    					<img src="../../assets/images/hot-sale-side.jpg" />
+    				</a>
     				<b>￥&nbsp;2510.0</b>
     			</li>
     			<li>
-    				<img src="../../assets/images/hot-sale-side.jpg" />
+    				<a href="">
+    					<img src="../../assets/images/hot-sale-side.jpg" />
+    				</a>
     				<b>￥&nbsp;2510.0</b>
     			</li>
     		</ul>
     	</div>
     </div>
   </div>
+  <CkPagination></CkPagination>
+ 	<footerComponent></footerComponent>
  </div>
 </template>
 
 <script>
 	import Vue from 'vue'
+	import footerComponent from 'components/footer'
+	import CkPagination from 'components/CkPagination'
 	// window.onload = function () {
 	// 	if(parseInt($("#more").parent().css('height')) <= 50 && this.subs!==undefined) {
 	// 		$('#more').css({display: 'inline-block'})
@@ -120,6 +132,10 @@
 	  	moreOut : function (e) {
 	  		$(e.target.parentNode).css({maxHeight: '50px'})
 	  	}
+	  },
+	  components: {
+	  	CkPagination,
+	  	footerComponent
 	  }
 	}
 </script>

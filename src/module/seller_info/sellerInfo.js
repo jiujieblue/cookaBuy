@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import sellerInfo from './sellerInfo.vue'
+import sellerInfo from './SellerInfo.vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 Vue.use(VueResource)
@@ -9,4 +9,4 @@ Vue.use(VueRouter)
 new Vue({
 	el: '#sellerInfo',
   render: h => h(sellerInfo)
-}).$mount('#app')
+}).$mount('#sellerInfo')
