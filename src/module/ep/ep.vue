@@ -1,6 +1,6 @@
 <template>
 <div class="aaa">
-  
+  <input type="hidden" name="">
 </div>
 </template>
 
@@ -23,7 +23,7 @@
       
     },
     mounted () {
-      
+      $('input').datepicker()
     }
   }
 </script>

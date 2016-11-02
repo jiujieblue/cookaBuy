@@ -20,7 +20,6 @@
   </div>
 
   <SellerCenterHeader></SellerCenterHeader>
-
   <div>
     <div class="container">
       <div class="row">
@@ -28,52 +27,36 @@
           <SellerCenterSideBar></SellerCenterSideBar>
         </div>
         <div class="col-md-10">
-          <div class="seller-bank">
-            <div class="seller-bank-location">
+          <div class="daifa-bank">
+            <div class="daifa-bank-location">
               当前位置：我的钱包 > 银行卡管理
             </div>
             <div v-bind:style="{display: type == 1 ? 'block' : 'none'}">
-              <div class="seller-bank-title">
+              <div class="daifa-bank-title">
                 我的银行卡
               </div>
-              <div class="seller-bank-card">
-
-                <div class="seller-bank-card-detail">
+              <div class="daifa-bank-card">
+                <div class="daifa-bank-card-detail">
                   <div class="detail-t">
-                    <img src="../../assets/images/bankCard_gf.png"/>
+                    <img src="../../assets/images/bankCard_gf.png">
                     <p>存储卡</p>
                   </div>
                   <div class="detail-m">
                     **** **** **** **** 0000
                   </div>
                   <div class="detail-b">
-                    <a v-on:click="_type(2)">编辑</a>
+                    <a>编辑</a>
                     <a v-on:click="_showModal">删除此卡</a>
                   </div>
                 </div>
-
-                <div class="seller-bank-card-detail">
-                  <div class="detail-t">
-                    <img src="../../assets/images/bankCard_js.png"/>
-                    <p>存储卡</p>
-                  </div>
-                  <div class="detail-m">
-                    **** **** **** **** 0000
-                  </div>
-                  <div class="detail-b">
-                    <a v-on:click="_type(2)">编辑</a>
-                    <a v-on:click="_showModal">删除此卡</a>
-                  </div>
-                </div>
-
-                <div class="seller-bank-card-add">
+                <div class="daifa-bank-card-add">
                   <h3>+</h3>
                   <p>添加银行卡</p>
                 </div>
               </div>
             </div>
             <div v-bind:style="{display: type == 2 ? 'block' : 'none'}">
-              <form class="seller-bank-addcard">
+              <form class="daifa-bank-addcard">
                 <div class="xingming">
                   <span class="em"></span><label>姓<span class="em"></span><span class="em"></span>名:</label>
                   AAA
@@ -103,17 +86,18 @@
                 <div class="yanzhengma">
                   <label><b>*</b><span class="em_5"></span>验<span class="em_5"></span>证<span class="em_5"></span>码:</label>
                   <input class="yanzhengmaipt" />
-                  <button type="button" class="getyanzhengma">获取验证码</button>
+                  <button type="button" class="getyanzhengma">
+                    获取验证码
+                  </button>
                 </div>
                 <div class="tijiao">
                   <div><a>《柯咔在线支付相关协议》</a></div>
-                  <div><button type="submit">同意协议并确定</button></div>
-                  
+                  <div><button type="submit">同意协议并确定</button></div>       
                 </div>
               </form>
             </div>
-            <div v-bind:style="{display: type == 3 ? 'block' : 'none'}">
-              <div class="seller-bank-addcardsucc">
+            <div v-bind:style="{display:type == 3 ? 'block' : 'none'}">
+              <div class="daifa-bank-addcardsucc">
                 <span class="icon-addcardsucc"></span>
                 <h3>添加银行卡成功</h3>
                 <p>您已成功添加银行卡，返回银行卡管理界面可以对该银行卡进行管理。若需要<a>设置/修改支付密码</a>，请到账户管理 - 账户安全区设置，谢谢！</p>
@@ -151,9 +135,6 @@
       }
     },
     methods: {
-      _type (t) {
-        this.type = t
-      },
       _showModal () {
         this.showModal = true
       },
@@ -167,7 +148,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/sellerBank.less";
+  @import "../../assets/less/daifaBank.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
 </style>
