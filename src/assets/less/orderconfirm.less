@@ -1,0 +1,245 @@
+@import "./public.less";
+
+._em {
+	display: inline-block;
+	width: 1em;
+}
+._5em{
+	display: inline-block;
+	width: .5em;
+}
+.orderconfirm{
+	.receiptinfo-box{
+		&-top{
+			position: relative;
+			margin: 25px 0px;
+			.title{
+				font-size: 20px;
+			}
+			span:nth-child(2){
+				position: absolute;
+				top: 4px;
+				right: 0;
+				a{
+					font-size: 14px;
+					color: @ck-sub;
+					text-decoration: none;
+					&:hover{
+						color: @ck-main;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		&-addr{
+			background-color: #fff;
+			div{
+				position: relative;
+				cursor: pointer;
+				padding: 10px 0;
+				i{	
+					padding-left: 10px;
+					display: inline-block;
+					width: 25px;
+					font-size: 22px;
+					color: #ff3c00;
+				}
+				input{
+					display: none; 
+				}
+				label{
+					cursor: pointer;
+					span{
+						font-weight: lighter;
+						font-size: 16px;
+						>a{
+							color:#1a1a1a;
+						}
+						&:nth-child(1),
+						&:nth-child(2),
+						&:nth-child(3),
+						&:nth-child(4),
+						&:nth-child(5){
+							margin: 0 5px;
+						}
+						&:nth-child(6),
+						&:nth-child(7),
+						&:nth-child(8)
+						{
+							color: #c4bebc;
+							margin: 0 2px;
+						}
+						&:nth-child(9),
+						&:nth-child(10),
+						&:nth-child(11){
+							a{
+								text-decoration: none;
+								&:hover{
+									color: @ck-main;
+									text-decoration: none;
+								}
+							}
+						}
+						&:nth-child(9){
+							position: absolute;
+							top: 12px;
+							right: 140px;
+						}
+						&:nth-child(10){
+							position: absolute;
+							top: 12px;
+							right: 60px;
+						}
+						&:nth-child(11){
+							position: absolute;
+							top: 12px;
+							right: 10px;
+						}
+					}
+				}
+			}
+			.da_active{
+				background-color: #EEEEEE;
+			}
+		}
+		&-newaddr{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			background-color: #fff;
+			
+			div:nth-child(1){
+				margin-left: 8px;
+				cursor: pointer;
+				.circle{
+					display: inline-block;
+					position: relative;
+					width: 14px;
+					height: 14px;
+					border-radius: 50%;
+					border: 1px solid @ck-sub;
+				}
+				.circle_active{
+					display: inline-block;
+					position: relative;
+					width: 14px;
+					height: 14px;
+					border-radius: 50%;
+					border: 1px solid @ck-main;
+					.na_active{
+						margin: 0;
+						position: absolute;
+						top: 2px;
+						left: 2px;
+						width: 8px;
+						height: 8px;
+						border-radius: 50%;
+						background-color: @ck-main;
+					}
+				}
+			}
+			
+			.newaddrdiv{
+				div:nth-child(1){
+					p{	
+						margin:20px 0px 0px 84px;
+						font-size: 14px;
+						span{
+							color: #50c4fc;
+							padding-bottom: 4px;
+							padding-right: 10px;
+						}
+					}
+				}
+				.formbody{
+					form{
+						margin-left: 100px;
+						>div{
+							margin: 20px 0;
+							input,select{
+								&:focus{
+									outline:none;
+									border:1px solid @ck-sub;
+								}
+							}
+							>span:nth-child(1){
+								color: #fb5b46;
+							}
+							>span:nth-child(2){
+								font-size: 14px;
+							}
+							&:nth-child(1){
+								select,option{
+									margin-left: 12px;
+									width: 80px;
+									height: 30px;
+								}
+							}
+							&:nth-child(2){
+								input{
+									margin-left: 12px;
+									width: 400px;
+									height: 30px;
+								}
+							}
+							&:nth-child(3){
+								input{
+									margin-left: 12px;
+									width: 130px;
+									height: 30px;
+								}
+							}
+							&:nth-child(4){
+								input{
+									width: 130px;
+									height: 30px;
+								}
+							}
+							&:nth-child(5){
+								input{
+									margin-left: 12px;
+									width: 220px;
+									height: 30px;
+								}
+							}
+							&:nth-child(6){
+								input{
+									margin-left: 12px;
+									width: 220px;
+									height: 30px;
+								}
+							}
+							&:nth-child(7){
+								margin-left: 80px;
+								div{
+									cursor: pointer;
+									i{
+										font-size: 16px;
+									}
+									.icon-xuanze{
+										color: @ck-main;
+									}
+								}
+							}
+							&:nth-child(8){
+								margin-left: 100px;
+								button{
+									width: 100px;
+									height: 34px;
+									&:nth-child(1){
+										background-color: @ck-main;
+										border: none;								
+									}
+									&:nth-child(2){
+										margin-left: 50px; 
+										background-color: #dedede;
+										border: none;								
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
