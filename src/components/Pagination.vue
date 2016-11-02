@@ -1,9 +1,30 @@
 <template>
-	<div>暂无分页</div>
+	<ul>
+		<li v-for="item in items">
+			{{item.message}}
+		</li>
+	</ul>
 </template>
 
 <script>
 	import Vue from 'vue'
+	
+	const qs = require('qs');
+	const _ = require('lodash');
+
+	export default{
+		data(){
+			return{
+				items:[
+					{message:'aaa'},
+					{message:'bbb'}
+				]
+			}
+		},
+		mounted(){
+			
+		}
+	}
 </script>
 
 <style lang="less">

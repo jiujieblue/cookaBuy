@@ -12,13 +12,87 @@ var port = process.env.PORT || config.dev.port
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = {
+  // detail
   '/api/items/': {
     target: 'http://localhost:4000',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items/': '/api/items/'
     }
-  }
+  },
+  // register
+  '/checkAvaiable': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/checkAvaiable': '/checkAvaiable'
+    }
+  },
+  '/registCode': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/registCode': '/registCode'
+    }
+  },
+  '/regist': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/regist': '/regist'
+    }
+  },
+  // login
+  '/login': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/login': '/login'
+    }
+  },
+  // passwordReset
+  '/checkExist': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/checkExist': '/checkExist'
+    }
+  },
+  '/verifyCode': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/verifyCode': '/verifyCode'
+    }
+  },
+  '/verifyPrincipal': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/verifyPrincipal': '/verifyPrincipal'
+    }
+  },
+  '/modifyPassword': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/modifyPassword': '/modifyPassword'
+    }
+  },
+  '/cooka': {
+		target: 'http://localhost',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/cooka': '/cooka'
+		}
+	},
+  '/item02': {
+		target: 'http://119.29.224.238:9200',
+		changeOrigin: true,
+		pathRewrite: {
+			'^/item02': '/item02'
+		}
+	}
 }
 
 var app = express()

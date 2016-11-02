@@ -1,7 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03009d2b-ad8f-4e0e-9c70-00dd88970c41" name="Default" comment="" />
+    <list default="true" id="03009d2b-ad8f-4e0e-9c70-00dd88970c41" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/npm-debug.log.1045280931" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/datetimepicker.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/15tian.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/48xiaoshi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/bangzhu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/baozhang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/buzou1.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/buzou2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/chakanbendian.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/changcheng.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/changyun.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/chazhao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/dadianhua.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/daifahuo.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/daishouhuo.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/dianhua.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/dianpu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/dizhi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/gonggao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/gouwuche.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/guanbi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/haofeng.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/houtui.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jiaguanzhu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jiantou.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jiantou2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jiantou3.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jinhuodan.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jinhuodan2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/jinrudianpu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/kuaijiezhifu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/kuaijiezhifudingdan.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/liebiao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/logo.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/mima.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/moren.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/nanzhuang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/nvzhuang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/paizhao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/pinglun.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/pingpu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/qianbao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/renzhengchenggong-01.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/renzhengshibai-01.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/renzhengzhong.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shanchu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shijian.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shoucang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shoucang2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shoucangdianpu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shoucangshangpin.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/shouchang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/tishi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/tixian.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/tongzhuang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/tupian.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/weixuan (2).svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/weixuan.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/weizhifu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/wode.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/wode2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/wuliu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xialaxuanze.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xiaohongxin.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xiaoxi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xiaoyanjing.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xinchaodu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xingxing.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xiugaidizhi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xuanzhe (2).svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xuanzhe.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/xuanzhong.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yanjing.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yanzhengchenggong.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yanzhengma.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yanzhengshibai.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yijianjianyi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yinhangka.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yirenzheng.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yishouchang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yitongyi.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yiwancheng.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/youhuiquan.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yuezhifu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/yunfuzhuang.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhanghao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhankanxiangqing.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhaohuo.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhaohuo2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhifubao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhifuchenggong (2).svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhifuchenggong.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhifushibai.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhuye.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zhuye2.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/cooka商城svg图标/zuji.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/icons/check.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/icons/dibiao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/icons/jiahao.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/buyercenter_header.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/buyercenter_sidebar.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/cart.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/daifaBalance.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/daifaBank.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/daifa_sidebar.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/ep.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/error_msg.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/fav.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/hotsale.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/order_header.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/orderconfirm.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/payment.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/paymentSuccess.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/pwd_reset.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/search.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerAllProduct.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerAsset.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerBank.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerDeal.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerDraft.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerIndex.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerInfo.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerMember.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerPublic.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerPublicDetail.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellerWithdrawal.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellercenter_header.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/less/sellercenter_sidebar.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/BuyerCenterHeader.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/BuyerCenterSideBar.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/DaifaSideBar.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/ErrorMsg.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/OrderHeader.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/SellerCenterHeader.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/SellerCenterSideBar.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/goTop.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/cart/cart.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/cart/cart.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/cart/cart.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_balance/daifaBalance.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_balance/daifaBalance.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_balance/daifaBalance.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_bank/daifaBank.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_bank/daifaBank.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/daifa_bank/daifaBank.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/ep/ep.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/ep/ep.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/ep/ep.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/fav/fav.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/fav/fav.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/fav/fav.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/hotsale/hotsale.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/hotsale/hotsale.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/hotsale/hotsale.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/orderconfirm/orderconfirm.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/orderconfirm/orderconfirm.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/orderconfirm/orderconfirm.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/orderconfirm/receiptinfo.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/page/page.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/page/page.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/page/page.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment/payment.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment/payment.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment/payment.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment_success/paymentSuccess.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment_success/paymentSuccess.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/payment_success/paymentSuccess.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/pwd_reset/pwd_reset.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/pwd_reset/pwd_reset.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/pwd_reset/pwd_reset.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/search/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/search/search.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/search/search.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_all_product/sellerAllProduct.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_all_product/sellerAllProduct.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_all_product/sellerAllProduct.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_asset/sellerAsset.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_asset/sellerAsset.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_asset/sellerAsset.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_bank/sellerBank.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_bank/sellerBank.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_bank/sellerBank.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_deal/sellerDeal.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_deal/sellerDeal.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_deal/sellerDeal.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_draft/sellerDraft.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_draft/sellerDraft.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_draft/sellerDraft.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_index/sellerIndex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_index/sellerIndex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_index/sellerIndex.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_info/sellerInfo.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_info/sellerInfo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_info/sellerInfo.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_member/sellerMember.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_member/sellerMember.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_member/sellerMember.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public/sellerPublic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public/sellerPublic.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public/sellerPublic.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public_detail/sellerPublicDetail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public_detail/sellerPublicDetail.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_public_detail/sellerPublicDetail.vue" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_withdrawal/sellerWithdrawal.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_withdrawal/sellerWithdrawal.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/seller_withdrawal/sellerWithdrawal.vue" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/node_modules.rar" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/assets/images/women-bk-show-440×335.jpg" afterPath="$PROJECT_DIR$/src/assets/images/women-bk-show440335.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/fonts/icomoon.eot" afterPath="$PROJECT_DIR$/src/assets/fonts/icomoon.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/fonts/icomoon.ttf" afterPath="$PROJECT_DIR$/src/assets/fonts/icomoon.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/fonts/icomoon.woff" afterPath="$PROJECT_DIR$/src/assets/fonts/icomoon.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/images/icons/zhifubao.png" afterPath="$PROJECT_DIR$/src/assets/images/icons/zhifubao.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/webpack.dev.conf.js" afterPath="$PROJECT_DIR$/build/webpack.dev.conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/babel-loader/package.json" afterPath="$PROJECT_DIR$/node_modules/babel-loader/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/css/icons.css" afterPath="$PROJECT_DIR$/src/assets/css/icons.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/fonts/icomoon.svg" afterPath="$PROJECT_DIR$/src/assets/fonts/icomoon.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/images/icons/zhifuchenggong.svg" afterPath="$PROJECT_DIR$/src/assets/images/icons/zhifuchenggong.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/C.less" afterPath="$PROJECT_DIR$/src/assets/less/C.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/detail.less" afterPath="$PROJECT_DIR$/src/assets/less/detail.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/footer.less" afterPath="$PROJECT_DIR$/src/assets/less/footer.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/login.less" afterPath="$PROJECT_DIR$/src/assets/less/login.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/pagination.less" afterPath="$PROJECT_DIR$/src/assets/less/pagination.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/register.less" afterPath="$PROJECT_DIR$/src/assets/less/register.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/less/seller_register.less" afterPath="$PROJECT_DIR$/src/assets/less/seller_register.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Pagination.vue" afterPath="$PROJECT_DIR$/src/components/Pagination.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/detail/detail.vue" afterPath="$PROJECT_DIR$/src/module/detail/detail.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/index/index.html" afterPath="$PROJECT_DIR$/src/module/index/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/index/index.vue" afterPath="$PROJECT_DIR$/src/module/index/index.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/login/login.vue" afterPath="$PROJECT_DIR$/src/module/login/login.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/register/register.vue" afterPath="$PROJECT_DIR$/src/module/register/register.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/seller_register/seller_register.html" afterPath="$PROJECT_DIR$/src/module/seller_register/seller_register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/seller_register/seller_register.js" afterPath="$PROJECT_DIR$/src/module/seller_register/seller_register.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/seller_register/seller_register.vue" afterPath="$PROJECT_DIR$/src/module/seller_register/seller_register.vue" />
+    </list>
     <ignored path="cooka_pc_web.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -22,10 +259,28 @@
     <favorites_list name="cooka_pc_web" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/module/index/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/module/index/index.html" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
@@ -39,9 +294,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="810" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -68,6 +322,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -142,8 +398,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -170,31 +424,32 @@
       <option name="presentableId" value="Default" />
       <updated>1477385766526</updated>
       <workItem from="1477385768526" duration="55000" />
+      <workItem from="1478054191756" duration="190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55000" />
+    <option name="totallyTimeSpent" value="245000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="810" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -222,6 +477,14 @@
           <folding>
             <element signature="n#div#0;n#template#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
