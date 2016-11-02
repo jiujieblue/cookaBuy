@@ -390,16 +390,20 @@
           this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
 
           this.tit = ret.data.data.title
-          for(var i = 0;i < ret.data.data.skus.length;i++){
-            var diff = ret.data.data.skus[i].properties_name.split(';')
-            for(var j = 0 ;j < diff.length;j++){
-              diff[j] = diff[j].split(':')
+          for(var i = 0;i < ret.data.data.sku_props.length;i++){
+            var diff = ret.data.data.sku_props[i].sku_prop_vals;
+            if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
+              for(var j = 0 ;j < diff.length;j++){
+                this.colorItem.push(diff[j].name)
+              }
             }
-            this.colorItem.push(diff[1][1])
-            this.sizeItem.push(diff[0][1])
+            if(ret.data.data.sku_props[i].prop_name == '尺码'){
+              for(var j = 0 ;j < diff.length;j++){
+                this.sizeItem.push(diff[j].name)
+              }
+            }
           }
-
-          var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
+          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
 
           var n = 0;
           for(var i = 0;i < l;i++){
