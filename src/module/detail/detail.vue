@@ -125,10 +125,10 @@
               <img src="../../assets/images/detail-new.jpg">
               <div class="price">&yen; 100.00</div>
             </div>
-            <div class="recommend-page">
-              <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
-              <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
-            </div>
+          </div>
+          <div class="recommend-page">
+            <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
+            <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
           </div>
         </div>
       </div>

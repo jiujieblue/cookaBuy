@@ -1,48 +1,42 @@
 <template>
 <div>
   <SellerCenterHeader></SellerCenterHeader>
-  <div class="seller-deal">
+  <div>
     <div class="container">
       <div class="row">
         <div class="col-md-2">
           <SellerCenterSideBar></SellerCenterSideBar>
         </div>
         <div class="col-md-10">
-          <div class="seller-deal-detail">
-            <div class="seller-deal-detail-location">
+          <div class="daifa-deal-detail">
+            <div class="daifa-deal-detail-location">
               当前位置：我的钱包 > 交易明细
             </div>
-            <form class="seller-deal-detail-menu">
+            <form class="daifa-deal-detail-menu">
               <div class="menu-time">
                 <span>时间范围</span>
-                <input type="date" name="timeStart" /><span class="em"></span>--<span class="em"></span><input type="date" name="timeEnd" />
+                <input type="date" /><span class="em_5"></span>--<span class="em_5"></span><input type="date" />
               </div>
               <div class="menu-order">
-                <span>订单编号</span>
+                <span>流水号</span>
                 <input name="paymentSerialNum" />
-              </div>
-              <div class="menu-jiaoyi">
-                <span>交易用户</span>
-                <input name="phone" />
-              </div>
-              <div class="menu-jine">
-                <span>订单金额</span>
-                <input />
               </div>
               <div class="menu-leixing">
                 <span>交易类型</span>
-                <select name="type" >
-                  <option value=''>全部</option>
-                  <option value='10'>快捷支付</option>
-                  <option value='13'>商城订单</option>
+                <select name="type">
+                  <option>全部</option>
+                  <option>快捷支付</option>
+                  <option>商城订单</option>
                 </select>
               </div>
               <button type="submit">查找</button>
               <div class="totaljine">
-                <span>2016-05-05至2016-06-06</span><h4>交易总金额 : <span>5050.00</span></h4>元
+                <p>2016-05-05至2016-06-06</p>  
+                <p>收入总金额 : <span>5050.00</span>元</p>
+                <p>支出总金额 : <span>5050.00</span>元</p>
               </div>
             </form>
-            <div class="seller-deal-detail-name">
+            <div class="daifa-deal-detail-name">
               <table>
                 <thead>
                   <tr>
@@ -53,33 +47,21 @@
                     <td>交易用户</td>
                     <td>订单金额</td>
                     <td>收入/支出</td>
-                    <td>支付方式</td>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>2010-12-12 12:00:00</td>
-                    <td>快捷支付</td>
-                    <td>1234567890123456</td>
+                    <td>2010-10-10 12:00:00</td>
+                    <td>提现</td>
+                    <td>1234561234561234</td>
                     <td>12345612345</td>
                     <td>1000.00</td>
                     <td>收入</td>
-                    <td>支付宝</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>2010-12-12 12:00:00</td>
-                    <td>快捷支付</td>
-                    <td>1234567890123456</td>
-                    <td>12345612345</td>
-                    <td>1000.00</td>
-                    <td>收入</td>
-                    <td>支付宝</td>
                   </tr>               
                 </tbody>
               </table>
-            </div>           
+            </div>                   
           </div>
         </div>
       </div>
@@ -107,11 +89,11 @@
     },
     data () {
       return {
-        
+
       }
     },
     methods: {
-      
+
     },
     mounted () {
       
@@ -119,7 +101,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/sellerDeal.less";
+  @import "../../assets/less/daifaDeal.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
 </style>

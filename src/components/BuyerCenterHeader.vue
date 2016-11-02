@@ -49,8 +49,6 @@
 
 <script>
 	import Vue from 'vue'
-	import BCH from 'components/BuyerCenterHeader'
-
 	export default{
 		data(){
 			return{
@@ -61,9 +59,6 @@
 		},
 		mounted(){
 
-		},
-		components:{
-			BCH
 		}
 	}
 </script>

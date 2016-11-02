@@ -1,6 +1,11 @@
 <template>
 <div class="aaa">
-  <input type="hidden" name="">
+
+  <p>{{arr[0][0]}}</p>
+  <p>{{arr[0][1]}}</p>
+  <p>{{arr[1][0]}}</p>
+  <button v-on:click="_add">jiajiajia</button>
+  
 </div>
 </template>
 
@@ -16,14 +21,21 @@
   export default{
     data () {
       return {
+        arr: [[true,false],[false]],
 
       }
     },
     methods: {
-      
+      _add () {
+        console.log(this.arr)
+        this.$set(this.arr[0], 0, 1);
+        this.$set(this.arr[0], 1, !(this.arr[0][1]));
+        this.$set(this.arr[1], 0, !(this.arr[1][0]));
+        console.log(this.arr)
+      }
     },
     mounted () {
-      $('input').datepicker()
+
     }
   }
 </script>
