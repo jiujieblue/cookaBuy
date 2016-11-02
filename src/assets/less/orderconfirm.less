@@ -37,7 +37,7 @@
 				position: relative;
 				cursor: pointer;
 				padding: 10px 0;
-				i{	
+				i{
 					padding-left: 10px;
 					display: inline-block;
 					width: 25px;
@@ -45,7 +45,7 @@
 					color: #ff3c00;
 				}
 				input{
-					display: none; 
+					display: none;
 				}
 				label{
 					cursor: pointer;
@@ -106,7 +106,7 @@
 			padding-top: 10px;
 			padding-bottom: 10px;
 			background-color: #fff;
-			
+
 			div:nth-child(1){
 				margin-left: 8px;
 				cursor: pointer;
@@ -137,10 +137,10 @@
 					}
 				}
 			}
-			
+
 			.newaddrdiv{
 				div:nth-child(1){
-					p{	
+					p{
 						margin:20px 0px 0px 84px;
 						font-size: 14px;
 						span{
@@ -173,7 +173,20 @@
 									width: 80px;
 									height: 30px;
 								}
-							}
+                select{
+                  appearance:none;
+                  -moz-appearance:none;
+                  -webkit-appearance:none;
+                  background: url("../images/icons/jiantoud.svg")
+                              no-repeat
+                              scroll
+                              90%
+                              center
+                              transparent;
+                  background-size: 10px 10px;
+                }
+                select::-ms-expand { display: none; }
+              }
 							&:nth-child(2){
 								input{
 									margin-left: 12px;
@@ -227,12 +240,12 @@
 									height: 34px;
 									&:nth-child(1){
 										background-color: @ck-main;
-										border: none;								
+										border: none;
 									}
 									&:nth-child(2){
-										margin-left: 50px; 
+										margin-left: 50px;
 										background-color: #dedede;
-										border: none;								
+										border: none;
 									}
 								}
 							}

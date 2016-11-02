@@ -1,19 +1,6 @@
 <template>
 <div>
-<<<<<<< HEAD
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 header">
-        <h2>我是头部</h2>
-      </div>
-    </div>
-  </div>
-
-
-=======
   <headerComponent></headerComponent>
-  
->>>>>>> bbc705cc5ed34318f1e7c2c77697c66e3d940c2a
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -58,13 +45,8 @@
                   <p>50件以上</p>
                 </div>
               </div>
-<<<<<<< HEAD
-              <div class="desc-trans" style="display:none;">
-                配<b class="em_5"></b>送 : 广东广州 至
-=======
               <div class="desc-trans">
-                配<b class="em_5"></b>送 : 广东广州 至 
->>>>>>> bbc705cc5ed34318f1e7c2c77697c66e3d940c2a
+                配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
                   <option>bbb</option>
@@ -119,7 +101,7 @@
                   <div>chooseafd</div>
                   <div>choose</div>
                   <div>choose</div>
-                </div>  
+                </div>
               </div>
             </div>
           </div>
@@ -170,7 +152,17 @@
                   <p>&yen; 58.00</p>
                   <p>50分钟前</p>
                 </div>
-              </div> 
+              </div>
+              <div class="news-img">
+                <img src="../../assets/images/detail-new.jpg">
+                <a class="img-tit">
+                  aaa
+                </a>
+                <div class="img-info">
+                  <p>&yen; 58.00</p>
+                  <p>50分钟前</p>
+                </div>
+              </div>
               <div class="news-img">
                 <img src="../../assets/images/detail-new.jpg">
                 <a class="img-tit">
@@ -191,18 +183,6 @@
                   <p>50分钟前</p>
                 </div>
               </div>
-<<<<<<< HEAD
-              <div class="news-list">
-                <div v-for="newItem in newList" class="news-img">
-                  <img v-bind:src="newItem.imageUrl">
-                  <a class="img-tit">
-                    {{newItem.title}}
-                  </a>
-                  <div class="img-info">
-                    <p>&yen; {{newItem.price}}</p>
-                    <p>50分钟前</p>
-                  </div>
-=======
               <div class="news-img">
                 <img src="../../assets/images/detail-new.jpg">
                 <a class="img-tit">
@@ -211,19 +191,8 @@
                 <div class="img-info">
                   <p>&yen; 58.00</p>
                   <p>50分钟前</p>
->>>>>>> bbc705cc5ed34318f1e7c2c77697c66e3d940c2a
                 </div>
               </div>
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
-              </div>  
             </div>
           </div>
       </div>
@@ -274,7 +243,7 @@
       </div>
     </div>
   </div>
-  
+
   <footerComponent></footerComponent>
 </div>
 </template>
