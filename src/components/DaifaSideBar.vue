@@ -46,10 +46,8 @@
 					'color': '#000'
 				});
 				$(this).children().css('display','inline-block');
-				me.setState({
-					menuN:e.target.textContent
-				})
-				console.log(me.state.menuN)
+				this.menuN=e.target.textContent
+				console.log(this.menuN)
 			})
 		}
 	}
