@@ -3,6 +3,6 @@ import index from './index.vue'
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#index',
+  el: 'index',
   render: h => h(index)
 })
