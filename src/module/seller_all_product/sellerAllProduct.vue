@@ -5,10 +5,41 @@
 </style>
 <template>
 <div id='sellerAllProduct'>
+	<div class="sellerAllProduct-header">
+		<div class="row sellerAllProduct-header-nav">
+			<div class="container">
+				<ul>
+					<li>您好，欢迎光临柯咔商城！</li>
+					<li><a href="">请登录</a> | <a href="">免费注册</a></li>
+					<li><a href="">收藏本站</a></li>
+					<li><a href="">商家入驻</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row sellerAllProduct-header-info">
+			<div class="container">
+				<link rel="stylesheet" class="icon-guanzhudianjia">
+				<ul>
+					<li><b>七匹狼专卖店</b><span>+关注本店</span></li>
+					<li>
+						<link rel="stylesheet" class="icon-shimingyanzheng">实名验证
+						<link rel="stylesheet" class="icon-strenzheng">实体认证
+					</li>
+					<li>
+						<link rel="stylesheet" class="icon-dizhi">广东省广州市 沙河区 灏丰批发市场 1202档
+					</li>
+				</ul>
+				<p>
+					<select name="">
+						<option value="">商品</option>
+					</select>
+					<input type="text" placeholder="全场优惠活动火热进行中">
+					<button>搜本店</button>
+				</p>
+			</div>
+		</div>
+	</div>
 	<div class="container sellerAllProduct">
-	  <header class="header">
-	    <h1>头部</h1>
-	  </header>
   	<div class="row sellerAllProduct-list">
   		<ul>
 	    	<li class="active">全部商品</li>
@@ -88,7 +119,7 @@
     	</div>
     </div>
   </div>
-  <CkPagination></CkPagination>
+  <CkPagination :pageNum="pageNum" :pages="pages" :prePage="prePage" :nextPage="nextPage"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -109,12 +140,21 @@
 	      subs: [],
 	      pageinfo: '',
 	      lists: [],
-	      msg: 'not loader '
+	      msg: 'not loader ',
+	      pageNum: 1,
+	      nextPage: 0,
+	      prePage: 0,
+	      pages: 0
 	    }
 	  },
 	  mounted () {
-	    this.$http.get('/cooka-store-web/allStoreProducts?storeId=2')
+	    this.$http.get('/cooka-store-web/allStoreProducts')
 	    .then(function (res) {
+	    	console.log(res.data)
+	    	this.pageNum = res.data.pageinfo.pageNum
+	    	this.nextPage = res.data.pageinfo.nextPage
+	    	this.prePage = res.data.pageinfo.prePage
+	    	this.pages = res.data.pageinfo.pages
 	    	this.categories = res.data.categories
 	    	this.subs = res.data.categories[0].sub
 	    	console.log(res.data.categories)

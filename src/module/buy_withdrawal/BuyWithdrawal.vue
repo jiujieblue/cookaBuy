@@ -1,11 +1,11 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/SellerWithdrawal.less';
+	@import '../../assets/less/BuyWithdrawal.less';
 </style>
 
 <template>
-<div id='sellerWithdrawal'>
+<div id='buyWithdrawal'>
 	<headerComponent></headerComponent>
 	<div class="container">
 		<div class="row">

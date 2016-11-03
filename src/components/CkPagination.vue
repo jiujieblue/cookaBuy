@@ -103,7 +103,7 @@
   		if(parseInt(val)>this.pages){
   			return
   		}
-  		window.location.href = window.location.pathname + qs.stringify(_.assign({page: val}))
+  		window.location.href = window.location.pathname + "?" + qs.stringify(_.assign({page: val}))
   	}
   },
   mounted () {
