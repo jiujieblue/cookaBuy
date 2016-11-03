@@ -1,10 +1,6 @@
 <template>
 <div class="aaa">
-
-  <p>{{arr[0][0]}}</p>
-  <p>{{arr[0][1]}}</p>
-  <p>{{arr[1][0]}}</p>
-  <button v-on:click="_add">jiajiajia</button>
+  <aaa></aaa>
   
 </div>
 </template>
@@ -17,22 +13,22 @@
   const fto = require('form_to_object')
   Vue.use(fto)
 
+  var Profile = Vue.extend({
+    template: '<p>sss</p>',
+  })
 
   export default{
+    components: {
+      aaa: Profile
+    },
     data () {
       return {
-        arr: [[true,false],[false]],
+        
 
       }
     },
     methods: {
-      _add () {
-        console.log(this.arr)
-        this.$set(this.arr[0], 0, 1);
-        this.$set(this.arr[0], 1, !(this.arr[0][1]));
-        this.$set(this.arr[1], 0, !(this.arr[1][0]));
-        console.log(this.arr)
-      }
+      
     },
     mounted () {
 
