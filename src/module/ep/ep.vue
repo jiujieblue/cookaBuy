@@ -1,6 +1,7 @@
 <template>
 <div class="aaa">
-  <input type="hidden" name="">
+  <aaa></aaa>
+  
 </div>
 </template>
 
@@ -12,10 +13,17 @@
   const fto = require('form_to_object')
   Vue.use(fto)
 
+  var Profile = Vue.extend({
+    template: '<p>sss</p>',
+  })
 
   export default{
+    components: {
+      aaa: Profile
+    },
     data () {
       return {
+        
 
       }
     },
@@ -23,7 +31,7 @@
       
     },
     mounted () {
-      $('input').datepicker()
+
     }
   }
 </script>
