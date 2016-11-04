@@ -1,7 +1,7 @@
 <template>
 <div class="aaa">
   <aaa></aaa>
-  
+  <bbb></bbb>
 </div>
 </template>
 
@@ -13,22 +13,31 @@
   const fto = require('form_to_object')
   Vue.use(fto)
 
-  var Profile = Vue.extend({
-    template: '<p>sss</p>',
+  var aaa = Vue.extend({
+    template: '<div><h2>this is h2</h2><p>this is p</p></div>'
   })
-
+  var bbb = Vue.extend({
+    template: `
+      <div>
+        <h2>this is h2</h2>
+        <p>this is p</p>
+      </div>
+    `
+  })
+  
   export default{
+
     components: {
-      aaa: Profile
+      aaa: aaa,
+      bbb: bbb
     },
     data () {
       return {
-        
 
       }
     },
     methods: {
-      
+
     },
     mounted () {
 

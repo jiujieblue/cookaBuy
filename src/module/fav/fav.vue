@@ -38,13 +38,33 @@
               <div class="r-slider">
                 <div>
                   <swiper :options="swiperOption">
-                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
-                    <swiper-slide><img src="../../assets/images/1.jpg" height="150" width="150"></swiper-slide>
-                    <div class="swiper-button-prev swiper-button-black" slot="button-prev"></div>
-                    <div class="swiper-button-next swiper-button-black" slot="button-next"></div>
+                    <swiper-slide>
+                      <img src="../../assets/images/1.jpg" height="150" width="150">
+                      <div>&yen; 520.00</div>
+                      <a>我的卡萨浪费拉的手机费</a>
+                    </swiper-slide>
+                    <swiper-slide>
+                      <img src="../../assets/images/1.jpg" height="150" width="150">
+                      <div>&yen; 520.00</div>
+                      <a>我的卡萨浪费拉的手机费</a>
+                    </swiper-slide>
+                    <swiper-slide>
+                      <img src="../../assets/images/1.jpg" height="150" width="150">
+                      <div>&yen; 520.00</div>
+                      <a>我的卡萨浪费拉的手机费</a>
+                    </swiper-slide>
+                    <swiper-slide>
+                      <img src="../../assets/images/1.jpg" height="150" width="150">
+                      <div>&yen; 520.00</div>
+                      <a>我的卡萨浪费拉的手机费</a>
+                    </swiper-slide>
+                    <swiper-slide>
+                      <img src="../../assets/images/1.jpg" height="150" width="150">
+                      <div>&yen; 520.00</div>
+                      <a>我的卡萨浪费拉的手机费</a>
+                    </swiper-slide>
+                    <div class="swiper-button-prev" slot="button-prev"><span class="icon-xiangqian"></span></div>
+                    <div class="swiper-button-next" slot="button-next"><span class="icon-xianghou"></span></div>
                   </swiper>
                 </div>
               </div>

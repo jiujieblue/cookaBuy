@@ -263,11 +263,13 @@
     data () {
       return {
         data: {},
-        storeId: '',
+        item_id: '',
+        store_id: '',
         logoUrl: '',
         store_name: '',
         productNum: '',
         phone: '',
+        price: '',
         addr: '',
         carousel: [],
         tit: '',
@@ -286,7 +288,10 @@
         newList: [],
         tabList: 1,
         item_props: [],
-        description: ''
+        description: '',
+        chooseShopping:[],
+        sku_id: '',
+        prop_name: ''
       }
     },
     methods: {
@@ -295,33 +300,51 @@
       },
       chooseColor (t) {
         this.color_t = t
-        if (this.size_t !== -1) {
-          for(var i = 0;i < this.skus.length;i++){
-            var arr = this.skus[i].properties_name.split(';')
-            var totalAmount = this.skus[i].quantity
-            for(var j = 0;j < arr.length;j++){
-              arr[j] = arr[j].split(':')
-            }
-            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
-              this.totalAmount = totalAmount
-            }
-          }
+        if (this.size_t !== -1) {  
+          this._pub();
         }
       },
       chooseSize (t) {
         this.size_t = t
         if (this.color_t !== -1) {
-          for(var i = 0;i < this.skus.length;i++){
+          this._pub();
+        }
+      },
+      _pub () {
+        for(var i = 0;i < this.skus.length;i++){
             var arr = this.skus[i].properties_name.split(';')
-            var totalAmount = this.skus[i].quantity
             for(var j = 0;j < arr.length;j++){
               arr[j] = arr[j].split(':')
             }
             if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
-              this.totalAmount = totalAmount
+              this.sku_id = this.skus[i].id
+              this.prop_name = this.skus[i].properties_name
+              this.totalAmount = this.skus[i].quantity
+              var obj={}
+              if(!this.chooseShopping.length){
+                obj.num = 0
+                obj.sku_id = this.skus[i].id
+                obj.prop_name = this.skus[i].properties_name
+                this.chooseShopping.push(obj)
+              }
+              else{
+                for(var k = 0;k < this.chooseShopping.length; k ++){
+                  if(this.chooseShopping[k].sku_id == this.skus[i].id){
+                    this.chooseNum = this.chooseShopping[k].num
+                    break;
+                  }              
+                }
+                if(k == this.chooseShopping.length){
+                  this.chooseNum = 0                  
+                  obj.num = 0
+                  obj.sku_id = this.skus[i].id
+                  obj.prop_name = this.skus[i].properties_name
+                  this.chooseShopping.push(obj) 
+                }
+              }
+              break;
             }
           }
-        }
       },
       fanye (t) {
         if (t === 1 && this.hasNextPage) {
@@ -344,32 +367,46 @@
       },
       _chooseNum (t) {
         if (t === -1 && this.chooseNum > 0) {
-          console.log(t)
           --this.chooseNum
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
+          }
         }
         if (t === 1) {
           ++this.chooseNum
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
+          }
         }
       },
       _changeNum (e) {
         this.chooseNum = parseInt(e.target.value)
       },
       _addCart () {
-        var data = {
-          storeId: 2,
-          productId: 1,
-          combination: [{
-            combinationId: 2,
-            getamount: 2
-          }]
+        for(var i = 0;i < this.chooseShopping.length; i++){
+          if(this.chooseShopping[i].num){
+            var obj = this.chooseShopping[i];
+            obj.item_id = this.item_id
+            obj.store_id = this.store_id
+            obj.buyer_id = 1
+            obj.title = this.tit
+            obj.origin_price = this.price
+            obj.price = this.price
+            obj.sub_total = obj.num * this.price
+            console.log(obj.num)
+            this.$http.post('/api/carts', {"cart":obj})
+              .then(function (ret) {
+                console.log(ret.data)
+              },
+              function (err) {
+                console.log(err)
+              })
+          }
         }
-        this.$http.post('/cooka-productDetail-web/m/addToCart', data)
-          .then(function (ret) {
-            console.log(ret.data)
-          },
-          function (err) {
-            console.log(err)
-          })
       },
       tab (t) {
         this.tabList = t
@@ -381,13 +418,16 @@
         .then(function (ret) {
           this.data = ret.data.data
           this.skus = ret.data.data.skus
+          this.item_id = ret.data.data.num_iid
+          this.store_id = ret.data.data.store.id
           // this.storeId = ret.data.storeProfileForm.store.storeId
           this.carousel = ret.data.data.item_imgs
           // this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
           this.store_name = ret.data.data.store.store_name
           // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
-          this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
+          this.price = ret.data.data.price
+          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
 
           this.tit = ret.data.data.title
           for(var i = 0;i < ret.data.data.sku_props.length;i++){
