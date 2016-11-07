@@ -82,7 +82,7 @@
               </div>
               <div class="desc-oth">
                 <div>收藏</div>
-                <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4400)</div>
+                <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4000)</div>
                 <div>
                   <a href="#"><span class="icon-fenxiang"></span>分享</a>
                   <a href="#"><img src="../../assets/images/icons/tencent.png" height="20" width="20"></a>

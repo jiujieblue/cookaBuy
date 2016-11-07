@@ -1,5 +1,27 @@
 <template>
 <div>
+  <div v-if="showModal" class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <slot name="body">
+            编辑头像
+          </slot>
+          <span class="icon-cha" @click="closeModal"></span>
+        </div>
+
+        <div class="modal-body">
+          <slot name="body">
+            <button @click="chooseImg('close')"><span class="icon-iconfont-tupianku"></span>选择照片</button><br>
+            <button @click="chooseImg('chooseImg')"><span class="icon-iconfont-xiangji"></span>拍摄照片</button>
+            <input style="display:none" ref="changeImg" type="file" accept="image/*" @change="changeImg($event)">
+          </slot>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <BuyerCenterHeader></BuyerCenterHeader>
   <div>
     <div class="container">
@@ -14,20 +36,20 @@
             </div>
 
             <div class="buyer-account-info">
-              <a v-bind:class="type == 1 ? 'active' : ''" v-on:click="_type(1)">基本信息</a>
-              <a v-bind:class="type == 2 ? 'active' : ''" v-on:click="_type(2)">个人信息</a>          
+              <a v-bind:class="type == 1 ? 'active' : ''" v-on:click="_type(1)">基本信息</a><a v-bind:class="type == 2 ? 'active' : ''" v-on:click="_type(2)">个人信息</a>          
             </div>
             <div v-bind:style="{display: type == 1 ? 'block' : 'none'}">
               <form>
                 <div class="buyer-account-basic">
                   <div class="basic-l">
-                    <img src="../../assets/images/250x250.png">
+                    <img v-bind:src="image">
+                    <button type="button" v-on:click="openModal">编 辑 头 像</button>
                   </div>
                   <div class="basic-r">
                     <div>
                       账<span class="em"></span><span class="em"></span>号 : 12345612345
                     </div>
-                    <div style="display:none">
+                    <div>
                       昵<span class="em"></span><span class="em"></span>称 : AAA
                       <button type="button">修改</button>
                     </div>
@@ -105,12 +127,44 @@
     },
     data () {
       return {
-        type: 1
+        type: 1,
+        showModal: false,
+        image: '',
+        imageUrl: ''
       }
     },
     methods: {
       _type (t) {
         this.type = t
+      },
+      openModal () {
+        this.showModal = true
+      },
+      closeModal () {
+        this.showModal = false
+      },
+      chooseImg (t) {
+        this.showModal = false
+        if(t == 'close'){
+          this.$refs.changeImg.click()
+        }
+      },
+      changeImg (e) {
+        var target = e.target
+        var reg = /(\.jpg|\.png)$/ig
+        if(!reg.test(target.value)){
+          alert('请选择 JPG 或者 PNG 格式的图片');
+          return;
+        }
+        if(target.files && target.files[0]){
+          var me = this
+          var reader = new FileReader();
+          reader.onload = function(e){
+            me.image = e.target.result
+            me.imageUrl = target.files[0]
+          }
+        }
+        reader.readAsDataURL(target.files[0])
       }
     },
     mounted () {
