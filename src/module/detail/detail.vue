@@ -328,6 +328,10 @@
                 obj.prop_name = this.skus[i].properties_name
                 if(this.colorItem[this.color_t].tb_url){
                   obj.pic_url = this.colorItem[this.color_t].tb_url
+                }
+                else{
+                  console.log(this.carousel[0].tb_url)
+                  obj.pic_url = this.carousel[0].tb_url
                 }                
                 this.chooseShopping.push(obj)
               }
@@ -345,7 +349,10 @@
                   obj.prop_name = this.skus[i].properties_name
                   if(this.colorItem[this.color_t].tb_url){
                     obj.pic_url = this.colorItem[this.color_t].tb_url
-                  } 
+                  }
+                  else{
+                    obj.pic_url = this.carousel[0].tb_url
+                  }   
                   this.chooseShopping.push(obj) 
                 }
               }
@@ -389,9 +396,15 @@
             }
           }
         }
+        console.log(this.chooseShopping)
       },
       _changeNum (e) {
         this.chooseNum = parseInt(e.target.value)
+        for(var i = 0;i < this.chooseShopping.length;i ++){
+          if(this.chooseShopping[i].sku_id == this.sku_id){
+            this.chooseShopping[i].num = this.chooseNum
+          }
+        }
       },
       _addCart () {
         for(var i = 0;i < this.chooseShopping.length; i++){
