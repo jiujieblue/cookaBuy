@@ -13,11 +13,12 @@
 				<SellerCenterSideBar></SellerCenterSideBar>
 			</div>
 			<div class="col-md-10 sellerWithdrawal">
-				<div class="row sellerWithdrawal-title">
-					<span>当前位置：账户管理 ></span> 商家资料
-				</div>
+				<p class="sellerWithdrawal-title">
+					<span>当前位置：我的钱包 ></span> 提现
+				</p>
+				<p>提现</p>
 				<div class="row sellerWithdrawal-operation">
-					<form>
+					<form v-if="isActive">
 						<ul>
 							<li>
 								<span>选择银行卡：</span>
@@ -66,6 +67,7 @@
 						<p><span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。</p>
 						<p><button>提<span class="em"></span>交</button></p>
 					</form>
+					<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
 				</div>
 			</div>
 		</div>
@@ -79,11 +81,13 @@
 	import SellerCenterHeader from 'components/SellerCenterHeader'
 	import footerComponent from 'components/footer'
 	import SellerCenterSideBar from 'components/SellerCenterSideBar'
+	import SellerFirstWithdrawal from './SellerFirstWithdrawal'
 	export default {
 	  data () {
 	    return {
 	      moneyHtml: '',
-	      pwdHtml: ''
+	      pwdHtml: '',
+	      isActive: false
 	    }
 	  },
 	  mounted () {
@@ -133,7 +137,8 @@
 	  components: {
 	  	SellerCenterHeader,
 	  	footerComponent,
-	  	SellerCenterSideBar
+	  	SellerCenterSideBar,
+	  	SellerFirstWithdrawal
 	  }
 	}
 </script>

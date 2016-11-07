@@ -6,19 +6,19 @@
 
 <template>
 <div id='daifaWithdrawal'>
-	<BuyerCenterHeader></BuyerCenterHeader>
+	<DaifaCenterHeader></DaifaCenterHeader>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<BuyerCenterSideBar></BuyerCenterSideBar>
+				<DaifaSideBar></DaifaSideBar>
 			</div>
-			<div class="col-md-10 buyWithdrawal">
-				<p class="row buyWithdrawal-title">
+			<div class="col-md-10 daifaWithdrawal">
+				<p class="row daifaWithdrawal-title">
 					<span>当前位置：账户管理 ></span> 商家资料
 				</p>
 				<p>提现</p>
-				<div class="row buyWithdrawal-operation">
-					<form>
+				<div class="row daifaWithdrawal-operation">
+					<form v-if="!isTixian">
 						<ul>
 							<li>
 								<span>选择银行卡：</span>
@@ -75,6 +75,19 @@
 							<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
 						</p>
 					</form>
+					<div class="daifaWithdrawal-operation-results" v-if="isTixian">
+						<div>
+							<link rel="stylesheet" :class="[isSuccess ? 'icon-success' : 'icon-shibai']">
+							<p>提交提现申请{{isSuccess ? '成功' : '失败'}}</p>
+						</div>
+						<ul>
+							<li>您已成功提交提现申请</li>
+							<li>提现金额将在1-3个工作日打款到您指定的银行中，</li>
+							<li>
+								请注意查收，谢谢！
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -85,14 +98,16 @@
 
 <script>
 	import Vue from 'vue'
-	import BuyerCenterHeader from 'components/BuyerCenterHeader'
+	import DaifaCenterHeader from 'components/DaifaCenterHeader'
 	import footerComponent from 'components/footer'
-	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
+	import DaifaSideBar from 'components/DaifaSideBar'
 	export default {
 	  data () {
 	    return {
 	      moneyHtml: '',
-	      pwdHtml: ''
+	      pwdHtml: '',
+	      isTixian: true,
+	      isSuccess: false
 	    }
 	  },
 	  mounted () {
@@ -140,9 +155,9 @@
 	  	}
 	  },
 	  components: {
-	  	BuyerCenterHeader,
+	  	DaifaCenterHeader,
 	  	footerComponent,
-	  	BuyerCenterSideBar
+	  	DaifaSideBar
 	  }
 	}
 </script>
