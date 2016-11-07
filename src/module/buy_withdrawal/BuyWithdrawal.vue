@@ -1,22 +1,23 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/SellerWithdrawal.less';
+	@import '../../assets/less/BuyWithdrawal.less';
 </style>
 
 <template>
-<div id='sellerWithdrawal'>
-	<SellerCenterHeader></SellerCenterHeader>
+<div id='buyWithdrawal'>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<SellerCenterSideBar></SellerCenterSideBar>
+				<BuyerCenterSideBar></BuyerCenterSideBar>
 			</div>
-			<div class="col-md-10 sellerWithdrawal">
-				<div class="row sellerWithdrawal-title">
+			<div class="col-md-10 buyWithdrawal">
+				<p class="row buyWithdrawal-title">
 					<span>当前位置：账户管理 ></span> 商家资料
-				</div>
-				<div class="row sellerWithdrawal-operation">
+				</p>
+				<p>提现</p>
+				<div class="row buyWithdrawal-operation">
 					<form>
 						<ul>
 							<li>
@@ -53,6 +54,9 @@
 								<button>添加银行卡</button>
 							</li>
 							<li>
+								<span>可提现余额：</span> 2.0 亿
+							</li>
+							<li>
 								<label>提现金额：</label>
 								<input type="text" placeholder="请输入金额" @blur="money($event)">
 								<p ref="money">{{ moneyHtml }}</p>
@@ -62,9 +66,14 @@
 								<input type="text" placeholder="请输入支付密码" @blur="pwd($event)">
 								<p ref="pwd">{{ pwdHtml }}</p>
 							</li>
+							<li>
+								<span>到账时间：</span> 1-3个工作日
+							</li>
 						</ul>
-						<p><span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。</p>
-						<p><button>提<span class="em"></span>交</button></p>
+						<p><button>立即提现</button></p>
+						<p>
+							<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
+						</p>
 					</form>
 				</div>
 			</div>
@@ -76,9 +85,9 @@
 
 <script>
 	import Vue from 'vue'
-	import SellerCenterHeader from 'components/SellerCenterHeader'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
-	import SellerCenterSideBar from 'components/SellerCenterSideBar'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	export default {
 	  data () {
 	    return {
@@ -131,9 +140,9 @@
 	  	}
 	  },
 	  components: {
-	  	SellerCenterHeader,
+	  	BuyerCenterHeader,
 	  	footerComponent,
-	  	SellerCenterSideBar
+	  	BuyerCenterSideBar
 	  }
 	}
 </script>
