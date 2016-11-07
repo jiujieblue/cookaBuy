@@ -1,11 +1,11 @@
 <template>
 <div>
-  <SellerCenterHeader></SellerCenterHeader>
+  <BuyerCenterHeader></BuyerCenterHeader>
   <div>
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <SellerCenterSideBar></SellerCenterSideBar>
+          <BuyerCenterSideBar></BuyerCenterSideBar>
         </div>
         <div class="col-md-10">
           <div class="seller-public-detail">
@@ -36,18 +36,18 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
   import Vue from 'vue'
-  import SellerCenterHeader from 'components/SellerCenterHeader'
+  import BuyerCenterHeader from 'components/BuyerCenterHeader'
   import fot from 'components/footer'
-  import SellerCenterSideBar from 'components/SellerCenterSideBar'
+  import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   const fto = require('form_to_object')
   Vue.use(fto)
   export default{
     components: {
-      SellerCenterHeader,
+      BuyerCenterHeader,
       fot,
-      SellerCenterSideBar
+      BuyerCenterSideBar
     },
     data () {
       return {
@@ -63,7 +63,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/sellerPublicDetail.less";
+  @import "../../assets/less/buyerPublicDetail.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
 </style>

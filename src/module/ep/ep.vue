@@ -1,6 +1,7 @@
 <template>
 <div class="aaa">
-  <input type="hidden" name="">
+  <aaa></aaa>
+  <bbb></bbb>
 </div>
 </template>
 
@@ -12,18 +13,34 @@
   const fto = require('form_to_object')
   Vue.use(fto)
 
-
+  var aaa = Vue.extend({
+    template: '<div><h2>this is h2</h2><p>this is p</p></div>'
+  })
+  var bbb = Vue.extend({
+    template: `
+      <div>
+        <h2>this is h2</h2>
+        <p>this is p</p>
+      </div>
+    `
+  })
+  
   export default{
+
+    components: {
+      aaa: aaa,
+      bbb: bbb
+    },
     data () {
       return {
 
       }
     },
     methods: {
-      
+
     },
     mounted () {
-      $('input').datepicker()
+
     }
   }
 </script>

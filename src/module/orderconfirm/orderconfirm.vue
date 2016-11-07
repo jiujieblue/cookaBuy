@@ -4,7 +4,11 @@
 		<div class="orderconfirm">
 			<div class="container">
 				<ri></ri>
-				<od></od>
+				<form action="">
+					<od></od>
+					<cp></cp>
+					<account></account>
+				</form>
 			</div>
 		</div>
 		<fc></fc>
@@ -17,6 +21,8 @@
 	import fc from 'components/footer'
 	import ri from './receiptinfo.vue'
 	import od from './orderdetail.vue'
+	import cp from './coupon.vue'
+	import account from './account.vue'
 	export default{
 		data(){
 			return{
@@ -27,7 +33,9 @@
 			oh,
 			fc,
 			ri,
-			od
+			od,
+			cp,
+			account
 		},
 		mounted(){
 

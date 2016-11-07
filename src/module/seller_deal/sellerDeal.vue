@@ -38,8 +38,8 @@
                 </select>
               </div>
               <button type="submit">查找</button>
-              <div class="totaljine" style="display:none">
-                2016-05-05至2016-06-06  交易总金额 : <span>5050.00</span>元
+              <div class="totaljine">
+                <span>2016-05-05至2016-06-06</span><h4>交易总金额 : <span>5050.00</span></h4>元
               </div>
             </form>
             <div class="seller-deal-detail-name">
