@@ -20,6 +20,21 @@ var proxyTable = {
       '^/api/items/': '/api/items/'
     }
   },
+  '/api/carts': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/carts': '/api/carts'
+    }
+  },
+  // cart
+  // '/api/carts': {
+  //   target: 'http://localhost:4000',
+  //   changeOrigin: true,
+  //   pathRewrite: {
+  //     '^/api/carts': '/api/carts'
+  //   }
+  // },
   // register
   '/checkAvaiable': {
     target: 'http://localhost:8080',

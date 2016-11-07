@@ -20,7 +20,8 @@ body{
       padding: 55px 0;
       background: #fff;
       p{
-        color: #c9c9c9;
+        margin-top: 20px;
+        color: #50c4fc;
         .tishi{
           display: inline-block;
           width: 20px;
@@ -30,26 +31,20 @@ body{
           color: #fff;
           margin-right: 5px;
         }
-        .limitetime{
-          color: #1a1a1a;
-        }
       }
     }
 
     .payment-list{
-      margin-bottom: 25px;
       .payment-list-tit{
-        padding-right: 40px;
+        padding:15px 30px;
         .tit-ra{
           text-align: right;
-          padding: 25px 0;
           padding-bottom: 0;
           span{
             color: #ff5716;
           }
         }
         .tit-rb{
-          margin-top: 15px;
           overflow: hidden;
           .rb-l{
             float: left;
@@ -64,17 +59,18 @@ body{
           }
           .rb-r{
             float: right;
+            &:hover a,&:hover span{
+              color: #50c4fc;
+            }
             a{
-              display: block;
-              padding: 2px 20px;
               margin-bottom: 5px;
-              background: #fcc505;
               text-decoration: none;
               color: #1a1a1a;
               cursor: pointer;
+              margin-right: 5px;
             }
             span{
-              margin-left: 40px;
+              margin-left: 5px;
             }
           }
         }
@@ -283,7 +279,8 @@ body{
           border-top: 1px solid #dfdfdf;
           button{
             background: #fcc505;
-            width: 360px;
+            width: 200px;
+            font-size: 18px;
             height: 50px;
             border: none;
             border-radius: 3px;

@@ -17,7 +17,7 @@
           <div class="payment">
             <div class="payment-tit">
               <h4>订单提交成功，请您尽快付款!</h4>
-              <p><span class="tishi">!</span>请您在<span class="limitetime">24小时</span>内完成支付，否则订单会自动取消。</p>
+              <p><span class="tishi">!</span>请您在24小时内完成支付，否则订单会自动取消。</p>
             </div>
 
             <div class="payment-list">
@@ -31,7 +31,7 @@
                   </div>
                   <div class="rb-r">
                     <a v-on:click="_listShow">订单详情</a>
-                    <span v-bind:class="listShow ? 'icon-fanyeup' : 'icon-fanyedown'"></span>
+                    <span v-bind:class="listShow ? 'icon-fanyeup' : 'icon-fanyedown'" v-on:click="_listShow"></span>
                   </div>
                 </div>
               </div>

@@ -13,8 +13,8 @@
           </div>
 
           <div class="modal-footer">
-            <button @click="showModal=false">关闭</button>
-            <button @click="_del">确定</button>
+            <button @click="showModal=false">关<span class="em"></span>闭</button>
+            <button @click="_del">确<span class="em"></span>定</button>
           </div>
         </div>
       </div>
@@ -271,7 +271,12 @@
       }
     },
     mounted () {
-      
+      this.$http.get('/api/carts')
+        .then(function(ret){
+          console.log(ret.data)
+        },function(err){
+          console.log(err)
+        })
     }
   }
 </script>
