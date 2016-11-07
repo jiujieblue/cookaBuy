@@ -317,7 +317,7 @@
             for(var j = 0;j < arr.length;j++){
               arr[j] = arr[j].split(':')
             }
-            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
+            if(this.colorItem[this.color_t].tit == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
               this.sku_id = this.skus[i].id
               this.prop_name = this.skus[i].properties_name
               this.totalAmount = this.skus[i].quantity
@@ -326,6 +326,9 @@
                 obj.num = 0
                 obj.sku_id = this.skus[i].id
                 obj.prop_name = this.skus[i].properties_name
+                if(this.colorItem[this.color_t].tb_url){
+                  obj.pic_url = this.colorItem[this.color_t].tb_url
+                }                
                 this.chooseShopping.push(obj)
               }
               else{
@@ -340,6 +343,9 @@
                   obj.num = 0
                   obj.sku_id = this.skus[i].id
                   obj.prop_name = this.skus[i].properties_name
+                  if(this.colorItem[this.color_t].tb_url){
+                    obj.pic_url = this.colorItem[this.color_t].tb_url
+                  } 
                   this.chooseShopping.push(obj) 
                 }
               }
@@ -427,15 +433,22 @@
           this.price = ret.data.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
           this.tit = ret.data.data.title
-
           if(ret.data.data.prop_imgs){
-              this.colorItem = ret.data.data.prop_imgs
-            }
+            this.colorItem = ret.data.data.prop_imgs
+          }
           for(var i = 0;i < ret.data.data.sku_props.length;i++){
             var diff = ret.data.data.sku_props[i].sku_prop_vals;
             if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
               for(var j = 0 ;j < diff.length;j++){
-                this.colorItem.push({'tit':diff[j].name})
+                for(var k = 0;k < this.colorItem.length; k++){
+                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                    this.colorItem[k].tit = diff[j].name
+                    break;
+                  }
+                }                
+                if(k == this.colorItem.length){
+                  this.colorItem.push({'tit':diff[j].name})
+                }               
               }
             }
             if(ret.data.data.sku_props[i].prop_name == '尺码'){
@@ -445,7 +458,6 @@
             }
           }
           var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
-
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
