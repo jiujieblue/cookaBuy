@@ -7,17 +7,17 @@
 <template>
 	<div id="sellerInfo">
 		<SellerCenterHeader></SellerCenterHeader>
-		<div class="container">
+		<div class="container marketInfo">
 			<div class="row">
 				<div class="col-md-2">
-					侧边栏
+					<SellerCenterSideBar></SellerCenterSideBar>
 				</div>
-				<div class="col-md-10 marketInfo">
-					<div class="row marketInfo-title">
+				<div class="col-md-10 marketInfo-container">
+					<div class="row marketInfo-container-title">
 						<span>当前位置：账户管理 ></span> 商家资料
 					</div>
-					<div class="row marketInfo-data">
-						<div class="col-md-6 marketInfo-data-left">
+					<div class="row marketInfo-container-data">
+						<div class="col-md-6 marketInfo-container-data-left">
 							<ul>
 								<li>
 									<span>店铺名称：</span>
@@ -87,7 +87,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="col-md-6 marketInfo-data-right">
+						<div class="col-md-6 marketInfo-container-data-right">
 							<div>
 								<img v-if="!image" src="../../assets/images/userImg.jpg" alt="头像">
 								<img v-if="image" :src="image" alt="头像">
@@ -134,9 +134,9 @@
 
 <script>
 	import Vue from 'vue'
-	import footerComponent from 'components/footer'
 	import SellerCenterHeader from 'components/SellerCenterHeader'
-	import goTop from 'components/goTop'
+	import footerComponent from 'components/footer'
+	import SellerCenterSideBar from 'components/SellerCenterSideBar'
 	export default {
 	  data () {
 	    return {
@@ -147,6 +147,7 @@
 	  },
 	  methods: {
 	  	openModal () {
+	  		console.log(55)
 	  		this.showModal = true
 	  	},
 	  	closeModal () {
@@ -178,7 +179,8 @@
 	  },
 	 	components: {
 	 		footerComponent,
-	 		SellerCenterHeader
+	 		SellerCenterHeader,
+	 		SellerCenterSideBar
 	 	}
 	}
 </script>

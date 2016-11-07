@@ -6,11 +6,11 @@
 
 <template>
 <div id='buyWalletWdrlRecord'>
-	<headerComponent></headerComponent>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container'>
 	  	<div class="row">
 	  		<div class="col-md-2">
-	  			侧边栏
+	  			<BuyerCenterSideBar></BuyerCenterSideBar>
 	  		</div>
 	  		<div class="buyWalletWdrlRecord col-md-10">
 	  			<div class="row buyWalletWdrlRecord-container">
@@ -107,8 +107,9 @@
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	import CkPagination from 'components/CkPagination'
 	export default {
 	  data () {
@@ -122,8 +123,9 @@
 
 	  },
 	  components: {
-	  	headerComponent,
+	  	BuyerCenterHeader,
 	  	footerComponent,
+	  	BuyerCenterSideBar,
 	  	CkPagination
 	  }
 	}

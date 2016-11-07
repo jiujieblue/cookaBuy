@@ -6,11 +6,11 @@
 
 <template>
 <div id='buyFootprint'>
-	<headerComponent></headerComponent>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container buyFootprint'>
 			<div class="row">
 				<div class="col-md-2">
-						侧边栏
+					<BuyerCenterSideBar></BuyerCenterSideBar>
 				</div>
 				<div class="col-md-10 buyFootprint-right">
 					<div class="row">
@@ -20,7 +20,7 @@
 						<div class="buyFootprint-right-container">
 							<div class="buyFootprint-right-container-nav">
 								<ul>
-									<li @click="_footNav($event,0)">全部 (12)</li>
+									<li class="active" @click="_footNav($event,0)">全部 (12)</li>
 									<li @click="_footNav($event,1)">免邮 (22)</li>
 									<li @click="_footNav($event,2)">优惠 (0)</li>
 								</ul>
@@ -61,45 +61,6 @@
 													<a>茵曼女装棉质性感红色T恤热销...</a>
 													<b>￥520.00</b>
 												</li>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
-											</ul>
-										</li>
-									</ul>
-									<ul>
-										<li>
-											<span>2016-08-30</span>浏览了<b>25</b>件宝贝
-										</li>
-										<li>
-											<ul>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
-												<li>
-													<a href=""><img src="../../assets/images/my-fav.jpg" alt="足迹图片"></a>
-													<a>茵曼女装棉质性感红色T恤热销...</a>
-													<b>￥520.00</b>
-												</li>
 											</ul>
 										</li>
 									</ul>
@@ -117,8 +78,9 @@
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	import CkPagination from 'components/CkPagination'
 	export default {
 	  data () {
@@ -150,8 +112,9 @@
 	  	}
 	  },
 	  components: {
-	  	headerComponent,
+	  	BuyerCenterHeader,
 	  	footerComponent,
+	  	BuyerCenterSideBar,
 	  	CkPagination
 	  }
 	}

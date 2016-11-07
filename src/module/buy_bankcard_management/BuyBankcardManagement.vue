@@ -6,13 +6,11 @@
 
 <template>
 <div id='buyBankcardManagement'>
-	<headerComponent></headerComponent>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class="container buyBankcardManagement">
 		<div class="row">
 				<div class="col-md-2">
-					<div>
-						侧边栏
-					</div>
+					<BuyerCenterSideBar></BuyerCenterSideBar>
 				</div>
 				<div class="col-md-10 buyBankcardManagement-right">
 					<div class="row buyBankcardManagement-right-title"><span>当前位置：我的钱包 > </span>银行卡管理</div>
@@ -94,8 +92,9 @@
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	export default {
 	  data () {
 	    return {
@@ -141,8 +140,9 @@
 	  	}
 	  },
 	  components: {
-	  	headerComponent,
-	  	footerComponent
+	  	BuyerCenterHeader,
+	  	footerComponent,
+	  	BuyerCenterSideBar
 	  }
 	}
 </script>

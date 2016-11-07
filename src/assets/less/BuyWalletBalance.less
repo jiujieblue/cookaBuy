@@ -18,6 +18,7 @@
 		width: 0.2em;
 	}
 	&-container{
+		min-height: 690px;
 		background: #fff;
 		&-top{
 			&-title{
@@ -55,14 +56,12 @@
 										margin-right: 30px;
 										>a{
 											float: left;
-											width: 70px;
-											height: 70px;
-											border-radius: 50%;
-											border: 1px solid #e7e7e7;
-											margin-right: 10px;
-											overflow: hidden;
 											img{
-												width: 100%;
+												width: 70px;
+												height: 70px;
+												border-radius: 50%;
+												border: 1px solid #e7e7e7;
+												margin-right: 10px;
 											}
 										}
 									}
@@ -111,13 +110,20 @@
 							}
 						}
 						&:nth-child(3){
-							link{
-								margin: -3px 10px 0 0;
-								font-size: 18px;
-							}
-							span{
-								margin: 0 5px;
-								color: #50c4fc;
+							>ul{
+								.clearfix();
+								>li{
+									float: left;
+									margin-right: 20px;
+									link{
+										margin: -3px 5px 0 0;
+										font-size: 18px;
+									}
+									span{
+										margin: 0 5px;
+										color: #50c4fc;
+									}
+								}
 							}
 						}
 					}

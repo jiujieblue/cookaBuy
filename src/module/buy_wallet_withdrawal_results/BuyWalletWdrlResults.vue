@@ -6,18 +6,18 @@
 
 <template>
 <div id='buyWalletWdrlResults'>
-	<headerComponent></headerComponent>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container'>
 			<div class="row">
 				<div class="col-md-2">
-					<div class="wallet-withdrawal-details">
-						侧边栏
-					</div>
+					<BuyerCenterSideBar></BuyerCenterSideBar>
 				</div>
-				<div class="col-md-10 wallet-withdrawal-details-box">
-					<p><span>当前位置：我的钱包 > </span>提现结果</p>
+				<div class="col-md-10 buyWalletWdrlResults">
+					<div class="buyWalletWdrlResults-title">
+						<span>当前位置：我的钱包 > </span>提现结果</p>
+					</div>
 					<p>提现记录</p>
-					<div class="wallet-withdrawal-details-box-status">
+					<div class="buyWalletWdrlResults-status">
 						<div>
 							<link :class="[status==1?'icon-but-processing':status==2?'icon-success':'icon-shibai']" />
 							{{ status == 1? '处理中': status == 2? '提现成功' : '提现失败'}}
@@ -47,7 +47,7 @@
 								</ul>
 							</li>
 						</ul>
-						<p><a href="javascript:history.go(-1)" target='_self'>返回</a></p>
+						<p><button>返<span class="em"></span>回</button></p>
 					</div>
 				</div>
 			</div>
@@ -58,9 +58,9 @@
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
-	import CkPagination from 'components/CkPagination'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	export default {
 	  data () {
 	    return {
@@ -71,9 +71,9 @@
 
 	  },
 	  components: {
-	  	headerComponent,
+	  	BuyerCenterHeader,
 	  	footerComponent,
-	  	CkPagination
+	  	BuyerCenterSideBar
 	  }
 	}
 </script>

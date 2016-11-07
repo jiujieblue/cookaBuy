@@ -6,16 +6,16 @@
 
 <template>
 <div id='sellerWithdrawal'>
-	<headerComponent></headerComponent>
+	<SellerCenterHeader></SellerCenterHeader>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
-				侧边栏
+				<SellerCenterSideBar></SellerCenterSideBar>
 			</div>
 			<div class="col-md-10 sellerWithdrawal">
-				<p class="row sellerWithdrawal-title">
+				<div class="row sellerWithdrawal-title">
 					<span>当前位置：账户管理 ></span> 商家资料
-				</p>
+				</div>
 				<div class="row sellerWithdrawal-operation">
 					<form>
 						<ul>
@@ -70,17 +70,15 @@
 			</div>
 		</div>
 	</div>
-	<goTop></goTop>
 	<footerComponent></footerComponent>
 </div>
 </template>
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import SellerCenterHeader from 'components/SellerCenterHeader'
 	import footerComponent from 'components/footer'
-	import CkSearch from 'components/CkSearch'
-	import goTop from 'components/goTop'
+	import SellerCenterSideBar from 'components/SellerCenterSideBar'
 	export default {
 	  data () {
 	    return {
@@ -133,10 +131,9 @@
 	  	}
 	  },
 	  components: {
-	  	headerComponent,
+	  	SellerCenterHeader,
 	  	footerComponent,
-	  	CkSearch,
-	  	goTop
+	  	SellerCenterSideBar
 	  }
 	}
 </script>

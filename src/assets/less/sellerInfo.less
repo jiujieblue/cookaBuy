@@ -104,80 +104,82 @@
 	}
 	height: 788px;
 	background: #fff;
-	&-title{
-		padding: 15px 0;
-		margin-left: 20px;
-		border-bottom: 1px solid #ececec;
-		span{
-			color: #989898;
+	&-container{
+		&-title{
+			padding: 15px 0;
+			margin-left: 20px;
+			border-bottom: 1px solid #ececec;
+			span{
+				color: #989898;
+			}
 		}
-	}
-	&-data{
-		padding: 30px 50px 0;
-		&-left{
-			>ul{
-				>li{
-					margin: 20px 0;
-					>span{
-						display: inline-block;
-						width: 75px;
-						margin-right: 5px;
-						text-align: right;
-					}
-					>input[type=text],>select{
-						width: 200px;
-						height: 35px;
-						padding: 0 10px;
-						border: 1px solid #d7d7d7;
-						outline: none;
-					}
-					>label{
-						margin-right: 20px;
-						position: relative;
-						bottom: 2px;
-						font-weight: normal;
-					}
-					button{
-						padding: 10px 30px;
-						border: none;
-						border-radius: 3px;
-						background: #fcc505;
-						color: #fff;
+		&-data{
+			padding: 30px 50px 0;
+			&-left{
+				>ul{
+					>li{
+						margin: 20px 0;
+						>span{
+							display: inline-block;
+							width: 75px;
+							margin-right: 5px;
+							text-align: right;
+						}
+						>input[type=text],>select{
+							width: 200px;
+							height: 35px;
+							padding: 0 10px;
+							border: 1px solid #d7d7d7;
+							outline: none;
+						}
+						>label{
+							margin-right: 20px;
+							position: relative;
+							bottom: 2px;
+							font-weight: normal;
+						}
+						button{
+							padding: 10px 30px;
+							border: none;
+							border-radius: 3px;
+							background: #fcc505;
+							color: #fff;
+						}
 					}
 				}
 			}
-		}
-		&-right{
-			.clearfix();
-			padding: 25px;
-			margin-top: 20px;
-			border: 1px solid #d7d7d7;
-			>div{
-				float: left;
-				width: 110px;
-				padding: 2px;
-				box-shadow: 0 0 10px 1px #ccc;
-				img{
-					width: 105px;
-					height: 105px;
-					line-height: 105px;
-					font-size: 20px;
-					text-align: center;
+			&-right{
+				.clearfix();
+				padding: 25px;
+				margin-top: 20px;
+				border: 1px solid #d7d7d7;
+				>div{
+					float: left;
+					width: 110px;
+					padding: 2px;
+					box-shadow: 0 0 10px 1px #ccc;
+					img{
+						width: 105px;
+						height: 105px;
+						line-height: 105px;
+						font-size: 20px;
+						text-align: center;
+					}
+					p{
+						padding: 5px 0;
+						color: #989898;
+						font-size: 16px;
+						font-weight: bold;
+						text-align: center;
+						cursor: pointer;
+					}
 				}
-				p{
-					padding: 5px 0;
-					color: #989898;
-					font-size: 16px;
-					font-weight: bold;
-					text-align: center;
-					cursor: pointer;
-				}
-			}
-			>ul{
-				float: left;
-				margin-left: 20px;
-				li{
-					margin: 15px 0;
+				>ul{
+					float: left;
+					margin-left: 20px;
+					li{
+						margin: 15px 0;
+					}
 				}
 			}
 		}

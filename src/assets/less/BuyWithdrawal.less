@@ -1,5 +1,7 @@
 @import "./C.less";
-.sellerWithdrawal{
+.buyWithdrawal{
+	min-height: 690px;
+
 	.em{
     display:inline-block;
     width:1em;
@@ -8,7 +10,7 @@
     display:inline-block;
     width:0.5em;
   }
-	h2,h3,ul,li{
+	h2,h3,ul,li,p{
 		padding: 0;
 		margin: 0;
 	}
@@ -17,9 +19,11 @@
 	}
 	height: 660px;
 	background: #fff;
-	&-title{
-		padding: 10px 0;
+	>p{
+		padding: 20px 0;
 		margin-left: 20px;
+	}
+	&-title{
 		border-bottom: 1px solid #fcc505;
 		span{
 			color: #989898;
@@ -40,6 +44,28 @@
 						margin-right: 5px;
 						text-align: right;
 						font-weight: normal;
+						font-size: 15px;
+						color: #989898;
+					}
+					>input{
+						height: 30px;
+						padding: 0 5px;
+						border: 1px solid #d7d7d7;
+						outline: none;
+					}
+					>p{
+						display: inline-block;
+						color: red;
+					}
+					button{
+						padding: 7px 20px;
+						border: none;
+						border-radius: 3px;
+						background: #fcc505;
+						color: #372f2c;
+						&:hover{
+							background: #ffd131;
+						}
 					}
 					&:first-child{
 						.clearfix();
@@ -111,36 +137,19 @@
 							}
 						}
 					}
-					>input{
-						height: 30px;
-						padding: 0 5px;
-						border: 1px solid #d7d7d7;
-						outline: none;
-					}
-					>p{
-						display: inline-block;
-						color: red;
-					}
-					button{
-						padding: 7px 20px;
-						border: none;
-						border-radius: 3px;
-						background: #fcc505;
-						&:hover{
-							background: #ffd131;
-						}
+					&:nth-child(3),
+					&:last-child{
+						color: #989898;
 					}
 				}
 			}
 			>p{
 				text-align: center;
 				margin: 30px 0;
-				&:nth-child(2){ 
-					color: #989898;
-					span{
-						color: red;
-						padding: 0 5px 3px 0;
-					}
+				color: #c4bebc;
+				span{
+					color: red;
+					padding: 0 5px 3px 0;
 				}
 				>button{
 					padding: 7px 30px;
@@ -148,6 +157,7 @@
 					border: none;
 					border-radius: 3px;
 					background: #fcc505;
+					color: #372f2c;
 					&:hover{
 						background: #ffd131;
 					}

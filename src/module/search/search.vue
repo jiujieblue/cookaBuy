@@ -10,7 +10,7 @@
 	<div class='search container'>
 	  	<div class="row search-list">
 	  		<ul>
-	  			<li>所有分类</li>
+	  			<li>所有分类 {{ pro  }}</li>
 	  			<li> > <span>所有分类</span></li>
 	  			<li> > <span>所有分类</span></li>
 	  		</ul>
@@ -266,7 +266,8 @@
 	      hitsProductList: [],
 	      pageInfo: {
 
-	      }
+	      },
+	      pro: 40
 	    }
 	  },
 	  mounted () {
@@ -288,6 +289,11 @@
 	  		var imgUrl = e.target.getAttribute('src')
 	  		var r = e.target.parentNode.parentNode.getAttribute('data_img')
 	  		this.$refs[r][0].setAttribute('src',imgUrl)
+	  	}
+	  },
+	  filter: {
+	  	ffff (val) {
+	  		return val*2
 	  	}
 	  },
 	  components: {

@@ -6,11 +6,11 @@
 
 <template>
 <div id='buyWalletBalance'>
-	<headerComponent></headerComponent>
+	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container'>
 	  	<div class="row">
 	  		<div class="col-md-2">
-	  			侧边栏
+	  			<BuyerCenterSideBar></BuyerCenterSideBar>
 	  		</div>
 	  		<div class="buyWalletBalance col-md-10">
 	  			<div class="row buyWalletBalance-container">
@@ -52,7 +52,17 @@
 		  							</ul>
 		  						</li>
 		  						<li>
-		  							<link class="icon-yinghangka"/>银行卡<span>2</span>张
+		  							<ul>
+		  								<li style="display:none">
+		  									<link class="icon-xianjingquan"/>现金券<span>0</span>张
+		  								</li>
+		  								<li style="display:none">
+		  									<link class="icon-youhuiquan"/>店铺优惠券<span>4</span>张
+		  								</li>
+		  								<li>
+		  									<link class="icon-yinghangka"/>银行卡<span>2</span>张
+		  								</li>
+		  							</ul>
 		  						</li>
 		  					</ul>
 		  				</div>
@@ -110,22 +120,6 @@
 		  						<td>-950.00</td>
 		  						<td>微信支付</td>
 		  					</tr>
-		  					<tr>
-		  						<td>2016-06-15 10:15</td>
-		  						<td>236646546161616</td>
-		  						<td>快捷支付-时尚潮流批发</td>
-		  						<td>1000.00</td>
-		  						<td>-950.00</td>
-		  						<td>微信支付</td>
-		  					</tr>
-		  					<tr>
-		  						<td>2016-06-15 10:15</td>
-		  						<td>236646546161616</td>
-		  						<td>快捷支付-时尚潮流批发</td>
-		  						<td>1000.00</td>
-		  						<td>-950.00</td>
-		  						<td>微信支付</td>
-		  					</tr>
 		  				</table>
 		  			</div>
 	  			</div>
@@ -139,8 +133,9 @@
 
 <script>
 	import Vue from 'vue'
-	import headerComponent from 'components/header'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
 	import CkPagination from 'components/CkPagination'
 	export default {
 	  data () {
@@ -154,8 +149,9 @@
 
 	  },
 	  components: {
-	  	headerComponent,
+	  	BuyerCenterHeader,
 	  	footerComponent,
+	  	BuyerCenterSideBar,
 	  	CkPagination
 	  }
 	}
