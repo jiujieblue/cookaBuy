@@ -1,3 +1,4 @@
+@import "./public.less";
 body{
   .em{
     display: inline-block;
@@ -12,20 +13,29 @@ body{
 }
 .fav{
   .fav-tit{
+    font-size: 16px;
     padding: 15px 0;
     border-bottom: 1px solid #1a1a1a;
+    overflow: hidden;
+    span{
+      float: left;
+    }
     span:first-child{
       color: #fcc505;
+      margin-top: 3px;
+      margin-right: 5px;
     }
     span:last-child{
       color: #a2a2a2;
     }
   }
   .fav-shp{
+    margin-top: 20px;
     overflow: hidden;
     background: #fff;
     .shp-l{
       float: left;
+      width: 25%;
       border-right: 1px solid #f7f7f7; 
       .l-t{
         padding: 20px 12px;
@@ -64,9 +74,10 @@ body{
           width: 120px;
           height: 30px;
           border-radius: 15px;
-          background: #000;
+          background: #372f2c;
           color: #fff;
           border: none;
+          box-shadow: 0px 5px 10px #cdcdcd;
           &:focus{
             outline: none;
           }
@@ -78,17 +89,29 @@ body{
       padding: 20px;
       width: 75%;
       .r-menu{
-        overflow: hidden;
+        margin-top: 25px;
+        position: relative;
         border-bottom:1px solid #e1e1e1;
         a{
-          float: left;
-          padding: 3px 10px;
+          background: #fff;
+          position: absolute;
+          padding: 5px 0;
+          font-size: 18px;
           text-decoration: none;
           color: #666;
           cursor: pointer;
           border-bottom: 2px solid transparent;
+          bottom: 0;
+        }
+        a:first-child{
+          left:0;
+        }
+        a:last-child{
+          left:100px;
         }
         .active{
+          padding-bottom: 6px;
+          margin-bottom: -1px;
           color: #fcc505;
           border-bottom: 2px solid #fcc505;
         }
@@ -100,11 +123,33 @@ body{
         .swiper-container.swiper-container-horizontal{
           position:static;
           margin-left: 25px;
-          .swiper-button-prev{
-            display: none;
+          .swiper-slide{
+            img{
+              &:hover{  
+                opacity: 0.7;
+              }
+            }
+            >div{
+              padding: 5px 10px;
+              font-size: 18px;
+            }
+            >a{
+              padding: 0 10px;
+              width: 150px;
+              display: block;
+              .ellipsis();
+            }
           }
-          .swiper-button-next{
+          .swiper-button-prev,.swiper-button-next{
             display: none;
+            background-image: none;
+            .icon-xiangqian,.icon-xianghou{
+              color: #c4bebc;
+              font-size: 48px;
+              &:hover{
+                color: #a89d99;
+              }
+            }
           }
         }
       }
@@ -112,9 +157,13 @@ body{
         .swiper-container.swiper-container-horizontal{
           .swiper-button-prev{
             display: block;
+            top: 75px;
+            left: 0;
           }
           .swiper-button-next{
             display: block;
+            top: 75px;
+            right: 20px;
           }
         }
           

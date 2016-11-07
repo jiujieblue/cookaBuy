@@ -23,7 +23,7 @@
 					<span>0660-8601048）</span>
 					<span v-bind:style="{'display':default_addr == 0?'inline-block':'none'}"><a href="#">默认地址</a></span>
 					<span><a href="#">修改地址</a></span>
-					<span><a href="#">删除</a></span>
+					<span><a @click="showModal = true">删除</a></span>
 				</label>
 			</div>
 			<div :class="{'da_active' : default_addr == 1}" v-on:click="DefaultAddr($event)" data-id="1">
@@ -40,10 +40,44 @@
 					<span>0660-8601048）</span>
 					<span v-bind:style="{'display':default_addr == 1?'inline-block':'none'}"><a href="#">默认地址</a></span>
 					<span><a href="#">修改地址</a></span>
-					<span><a href="#">删除</a></span>
+					<span><a @click="showModal = true">删除</a></span>
 				</label>
 			</div>
 		</div>
+
+		<!--  vue-Modal -->
+		<!-- <button type="button" id="show-modal" @click="showModal = true">Show Modal</button> -->
+		<!-- use the modal component, pass in the prop -->
+		<div class="modal-mask" v-if="showModal">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+		
+					<div class="modal-header">
+						<slot name="header">
+							default header
+						</slot>
+					</div>
+		
+					<div class="modal-body">
+						<slot name="body">
+							default body
+						</slot>
+					</div>
+		
+					<div class="modal-footer">
+						<slot name="footer">
+								default footer
+							<button class="modal-default-button" @click="showModal = false">
+								OK
+							</button>
+						</slot>
+					</div>
+		
+				</div>
+			</div>
+		</div>
+		<!--  vue-Modal -->
+
 		<div class="receiptinfo-box-newaddr">
 			<div @click="add_addr">
 				<div :class="[newaddr ? 'circle_active':'circle']">
@@ -129,7 +163,8 @@
 			return{
 				newaddr_default:false,
 				newaddr: false,
-				default_addr: 0
+				default_addr: 0,
+				showModal: false
 			}
 		},
 		components:{

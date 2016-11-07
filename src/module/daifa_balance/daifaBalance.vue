@@ -1,6 +1,6 @@
 <template>
 <div>
-  <SellerCenterHeader></SellerCenterHeader>
+  <DaifaCenterHeader></DaifaCenterHeader>
   <div>
     <div class="container">
       <div class="row">
@@ -96,7 +96,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
   import Vue from 'vue'
-  import SellerCenterHeader from 'components/SellerCenterHeader'
+  import DaifaCenterHeader from 'components/DaifaCenterHeader'
   import fot from 'components/footer'
   import DaifaSideBar from 'components/DaifaSideBar'
   const VueResource = require('vue-resource')
@@ -105,7 +105,7 @@
   Vue.use(fto)
   export default{
     components: {
-      SellerCenterHeader,
+      DaifaCenterHeader,
       fot,
       DaifaSideBar
     },

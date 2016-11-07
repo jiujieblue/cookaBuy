@@ -3,8 +3,8 @@
 		<oh></oh>
 		<div class="orderconfirm">
 			<div class="container">
+				<ri></ri>
 				<form action="">
-					<ri></ri>
 					<od></od>
 					<cp></cp>
 					<account></account>

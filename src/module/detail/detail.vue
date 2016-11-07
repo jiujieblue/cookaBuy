@@ -60,7 +60,7 @@
               <div class="desc-color">
                 <div>颜<b class="em_5"></b>色 : </div>
                 <div>
-                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.a" v-bind:title="imgItem" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
                 </div>
               </div>
               <div class="desc-size">
@@ -124,10 +124,10 @@
               <img src="../../assets/images/detail-new.jpg">
               <div class="price">&yen; 100.00</div>
             </div>
-            <div class="recommend-page">
-              <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
-              <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
-            </div>
+          </div>
+          <div class="recommend-page">
+            <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
+            <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
           </div>
         </div>
       </div>
@@ -263,11 +263,13 @@
     data () {
       return {
         data: {},
-        storeId: '',
+        item_id: '',
+        store_id: '',
         logoUrl: '',
         store_name: '',
         productNum: '',
         phone: '',
+        price: '',
         addr: '',
         carousel: [],
         tit: '',
@@ -277,6 +279,7 @@
         totalAmount: '',
         img_t: 0,
         color_t: -1,
+        prop_imgs: [],
         size_t: -1,
         chooseNum: 0,
         recommend: [],
@@ -286,7 +289,10 @@
         newList: [],
         tabList: 1,
         item_props: [],
-        description: ''
+        description: '',
+        chooseShopping:[],
+        sku_id: '',
+        prop_name: ''
       }
     },
     methods: {
@@ -295,33 +301,57 @@
       },
       chooseColor (t) {
         this.color_t = t
-        if (this.size_t !== -1) {
-          for(var i = 0;i < this.skus.length;i++){
-            var arr = this.skus[i].properties_name.split(';')
-            var totalAmount = this.skus[i].quantity
-            for(var j = 0;j < arr.length;j++){
-              arr[j] = arr[j].split(':')
-            }
-            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
-              this.totalAmount = totalAmount
-            }
-          }
+        if (this.size_t !== -1) {  
+          this._pub();
         }
       },
       chooseSize (t) {
         this.size_t = t
         if (this.color_t !== -1) {
-          for(var i = 0;i < this.skus.length;i++){
+          this._pub();
+        }
+      },
+      _pub () {
+        for(var i = 0;i < this.skus.length;i++){
             var arr = this.skus[i].properties_name.split(';')
-            var totalAmount = this.skus[i].quantity
             for(var j = 0;j < arr.length;j++){
               arr[j] = arr[j].split(':')
             }
-            if(this.colorItem[this.color_t] == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
-              this.totalAmount = totalAmount
+            if(this.colorItem[this.color_t].tit == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
+              this.sku_id = this.skus[i].id
+              this.prop_name = this.skus[i].properties_name
+              this.totalAmount = this.skus[i].quantity
+              var obj={}
+              if(!this.chooseShopping.length){
+                obj.num = 0
+                obj.sku_id = this.skus[i].id
+                obj.prop_name = this.skus[i].properties_name
+                if(this.colorItem[this.color_t].tb_url){
+                  obj.pic_url = this.colorItem[this.color_t].tb_url
+                }                
+                this.chooseShopping.push(obj)
+              }
+              else{
+                for(var k = 0;k < this.chooseShopping.length; k ++){
+                  if(this.chooseShopping[k].sku_id == this.skus[i].id){
+                    this.chooseNum = this.chooseShopping[k].num
+                    break;
+                  }              
+                }
+                if(k == this.chooseShopping.length){
+                  this.chooseNum = 0                  
+                  obj.num = 0
+                  obj.sku_id = this.skus[i].id
+                  obj.prop_name = this.skus[i].properties_name
+                  if(this.colorItem[this.color_t].tb_url){
+                    obj.pic_url = this.colorItem[this.color_t].tb_url
+                  } 
+                  this.chooseShopping.push(obj) 
+                }
+              }
+              break;
             }
           }
-        }
       },
       fanye (t) {
         if (t === 1 && this.hasNextPage) {
@@ -344,32 +374,46 @@
       },
       _chooseNum (t) {
         if (t === -1 && this.chooseNum > 0) {
-          console.log(t)
           --this.chooseNum
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
+          }
         }
         if (t === 1) {
           ++this.chooseNum
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
+          }
         }
       },
       _changeNum (e) {
         this.chooseNum = parseInt(e.target.value)
       },
       _addCart () {
-        var data = {
-          storeId: 2,
-          productId: 1,
-          combination: [{
-            combinationId: 2,
-            getamount: 2
-          }]
+        for(var i = 0;i < this.chooseShopping.length; i++){
+          if(this.chooseShopping[i].num){
+            var obj = this.chooseShopping[i];
+            obj.item_id = this.item_id
+            obj.store_id = this.store_id
+            obj.buyer_id = 1
+            obj.title = this.tit
+            obj.origin_price = this.price
+            obj.price = this.price
+            obj.sub_total = obj.num * this.price
+            console.log(obj.num)
+            this.$http.post('/api/carts', {"cart":obj})
+              .then(function (ret) {
+                console.log(ret.data)
+              },
+              function (err) {
+                console.log(err)
+              })
+          }
         }
-        this.$http.post('/cooka-productDetail-web/m/addToCart', data)
-          .then(function (ret) {
-            console.log(ret.data)
-          },
-          function (err) {
-            console.log(err)
-          })
       },
       tab (t) {
         this.tabList = t
@@ -381,26 +425,39 @@
         .then(function (ret) {
           this.data = ret.data.data
           this.skus = ret.data.data.skus
-          // this.storeId = ret.data.storeProfileForm.store.storeId
+          this.item_id = ret.data.data.num_iid
+          this.store_id = ret.data.data.store.id
           this.carousel = ret.data.data.item_imgs
-          // this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
           this.store_name = ret.data.data.store.store_name
-          // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
-          this.addr = ret.data.data.store.origin_area + '-' +ret.data.data.store.location
-
+          this.price = ret.data.data.price
+          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
           this.tit = ret.data.data.title
-          for(var i = 0;i < ret.data.data.skus.length;i++){
-            var diff = ret.data.data.skus[i].properties_name.split(';')
-            for(var j = 0 ;j < diff.length;j++){
-              diff[j] = diff[j].split(':')
-            }
-            this.colorItem.push(diff[1][1])
-            this.sizeItem.push(diff[0][1])
+          if(ret.data.data.prop_imgs){
+            this.colorItem = ret.data.data.prop_imgs
           }
-
-          var l = ret.data.data.item_props.length % 3 ? parseInt(ret.data.data.item_props.length / 3) + 1 : ret.data.data.item_props.length / 3;
-
+          for(var i = 0;i < ret.data.data.sku_props.length;i++){
+            var diff = ret.data.data.sku_props[i].sku_prop_vals;
+            if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
+              for(var j = 0 ;j < diff.length;j++){
+                for(var k = 0;k < this.colorItem.length; k++){
+                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                    this.colorItem[k].tit = diff[j].name
+                    break;
+                  }
+                }                
+                if(k == this.colorItem.length){
+                  this.colorItem.push({'tit':diff[j].name})
+                }               
+              }
+            }
+            if(ret.data.data.sku_props[i].prop_name == '尺码'){
+              for(var j = 0 ;j < diff.length;j++){
+                this.sizeItem.push(diff[j].name)
+              }
+            }
+          }
+          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
@@ -413,22 +470,6 @@
             this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
-          // this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)
-          //   .then(function (ret) {
-          //     this.recommend = ret.data.list
-          //     this.hasPreviousPage = ret.data.hasPreviousPage
-          //     this.hasNextPage = ret.data.hasNextPage
-          //     this.$http.get('/cooka-productDetail-web/newestProducts?' + p)
-          //       .then(function (ret) {
-          //         this.newList = ret.data
-          //       },
-          //       function (err) {
-          //         console.log(err)
-          //       })
-          //   },
-          //   function (err) {
-          //     console.log(err)
-          //   })
         },
         function (err) {
           console.log(err)

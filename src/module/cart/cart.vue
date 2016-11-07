@@ -13,8 +13,8 @@
           </div>
 
           <div class="modal-footer">
-            <button @click="showModal=false">关闭</button>
-            <button @click="_del">确定</button>
+            <button @click="showModal=false">关<span class="em"></span>闭</button>
+            <button @click="_del">确<span class="em"></span>定</button>
           </div>
         </div>
       </div>
@@ -215,7 +215,7 @@
         this.showModal = false
       },
       _checkOne (t1,t2,e) {
-        this.checkOne[t1][t2] = e.target.checked
+        this.$set(this.checkOne[t1],t2,e.target.checked)
         for(var i = 0; i < this.checkOne.length;i++){
           for(var j = 0; j < this.checkOne[i].length;j++){
             if(!this.checkOne[i][j]){
@@ -223,10 +223,10 @@
             }
           }
           if(j == this.checkOne[i].length){
-            this.checkShp[i] = true;
+            this.$set(this.checkShp, i, true);
           }
           else{
-            this.checkShp[i] = false;
+            this.$set(this.checkShp, i, false);
           }           
         }
         for(var k = 0; k < this.checkShp.length;k++){
@@ -240,14 +240,11 @@
         else{
           this.checkAll = false;
         }
-        console.log(this.checkOne)
-        console.log(this.checkShp)
-        console.log(this.checkAll)
       },
       _checkShp (t,e) {
-        this.checkShp[t] = e.target.checked
+        this.$set(this.checkShp, t, e.target.checked)
         for(var i = 0; i < this.checkOne[t].length; i++){
-          this.checkOne[t][i] = e.target.checked
+          this.$set(this.checkOne[t], i, e.target.checked)
         }
         for(var j = 0; j< this.checkShp.length; j++){
           if(!this.checkShp[j]){
@@ -260,27 +257,26 @@
         else{
           this.checkAll = false;
         }
-        console.log(this.checkOne)
-        console.log(this.checkShp)
-        console.log(this.checkAll)
       },
       _checkAll (e) {
         this.checkAll = e.target.checked
         for(var i = 0; i < this.checkShp.length;i++){
-          this.checkShp[i] = e.target.checked
+          this.$set(this.checkShp, i, e.target.checked)
         }
         for(var i = 0; i < this.checkOne.length;i++){
           for(var j = 0; j < this.checkOne[i].length;j++){
-            this.checkOne[i][j] = e.target.checked
+            this.$set(this.checkOne[i], j, e.target.checked)
           }
         }
-        console.log(this.checkOne)
-        console.log(this.checkShp)
-        console.log(this.checkAll)
       }
     },
     mounted () {
-      
+      this.$http.get('/api/carts')
+        .then(function(ret){
+          console.log(ret.data)
+        },function(err){
+          console.log(err)
+        })
     }
   }
 </script>

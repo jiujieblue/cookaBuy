@@ -59,8 +59,9 @@ body{
   text-align: center;
   padding: 30px 0;
   button{
-    width: 200px;
-    height: 55px;
+    width: 180px;
+    height: 50px;
+    font-size: 18px;
     border-radius: 3px;
     border: 1px solid #b4b4b4;
     &:focus{
@@ -72,6 +73,7 @@ body{
     background: #fff;
   }
   button:last-child{
+    margin-left: 40px;
     background: #fcc505;
   }
 }
@@ -178,7 +180,7 @@ body{
           }
           .list-num{
             width: 140px;
-            >div:first-child{
+            .num-box{
               overflow: hidden;
               >button{
                 float: left;
@@ -208,6 +210,10 @@ body{
                 border: 1px solid #dfdfdf;
                 outline: none;
               }
+            }
+            .num-text{
+              margin-top: 10px;
+              color: #665c59;
             }
           }
           .list-pri,.list-tot,.list-act{
