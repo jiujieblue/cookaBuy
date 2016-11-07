@@ -37,73 +37,45 @@
                   <li class="menu-act">操作</li>
                 </ul>
 
-                <div class="cart-detail">
+                <div class="cart-detail" v-for="(item,index) in data">
                   <div class="detail-tit">
-                    <input type="checkbox" v-bind:checked="checkShp[0]" v-on:change="_checkShp(0,$event)">
+                    <input type="checkbox" v-bind:checked="checkShp[index]" v-on:change="_checkShp(index,$event)">
                     <div class="shp-logo">SHOP</div>
-                    <div>ABCDE</div>
+                    <div>{{item.store_name}}</div>
                     <span class="icon-dianhua"></span>
-                    <div>12345612345</div>
+                    <div>{{item.mobile}}</div>
                   </div>
                   <div class="detail-shp">
-                    <div class="detail-list">
+                    <div class="detail-list" v-for="(itemIn,indexIn) in item.carts">
                       <div class="list-shp">
-                        <input type="checkbox" v-on:change="_checkOne(0,0,$event)" v-bind:checked="checkOne[0][0]">
-                        <img src="../../assets/images/cart-show.jpg" height="80" width="80">
-                        <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
+                        <input type="checkbox" v-on:change="_checkOne(index,indexIn,$event)" v-bind:checked="checkOne[index][indexIn]">
+                        <img v-bind:src="itemIn.pic_url" height="80" width="80">
+                        <div>{{itemIn.title}}</div>
                       </div>
                       <div class="list-sty">
-                        黑色/XL码
+                        {{itemIn.prop_name.split(';')[1].split(':')[1]}}/{{itemIn.prop_name.split(';')[0].split(':')[1]}}
                       </div>
                       <div class="list-num">
                         <div class="num-box">
-                          <button dir="sub">-</button>
-                          <input type="text">
-                          <button dir="add">+</button>
+                          <button dir="sub" v-on:click="_changeNum(index,indexIn,-1)">-</button>
+                          <input type="text" v-on:change="_changeNum(index,indexIn,$event)" v-model="itemIn.num">
+                          <button dir="add" v-on:click="_changeNum(index,indexIn,1)">+</button>
                         </div>
                         <div class="num-text">
                           6-15件 : 110/件
                         </div>
                       </div>
                       <div class="list-pri">
-                        &yen; 110.00
+                        &yen; {{itemIn.price}}
                       </div>
                       <div class="list-tot">
-                        &yen; 1255.00
+                        &yen; {{itemIn.num * itemIn.price}}
                       </div>
                       <div class="list-act">
                         <a @click="_showModal">删除</a> | <a>收藏</a>
                       </div>
                     </div>
-                    <div class="detail-list">
-                      <div class="list-shp">
-                        <input type="checkbox" v-on:change="_checkOne(0,1,$event)" v-bind:checked="checkOne[0][1]">
-                        <img src="../../assets/images/cart-show.jpg" height="80" width="80">
-                        <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
-                      </div>
-                      <div class="list-sty">
-                        黑色/XL码
-                      </div>
-                      <div class="list-num">
-                        <div class="num-box">
-                          <button dir="sub">-</button>
-                          <input type="text">
-                          <button dir="add">+</button>
-                        </div>
-                        <div class="num-text">
-                          6-15件 : 110/件
-                        </div>
-                      </div>
-                      <div class="list-pri">
-                        &yen; 110.00
-                      </div>
-                      <div class="list-tot">
-                        &yen; 1255.00
-                      </div>
-                      <div class="list-act">
-                        <a>删除</a> | <a>收藏</a>
-                      </div>
-                    </div>
+
                     <div class="detail-send">
                       <div>配送服务 : </div>
                       <div>
@@ -118,57 +90,6 @@
                   </div>
                 </div>
 
-                <div class="cart-detail">
-                  <div class="detail-tit">
-                    <input type="checkbox" v-bind:checked="checkShp[1]" v-on:change="_checkShp(1,$event)">
-                    <div class="shp-logo">SHOP</div>
-                    <div>ABCDE</div>
-                    <span class="icon-dianhua"></span>
-                    <div>12345612345</div>
-                  </div>
-                  <div class="detail-shp">
-                    <div class="detail-list">
-                      <div class="list-shp">
-                        <input type="checkbox" v-on:change="_checkOne(1,0,$event)" v-bind:checked="checkOne[1][0]">
-                        <img src="../../assets/images/cart-show.jpg" height="80" width="80">
-                        <div>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</div>
-                      </div>
-                      <div class="list-sty">
-                        黑色/XL码
-                      </div>
-                      <div class="list-num">
-                        <div class="num-box">
-                          <button dir="sub">-</button>
-                          <input type="text">
-                          <button dir="add">+</button>
-                        </div>
-                        <div class="num-text">
-                          6-15件 : 110/件
-                        </div>
-                      </div>
-                      <div class="list-pri">
-                        &yen; 110.00
-                      </div>
-                      <div class="list-tot">
-                        &yen; 1255.00
-                      </div>
-                      <div class="list-act">
-                        <a>删除</a> | <a>收藏</a>
-                      </div>
-                    </div>
-                    <div class="detail-send">
-                      <div>配送服务 : </div>
-                      <div>
-                        <input type="checkbox">
-                        <label>代发</label>
-                      </div>
-                      <div>
-                        <input type="checkbox">
-                        <label>商家发货</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 <div class="cart-oth">
                   <div class="oth-l">
@@ -202,9 +123,10 @@
     data () {
       return {
         showModal: false,
-        checkOne: [[false,false],[false]],
-        checkShp: [false,false],
-        checkAll: false
+        data: [],
+        checkOne: [],
+        checkShp: [],
+        checkAll: false,
       }
     },
     methods: {
@@ -268,12 +190,36 @@
             this.$set(this.checkOne[i], j, e.target.checked)
           }
         }
+      },
+      _changeNum (t1,t2,s) {
+        if(s == 1){
+          ++this.data[t1].carts[t2].num  
+        }
+        else if(s == -1){
+          --this.data[t1].carts[t2].num 
+        }
+        else{
+          this.data[t1].carts[t2].num = s.target.value
+        }
+        this.$http.put('/api/carts/' + this.data[t1].carts[t2].id,{"cart":{"num":this.data[t1].carts[t2].num}})
+          .then(function(ret){
+            console.log(ret.data)
+          },function(err){
+            console.log(err)
+          })
       }
     },
     mounted () {
       this.$http.get('/api/carts')
         .then(function(ret){
-          console.log(ret.data)
+          this.data = ret.data.data
+          for(var i = 0;i < this.data.length;i++){
+            this.$set(this.checkOne, i, []);
+            this.checkShp.push(false);
+            for(var j = 0;j < this.data[i].carts.length;j++){
+              this.checkOne[i].push(false)
+            }
+          }
         },function(err){
           console.log(err)
         })

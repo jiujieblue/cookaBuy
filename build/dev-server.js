@@ -29,12 +29,13 @@ var proxyTable = {
   },
   // cart
   // '/api/carts': {
-  //   target: 'http://localhost:4000',
+  //   target: 'http://localhost:4443',
   //   changeOrigin: true,
   //   pathRewrite: {
   //     '^/api/carts': '/api/carts'
   //   }
   // },
+
   // register
   '/checkAvaiable': {
     target: 'http://localhost:8080',
