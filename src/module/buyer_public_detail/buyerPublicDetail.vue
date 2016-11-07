@@ -8,16 +8,16 @@
           <BuyerCenterSideBar></BuyerCenterSideBar>
         </div>
         <div class="col-md-10">
-          <div class="seller-public-detail">
-            <div class="seller-public-detail-location">
+          <div class="buyer-public-detail">
+            <div class="buyer-public-detail-location">
               当前位置：其他 > 公告信息
             </div>
-            <div class="seller-public-detail-tit">              
+            <div class="buyer-public-detail-tit">              
               <div>
                 <h4>标题</h4>
               </div>
             </div>
-            <div class="seller-public-detail-time">
+            <div class="buyer-public-detail-time">
               <p>times</p>
               <p>商城公告</p>
             </div>

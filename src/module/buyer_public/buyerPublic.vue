@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <buyerCenterSideBar></buyerCenterSideBar>
+          <BuyerCenterSideBar></BuyerCenterSideBar>
         </div>
         <div class="col-md-10">
           <div class="buyer-public">
@@ -70,7 +70,7 @@
   import Vue from 'vue'
   import BuyerCenterHeader from 'components/BuyerCenterHeader'
   import fot from 'components/footer'
-  import buyerCenterSideBar from 'components/buyerCenterSideBar'
+  import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   const fto = require('form_to_object')
@@ -79,7 +79,7 @@
     components: {
       BuyerCenterHeader,
       fot,
-      buyerCenterSideBar
+      BuyerCenterSideBar
     },
     data () {
       return {

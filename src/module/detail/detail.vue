@@ -60,7 +60,7 @@
               <div class="desc-color">
                 <div>颜<b class="em_5"></b>色 : </div>
                 <div>
-                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.a" v-bind:title="imgItem" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
                 </div>
               </div>
               <div class="desc-size">
@@ -279,6 +279,7 @@
         totalAmount: '',
         img_t: 0,
         color_t: -1,
+        prop_imgs: [],
         size_t: -1,
         chooseNum: 0,
         recommend: [],
@@ -420,21 +421,21 @@
           this.skus = ret.data.data.skus
           this.item_id = ret.data.data.num_iid
           this.store_id = ret.data.data.store.id
-          // this.storeId = ret.data.storeProfileForm.store.storeId
           this.carousel = ret.data.data.item_imgs
-          // this.logoUrl = ret.data.storeProfileForm.storeProfile.logoUrl
           this.store_name = ret.data.data.store.store_name
-          // this.productNum = ret.data.storeProfileForm.productNum
           this.phone = ret.data.data.store.mobile
           this.price = ret.data.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
-
           this.tit = ret.data.data.title
+
+          if(ret.data.data.prop_imgs){
+              this.colorItem = ret.data.data.prop_imgs
+            }
           for(var i = 0;i < ret.data.data.sku_props.length;i++){
             var diff = ret.data.data.sku_props[i].sku_prop_vals;
             if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
               for(var j = 0 ;j < diff.length;j++){
-                this.colorItem.push(diff[j].name)
+                this.colorItem.push({'tit':diff[j].name})
               }
             }
             if(ret.data.data.sku_props[i].prop_name == '尺码'){
@@ -457,22 +458,6 @@
             this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
-          // this.$http.get('/cooka-productDetail-web/recommendProducts?' + p + '&page=' + this.page)
-          //   .then(function (ret) {
-          //     this.recommend = ret.data.list
-          //     this.hasPreviousPage = ret.data.hasPreviousPage
-          //     this.hasNextPage = ret.data.hasNextPage
-          //     this.$http.get('/cooka-productDetail-web/newestProducts?' + p)
-          //       .then(function (ret) {
-          //         this.newList = ret.data
-          //       },
-          //       function (err) {
-          //         console.log(err)
-          //       })
-          //   },
-          //   function (err) {
-          //     console.log(err)
-          //   })
         },
         function (err) {
           console.log(err)
