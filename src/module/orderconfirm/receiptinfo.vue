@@ -54,13 +54,16 @@
 		
 					<div class="modal-header">
 						<slot name="header">
-							default header
+							<i class="icon-tishi"></i><span>收货地址删除</span>
 						</slot>
 					</div>
 		
 					<div class="modal-body">
 						<slot name="body">
-							default body
+							<p>请确认是否删除如下收货信息</p>
+							<p>收货地址：广东省 广州市 白云区 新市齐富路1525号510510</p>
+							<p></p>
+							<p></p>
 						</slot>
 					</div>
 		
