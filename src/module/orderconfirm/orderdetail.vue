@@ -123,7 +123,9 @@
 						<div class="tip">
 							<div>运费：7.00元<i class="icon-wenhao"></i></div>
 							<div class="tip-modal">
-								运费费率：首重7.00元/公斤，续重3.00元/公斤
+								<div class="square"></div>
+								<div class="triangle"></div>
+								<div class="content">运费费率：首重7.00元/公斤，续重3.00元/公斤</div>
 							</div>
 						</div>
 					</div>
@@ -188,7 +190,9 @@
 								<div class="tip">
 									<div>运费：7.00元<i class="icon-wenhao"></i></div>
 									<div class="tip-modal">
-										运费费率：首重7.00元/公斤，续重3.00元/公斤
+										<div class="square"></div>
+										<div class="triangle"></div>
+										<div class="content">运费费率：首重7.00元/公斤，续重3.00元/公斤</div>
 									</div>
 								</div>
 							</div>
@@ -239,7 +243,9 @@
 								<div class="tip">
 									<div>运费：7.00元<i class="icon-wenhao"></i></div>
 									<div class="tip-modal">
-										运费费率：首重7.00元/公斤，续重3.00元/公斤
+										<div class="square"></div>
+										<div class="triangle"></div>
+										<div class="content">运费费率：首重7.00元/公斤，续重3.00元/公斤</div>
 									</div>
 								</div>
 							</div>
@@ -290,7 +296,9 @@
 								<div class="tip">
 									<div>运费：7.00元<i class="icon-wenhao"></i></div>
 									<div class="tip-modal">
-										运费费率：首重7.00元/公斤，续重3.00元/公斤
+										<div class="square"></div>
+										<div class="triangle"></div>
+										<div class="content">运费费率：首重7.00元/公斤，续重3.00元/公斤</div>
 									</div>
 								</div>
 							</div>
