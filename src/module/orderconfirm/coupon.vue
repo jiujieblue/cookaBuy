@@ -41,7 +41,46 @@
 			<div class="coupondiv">
 				<i class="icon-moren_radio" style="display:none"></i>
 				<i class="icon-disable_radio"></i>
-				<div class="disable_couponblock">
+				<div class="disable_couponblock couponblock">
+					<div>
+						<img src="../../assets/images/coupon_disable_border.png" height="101" width="12" alt="">
+					</div>
+					<div>
+						<span>¥</span>
+						<span>40</span>
+						<span>满100减10元</span>
+					</div>
+					<div>
+						<span>全店铺满100减10元</span>
+						<span>2016.05.11-06.10</span>
+					</div>
+				</div>
+			</div>
+			<div class="coupondiv">
+				<i class="icon-moren_radio" style="display:none"></i>
+				<i class="icon-disable_radio"></i>
+				<div class="disable_couponblock couponblock">
+					<div>
+						<img src="../../assets/images/coupon_disable_border.png" height="101" width="12" alt="">
+					</div>
+					<div>
+						<span>¥</span>
+						<span>40</span>
+						<span>满100减10元</span>
+					</div>
+					<div>
+						<span>全店铺满100减10元</span>
+						<span>2016.05.11-06.10</span>
+					</div>
+				</div>
+			</div>
+			<div class="coupondiv">
+				<i class="icon-moren_radio" style="display:none"></i>
+				<i class="icon-disable_radio"></i>
+				<div class="disable_couponblock couponblock">
+					<div>
+						<img src="../../assets/images/coupon_disable_border.png" height="101" width="12" alt="">
+					</div>
 					<div>
 						<span>¥</span>
 						<span>40</span>
