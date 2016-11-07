@@ -11,6 +11,74 @@ body{
   background: #f7f7f7;
 }
 
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: all 0.3s linear;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 400px;
+  margin: 0px auto;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all 0.3s linear;
+}
+
+.modal-header {
+  padding: 10px;
+  font-size: 18px;
+  color: #fcc505;
+  position: relative;
+  span{
+    float: right;
+    border-radius: 50%;
+    font-size: 30px;
+    color: #989898;
+    cursor: pointer;
+    &:hover{
+      color: #1a1a1a;
+    }
+  }
+}
+
+.modal-body {
+  margin: 10px 0;
+  text-align: center;
+  button{
+    width: 150px;
+    height: 50px;
+    border: 1px solid #ececec;
+    border-radius: 3px;
+    background: #fcc505;
+    margin: 20px;
+    &:focus{
+      outline: none;
+    }
+    span{
+      font-size: 18px;
+      margin-right: 5px;
+      margin-bottom: 3px;
+    }
+  }
+}
+
+.modal-default-button {
+  float: right;
+}
 
 .buyer-account {
   ul, ol, li, p,  h1, h2, h3,h4,  h5, h6, dl, dt, dd, input {
@@ -37,12 +105,12 @@ body{
     a{
       display: inline-block;
       width:80px;
-      padding:10px;
-      border-bottom:1px solid #ddd;
+      padding-bottom: 5px;
+      border-bottom:2px solid #ddd;
     }
     a.active{
       color:#fcc505;
-      border-bottom:1px solid #fcc505;
+      border-bottom:2px solid #fcc505;
     }
   }
   &-basic{
@@ -103,12 +171,6 @@ body{
             outline: none;
           }
         }
-      }
-      >div:first-child{
-        margin-top:20px;
-      }
-      >div:last-child{
-        margin-top:50px;
       }
     }
   }
