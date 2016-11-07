@@ -14,11 +14,11 @@
 			</div>
 			<div class="col-md-10 buyWithdrawal">
 				<p class="row buyWithdrawal-title">
-					<span>当前位置：账户管理 ></span> 商家资料
+					<span>当前位置：我的钱包 ></span> 提现
 				</p>
 				<p>提现</p>
 				<div class="row buyWithdrawal-operation">
-					<form>
+					<form v-if="isActive">
 						<ul>
 							<li>
 								<span>选择银行卡：</span>
@@ -75,6 +75,7 @@
 							<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
 						</p>
 					</form>
+					<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
 				</div>
 			</div>
 		</div>
@@ -88,11 +89,13 @@
 	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
 	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
+	import SellerFirstWithdrawal from '../seller_withdrawal/SellerFirstWithdrawal.vue'
 	export default {
 	  data () {
 	    return {
 	      moneyHtml: '',
-	      pwdHtml: ''
+	      pwdHtml: '',
+	      isActive: false
 	    }
 	  },
 	  mounted () {
@@ -142,7 +145,8 @@
 	  components: {
 	  	BuyerCenterHeader,
 	  	footerComponent,
-	  	BuyerCenterSideBar
+	  	BuyerCenterSideBar,
+	  	SellerFirstWithdrawal
 	  }
 	}
 </script>

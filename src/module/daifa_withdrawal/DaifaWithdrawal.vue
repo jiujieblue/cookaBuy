@@ -1,24 +1,24 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/SellerWithdrawal.less';
+	@import '../../assets/less/DaifaWithdrawal.less';
 </style>
 
 <template>
-<div id='sellerWithdrawal'>
-	<SellerCenterHeader></SellerCenterHeader>
+<div id='daifaWithdrawal'>
+	<DaifaCenterHeader></DaifaCenterHeader>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
-				<SellerCenterSideBar></SellerCenterSideBar>
+				<DaifaSideBar></DaifaSideBar>
 			</div>
-			<div class="col-md-10 sellerWithdrawal">
-				<p class="sellerWithdrawal-title">
-					<span>当前位置：我的钱包 ></span> 提现
+			<div class="col-md-10 daifaWithdrawal">
+				<p class="row daifaWithdrawal-title">
+					<span>当前位置：账户管理 ></span> 商家资料
 				</p>
 				<p>提现</p>
-				<div class="row sellerWithdrawal-operation">
-					<form v-if="isActive">
+				<div class="row daifaWithdrawal-operation">
+					<form v-if="!isTixian">
 						<ul>
 							<li>
 								<span>选择银行卡：</span>
@@ -54,6 +54,9 @@
 								<button>添加银行卡</button>
 							</li>
 							<li>
+								<span>可提现余额：</span> 2.0 亿
+							</li>
+							<li>
 								<label>提现金额：</label>
 								<input type="text" placeholder="请输入金额" @blur="money($event)">
 								<p ref="money">{{ moneyHtml }}</p>
@@ -63,11 +66,28 @@
 								<input type="text" placeholder="请输入支付密码" @blur="pwd($event)">
 								<p ref="pwd">{{ pwdHtml }}</p>
 							</li>
+							<li>
+								<span>到账时间：</span> 1-3个工作日
+							</li>
 						</ul>
-						<p><span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。</p>
-						<p><button>提<span class="em"></span>交</button></p>
+						<p><button>立即提现</button></p>
+						<p>
+							<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
+						</p>
 					</form>
-					<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
+					<div class="daifaWithdrawal-operation-results" v-if="isTixian">
+						<div>
+							<link rel="stylesheet" :class="[isSuccess ? 'icon-success' : 'icon-shibai']">
+							<p>提交提现申请{{isSuccess ? '成功' : '失败'}}</p>
+						</div>
+						<ul>
+							<li>您已成功提交提现申请</li>
+							<li>提现金额将在1-3个工作日打款到您指定的银行中，</li>
+							<li>
+								请注意查收，谢谢！
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -78,16 +98,16 @@
 
 <script>
 	import Vue from 'vue'
-	import SellerCenterHeader from 'components/SellerCenterHeader'
+	import DaifaCenterHeader from 'components/DaifaCenterHeader'
 	import footerComponent from 'components/footer'
-	import SellerCenterSideBar from 'components/SellerCenterSideBar'
-	import SellerFirstWithdrawal from './SellerFirstWithdrawal'
+	import DaifaSideBar from 'components/DaifaSideBar'
 	export default {
 	  data () {
 	    return {
 	      moneyHtml: '',
 	      pwdHtml: '',
-	      isActive: false
+	      isTixian: true,
+	      isSuccess: false
 	    }
 	  },
 	  mounted () {
@@ -135,10 +155,9 @@
 	  	}
 	  },
 	  components: {
-	  	SellerCenterHeader,
+	  	DaifaCenterHeader,
 	  	footerComponent,
-	  	SellerCenterSideBar,
-	  	SellerFirstWithdrawal
+	  	DaifaSideBar
 	  }
 	}
 </script>
