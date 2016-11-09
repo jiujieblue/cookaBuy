@@ -1,6 +1,7 @@
 <template>
 <div>
   <headerComponent></headerComponent>
+  <div></div>
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -57,25 +58,30 @@
                   <option>上门自提</option>
                 </select>
               </div>
-              <div class="desc-color">
-                <div>颜<b class="em_5"></b>色 : </div>
-                <div>
-                  <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+              <div v-bind:class="isSku ? 'sku-active' : 'sku'">
+                <div class="desc-color">
+                  <div>颜<b class="em_5"></b>色 : </div>
+                  <div>
+                    <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                  </div>
+                </div>
+                <div class="desc-size">
+                  <div>尺<b class="em_5"></b>码 : </div>
+                  <div>
+                    <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
+                  </div>
                 </div>
               </div>
-              <div class="desc-size">
-                <div>尺<b class="em_5"></b>码 : </div>
-                <div>
-                  <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
-                </div>
+              <div class="sku-alert" v-bind:style="{display: isSku ? 'block' : 'none'}">
+                <span>!</span>请选择规格
               </div>
               <div class="desc-num">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
-                <input type="text" v-on:change="_changeNum" v-bind:value="chooseNum">
+                <input type="text" v-on:change="_changeNum" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
-              </div>
+              </div>              
               <div class="desc-action">
                 <button v-on:click="_addCart">加入进货单</button>
                 <button>去购物车结算</button>
@@ -91,16 +97,30 @@
               </div>
               <div class="desc-choosed">
                 <div class="choosed-tishi">
-                  <div class="yixuan">已选清单(共<span>5</span>件)</div>
+                  <div class="yixuan" v-on:click="_showChooseList">已选清单(共<span>{{chooseShopping.length}}</span>件)</div>
                   <div class="sanjiao"></div>
                 </div>
-                <div class="choosed-list">
-                  <div>choosedafs</div>
-                  <div>chooseadfaf</div>
-                  <div>chooseadf</div>
-                  <div>chooseafd</div>
-                  <div>choose</div>
-                  <div>choose</div>
+                <div class="choosed-list" v-bind:style="{display: showChooseList ? 'block' : 'none'}">                  
+                  <div v-show="chooseList.length > 0" class="list-self" v-for="(item,index) in chooseList">
+                    <div class="list-self-color">{{item[0].prop_name.split(';')[1].split(':')[1]}}</div>
+                    <div class="list-self-oth">
+                      <div class="oth-info" v-for="(itemIn,indexIn) in item">
+                        <div class="info-size">{{itemIn.prop_name.split(';')[0].split(':')[1]}}</div>
+                        <div class="info-num">
+                          <span>数量 ：</span>
+                          <button>-</button>
+                          <input type="text" v-model="itemIn.num">
+                          <button>+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-show="chooseList.length > 0" class="sub-total">
+                    共计{{chooseShopping.length}}件 : <span>&yen; {{subTotal}}</span>
+                  </div>
+                  <div v-show="chooseList.length == 0" class="weixuanze">
+                    您还未选择任何商品!
+                  </div>
                 </div>
               </div>
             </div>
@@ -281,7 +301,8 @@
         color_t: -1,
         prop_imgs: [],
         size_t: -1,
-        chooseNum: 0,
+        isSku: false,
+        chooseNum: 1,
         recommend: [],
         page: 1,
         hasNextPage: false,
@@ -290,7 +311,10 @@
         tabList: 1,
         item_props: [],
         description: '',
-        chooseShopping:[],
+        chooseShopping: [],
+        chooseList: [],
+        subTotal: 0,
+        showChooseList: false,
         sku_id: '',
         prop_name: ''
       }
@@ -312,53 +336,86 @@
         }
       },
       _pub () {
+        this.isSku = false;
         for(var i = 0;i < this.skus.length;i++){
-            var arr = this.skus[i].properties_name.split(';')
-            for(var j = 0;j < arr.length;j++){
-              arr[j] = arr[j].split(':')
+          var arr = this.skus[i].properties_name.split(';')
+          for(var j = 0;j < arr.length;j++){
+            arr[j] = arr[j].split(':')
+          }
+          if(this.colorItem[this.color_t].tit == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
+            this.sku_id = this.skus[i].id
+            this.prop_name = this.skus[i].properties_name
+            this.totalAmount = this.skus[i].quantity
+            this.price = this.skus[i].price
+            var obj={}
+            if(!this.chooseShopping.length){
+              obj.num = 1
+              obj.sku_id = this.skus[i].id
+              obj.prop_name = this.skus[i].properties_name
+              obj.price = this.skus[i].price
+              if(this.colorItem[this.color_t].tb_url){
+                obj.pic_url = this.colorItem[this.color_t].tb_url
+              }
+              else{
+                console.log(this.carousel[0].tb_url)
+                obj.pic_url = this.carousel[0].tb_url
+              }                
+              this.chooseShopping.push(obj)
             }
-            if(this.colorItem[this.color_t].tit == arr[1][1] && this.sizeItem[this.size_t] == arr[0][1]){
-              this.sku_id = this.skus[i].id
-              this.prop_name = this.skus[i].properties_name
-              this.totalAmount = this.skus[i].quantity
-              var obj={}
-              if(!this.chooseShopping.length){
-                obj.num = 0
+            else{
+              for(var k = 0;k < this.chooseShopping.length; k ++){
+                if(this.chooseShopping[k].sku_id == this.skus[i].id){
+                  this.chooseNum = this.chooseShopping[k].num
+                  break;
+                }              
+              }
+              if(k == this.chooseShopping.length){
+                this.chooseNum = 1                  
+                obj.num = 1
                 obj.sku_id = this.skus[i].id
                 obj.prop_name = this.skus[i].properties_name
+                obj.price = this.skus[i].price
                 if(this.colorItem[this.color_t].tb_url){
                   obj.pic_url = this.colorItem[this.color_t].tb_url
                 }
                 else{
-                  console.log(this.carousel[0].tb_url)
                   obj.pic_url = this.carousel[0].tb_url
-                }                
-                this.chooseShopping.push(obj)
+                }   
+                this.chooseShopping.push(obj) 
               }
-              else{
-                for(var k = 0;k < this.chooseShopping.length; k ++){
-                  if(this.chooseShopping[k].sku_id == this.skus[i].id){
-                    this.chooseNum = this.chooseShopping[k].num
-                    break;
-                  }              
-                }
-                if(k == this.chooseShopping.length){
-                  this.chooseNum = 0                  
-                  obj.num = 0
-                  obj.sku_id = this.skus[i].id
-                  obj.prop_name = this.skus[i].properties_name
-                  if(this.colorItem[this.color_t].tb_url){
-                    obj.pic_url = this.colorItem[this.color_t].tb_url
-                  }
-                  else{
-                    obj.pic_url = this.carousel[0].tb_url
-                  }   
-                  this.chooseShopping.push(obj) 
-                }
-              }
+            }
+            break;
+          }
+        }
+        this._chooseList();
+      },
+      _chooseList () {
+        var arr = [];
+        arr.push(this.chooseShopping[0].prop_name.split(';')[1].split(':')[1])
+        for(var j = 1;j < this.chooseShopping.length;j++){
+          for(var k = 0;k < arr.length;k++){
+            if(this.chooseShopping[j].prop_name.split(';')[1].split(':')[1] == arr[k]){
               break;
             }
           }
+          if(k == arr.length){
+            arr.push(this.chooseShopping[j].prop_name.split(';')[1].split(':')[1]);
+          }
+        }
+        var subTotal = 0;
+        for(var m = 0;m < arr.length;m++){
+          this.chooseList[m] = []
+          for(var n = 0;n < this.chooseShopping.length;n++){
+            if(this.chooseShopping[n].prop_name.split(';')[1].split(':')[1] == arr[m]){
+              this.chooseList[m].push(this.chooseShopping[n])
+              subTotal += this.chooseShopping[n].price * this.chooseShopping[n].num
+            }
+          }
+        }
+        this.subTotal = subTotal
+      },
+      _showChooseList () {
+        this.showChooseList = !this.showChooseList
       },
       fanye (t) {
         if (t === 1 && this.hasNextPage) {
@@ -380,7 +437,7 @@
         }
       },
       _chooseNum (t) {
-        if (t === -1 && this.chooseNum > 0) {
+        if (t === -1 && this.chooseNum > 1) {
           --this.chooseNum
           for(var i = 0;i < this.chooseShopping.length;i ++){
             if(this.chooseShopping[i].sku_id == this.sku_id){
@@ -396,26 +453,39 @@
             }
           }
         }
-        console.log(this.chooseShopping)
+        this._chooseList();
       },
       _changeNum (e) {
-        this.chooseNum = parseInt(e.target.value)
+        if(!(/^\d$/.test(e.target.value))){
+          this.chooseNum = 1
+        }
+        else if(e.target.value < 1){  
+          this.chooseNum = 1
+        }
+        else{
+          this.chooseNum = parseInt(e.target.value)
+        }
+        
         for(var i = 0;i < this.chooseShopping.length;i ++){
           if(this.chooseShopping[i].sku_id == this.sku_id){
             this.chooseShopping[i].num = this.chooseNum
           }
         }
+        this._chooseList();
       },
       _addCart () {
-        for(var i = 0;i < this.chooseShopping.length; i++){
-          if(this.chooseShopping[i].num){
+        if(this.size_t == -1 || this.color_t == -1){
+          this.isSku = true
+        }
+        else{
+          for(var i = 0;i < this.chooseShopping.length; i++){          
             var obj = this.chooseShopping[i];
             obj.item_id = this.item_id
             obj.store_id = this.store_id
             obj.buyer_id = 1
             obj.title = this.tit
             obj.origin_price = this.price
-            obj.price = this.price
+            // obj.price = this.price
             obj.sub_total = obj.num * this.price
             console.log(obj.num)
             this.$http.post('/api/carts', {"cart":obj})
@@ -424,9 +494,10 @@
               },
               function (err) {
                 console.log(err)
-              })
+              })          
           }
         }
+        
       },
       tab (t) {
         this.tabList = t
