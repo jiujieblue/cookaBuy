@@ -116,6 +116,29 @@
               padding:3px 5px;
             }
           }
+          .sku{
+            border: 1px solid transparent;
+          }
+          .sku-active{
+            border: 1px solid #fcc505;
+            padding-left: 20px;
+            padding-bottom: 20px;
+          }
+          .sku-alert{
+            margin-top: 10px;
+            text-align: right;
+            color: #ff5c36;
+            span{
+              text-align: center;
+              display: inline-block;
+              margin-right: 5px;
+              background: #ff5c36;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              color: #fff;
+            }
+          }
           .desc-color,.desc-size{
             overflow:hidden;
             margin-top:10px;
@@ -158,7 +181,7 @@
               width:35px;
               height:35px;
               background:#fff;
-              border:1px solid #f6f6f6;
+              border:1px solid #cdcdcd;
               outline:none;
               &:hover{
                 background:#d7d7d7;
@@ -170,8 +193,9 @@
               width:70px;
               text-align:center;
               padding:0 5px;
-              border:2px solid #f6f6f6;
+              border:1px solid #cdcdcd;
               background:#f6f6f6;
+              outline: none;
             }
             .num-del{
               margin-left:10px;
@@ -235,26 +259,109 @@
             }
           }
           .desc-choosed{
+            &:after{
+              content: '';
+              display: table;
+              clear: both;
+            }
             margin-top: 20px;
             padding: 0 65px;
             position: relative;
             .choosed-tishi{
+              float: right;
+              overflow: hidden;
               .yixuan{
+                float: left;
+                cursor: pointer;
                 text-align: right;
                 span{
                   color: #ff4b12;
                 }
               }
               .sanjiao{
-
+                float: left;
+                margin-left: 5px;
+                margin-top: 3px;
+                width: 0;
+                height: 0;
+                border: 5px solid transparent;
+                border-bottom: 5px solid #333;
               }
             }
             .choosed-list{
               position: absolute;
               background: #fff;
-              bottom:5px;
+              bottom: 25px;
               left: 5px;
-              display: none;
+              padding:0 20px;
+              border: 1px solid #e9e9e9;
+              .list-self{
+                overflow: hidden;
+                padding: 20px 0;
+                border-bottom: 1px solid #e9e9e9;
+                .list-self-color{
+                  float: left;
+                  margin-top: 10px;
+                }
+                .list-self-oth{
+                  float: left;
+                  margin-left: 40px;
+                  .oth-info{
+                    overflow: hidden;
+                    margin-top: 25px;
+                    .info-size{
+                      float: left;
+                      margin-top: 10px;
+                      width: 40px;
+                    }
+                    .info-num{
+                      float: left;
+                      margin-left: 40px;
+                      overflow: hidden;
+                      span,button,input{
+                        float: left;
+                      }
+                      span{
+                        margin-top: 10px;
+                      }
+                      button{
+                        width:35px;
+                        height:35px;
+                        background:#fff;
+                        border:1px solid #cdcdcd;
+                        outline:none;
+                        &:hover{
+                          background:#d7d7d7;
+                        }
+                      }
+                      input{
+                        height:35px;
+                        width:70px;
+                        text-align:center;
+                        padding:0 5px;
+                        border:1px solid #cdcdcd;
+                        background:#f6f6f6;
+                        outline: none;
+                      }
+                    }
+                  }
+                  .oth-info:first-child{
+                    margin-top: 0;
+                  }
+                }
+              }
+              .sub-total{
+                padding: 10px;
+                text-align: center;
+                span{
+                  color: #ff5c36;
+                }
+              }
+              .weixuanze{
+                width: 334px;
+                text-align: center;
+                padding: 20px;
+              }
             }
           }
         }

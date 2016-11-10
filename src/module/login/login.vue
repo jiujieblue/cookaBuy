@@ -39,7 +39,7 @@
                 <span>用户登录 / </span>尊敬的柯咔用户，欢迎您回来!
               </div>
               <div class="login-tit-r">
-                还没有账号 ? <a href="#">立即注册</a>
+                <a href="#">立即注册</a>
               </div>
             </div>
             <form v-on:submit="_submit">

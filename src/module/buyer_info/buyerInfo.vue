@@ -34,7 +34,6 @@
             <div class="buyer-account-location">
               当前位置：账号管理 > 个人资料
             </div>
-
             <div class="buyer-account-info">
               <a v-bind:class="type == 1 ? 'active' : ''" v-on:click="_type(1)">基本信息</a><a v-bind:class="type == 2 ? 'active' : ''" v-on:click="_type(2)">个人信息</a>          
             </div>
@@ -152,6 +151,7 @@
       changeImg (e) {
         var target = e.target
         var reg = /(\.jpg|\.png)$/ig
+        console.log(target.value)
         if(!reg.test(target.value)){
           alert('请选择 JPG 或者 PNG 格式的图片');
           return;
