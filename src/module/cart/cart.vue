@@ -1,6 +1,5 @@
 <template>
   <div>
-  <!-- use the modal component, pass in the prop -->
     <div v-if="showModal" class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
@@ -13,7 +12,7 @@
           </div>
 
           <div class="modal-footer">
-            <button @click="showModal=false">关<span class="em"></span>闭</button>
+            <button @click="_close">关<span class="em"></span>闭</button>
             <button @click="_del">确<span class="em"></span>定</button>
           </div>
         </div>
@@ -72,18 +71,18 @@
                         &yen; {{itemIn.num * itemIn.price}}
                       </div>
                       <div class="list-act">
-                        <a @click="_showModal">删除</a> | <a>收藏</a>
+                        <a @click="_showModal(index,indexIn)">删除</a> | <a v-on:click="_fav(index,indexIn)">{{itemIn.status == 'favorited' ? '已收藏' : '收藏'}}</a>
                       </div>
                     </div>
 
                     <div class="detail-send">
                       <div>配送服务 : </div>
                       <div>
-                        <input type="checkbox">
+                        <input type="radio" v-bind:name="'send'+index" value="1" v-on:change="_send(index,$event)">
                         <label>代发</label>
                       </div>
                       <div>
-                        <input type="checkbox">
+                        <input type="radio" v-bind:name="'send'+index" value="2" v-on:change="_send(index,$event)">
                         <label>商家发货</label>
                       </div>
                     </div>
@@ -95,14 +94,14 @@
                   <div class="oth-l">
                     <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
                     <label>全选</label>
-                    <a>删除</a>
-                    <a>收藏</a>
+                    <a v-on:click="_delMore">删除</a>
+                    <a v-on:click="_favMore">收藏</a>
                     <a>清除失效商品</a>
                   </div>
                   <div class="oth-r">
-                    <span>商品数量 : 12件</span>
-                    <span>金额总计(不含运费) : <mark>&yen;1255.00</mark></span>
-                    <button>结算</button>
+                    <span>商品数量 : {{totalPeice}}件</span>
+                    <span>金额总计(不含运费) : <mark>&yen;{{totalMoney}}</mark></span>
+                    <button v-on:click="_balance">结算</button>
                   </div>
                 </div>
               </div>
@@ -127,14 +126,57 @@
         checkOne: [],
         checkShp: [],
         checkAll: false,
+        t1: -1,
+        t2: -1,
+        delOne: false,
+        delMore: false,
+        send: [],
+        totalPeice: 0,
+        totalMoney: 0
       }
     },
     methods: {
-      _showModal () {
+      _showModal (t1,t2) {
         this.showModal = true
+        this.delOne = true
+        this.t1 = t1
+        this.t2 = t2
+      },
+      _close () {
+        this.t1 = -1
+        this.t2 = -1
+        this.delOne = false
+        this.delMore = false
       },
       _del () {
         this.showModal = false
+        if(this.delOne){
+          var id = this.data[this.t1].carts[this.t2].id
+          this.$http.delete('/api/carts/'+id)
+            .then(function(ret){
+              console.log(ret.data)
+            },function(err){
+              console.log(err)
+            })
+        }
+        if(this.delMore){
+          var arr = [];
+          for(var i = 0;i < this.checkOne.length;i++){
+            for(var j = 0;j < this.checkOne[i].length;j++){
+              if(this.checkOne[i][j]){
+                arr.push(this.data[i].carts[j].id)
+              }
+            }
+          }
+          var ids = arr.join(',')
+          console.log(ids) 
+          this.$http.delete('/api/carts/'+ids)
+            .then(function(ret){
+              console.log(ret.data)
+            },function(err){
+              console.log(err)
+            })
+        }
       },
       _checkOne (t1,t2,e) {
         this.$set(this.checkOne[t1],t2,e.target.checked)
@@ -162,6 +204,7 @@
         else{
           this.checkAll = false;
         }
+        this._total()
       },
       _checkShp (t,e) {
         this.$set(this.checkShp, t, e.target.checked)
@@ -179,6 +222,7 @@
         else{
           this.checkAll = false;
         }
+        this._total()
       },
       _checkAll (e) {
         this.checkAll = e.target.checked
@@ -190,8 +234,10 @@
             this.$set(this.checkOne[i], j, e.target.checked)
           }
         }
+        this._total()
       },
       _changeNum (t1,t2,s) {
+        
         if(s == 1){
           ++this.data[t1].carts[t2].num  
         }
@@ -207,6 +253,81 @@
           },function(err){
             console.log(err)
           })
+        this._total()
+      },
+      _fav (t1,t2,s) {
+        var favorite = {
+          "user_id": this.data[t1].carts[t2].buyer_id,
+          "store_id": this.data[t1].id,
+          "cart_id": this.data[t1].carts[t2].id,
+          "item_id": this.data[t1].carts[t2].item_id
+        }
+        this.$http.post('/api/favorites',{"favorite":favorite})
+          .then(function(ret){
+            console.log(ret.data)
+          },function(err){
+            console.log(err)
+          })      
+      },
+      _delMore () {
+        this.showModal = true
+        this.delMore = true
+      },
+      _favMore () {
+        for(var i = 0;i < this.checkOne.length;i++){
+          for(var j = 0;j < this.checkOne[i].length;j++){
+            if(this.checkOne[i][j]){
+              var favorite = {
+                "user_id": this.data[i].carts[j].buyer_id,
+                "store_id": this.data[i].id,
+                "cart_id": this.data[i].carts[j].id,
+                "item_id": this.data[i].carts[j].item_id
+              }
+              this.$http.post('/api/favorites',{"favorite":favorite})
+                .then(function(ret){
+                  console.log(ret.data)
+                },function(err){
+                  console.log(err)
+                })  
+            }
+          }
+        }
+      },
+      _send (t,e) {
+        console.log(t,e.target.value)
+        this.$set(this.send,t,e.target.value)
+        console.log(this.send[t])
+      },
+      _total () {
+        this.totalPeice = 0
+        this.totalMoney = 0
+        for(var i = 0; i < this.checkOne.length;i++){
+          for(var j = 0; j < this.checkOne[i].length;j++){
+            if(this.checkOne[i][j]){
+              ++this.totalPeice;
+              this.totalMoney += this.data[i].carts[j].price * this.data[i].carts[j].num
+            }            
+          }
+        }
+      },
+      _balance () {
+        var list = []
+        for(var i = 0; i < this.checkOne.length;i++){
+          var obj = {}
+          obj.cart = []
+          for(var j = 0; j < this.checkOne[i].length;j++){
+            if(this.checkOne[i][j]){
+            obj.store_name = this.data[i].store_name
+            obj.mobile = this.data[i].mobile
+            obj.location = this.data[i].location
+            obj.cart.push(this.data[i].carts[j])
+            }
+          }
+          if(obj.cart.length){
+            list.push(obj)
+          }
+        }
+        console.log(list)
       }
     },
     mounted () {
@@ -216,6 +337,7 @@
           for(var i = 0;i < this.data.length;i++){
             this.$set(this.checkOne, i, []);
             this.checkShp.push(false);
+            this.send.push(0);
             for(var j = 0;j < this.data[i].carts.length;j++){
               this.checkOne[i].push(false)
             }
