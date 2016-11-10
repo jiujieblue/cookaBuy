@@ -1,5 +1,6 @@
 <template>
   <div>
+    <OrderHeader></OrderHeader>
     <div v-if="showModal" class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
@@ -20,89 +21,87 @@
     </div>
     <div class="cart-m">
       <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="cart">
-                <ul class="cart-menu">
-                  <li class="menu-all">
-                    <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
-                    <label>全选</label>
-                  </li>
-                  <li class="menu-shp">商品</li>
-                  <li class="menu-sty">规格</li>
-                  <li class="menu-num">数量</li>
-                  <li class="menu-pri">单价</li>
-                  <li class="menu-tot">小计</li>
-                  <li class="menu-act">操作</li>
-                </ul>
-
-                <div class="cart-detail" v-for="(item,index) in data">
-                  <div class="detail-tit">
-                    <input type="checkbox" v-bind:checked="checkShp[index]" v-on:change="_checkShp(index,$event)">
-                    <div class="shp-logo">SHOP</div>
-                    <div>{{item.store_name}}</div>
-                    <span class="icon-dianhua"></span>
-                    <div>{{item.mobile}}</div>
-                  </div>
-                  <div class="detail-shp">
-                    <div class="detail-list" v-for="(itemIn,indexIn) in item.carts">
-                      <div class="list-shp">
-                        <input type="checkbox" v-on:change="_checkOne(index,indexIn,$event)" v-bind:checked="checkOne[index][indexIn]">
-                        <img v-bind:src="itemIn.pic_url" height="80" width="80">
-                        <div>{{itemIn.title}}</div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="cart">
+              <ul class="cart-menu">
+                <li class="menu-all">
+                  <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
+                  <label>全选</label>
+                </li>
+                <li class="menu-shp">商品</li>
+                <li class="menu-sty">规格</li>
+                <li class="menu-num">数量</li>
+                <li class="menu-pri">单价</li>
+                <li class="menu-tot">小计</li>
+                <li class="menu-act">操作</li>
+              </ul>
+              <div class="cart-detail" v-for="(item,index) in data">
+                <div class="detail-tit">
+                  <input type="checkbox" v-bind:checked="checkShp[index]" v-on:change="_checkShp(index,$event)">
+                  <div class="shp-logo">SHOP</div>
+                  <div>{{item.store_name}}</div>
+                  <span class="icon-dianhua"></span>
+                  <div>{{item.mobile}}</div>
+                </div>
+                <div class="detail-shp">
+                  <div class="detail-list" v-for="(itemIn,indexIn) in item.carts">
+                    <div class="list-shp">
+                      <input type="checkbox" v-on:change="_checkOne(index,indexIn,$event)" v-bind:checked="checkOne[index][indexIn]">
+                      <img v-bind:src="itemIn.pic_url" height="80" width="80">
+                      <div>{{itemIn.title}}</div>
+                    </div>
+                    <div class="list-sty">
+                      {{itemIn.prop_name.split(';')[1].split(':')[1]}}/{{itemIn.prop_name.split(';')[0].split(':')[1]}}
+                    </div>
+                    <div class="list-num">
+                      <div class="num-box">
+                        <button dir="sub" v-on:click="_changeNum(index,indexIn,-1)">-</button>
+                        <input type="text" v-on:change="_changeNum(index,indexIn,$event)" v-model="itemIn.num">
+                        <button dir="add" v-on:click="_changeNum(index,indexIn,1)">+</button>
                       </div>
-                      <div class="list-sty">
-                        {{itemIn.prop_name.split(';')[1].split(':')[1]}}/{{itemIn.prop_name.split(';')[0].split(':')[1]}}
-                      </div>
-                      <div class="list-num">
-                        <div class="num-box">
-                          <button dir="sub" v-on:click="_changeNum(index,indexIn,-1)">-</button>
-                          <input type="text" v-on:change="_changeNum(index,indexIn,$event)" v-model="itemIn.num">
-                          <button dir="add" v-on:click="_changeNum(index,indexIn,1)">+</button>
-                        </div>
-                        <div class="num-text">
-                          6-15件 : 110/件
-                        </div>
-                      </div>
-                      <div class="list-pri">
-                        &yen; {{itemIn.price}}
-                      </div>
-                      <div class="list-tot">
-                        &yen; {{itemIn.num * itemIn.price}}
-                      </div>
-                      <div class="list-act">
-                        <a @click="_showModal(index,indexIn)">删除</a> | <a v-on:click="_fav(index,indexIn)">{{itemIn.status == 'favorited' ? '已收藏' : '收藏'}}</a>
+                      <div class="num-text">
+                        6-15件 : 110/件
                       </div>
                     </div>
+                    <div class="list-pri">
+                      &yen; {{itemIn.price}}
+                    </div>
+                    <div class="list-tot">
+                      &yen; {{itemIn.num * itemIn.price}}
+                    </div>
+                    <div class="list-act">
+                      <a @click="_showModal(index,indexIn)">删除</a> | <a v-on:click="_fav(index,indexIn)">{{itemIn.status == 'favorited' ? '已收藏' : '收藏'}}</a>
+                    </div>
+                  </div>
 
-                    <div class="detail-send">
-                      <div>配送服务 : </div>
-                      <div>
-                        <input type="radio" v-bind:name="'send'+index" value="1" v-on:change="_send(index,$event)">
-                        <label>代发</label>
-                      </div>
-                      <div>
-                        <input type="radio" v-bind:name="'send'+index" value="2" v-on:change="_send(index,$event)">
-                        <label>商家发货</label>
-                      </div>
+                  <div class="detail-send">
+                    <div>配送服务 : </div>
+                    <div>
+                      <input type="radio" v-bind:name="'send'+index" value="1" v-on:change="_send(index,$event)">
+                      <label>代发</label>
+                    </div>
+                    <div>
+                      <input type="radio" v-bind:name="'send'+index" value="2" v-on:change="_send(index,$event)">
+                      <label>商家发货</label>
                     </div>
                   </div>
                 </div>
+              </div>
 
 
-                <div class="cart-oth">
-                  <div class="oth-l">
-                    <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
-                    <label>全选</label>
-                    <a v-on:click="_delMore">删除</a>
-                    <a v-on:click="_favMore">收藏</a>
-                    <a>清除失效商品</a>
-                  </div>
-                  <div class="oth-r">
-                    <span>商品数量 : {{totalPeice}}件</span>
-                    <span>金额总计(不含运费) : <mark>&yen;{{totalMoney}}</mark></span>
-                    <button v-on:click="_balance">结算</button>
-                  </div>
+              <div class="cart-oth">
+                <div class="oth-l">
+                  <input type="checkbox" v-on:change="_checkAll($event)" v-bind:checked="checkAll">
+                  <label>全选</label>
+                  <a v-on:click="_delMore">删除</a>
+                  <a v-on:click="_favMore">收藏</a>
+                  <a>清除失效商品</a>
+                </div>
+                <div class="oth-r">
+                  <span>商品数量 : {{totalPeice}}件</span>
+                  <span>金额总计(不含运费) : <mark>&yen;{{totalMoney}}</mark></span>
+                  <button v-on:click="_balance">结算</button>
                 </div>
               </div>
             </div>
@@ -110,15 +109,22 @@
         </div>
       </div>
     </div>
+    <fot></fot>
   </div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
   import Vue from 'vue'
+  import OrderHeader from 'components/OrderHeader'
+  import fot from 'components/footer'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   export default{
+    components:{
+      OrderHeader,
+      fot
+    },
     data () {
       return {
         showModal: false,
@@ -237,12 +243,13 @@
         this._total()
       },
       _changeNum (t1,t2,s) {
-
         if(s == 1){
           ++this.data[t1].carts[t2].num
         }
         else if(s == -1){
-          --this.data[t1].carts[t2].num
+          if(this.data[t1].carts[t2].num > 1){
+            --this.data[t1].carts[t2].num
+          }
         }
         else{
           this.data[t1].carts[t2].num = s.target.value
@@ -321,6 +328,7 @@
             obj.mobile = this.data[i].mobile
             obj.location = this.data[i].location
             obj.cart.push(this.data[i].carts[j])
+            obj.send = this.send[i]
             }
           }
           if(obj.cart.length){
