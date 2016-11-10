@@ -316,17 +316,18 @@
 	export default{
 		data(){
 			return{
-
+        list:[]
 			}
 		},
 		components:{
 
 		},
 		methods:{
-			
+
 		},
 		mounted(){
-
+      this.list = JSON.parse(localStorage.getItem('list'))
+      console.log(this.list)
 		}
 	}
 </script>

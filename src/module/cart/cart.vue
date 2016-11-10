@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="cart-m">
-      <div class="container">      
+      <div class="container">
           <div class="row">
             <div class="col-md-12">
               <div class="cart">
@@ -107,7 +107,7 @@
               </div>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
             }
           }
           var ids = arr.join(',')
-          console.log(ids) 
+          console.log(ids)
           this.$http.delete('/api/carts/'+ids)
             .then(function(ret){
               console.log(ret.data)
@@ -191,7 +191,7 @@
           }
           else{
             this.$set(this.checkShp, i, false);
-          }           
+          }
         }
         for(var k = 0; k < this.checkShp.length;k++){
           if(!this.checkShp[k]){
@@ -237,12 +237,12 @@
         this._total()
       },
       _changeNum (t1,t2,s) {
-        
+
         if(s == 1){
-          ++this.data[t1].carts[t2].num  
+          ++this.data[t1].carts[t2].num
         }
         else if(s == -1){
-          --this.data[t1].carts[t2].num 
+          --this.data[t1].carts[t2].num
         }
         else{
           this.data[t1].carts[t2].num = s.target.value
@@ -267,7 +267,7 @@
             console.log(ret.data)
           },function(err){
             console.log(err)
-          })      
+          })
       },
       _delMore () {
         this.showModal = true
@@ -288,7 +288,7 @@
                   console.log(ret.data)
                 },function(err){
                   console.log(err)
-                })  
+                })
             }
           }
         }
@@ -306,7 +306,7 @@
             if(this.checkOne[i][j]){
               ++this.totalPeice;
               this.totalMoney += this.data[i].carts[j].price * this.data[i].carts[j].num
-            }            
+            }
           }
         }
       },
@@ -328,6 +328,7 @@
           }
         }
         console.log(list)
+        localStorage.setItem('list',JSON.stringify(list))
       }
     },
     mounted () {
