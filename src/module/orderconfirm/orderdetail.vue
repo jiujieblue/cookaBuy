@@ -149,11 +149,26 @@
 				<div class="order">
 					<div class="order-title">
 						<span>SHOP</span>
-						<span>bizhi服饰</span>
+						<span>liangcheng服饰</span>
 						<span>广东省&nbsp;广州市&nbsp;沙河区&nbsp;新潮都-1F-107&nbsp;(&nbsp;13760636639&nbsp;)</span>
 					</div>
 					<div class="order-body">
 						<table class="order_tb">
+							<tr>
+								<td>
+									<div class="img">
+										<img src="../../assets/images/test01.jpg" alt="">
+									</div>
+									<span>2016年夏季圆领宽松腰贴布中长款短袖连衣裙</span>
+									<span>货号：8634</span>
+								</td>
+								<td>黑色/175L</td>
+								<td>18.00</td>
+								<td>5</td>
+								<td>90.00</td>
+								<td>10.00</td>
+								<td>100.00</td>
+							</tr>
 							<tr>
 								<td>
 									<div class="img">
