@@ -116,7 +116,6 @@
       _submit (e) {
         e.preventDefault();
         var data = fto(e.target);
-        console.log(data);
         if (!data || !data.username) {
           this.error = '手机号码不能为空'
           return false;
