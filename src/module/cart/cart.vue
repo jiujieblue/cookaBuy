@@ -254,7 +254,13 @@
            
         }
         else{
-          this.data[t1].carts[t2].num = s.target.value
+          if(!(/^(\d)*$/.test(s.target.value))){
+            this.data[t1].carts[t2].num = 1
+          }
+          else{
+            this.data[t1].carts[t2].num = parseInt(s.target.value)
+          }
+          
         }
         this.$http.put('/api/carts/' + this.data[t1].carts[t2].id,{"cart":{"num":this.data[t1].carts[t2].num}})
           .then(function(ret){
@@ -303,9 +309,7 @@
         }
       },
       _send (t,e) {
-        console.log(t,e.target.value)
         this.$set(this.send,t,e.target.value)
-        console.log(this.send[t])
       },
       _total () {
         this.totalPeice = 0
