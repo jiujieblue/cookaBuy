@@ -6,7 +6,7 @@
 				<ri></ri>
 				<form action="">
 					<od></od>
-					<cp></cp>
+					<cp style="display:none"></cp>
 					<account></account>
 				</form>
 			</div>

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="cart-m">
-      <div class="container">      
+      <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="cart">
@@ -36,7 +36,6 @@
                 <li class="menu-tot">小计</li>
                 <li class="menu-act">操作</li>
               </ul>
-
               <div class="cart-detail" v-for="(item,index) in data">
                 <div class="detail-tit">
                   <input type="checkbox" v-bind:checked="checkShp[index]" v-on:change="_checkShp(index,$event)">
@@ -107,7 +106,7 @@
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
     <fot></fot>
@@ -176,7 +175,7 @@
             }
           }
           var ids = arr.join(',')
-          console.log(ids) 
+          console.log(ids)
           this.$http.delete('/api/carts/'+ids)
             .then(function(ret){
               console.log(ret.data)
@@ -198,7 +197,7 @@
           }
           else{
             this.$set(this.checkShp, i, false);
-          }           
+          }
         }
         for(var k = 0; k < this.checkShp.length;k++){
           if(!this.checkShp[k]){
@@ -243,15 +242,14 @@
         }
         this._total()
       },
-      _changeNum (t1,t2,s) {        
+      _changeNum (t1,t2,s) {
         if(s == 1){
-          ++this.data[t1].carts[t2].num  
+          ++this.data[t1].carts[t2].num
         }
         else if(s == -1){
           if(this.data[t1].carts[t2].num > 1){
             --this.data[t1].carts[t2].num
           }
-           
         }
         else{
           if(!(/^(\d)*$/.test(s.target.value))){
@@ -282,7 +280,7 @@
             console.log(ret.data)
           },function(err){
             console.log(err)
-          })      
+          })
       },
       _delMore () {
         this.showModal = true
@@ -303,7 +301,7 @@
                   console.log(ret.data)
                 },function(err){
                   console.log(err)
-                })  
+                })
             }
           }
         }
@@ -319,7 +317,7 @@
             if(this.checkOne[i][j]){
               ++this.totalPeice;
               this.totalMoney += this.data[i].carts[j].price * this.data[i].carts[j].num
-            }            
+            }
           }
         }
       },
@@ -342,6 +340,7 @@
           }
         }
         console.log(list)
+        localStorage.setItem('list',JSON.stringify(list))
       }
     },
     mounted () {
