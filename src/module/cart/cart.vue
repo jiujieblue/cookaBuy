@@ -118,6 +118,7 @@
   import Vue from 'vue'
   import OrderHeader from 'components/OrderHeader'
   import fot from 'components/footer'
+  import interceptors from 'components/interceptors'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   export default{
@@ -344,6 +345,7 @@
       }
     },
     mounted () {
+
       this.$http.get('/api/carts')
         .then(function(ret){
           this.data = ret.data.data
