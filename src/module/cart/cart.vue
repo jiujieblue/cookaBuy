@@ -258,8 +258,7 @@
           }
           else{
             this.data[t1].carts[t2].num = parseInt(s.target.value)
-          }
-          
+          }         
         }
         this.$http.put('/api/carts/' + this.data[t1].carts[t2].id,{"cart":{"num":this.data[t1].carts[t2].num}})
           .then(function(ret){
@@ -345,7 +344,6 @@
       }
     },
     mounted () {
-
       this.$http.get('/api/carts')
         .then(function(ret){
           this.data = ret.data.data
