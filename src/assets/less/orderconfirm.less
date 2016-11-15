@@ -8,65 +8,235 @@
 	display: inline-block;
 	width: .5em;
 }
-//----------------------------------------Modal CSS
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
+//----------------------------------------Del Modal CSS
+.delmodal-mask {
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	display: table;
+	.modal-wrapper {
+		display: table-cell;
+		vertical-align: middle;
+		.modal-container {
+			width: 560px;
+			margin: 0px auto;
+			padding: 20px 30px;
+			background-color: #fff;
+			border-radius: 2px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+			.modal-header{
+				margin-top: 0;
+				border-bottom: 2px solid @ck-main;
+				i{
+					color: #fb5b46;
+					font-size: 24px;
+					vertical-align: sub;
+			  	}
+				span{
+					color: @ck-main;
+					font-size: 20px;
+					margin-left: 8px;
+				}
+			}
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
+			.modal-body {
+				>p{
+					font-size: 16px;
+					margin: 10px 0;
+				}
+				p:first-child{
+					font-size: 22px;
+				}
+			}
 
-.modal-container {
-  width: 560px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+			.modal-footer{
+				button{
+					float: left;
+				}
+				.button-ok{
+					font-size: 22px;
+					background-color: @ck-main;
+					border: 1px solid #c4bebc;
+					border-radius: 3%;
+					padding: 10px 60px;
+					margin-right: 116px;
+					letter-spacing: 4px;
+				}
+				.button-cel{
+					font-size: 22px;
+				  	background-color: #fff;
+					border: 1px solid #c4bebc;
+					border-radius: 3%;
+					padding: 10px 60px;
+					letter-spacing: 4px;
+				}
+			}
+		}
+	}
 }
+//------------------------------------------Del Modal CSS
 
-.modal-header{
-  margin-top: 0;
-  border-bottom: 2px solid @ck-main;
-  i{
-	color: #fb5b46;
-	font-size: 24px;
-	vertical-align: sub;
-  }
-  span{
-	color: @ck-main;
-	font-size: 20px;
-	margin-left: 8px;
-  }
+
+//----------------------------------------Edit Address Modal CSS
+.editaddrmodal-mask {
+	position: fixed;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	display: table;
+	.modal-wrapper {
+		display: table-cell;
+		vertical-align: middle;
+		.modal-container {
+			width: 770px;
+			margin: 0px auto;
+			padding: 20px 30px;
+			background-color: #fff;
+			border-radius: 2px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+			.modal-header{
+				margin-top: 0;
+				border-bottom: 2px solid @ck-main;
+				span{
+					color: @ck-main;
+					font-size: 20px;
+				}
+			}
+
+			.modal-body {
+				div{
+					margin:20px 20px 20px 40px;
+					input,select{
+						padding-left: 10px;
+						&:focus{
+							outline:none;
+							border:1px solid @ck-sub;
+						}
+					}
+					>span:nth-child(1){
+						color: #fb5b46;
+					}
+					>span:nth-child(2){
+						font-size: 14px;
+					}
+					&:nth-child(1){
+						p{
+							font-size: 14px;
+							i{
+								color: #50c4fc;
+								padding-bottom: 4px;
+								padding-right: 10px;
+							}
+						}
+					}
+					&:nth-child(2){
+						select,option{
+							margin-left: 12px;
+							width: 80px;
+							height: 30px;
+						}
+	                	select{
+		                  appearance:none;
+		                  -moz-appearance:none;
+		                  -webkit-appearance:none;
+		                  background: url("../images/icons/jiantoud.svg")
+		                              no-repeat
+		                              scroll
+		                              90%
+		                              center
+		                              transparent;
+		                  background-size: 10px 10px;
+		                }
+					}
+					&:nth-child(3){
+						input{
+							margin-left: 12px;
+							width: 400px;
+							height: 30px;
+						}
+					}
+					&:nth-child(4){
+						input{
+							margin-left: 12px;
+							width: 130px;
+							height: 30px;
+						}
+					}
+					&:nth-child(5){
+						input{
+							width: 130px;
+							height: 30px;
+						}
+					}
+					&:nth-child(6){
+						input{
+							margin-left: 12px;
+							width: 220px;
+							height: 30px;
+						}
+					}
+					&:nth-child(7){
+						input{
+							margin-left: 12px;
+							width: 220px;
+							height: 30px;
+						}
+					}
+					&:nth-child(8){
+						margin-left: 90px;
+						div{
+							cursor: pointer;
+							span{
+								position: relative;
+								top: 1px;
+							}
+							i{
+								font-size: 16px;
+							}
+							.icon-xuanze{
+								color: @ck-main;
+							}
+						}
+					}
+				}
+			}
+
+			.modal-footer{
+				button{
+					float: left;
+					margin-top: 20px;
+				}
+				.button-ok{
+					font-size: 22px;
+					background-color: @ck-main;
+					border: 1px solid #c4bebc;
+					border-radius: 3%;
+					padding: 10px 60px;
+					margin-left: 100px;
+					margin-right: 130px;
+					letter-spacing: 4px;
+				}
+				.button-cel{
+					font-size: 22px;
+				  	background-color: #fff;
+					border: 1px solid #c4bebc;
+					border-radius: 3%;
+					padding: 10px 60px;
+					letter-spacing: 4px;
+				}
+			}
+		}
+	}
 }
+//------------------------------------------Edit Address Modal CSS
 
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-//----------------------------------------------Modal CSS
 .orderconfirm{
 	.receiptinfo-box{
 		&-top{
@@ -249,7 +419,7 @@
 				                              transparent;
 				                  background-size: 10px 10px;
 				                }
-				              }
+				            }
 							&:nth-child(2){
 								input{
 									margin-left: 12px;
@@ -288,7 +458,7 @@
 								margin-left: 80px;
 								div{
 									cursor: pointer;
-									span{    
+									span{
 										position: relative;
 										top: 1px;
 									}
@@ -372,7 +542,7 @@
 							padding: 0 6px;
 						}
 						span:nth-child(3){
-							padding-left: 10px; 
+							padding-left: 10px;
 						}
 					}
 					&-body{
@@ -518,10 +688,10 @@
 									z-index: 10;
 									width: 30px;
 									height: 30px;
-									
+
 									border-left: 1px solid #60c4fc;
 									border-top: 1px solid #60c4fc;
-									transform: rotate(45deg); 
+									transform: rotate(45deg);
 								}
 								.triangle{
 									position: absolute;
@@ -592,7 +762,7 @@
 							padding: 0 6px;
 						}
 						span:nth-child(3){
-							padding-left: 10px; 
+							padding-left: 10px;
 						}
 					}
 					&-body{
@@ -719,10 +889,10 @@
 											z-index: 10;
 											width: 30px;
 											height: 30px;
-											
+
 											border-left: 1px solid #60c4fc;
 											border-top: 1px solid #60c4fc;
-											transform: rotate(45deg); 
+											transform: rotate(45deg);
 										}
 										.triangle{
 											position: absolute;
@@ -768,6 +938,7 @@
 			}
 		}
 		&-body{
+			.clearfix();
 			background-color: #fff;
 			>div{
 				width: 33.33%;
@@ -853,60 +1024,15 @@
 					}
 				}
 				.disable_couponblock{
-					cursor: pointer;
-					margin: 50px 20px;
-					vertical-align: middle;
-					display: inline-block;
-					width: 285px;
-					height: 100px;
-					position: relative;
-					>div{
-						position: absolute;
-					}
-					div:nth-child(1){
-						width: 107px;
-						height: 100%;
-						background-color: #CECECE;
-						left: 7px;
-						color: #fff;
-						>span{
-							position: absolute;
-						}
-						span:nth-child(1){
-							font-size: 20px;
-							top: 35px;
-							left: 10px;
-						}
-						span:nth-child(2){
-							font-size: 48px;
-							top: 4px;
-							left: 30px;
-						}
-						span:nth-child(3){
-							left: 10px;
-							bottom: 10px;
-						}
-					}
 					div:nth-child(2){
-						width: 171px;
-						height: 100%;
+						background-color: #CECECE;
+					}
+					div:nth-child(3){
 						border: 1px solid #CECECE;
-						border-radius: 0 5% 5% 0;
-						border-left: 0;
-						right: 0;
-						>span{
-							position: absolute;
-						}
 						span:nth-child(1){
 							font-size: 16px;
-							color: #c4bebc;
 							top: 20px;
 							left: 10px;
-						}
-						span:nth-child(2){
-							color: #c4bebc;
-							left: 10px;
-							bottom: 10px;
 						}
 					}
 				}
@@ -935,14 +1061,30 @@
 		}
 	}
 	.account-box{
+    margin-top: 30px;
 		background-color: #fff;
 		&-body{
-			padding-top: 20px;
-			padding-bottom: 20px;
-			p{	
-				font-size: 16px;
-				text-align: right;
-				padding: 10px 20px 0 10px;
+			text-align: right;
+			font-size: 16px;
+			.left{
+				>div{
+					margin-top: 20px;
+				}
+				float: left;
+				width: 92%
+			}
+			.right{
+				>div{
+					margin-top: 20px;
+					padding-right: 10px;
+				}
+				float: right;
+				width: 8%;
+			}
+			.last{
+				margin-top: 20px;
+				padding-right: 10px;
+				padding-bottom: 20px;
 			}
 		}
 		&-footer{
@@ -962,7 +1104,7 @@
 				font-size: 28px;
 				color: #ff3c00;
 			}
-			button{ 
+			button{
 				font-size: 18px;
 				color: #fff;
 				width: 138px;

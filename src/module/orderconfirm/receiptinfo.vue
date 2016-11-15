@@ -22,8 +22,8 @@
 					<span>12312312312</span>
 					<span>0660-8601048）</span>
 					<span v-bind:style="{'display':default_addr == 0?'inline-block':'none'}"><a href="#">默认地址</a></span>
-					<span><a href="#">修改地址</a></span>
-					<span><a @click="showModal = true">删除</a></span>
+					<span><a @click="showEditAddrModal = true">修改地址</a></span>
+					<span><a @click="showDelModal = true">删除</a></span>
 				</label>
 			</div>
 			<div :class="{'da_active' : default_addr == 1}" v-on:click="DefaultAddr($event)" data-id="1">
@@ -40,15 +40,13 @@
 					<span>0660-8601048）</span>
 					<span v-bind:style="{'display':default_addr == 1?'inline-block':'none'}"><a href="#">默认地址</a></span>
 					<span><a href="#">修改地址</a></span>
-					<span><a @click="showModal = true">删除</a></span>
+					<span><a @click="showDelModal = true">删除</a></span>
 				</label>
 			</div>
 		</div>
 
-		<!--  vue-Modal -->
-		<!-- <button type="button" id="show-modal" @click="showModal = true">Show Modal</button> -->
-		<!-- use the modal component, pass in the prop -->
-		<div class="modal-mask" v-if="showModal">
+		<!--  vue-Modal for del -->
+		<div class="delmodal-mask" v-if="showDelModal">
 			<div class="modal-wrapper">
 				<div class="modal-container">
 		
@@ -62,16 +60,18 @@
 						<slot name="body">
 							<p>请确认是否删除如下收货信息</p>
 							<p>收货地址：广东省 广州市 白云区 新市齐富路1525号510510</p>
-							<p></p>
-							<p></p>
+							<p>收件人：郑成功</p>
+							<p>联系电话：13786525555</p>
 						</slot>
 					</div>
 		
 					<div class="modal-footer">
 						<slot name="footer">
-								default footer
-							<button class="modal-default-button" @click="showModal = false">
-								OK
+							<button class="button-ok" @click="showDelModal = false">
+								确定
+							</button>
+							<button class="button-cel" @click="showDelModal = false">
+								取消
 							</button>
 						</slot>
 					</div>
@@ -79,7 +79,95 @@
 				</div>
 			</div>
 		</div>
-		<!--  vue-Modal -->
+		<!--  vue-Modal for del -->
+
+		<!--  vue-Modal for Edit Address -->
+		<div class="editaddrmodal-mask" v-if="showEditAddrModal">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+					
+					<div class="modal-header">
+						<slot name="header">
+							<span>收货地址修改</span>
+						</slot>
+					</div>
+					<form action="">
+						<div class="modal-body">
+							<slot name="body">
+								<div>
+									<p>
+										<i class="icon-tishi"></i>电话号码、手机号码选填一项，其余均为必填项
+									</p>
+								</div>
+								<div>
+									<span>*</span>
+									<span>所在地区<i class="_5em"></i>:</span>
+									<select name="" id="">
+										<option value="">广东省</option>
+										<option value="">广东省</option>
+										<option value="">广东省</option>
+									</select>
+									<select name="" id="">
+										<option value="">广州市</option>
+										<option value="">广州市</option>
+										<option value="">广州市</option>
+									</select>
+									<select name="" id="">
+										<option value="">越秀区</option>
+										<option value="">越秀区</option>
+										<option value="">越秀区</option>
+									</select>
+								</div>
+								<div>
+									<span>*</span>
+									<span>详细地址<i class="_5em"></i>:</span>
+									<input type="text">
+								</div>
+								<div>
+									<span>*</span>
+									<span>邮政编码<i class="_5em"></i>:</span>
+									<input type="text">
+								</div>
+								<div>
+									<span><i class="_5em"></i></span>
+									<span>收货人姓名 :</span>
+									<input type="text">
+								</div>
+								<div>
+									<span><i class="_5em"></i></span>
+									<span>手机号码<i class="_5em"></i>:</span>
+									<input type="text">
+								</div>
+								<div>
+									<span><i class="_5em"></i></span>
+									<span>电话号码<i class="_5em"></i>:</span>
+									<input type="text">
+								</div>
+								<div>
+									<div v-on:click="seteditaddr_default">
+										<i class="icon-weixuan" :style="{'display':editaddr_default?'none':'inline-block'}"></i>
+										<i class="icon-xuanze" :style="{'display':editaddr_default?'inline-block':'none'}"></i>
+										<span>设置为默认地址</span>
+									</div>
+								</div>
+							</slot>
+						</div>
+			
+						<div class="modal-footer">
+							<slot name="footer">
+								<button type="submit" class="button-ok" @click="showEditAddrModal = false">
+									确定
+								</button>
+								<button type="button" class="button-cel" @click="showEditAddrModal = false">
+									关闭
+								</button>
+							</slot>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--  vue-Modal for Edit Address -->
 
 		<div class="receiptinfo-box-newaddr">
 			<div @click="add_addr">
@@ -141,7 +229,7 @@
 							<input type="text">
 						</div>
 						<div>
-							<div v-on:click="set_default">
+							<div v-on:click="setnewaddr_default">
 								<i class="icon-weixuan" :style="{'display':newaddr_default?'none':'inline-block'}"></i>
 								<i class="icon-xuanze" :style="{'display':newaddr_default?'inline-block':'none'}"></i>
 								<span>设置为默认地址</span>
@@ -164,10 +252,12 @@
 	export default{
 		data(){
 			return{
-				newaddr_default:false,
+				newaddr_default: false,
+				editaddr_default: false,
 				newaddr: false,
 				default_addr: 0,
-				showModal: false
+				showDelModal: false,
+				showEditAddrModal: false
 			}
 		},
 		components:{
@@ -193,8 +283,11 @@
 			add_addr:function(){
 				this.newaddr = true
 			},
-			set_default:function(){
+			setnewaddr_default:function(){
 				this.newaddr_default = !this.newaddr_default
+			},
+			seteditaddr_default:function(){
+				this.editaddr_default = !this.editaddr_default
 			}
 		},
 		mounted(){

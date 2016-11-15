@@ -1,12 +1,22 @@
 <template>
 	<div class="account-box">
 		<div class="account-box-body">
-			<p>总商品金额：¥4770.00</p>
-			<p>增值服务费：¥0.00</p>
-			<p>代发费：¥120.00</p>
-			<p>运费：¥7.00</p>
-			<p>优惠：-¥10.00</p>
-			<p>寄送至：广东省广州市白云区同和街道白云区同和握山石决南街二巷二号&nbsp;&nbsp;&nbsp;收件人：邓先生&nbsp;&nbsp;&nbsp;电话：137*****823</p>
+			<div class="left">
+				<div>总商品金额：</div>
+				<div>增值服务费：</div>
+				<div>代发费：</div>
+				<div>运费：</div>
+				<div style="display: none">优惠：</div>
+			</div>
+			<div class="right">
+				<div>¥4770.00</div>
+				<div>¥0.00</div>
+				<div>¥120.00</div>
+				<div>¥7.00</div>
+				<div style="display: none">-¥10.00</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="last">寄送至：广东省广州市白云区同和街道白云区同和握山石决南街二巷二号&nbsp;&nbsp;&nbsp;收件人：邓先生&nbsp;&nbsp;&nbsp;电话：137*****823</div>
 		</div>
 		<div class="account-box-footer">
 			<div>商品数量：60件</div>
