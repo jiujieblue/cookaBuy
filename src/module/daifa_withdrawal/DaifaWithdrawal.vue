@@ -13,11 +13,11 @@
 				<DaifaSideBar></DaifaSideBar>
 			</div>
 			<div class="col-md-10 daifaWithdrawal">
-				<p class="row daifaWithdrawal-title">
+				<p class="daifaWithdrawal-title">
 					<span>当前位置：账户管理 ></span> 商家资料
 				</p>
 				<p>提现</p>
-				<div class="row daifaWithdrawal-operation">
+				<div class="daifaWithdrawal-operation">
 					<form v-if="!isTixian">
 						<ul>
 							<li>

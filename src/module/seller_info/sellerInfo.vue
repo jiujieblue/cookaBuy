@@ -14,10 +14,10 @@
 				</div>
 				<div class="col-md-10">
 					<div class="marketInfo-container">
-						<div class="row marketInfo-container-title">
+						<div class="marketInfo-container-title">
 							<span>当前位置：账户管理 ></span> 商家资料
 						</div>
-						<div class="row marketInfo-container-data">
+						<div class="marketInfo-container-data">
 							<div class="col-md-6 marketInfo-container-data-left">
 								<ul>
 									<li>

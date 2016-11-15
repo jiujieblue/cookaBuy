@@ -10,7 +10,7 @@
 	<div class='search container'>
 	  	<div class="row search-list">
 	  		<ul>
-	  			<li>所有分类 {{ pro  }}</li>
+	  			<li>所有分类</li>
 	  			<li> > <span>所有分类</span></li>
 	  			<li> > <span>所有分类</span></li>
 	  		</ul>
@@ -116,12 +116,12 @@
 		    				</ul>
 	    				</div>
 	    				<div :data_img="'Img_'+index">
-	    					<a v-for="(item_img,index) in product._source.item_imgs" href="#"><img @mouseover="changeImg($event)" :src="item_img.tb_url" alt="图片2"></a>
+	    					<a v-for="(item_img,index) in hitsProductListLength(product._source.item_imgs)" href="#"><img @mouseover="changeImg($event)" :src="item_img.tb_url" alt="图片2"></a>
 	    				</div>
 	    			</li>
 	    		</ul>
 	    	</div>
-	    	<div class="search-product-left-bar" v-if='isGridOrBar == 1'>
+	    	<div class="search-product-left-bar" v-else>
 	    		<ul>
 	    			<li v-for="(product,index) in hitsProductList" :data-id="product._source.id">
 	    				<a href="#"><img :src="product._source.pic_url" ></a>
@@ -167,7 +167,7 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination pages=10 prePage=1 pageNum=2 nextPage=3></CkPagination>
+	    	<CkPagination :pages='10' :prePage='1' :pageNum.sync="2" :nextPage='3'></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -266,8 +266,7 @@
 	      hitsProductList: [],
 	      pageInfo: {
 
-	      },
-	      pro: 40
+	      }
 	    }
 	  },
 	  mounted () {
@@ -289,12 +288,10 @@
 	  		var imgUrl = e.target.getAttribute('src')
 	  		var r = e.target.parentNode.parentNode.getAttribute('data_img')
 	  		this.$refs[r][0].setAttribute('src',imgUrl)
-	  	}
-	  },
-	  filter: {
-	  	ffff (val) {
-	  		return val*2
-	  	}
+	  	},
+	  	hitsProductListLength (list) {
+		    return list.slice(0,3)
+		  }
 	  },
 	  components: {
 	  	headerComponent,
@@ -302,7 +299,10 @@
 	  	CkSearch,
 	  	goTop,
 	  	CkPagination
-	  }
+	  },
+	 	computed: {
+
+	 	}
 	}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
