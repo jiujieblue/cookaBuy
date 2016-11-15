@@ -67,7 +67,7 @@
 						<p><span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。</p>
 						<p><button>提<span class="em"></span>交</button></p>
 					</form>
-					<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
+					<SellerFirstWithdrawal v-else></SellerFirstWithdrawal>
 				</div>
 			</div>
 		</div>
