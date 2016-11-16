@@ -276,7 +276,7 @@
 									</div>
 								</div>
 							</div>
-							<CKPagination></CKPagination>
+							<CkPagination></CkPagination>
 						</div>
 						<CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -383,7 +383,7 @@
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
-	import CKPagination from 'components/CKPagination'
+	import CkPagination from 'components/CkPagination'
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
 
@@ -405,7 +405,7 @@
 		},
 		components:{
 			headerComponent,
-			CKPagination,
+			CkPagination,
 			CKHr,
 			CKSearch,
 			footerComponent

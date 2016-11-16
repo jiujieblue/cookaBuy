@@ -34,9 +34,9 @@
 								<td>{{daifaCart.pro_name}}</td>
 								<td>{{daifaCart.origin_price}}</td>
 								<td>{{daifaCart.num}}</td>
-								<td>90.00</td>
+								<td>{{daifaCart.origin_price * daifaCart.num}}</td>
 								<td>10.00</td>
-								<td>100.00</td>
+								<td>{{daifaCart.origin_price * daifaCart.num + 10.00}}</td>
 							</tr>
 						</table>
 					</div>
@@ -106,9 +106,9 @@
 								<td>{{fahuoCart.pro_name}}</td>
 								<td>{{fahuoCart.origin_price}}</td>
 								<td>{{fahuoCart.num}}</td>
-								<td>90.00</td>
+								<td>{{fahuoCart.origin_price * fahuoCart.num}}</td>
 								<td>————</td>
-								<td>100.00</td>
+								<td>{{fahuoCart.origin_price * fahuoCart.num}}</td>
 							</tr>
 						</table>
 						<div class="peisong">
@@ -148,6 +148,9 @@
 <script>
 	import Vue from 'vue'
 
+  const VueResource = require('vue-resource')
+  Vue.use(VueResource)
+
 	export default{
 		data(){
 			return{
@@ -165,7 +168,6 @@
 		},
 		mounted(){
       this.list = JSON.parse(localStorage.getItem('list'))
-      console.log(this.list)
       for(var i = 0 ; i < this.list.length ; i ++){
         if(this.list[i].send==2) {
           this.part = '商家发货'
