@@ -108,7 +108,35 @@ var proxyTable = {
 		pathRewrite: {
 			'^/item02': '/item02'
 		}
-	}
+	},
+	'/api/addresses':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/addresses':'/api/addresses'
+    }
+  },
+  '/api/states':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/states':'/api/states'
+     }
+    },
+  '/api/cities': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/cities': '/api/cities'
+      }
+    },
+  '/api/regions':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/regions':'/api/regions'
+      }
+    }
 }
 
 var app = express()
