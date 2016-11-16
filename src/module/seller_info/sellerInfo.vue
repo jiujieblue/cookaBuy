@@ -149,7 +149,6 @@
 	  },
 	  methods: {
 	  	openModal () {
-	  		console.log(55)
 	  		this.showModal = true
 	  	},
 	  	closeModal () {
@@ -165,12 +164,12 @@
 	  		var target = e.target
 	  		var reg = /(\.jpg|\.png)$/ig
 	  		if(!reg.test(target.value)){
-	  			alert('请选择 JPG 或者 PNG 格式的图片');
-					return;
+	  			alert('请选择 JPG 或者 PNG 格式的图片')
+					return
 	  		}
-	  		if(target.files && target.files[0]){
+	  		if(target.files[0]){
 	  			var me = this
-	  			var reader = new FileReader();
+	  			var reader = new FileReader()
 	  			reader.onload = function(e){
 	  				me.image = e.target.result
 	  				me.imageUrl = target.files[0]

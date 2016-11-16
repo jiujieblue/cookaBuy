@@ -13,7 +13,7 @@
 	  			<BuyerCenterSideBar></BuyerCenterSideBar>
 	  		</div>
 	  		<div class="buyWalletBalance col-md-10">
-	  			<div class="row buyWalletBalance-container">
+	  			<div class="buyWalletBalance-container">
 		  			<div class="buyWalletBalance-container-top">
 		  				<div class="buyWalletBalance-container-top-title">
 		  					<span>当前位置：我的钱包></span>钱包余额

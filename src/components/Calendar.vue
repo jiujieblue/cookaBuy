@@ -255,7 +255,8 @@ export default {
                       temp[line].push({
                           day: k,
                           disabled: false,
-                          lastmonth: true
+                          lastmonth: true,
+                          monthPage: 0
                       })
                       k++;
                   }
@@ -340,8 +341,9 @@ export default {
                       temp[line].push({
                           day: k,
                           disabled: false,
-                          lastmonth: true
-                      })
+                          lastmonth: true,
+                          monthPage: 1
+                      }),
                       k++
                   }
               }
@@ -403,6 +405,11 @@ export default {
               this.day = this.days[k1][k2].day
               this.today = [k1, k2]
               if (this.type == 'date') {
+              	if( this.days[k1][k2].monthPage == 0 ){
+              		this.month--
+              	}else if( this.days[k1][k2].monthPage == 1 ){
+              		this.month++
+              	}
                 this.$emit('setValue', this.year + this.sep + this.zero(this.month + 1) + this.sep + this.zero(this.days[k1][k2].day))
                 this.setShow()
               }

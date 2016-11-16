@@ -13,7 +13,7 @@
 	  			<DaifaSideBar></DaifaSideBar>
 	  		</div>
 	  		<div class="daifaWalletWdrlRecord col-md-10">
-	  			<div class="row daifaWalletWdrlRecord-container">
+	  			<div class="daifaWalletWdrlRecord-container">
 		  			<div class="daifaWalletWdrlRecord-container-top">
 		  				<div class="daifaWalletWdrlRecord-container-top-title">
 		  					<span>当前位置：我的钱包></span>钱包余额
@@ -202,14 +202,15 @@
 	    		this.calendar.picker == 'picker2' && new Date(val) >= new Date(this.calendar.items.picker1.value) ||
 	    		this.calendar.picker == 'picker1' && !this.calendar.items.picker2.value ||
 	    		this.calendar.picker == 'picker2' && !this.calendar.items.picker1.value){
-	    		console.log(11)
+	    		
 	      	this.calendar.items[this.calendar.picker].value = val
 	    	}
 	    },
 	    set_show () {
-	    	this.calendar.show = !this.calendar.show
+	    	this.calendar.show = false
 	    }
 	  },
+
 	  components: {
 	  	DaifaCenterHeader,
 	  	footerComponent,

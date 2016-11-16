@@ -297,8 +297,8 @@
 	  	headerComponent,
 	  	footerComponent,
 	  	CkSearch,
-	  	goTop,
-	  	CkPagination
+	  	CkPagination,
+	  	goTop
 	  },
 	 	computed: {
 
