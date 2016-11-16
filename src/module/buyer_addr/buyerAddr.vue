@@ -226,9 +226,7 @@
                 this.cities = ret.data.data
                 this.defaultCity_id = this.cities[0].city_id
                 for(var j = 0;j < this.cities.length;j++){
-                  console.log(this.cities,this.cities[j].city)
                   if(this.defaultItem.city == this.cities[j].city){
-                    console.log(j)
                     this.defaultCity_id = this.cities[j].city_id
                     break
                   }
@@ -257,7 +255,7 @@
         this.showModalDel = false
         this.$http.delete('/api/addresses/' + this.delNum)
           .then(function(ret){
-            console.log(ret.data)
+            window.location.reload()
           },function(err){
             console.log(err)
           })
@@ -265,7 +263,7 @@
       _default (t) {
         this.$http.patch('/api/addresses/'+ this.data[t].id, {'address':{'default': true}})
           .then(function(ret){
-            console.log(ret.data)
+            window.location.reload()
           },function(err){
             console.log(err)
           })
@@ -298,7 +296,6 @@
       _submit (e) {
         e.preventDefault()
         var data = fto(e.target)
-        data.user_id = 1
         for(var i = 0;i < this.states.length;i++){
           if(data.state == this.states[i].state_id){
             data.state = this.states[i].state
@@ -314,26 +311,29 @@
             data.area = this.regions[k].region
           }
         }
+        data.user_id = 1
         data.default = this.defaultChecked
+        console
         if(!data.receiver_name || !data.state || !data.city || !data.area || !data.address || !data.mobile){
           return false
         }
         if(this.bianjiNum == -1){
           this.$http.post('/api/addresses', {'address': data})
             .then(function(ret){
-              console.log(ret.data)
+              
             },function(err){
               console.log(err)
             })
         }
         else{
-          this.$http.put('/api/addresses/' + this.data[this.bianjiNum].id, {'address':{}})
+          this.$http.put('/api/addresses/' + this.data[this.bianjiNum].id, {'address': data})
             .then(function(ret){
-              console.log(ret.data)
+              
             },function(err){
               console.log(err)
             })
         }
+        window.location.reload()
       }
     },
     mounted () {
