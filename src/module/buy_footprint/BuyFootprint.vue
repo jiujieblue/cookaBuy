@@ -12,8 +12,8 @@
 				<div class="col-md-2">
 					<BuyerCenterSideBar></BuyerCenterSideBar>
 				</div>
-				<div class="col-md-10 buyFootprint-right">
-					<div class="row">
+				<div class="col-md-10">
+					<div class="buyFootprint-right">
 						<div class="buyFootprint-right-title">
 							<span>当前位置：其他></span>我的足迹
 						</div>
