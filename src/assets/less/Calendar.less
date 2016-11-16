@@ -1,0 +1,156 @@
+@import "./C.less";
+.calendar {
+  width: 300px;
+  padding: 10px;
+  background: #fff;
+  position: absolute;
+  border: 1px solid #DEDEDE;
+  border-radius: 2px;
+  opacity:.95;
+  transition: all .5s ease;
+
+	.timer{
+    margin:10px 0;
+    text-align: center;
+    input{
+	    border-radius: 2px;
+	    padding:5px;
+	    font-size: 14px;
+	    line-height: 18px;
+	    color: #5e7a88;
+	    width: 50px;
+	    text-align: center;
+	    border:1px solid #efefef;
+	    &:focus{
+		    border:1px solid #5e7a88;
+			}
+		}
+	}
+	.text.center {
+	  text-align: center;
+	}
+	.lunar{
+    font-size:11px;
+    line-height: 150%;
+    color:#aaa;
+	}
+  &-enter,&-leave{
+	  opacity: 0;
+	  transform: translate3d(0,-10px, 0);
+  }
+  &:before,&:after{
+		position: absolute;
+		left: 30px;
+		content: "";
+		border:5px solid rgba(0, 0, 0, 0);
+  }
+  &:before{
+  	top: -10px;
+  	border-bottom-color: #DEDEDE;
+  }
+  &:after{
+  	top: -9px;
+  	border-bottom-color: #fff;
+  }
+  &-button{
+    text-align: center;
+    span{
+	    cursor: pointer;
+	    display: inline-block;
+	    min-height: 1em;
+	    vertical-align: baseline;
+	    background:#5e7a88;
+	    color:#fff;
+	    margin: 0 .25em 0 0;
+	    padding: .6em 2em;
+	    font-size: 1em;
+	    line-height: 1em;
+	    text-align: center;
+	    border-radius: .3em;
+	    &.cancel{
+		    background:#efefef;
+		    color:#666;
+			}
+		}
+	}
+  &-tools{
+    height:32px;
+    font-size: 20px;
+    line-height: 32px;
+    color:#5e7a88;
+    input{
+	    font-size: 20px;
+	    line-height: 32px;
+	    color: #5e7a88;
+	    width: 55px;
+	    text-align: center;
+	    border:none;
+	    background-color: transparent;
+		}
+		span{
+			margin-top: 8px;
+	    cursor: pointer;
+		}
+	}
+	&-prev{
+    float:left;
+	}
+	&-next{
+    float:right;
+	}
+	table {
+    clear: both;
+    width: 100%;
+    margin:10px 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+		td {
+	    margin:2px !important;
+	    padding:0px 0;
+	    width: 14.28571429%;
+	    height:34px;
+	    text-align: center;
+	    vertical-align: middle;
+	    font-size:14px;
+	    line-height: 125%;
+	    cursor: pointer;
+	    &.disabled {
+		    color: #c0c0c0;
+		    pointer-events:none !important;
+		    cursor: default !important;
+			}
+			&.lastmonth {
+			  color: #c0c0c0;
+			}
+			&.selected{
+				span{
+			    background-color: #5e7a88;
+			    color: #fff;
+			    &:hover{
+				    background-color: #3b6073;
+				    color: #fff;
+					}
+				}
+				.lunar{
+		    	color:#fff;
+				}
+			}
+			span{
+		    display:block;
+		    height:30px;
+		    line-height:30px;
+		    margin:2px;
+		    border-radius:2px;
+		    &:hover{
+			  	background:#f3f8fa;
+				}
+			}
+		}
+		th{
+			text-align: center;
+			text-transform: uppercase;
+	    pointer-events:none !important;
+	    cursor: default !important;
+		}
+	}
+}

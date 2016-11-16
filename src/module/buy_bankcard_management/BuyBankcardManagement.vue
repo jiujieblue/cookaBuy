@@ -12,29 +12,31 @@
 				<div class="col-md-2">
 					<BuyerCenterSideBar></BuyerCenterSideBar>
 				</div>
-				<div class="col-md-10 buyBankcardManagement-right">
-					<div class="row buyBankcardManagement-right-title"><span>当前位置：我的钱包 > </span>银行卡管理</div>
-					<div class="row buyBankcardManagement-right-card">
-						<p>我的银行卡</p>
-						<ul>
-							<li>
-								<ul>
-									<li>
-										<img src="../../assets/images/bankCard_js.png"/>
-										<span>储存卡</span>
-									</li>
-									<li>
-										****<i class="em"></i>****<i class="em"></i>****<i class="em"></i>5555
-									</li>
-									<li><span @click="_del">删除此卡</span></li>
-								</ul>
-							</li>
-							<li>
-								<span>+</span>
-								添加银行卡
-								<i @click="_openModel"></i>
-							</li>
-						</ul>
+				<div class="col-md-10">
+					<div class="buyBankcardManagement-right">
+						<div class="buyBankcardManagement-right-title"><span>当前位置：我的钱包 > </span>银行卡管理</div>
+						<div class="buyBankcardManagement-right-card">
+							<p>我的银行卡</p>
+							<ul>
+								<li>
+									<ul>
+										<li>
+											<img src="../../assets/images/bankCard_js.png"/>
+											<span>储存卡</span>
+										</li>
+										<li>
+											****<i class="em"></i>****<i class="em"></i>****<i class="em"></i>5555
+										</li>
+										<li><span @click="_del">删除此卡</span></li>
+									</ul>
+								</li>
+								<li>
+									<span>+</span>
+									添加银行卡
+									<i @click="_openModel"></i>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 		</div>
@@ -44,17 +46,17 @@
 	        <div class="modal-header">
 	        	<slot name="body">
 	          	<link rel="stylesheet" class="icon-tishi" v-if="!isadd">{{ isadd ? '添加银行卡' : '提示' }}
-	          	<link rel="stylesheet" class="icon-cha" @click="_delOrClear" v-if="isadd">
+	          	<link rel="stylesheet" class="icon-cha" @click="_delOrClear" v-else>
 	        	</slot>
 	        </div>
 
 	        <div class="modal-body">
 	          <slot name="body">
 	            <p v-if="!isadd">确定要删除此卡</p>
-	            <ul v-if="isadd">
+	            <ul v-else>
 	            	<li>
 	            		<label for="issuer">开户银行：</label>
-	            		<select id="issuer" name="issuer" v-if="isadd">
+	            		<select id="issuer" name="issuer">
 			            	<option value="" v-for="(card,index) in cards">{{ index }}</option>
 			            </select>
 	            	</li>
@@ -77,7 +79,7 @@
 		          	<button @click="_delOrClear" class="cancel">取<span class="em"></span>消</button>
 		          	<button @click="_delOrClear(1)">确<span class="em"></span>定</button>
 	          	</div>
-	          	<div class="add_bank" v-if="isadd">
+	          	<div class="add_bank" v-else>
 	          		<button @click="_delOrClear(1)">保存账户</button>
 	          	</div>
 	          </slot>

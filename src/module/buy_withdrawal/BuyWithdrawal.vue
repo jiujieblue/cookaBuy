@@ -12,70 +12,72 @@
 			<div class="col-md-2">
 				<BuyerCenterSideBar></BuyerCenterSideBar>
 			</div>
-			<div class="col-md-10 buyWithdrawal">
-				<p class="row buyWithdrawal-title">
-					<span>当前位置：我的钱包 ></span> 提现
-				</p>
-				<p>提现</p>
-				<div class="row buyWithdrawal-operation">
-					<form v-if="isActive">
-						<ul>
-							<li>
-								<span>选择银行卡：</span>
-								<div>
-									<div ref="current">
-										<img src="../../assets/images/bankCard_js.png" alt="银行卡">
-										<span>尾号：4001</span>
-										傻逼卡
+			<div class="col-md-10">
+				<div class="buyWithdrawal">
+					<p class="row buyWithdrawal-title">
+						<span>当前位置：我的钱包 ></span> 提现
+					</p>
+					<p>提现</p>
+					<div class="row buyWithdrawal-operation">
+						<form v-if="isActive">
+							<ul>
+								<li>
+									<span>选择银行卡：</span>
+									<div>
+										<div ref="current">
+											<img src="../../assets/images/bankCard_js.png" alt="银行卡">
+											<span>尾号：4001</span>
+											傻逼卡
+										</div>
+										<b @mouseover="chooseOver()" @mouseout="chooseOut()"></b>
+										<i ref="transform"></i>
 									</div>
-									<b @mouseover="chooseOver()" @mouseout="chooseOut()"></b>
-									<i ref="transform"></i>
-								</div>
-								<ul ref="bankList" @mouseover="chooseOver()" @mouseout="chooseOut()">
-									<li @click="chooseClick($event)">
-										<img src="../../assets/images/bankCard_zggs.png" alt="银行卡">
-										<span>尾号：8852</span>
-										老人卡
-									</li>
-									<li @click="chooseClick($event)">
-										<img src="../../assets/images/bankCard_zx.png" alt="银行卡">
-										<span>尾号：4242</span>
-										单身卡
-									</li>
-									<li @click="chooseClick($event)">
-										<img src="../../assets/images/bankCard_pa.png" alt="银行卡">
-										<span>尾号：4242</span>
-										篮球卡
-									</li>
-								</ul>
-							</li>
-							<li>
-								<span></span>
-								<button>添加银行卡</button>
-							</li>
-							<li>
-								<span>可提现余额：</span> 2.0 亿
-							</li>
-							<li>
-								<label>提现金额：</label>
-								<input type="text" placeholder="请输入金额" @blur="money($event)">
-								<p ref="money">{{ moneyHtml }}</p>
-							</li>
-							<li>
-								<label>支付密码：</label>
-								<input type="text" placeholder="请输入支付密码" @blur="pwd($event)">
-								<p ref="pwd">{{ pwdHtml }}</p>
-							</li>
-							<li>
-								<span>到账时间：</span> 1-3个工作日
-							</li>
-						</ul>
-						<p><button>立即提现</button></p>
-						<p>
-							<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
-						</p>
-					</form>
-					<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
+									<ul ref="bankList" @mouseover="chooseOver()" @mouseout="chooseOut()">
+										<li @click="chooseClick($event)">
+											<img src="../../assets/images/bankCard_zggs.png" alt="银行卡">
+											<span>尾号：8852</span>
+											老人卡
+										</li>
+										<li @click="chooseClick($event)">
+											<img src="../../assets/images/bankCard_zx.png" alt="银行卡">
+											<span>尾号：4242</span>
+											单身卡
+										</li>
+										<li @click="chooseClick($event)">
+											<img src="../../assets/images/bankCard_pa.png" alt="银行卡">
+											<span>尾号：4242</span>
+											篮球卡
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span></span>
+									<button>添加银行卡</button>
+								</li>
+								<li>
+									<span>可提现余额：</span> 2.0 亿
+								</li>
+								<li>
+									<label>提现金额：</label>
+									<input type="text" placeholder="请输入金额" @blur="money($event)">
+									<p ref="money">{{ moneyHtml }}</p>
+								</li>
+								<li>
+									<label>支付密码：</label>
+									<input type="text" placeholder="请输入支付密码" @blur="pwd($event)">
+									<p ref="pwd">{{ pwdHtml }}</p>
+								</li>
+								<li>
+									<span>到账时间：</span> 1-3个工作日
+								</li>
+							</ul>
+							<p><button>立即提现</button></p>
+							<p>
+								<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
+							</p>
+						</form>
+						<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -17,7 +17,6 @@
             <input style="display:none" ref="changeImg" type="file" accept="image/*" @change="changeImg($event)">
           </slot>
         </div>
-
       </div>
     </div>
   </div>
