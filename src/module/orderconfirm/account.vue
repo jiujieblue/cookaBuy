@@ -3,14 +3,14 @@
 		<div class="account-box-body">
 			<div class="left">
 				<div>总商品金额：</div>
-				<div>增值服务费：</div>
+				<div style="display: none">增值服务费：</div>
 				<div>代发费：</div>
 				<div>运费：</div>
 				<div style="display: none">优惠：</div>
 			</div>
 			<div class="right">
 				<div>¥4770.00</div>
-				<div>¥0.00</div>
+				<div style="display: none">¥0.00</div>
 				<div>¥120.00</div>
 				<div>¥7.00</div>
 				<div style="display: none">-¥10.00</div>
