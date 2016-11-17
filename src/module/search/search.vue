@@ -105,7 +105,7 @@
 	    <div class="row search-product">
 	    	<div class="search-product-left-grid" v-if='isGridOrBar == 0'>
 	    		<ul>
-	    			<li v-for="(product,index) in hitsProductList" :data-id='product._id'>
+	    			<li v-for="(product,index) in hitsProductList" :data_id='product._id'>
 	    				<div  class="search-product-left-gridRecommended">
 		    				<a href="#"><img :ref="'Img_'+index" :src="product._source.pic_url"></a>
 		    				<ul>
@@ -115,15 +115,15 @@
 		    					<li style="display:none">图片</li>
 		    				</ul>
 	    				</div>
-	    				<div :data_img="'Img_'+index">
-	    					<a v-for="(item_img,index) in hitsProductListLength(product._source.item_imgs)" href="#"><img @mouseover="changeImg($event)" :src="item_img.tb_url" alt="图片2"></a>
+	    				<div style="display:none">
+	    					<a  href="#"><img @mouseover="changeImg($event)" alt="图片2"></a>
 	    				</div>
 	    			</li>
 	    		</ul>
 	    	</div>
 	    	<div class="search-product-left-bar" v-else>
 	    		<ul>
-	    			<li v-for="(product,index) in hitsProductList" :data-id="product._source.id">
+	    			<li v-for="(product,index) in hitsProductList" :data_id="product._source.id">
 	    				<a href="#"><img :src="product._source.pic_url" ></a>
 	    				<ul>
 	    					<li><a href="">{{ product._source.title }}</a></li>
@@ -263,10 +263,7 @@
 	    return {
 	      isGridOrBar: 0,
 	      hitsProduct: '',
-	      hitsProductList: [],
-	      pageInfo: {
-
-	      }
+	      hitsProductList: []
 	    }
 	  },
 	  mounted () {
@@ -290,7 +287,12 @@
 	  		this.$refs[r][0].setAttribute('src',imgUrl)
 	  	},
 	  	hitsProductListLength (list) {
-		    return list.slice(0,3)
+	  		console.log(list)
+		    if(list.length > 3){
+		    	return list.slice(0,3)
+		    }else{
+		    	return list
+		    }
 		  }
 	  },
 	  components: {
@@ -299,10 +301,7 @@
 	  	CkSearch,
 	  	CkPagination,
 	  	goTop
-	  },
-	 	computed: {
-
-	 	}
+	  }
 	}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
