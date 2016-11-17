@@ -313,14 +313,12 @@
         }
         data.user_id = 1
         data.default = this.defaultChecked
-        console
         if(!data.receiver_name || !data.state || !data.city || !data.area || !data.address || !data.mobile){
           return false
         }
         if(this.bianjiNum == -1){
           this.$http.post('/api/addresses', {'address': data})
             .then(function(ret){
-              
             },function(err){
               console.log(err)
             })
