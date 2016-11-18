@@ -1,3 +1,4 @@
+@import './public.less';
 body{
   .em{
     display: inline-block;
@@ -80,12 +81,22 @@ body{
         >div{
           float:left;
         }
+        >div:first-child{
+          margin-right: 15px;
+          img{
+            width: 75px;
+            height: 75px;
+          }
+        }
         >div:last-child{
           float:right;
         }
         &-tit{
-          p{
+          div{
             margin-top:35px;
+            width: 300px;
+            height: 20px;
+            .ellipsis();
           }
         }
         &-time{

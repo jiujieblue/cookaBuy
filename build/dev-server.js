@@ -125,6 +125,15 @@ var proxyTable = {
     }
   },
 
+  // public
+  '/api/bulletins': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/bulletins': '/api/bulletins'
+    }
+  },
+
   //
   '/cooka': {
 		target: 'http://localhost',
