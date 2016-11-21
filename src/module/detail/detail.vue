@@ -555,6 +555,20 @@
             this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
+          var str = decodeURIComponent('/api/items?store_id=1&type=showcase&size=10')
+          console.log(str)
+          this.$http.get(str)
+            .then(function(ret){
+              console.log(ret.data.data)
+            },function(err){
+              console.log(err)
+            })
+          // this.$http.get('/api/items' + '?store_id=1&type=new&size=3')
+          //   .then(function(ret){
+          //     console.log(ret.data.data)
+          //   },function(err){
+          //     console.log(err)
+          //   })
         },
         function (err) {
           console.log(err)
