@@ -1,5 +1,24 @@
 <template>
 <div>
+  <div v-if="showModal" class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>提示</h3>
+        </div>
+
+        <div class="modal-body">
+          确定要删除该商铺吗？
+        </div>
+
+        <div class="modal-footer">
+          <button @click="showModal=false">关<span class="em"></span>闭</button>
+          <button @click="_del">确<span class="em"></span>定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <headerComponent></headerComponent>
 
   <div class="fav-m">
@@ -27,7 +46,7 @@
                 <p>电话 : {{item.mobile2}}</p>
               </div>
               <div class="l-b">
-                <span class="icon-shanchu"></span><a>删除</a>
+                <a v-on:click="_showModal(index)"><span class="icon-shanchu"></span>删除</a>
                 <button>进店逛逛</button>
               </div>
             </div>
@@ -78,6 +97,8 @@
     },
     data () {
       return {
+        showModal: false,
+        delNum: -1,
         menu: [],
         swiperOption: {
           name: 'mySwiper',
@@ -93,6 +114,14 @@
     methods: {
       _menu (t1,t2) {
         this.$set(this.menu, t1, t2)
+      },
+      _showModal (t) {
+        this.showModal = true
+        this.delNum = t
+      },
+      _del () {
+        this.showModal = false
+        this.delNum = -1
       }
     },
     mounted () {

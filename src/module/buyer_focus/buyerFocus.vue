@@ -45,28 +45,28 @@
               <div class="buyer-focus-shop">
                 <div class="shopinfo">店铺信息</div>
                 <div class="shopdata">店铺动态</div>
-                <select>
+                <select v-on:change="_reverse">
                   <option value="1">收藏时间由新到旧</option>
                   <option value="2">收藏时间由旧到新</option>
                 </select>
               </div>
 
-              <div class="buyer-focus-detail">
+              <div class="buyer-focus-detail" v-for="(item,index) in data">
                 <div class="detail-l">
                   <div class="detail-l-t">
-                    <img src="../../assets/images/aaa.jpg" height="80" width="40" />
-                    <span class="em"></span>AAA
+                    <img v-bind:src="item.store_logo" height="80" width="40" />
+                    <span class="em"></span>{{item.store_name}}
                   </div>  
                   <div class="detail-l-m">
-                    <p>店铺主营 : 韩版女装</p>
-                    <p>广东省 广州市 天河区</p>
+                    <p>店铺主营 : </p>
+                    <p>{{item.location}}</p>
                     <p>
                       <span class="icon-dianhua"></span>
-                      12345612345
+                      {{item.mobile}}
                     </p>
                   </div>
                   <div class="detail-l-b">
-                    <a v-on:click="_showModal(0)"><span class="icon-lajitong"></span>删除</a>
+                    <a v-on:click="_showModal(index)"><span class="icon-lajitong"></span>删除</a>
                     <button>进店逛逛</button>
                   </div>
                 </div>
@@ -75,118 +75,19 @@
                     <span>新品</span>
                   </div>
                   <div class="detail-r-m">
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
+                    <div v-show="indexIn < 4" class="detail-r-m-list" v-for="(itemIn,indexIn) in item.items">
+                      <a><img v-bind:src="itemIn.pic_url" height="200" width="200" /></a>
                       <a>
-                        标题
+                        {{itemIn.title}}
                       </a>
                       <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
+                        <p>&yen;{{itemIn.price}}</p>
                         <p>1小时前</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="buyer-focus-detail">
-                <div class="detail-l">
-                  <div class="detail-l-t">
-                    <img src="../../assets/images/aaa.jpg" height="80" width="40" />
-                    <span class="em"></span>AAA
-                  </div>  
-                  <div class="detail-l-m">
-                    <p>店铺主营 : 韩版女装</p>
-                    <p>广东省 广州市 天河区</p>
-                    <p>
-                      <span class="icon-dianhua"></span>
-                      12345612345
-                    </p>
-                  </div>
-                  <div class="detail-l-b">
-                    <a v-on:click="_showModal(1)"><span class="icon-lajitong"></span>删除</a>
-                    <button>进店逛逛</button>
-                  </div>
-                </div>
-                <div class="detail-r">
-                  <div class="detail-r-t">
-                    <span>新品</span>
-                  </div>
-                  <div class="detail-r-m">
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                    <div class="detail-r-m-list">
-                      <a><img src="../../assets/images/aaa.jpg" height="200" width="200" /></a>
-                      <a>
-                        标题
-                      </a>
-                      <div class="oth-info">
-                        <p>&yen;100.00</p>
-                        <p>1小时前</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -216,22 +117,34 @@
     data () {
       return {
         showModal: false,
-        menu: 1
+        menu: 1,
+        delNum: -1,
+        data: []
       }
     },
     methods: {
       _changeMenu (t) {
         this.menu = t
       },
+      _reverse () {
+        this.data.reverse()
+      },
       _showModal (t) {
         this.showModal = true
+        this.delNum = t
       },
       _del () {
         this.showModal = false
+        this.delNum = -1
       }
     },
     mounted () {
-      
+      this.$http.get('/api/favorites?type=1&size=5')
+        .then(function(ret){
+          this.data = ret.data.data
+        },function(err){
+          console.log(err)
+        })
     }
   }
 </script>
