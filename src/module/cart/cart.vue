@@ -150,6 +150,7 @@
         this.t2 = t2
       },
       _close () {
+        this.showModal = false
         this.t1 = -1
         this.t2 = -1
         this.delOne = false

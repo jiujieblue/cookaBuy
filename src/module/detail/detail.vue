@@ -508,6 +508,7 @@
       this.$http.get('/api/items/' + p)
         .then(function (ret) {
           this.data = ret.data.data
+          this.logoUrl = ret.data.data.store.store_logo
           this.skus = ret.data.data.skus
           this.item_id = ret.data.data.num_iid
           this.store_id = ret.data.data.store.id
