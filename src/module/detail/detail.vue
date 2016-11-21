@@ -34,17 +34,17 @@
               </div>
               <div class="desc-pri">
                 <div class="price-tidu">
-                  <h4>&yen; 200.00</h4>
-                  <p>2-18件</p>
+                  <h4>&yen; {{data.price}}</h4>
+                  <!-- <p>2-18件</p> -->
                 </div>
-                <div class="price-tidu">
+                <!-- <div class="price-tidu">
                   <h4>&yen; 200.00</h4>
                   <p>19-50件</p>
                 </div>
                 <div class="price-tidu">
                   <h4>&yen; 200.00</h4>
                   <p>50件以上</p>
-                </div>
+                </div> -->
               </div>
               <div class="desc-trans">
                 配<b class="em_5"></b>送 : 广东广州 至
@@ -555,11 +555,10 @@
             this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
-          var str = decodeURIComponent('/api/items?store_id=1&type=showcase&size=10')
-          console.log(str)
-          this.$http.get(str)
+
+          this.$http.get('/api/items?store_id=1&type=showcase&size=10')
             .then(function(ret){
-              console.log(ret.data.data)
+              console.log(ret.data)
             },function(err){
               console.log(err)
             })
