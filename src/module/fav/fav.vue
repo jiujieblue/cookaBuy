@@ -120,12 +120,18 @@
         this.delNum = t
       },
       _del () {
+        this.$http.delete('/api/favorites/' + this.data[this.delNum].id)
+        .then(function(ret){
+          window.location.reload()
+        },function(err){
+          console.log(err)
+        })
         this.showModal = false
         this.delNum = -1
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=1&size=5')
+      this.$http.get('/api/favorites?type=store')
         .then(function(ret){
           this.data = ret.data.data
           for(var i = 0;i < this.data.length;i++){

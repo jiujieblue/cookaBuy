@@ -20,6 +20,15 @@ var proxyTable = {
       '^/api/items/': '/api/items/'
     }
   },
+  '/api/items': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/items': '/api/items'
+    }
+  },
+
+  // cart
   '/api/carts': {
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -27,7 +36,8 @@ var proxyTable = {
       '^/api/carts': '/api/carts'
     }
   },
-  // cart
+  
+  // favorites
   '/api/favorites': {
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -35,6 +45,7 @@ var proxyTable = {
       '^/api/favorites': '/api/favorites'
     }
   },
+
 
   // register
   '/checkAvaiable': {

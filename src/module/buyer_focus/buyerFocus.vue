@@ -133,6 +133,12 @@
         this.delNum = t
       },
       _del () {
+        this.$http.delete('/api/favorites/' + this.data[this.delNum].id)
+        .then(function(ret){
+          window.location.reload()
+        },function(err){
+          console.log(err)
+        })
         this.showModal = false
         this.delNum = -1
       }
