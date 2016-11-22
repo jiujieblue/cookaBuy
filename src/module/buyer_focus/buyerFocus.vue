@@ -32,11 +32,11 @@
               <div>当前位置：账号管理 > 关注店铺</div>
             </div>
 
-            <div class="buyer-focus-null" style="display: none">
+            <div class="buyer-focus-null" v-show="!data.length">
               <div><img src="../../assets/images/shoucang.png" /></div>
               <div>您还没有收藏商品，<a>快去逛逛吧</a></div>
             </div>
-            <div class="buyer-focus-data">
+            <div class="buyer-focus-data" v-show="data.length">
               <div class="buyer-focus-menu">
                 <a v-bind:class="menu == 1 ? 'active' : ''" v-on:click="_changeMenu(1)">全部店铺 10</a>
                 <a v-bind:class="menu == 2 ? 'active' : ''" v-on:click="_changeMenu(2)">上新 5</a>
@@ -58,7 +58,6 @@
                     <span class="em"></span>{{item.store_name}}
                   </div>  
                   <div class="detail-l-m">
-                    <p>店铺主营 : </p>
                     <p>{{item.location}}</p>
                     <p>
                       <span class="icon-dianhua"></span>
