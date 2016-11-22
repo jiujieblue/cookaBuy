@@ -33,7 +33,7 @@
                 <a>全部删除</a>
                 <div class="caozuo-box">
                   <div v-bind:style="{display: isPiliang ? 'block' : 'none'}">
-                    <input id="all" type="checkbox" /><label for="all">全选</label>
+                    <input id="all" type="checkbox" v-on:change="_checkAll($event)"/><label for="all">全选</label>
                     <a><span class="icon-lajitong"></span>删除</a>
                   </div>              
                   <a v-on:click="_piliang">{{isPiliang ? '取消管理' : '批量管理'}}</a>
@@ -106,6 +106,11 @@
         if(this.isPiliang){
           this.$set(this.isChecked, t, !this.isChecked[t])
         }  
+      },
+      _checkAll (e) {
+        for(var i = 0;i < this.isChecked.length;i++){
+          this.$set(this.isChecked, i, e.target.checked)
+        }
       }
     },
     mounted () {
