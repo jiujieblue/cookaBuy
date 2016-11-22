@@ -42,15 +42,15 @@
               <div class="buyer-colle-list" >
                 <div class="list-detail" v-for="(item,index) in data">
                   <div class="list-detail-img" v-bind:class="isChecked[index] ? 'list-detail-img active' : 'list-detail-img'">
-                    <a><img v-bind:src="item.pic_url" v-on:click="_checked(index)"/></a>
+                    <a><img v-bind:src="item.item.pic_url" v-on:click="_checked(index)"/></a>
                     <b v-bind:style="{display: isPiliang ? 'block' : 'none'}" v-bind:class="isChecked[index] ? 'icon-xuanzhong' : 'icon-shubiaoyiru'">
                       <span class="path1"></span>
                       <span class="path2"></span>
                     </b>
                   </div>              
-                  <a>{{item.title}}</a>
+                  <a>{{item.item.title}}</a>
                   <div class="list-detail-oth">
-                    <p>&yen; {{item.price}}</p>
+                    <p>&yen; {{item.item.price}}</p>
                     <a>
                       <span class="icon-dianpu" title="去他的店"></span>
                     </a>
@@ -114,7 +114,7 @@
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=2&size=5')
+      this.$http.get('/api/favorites?type=item')
         .then(function(ret){
           this.data = ret.data.data
           for(var i = 0;i <  this.data.length;i++){

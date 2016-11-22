@@ -55,13 +55,13 @@
                 <div class="detail-l">
                   <div class="detail-l-t">
                     <img v-bind:src="item.store_logo" height="80" width="40" />
-                    <span class="em"></span>{{item.store_name}}
+                    <span class="em"></span>{{item.store.store_name}}
                   </div>  
                   <div class="detail-l-m">
-                    <p>{{item.location}}</p>
+                    <p>{{item.store.location}}</p>
                     <p>
                       <span class="icon-dianhua"></span>
-                      {{item.mobile}}
+                      {{item.store.mobile}}
                     </p>
                   </div>
                   <div class="detail-l-b">
@@ -74,7 +74,7 @@
                     <span>新品</span>
                   </div>
                   <div class="detail-r-m">
-                    <div v-show="indexIn < 4" class="detail-r-m-list" v-for="(itemIn,indexIn) in item.items">
+                    <div v-show="indexIn < 4" class="detail-r-m-list" v-for="(itemIn,indexIn) in item.store.items">
                       <a><img v-bind:src="itemIn.pic_url" height="200" width="200" /></a>
                       <a>
                         {{itemIn.title}}
@@ -144,7 +144,7 @@
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=1&size=5')
+      this.$http.get('/api/favorites?type=store')
         .then(function(ret){
           this.data = ret.data.data
         },function(err){

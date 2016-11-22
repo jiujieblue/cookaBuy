@@ -34,16 +34,16 @@
           <div class="fav-shp" v-for="(item,index) in data">
             <div class="shp-l">
               <div class="l-t">
-                <img v-bind:src="item.store_logo" height="80" width="80">
+                <img v-bind:src="item.store.store_logo" height="80" width="80">
                 <div>
-                  <h4>{{item.store_name}}</h4>
-                  <p>{{item.mobile}}</p>
+                  <h4>{{item.store.store_name}}</h4>
+                  <p>{{item.store.mobile}}</p>
                 </div>
               </div>
               <div class="l-m">
-                <p>市场 : {{item.market}}</p>
-                <p>楼层 : {{item.floor}}</p>
-                <p>电话 : {{item.mobile2}}</p>
+                <p>市场 : {{item.store.market}}</p>
+                <p>楼层 : {{item.store.floor}}</p>
+                <p>电话 : {{item.store.mobile2}}</p>
               </div>
               <div class="l-b">
                 <a v-on:click="_showModal(index)"><span class="icon-shanchu"></span>删除</a>
@@ -58,7 +58,7 @@
               <div class="r-slider">
                 <div>
                   <swiper :options="swiperOption">
-                    <swiper-slide v-for="(itemIn,indexIn) in item.items">
+                    <swiper-slide v-for="(itemIn,indexIn) in item.store.items">
                       <a>
                         <img v-bind:src="itemIn.pic_url" height="150" width="150">
                       </a>
