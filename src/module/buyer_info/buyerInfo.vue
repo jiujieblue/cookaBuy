@@ -14,7 +14,7 @@
           <slot name="body">
             <button @click="chooseImg('close')"><span class="icon-iconfont-tupianku"></span>选择照片</button><br>
             <button @click="chooseImg('chooseImg')"><span class="icon-iconfont-xiangji"></span>拍摄照片</button>
-            <input style="display:none" ref="changeImg" type="file" accept="image/*" @change="changeImg($event)">
+            <input style="display:none" ref="changeImg" type="file" accept="image/jpeg,image/jpg,image/png" @change="changeImg($event)">
           </slot>
         </div>
       </div>
@@ -150,7 +150,6 @@
       changeImg (e) {
         var target = e.target
         var reg = /(\.jpg|\.png)$/ig
-        console.log(target.value)
         if(!reg.test(target.value)){
           alert('请选择 JPG 或者 PNG 格式的图片');
           return;

@@ -389,8 +389,8 @@
           this.$http.get('/api/items?store_id=1&type=showcase&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
-            if(this.showcasePage == this.showcaseTotalPage){
-              this.hasNextPage = false
+            if(this.showcasePage < this.showcaseTotalPage){
+              this.hasNextPage = true
             }
           },function(err){
             console.log(err)
