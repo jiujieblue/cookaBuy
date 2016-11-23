@@ -263,7 +263,8 @@
 	    return {
 	      isGridOrBar: 0,
 	      hitsProduct: '',
-	      hitsProductList: []
+	      hitsProductList: [],
+	      isGr: true
 	    }
 	  },
 	  mounted () {

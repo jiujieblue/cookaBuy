@@ -63,18 +63,27 @@
 							}
 						}
 						&:first-child{
-							label,a{
-								display: inline-block;
-								position: relative;
-								top: -2px;
-								font-weight: normal;
+							>a{
+								link{
+									margin-right: 5px;
+									margin-left: 20px;
+								}
 							}
-							label{
-								margin-left: 3px;
-							}
-							>a link{
-								margin-right: 10px;
-								margin-left: 20px;
+							>span{
+								color: #a89d99;
+								cursor: pointer;
+								span[class^=icon]{
+									.path1{
+										position: relative;
+										left: 7px;
+									}
+									.path2{
+										font-weight: bold;
+									}
+								}
+								&:hover{
+									color: #372f2c;
+								}
 							}
 						}
 					}
@@ -97,22 +106,62 @@
 								>li{
 									float: left;
 									width: 23.3442%;
+									height: 315px;
 									margin-right: 20px;
 									margin-bottom: 20px;
-									&:nth-child(4){
+									position: relative;
+									&:nth-child(4n){
 										margin: 0;
 									}
-									a{
-										display: block;
-										&:nth-child(2){
-											margin: 10px 0;
+									>div{
+										position: relative;
+										margin-bottom: 10px;
+										a{
+											display: block;
+											&:nth-child(2){
+												margin: 10px 0;
+											}
+											img{
+												width: 210px;
+												height: 210px;
+												border: 1px solid #ccc;
+											}
 										}
-										img{
-											width: 100%;
-											border: 1px solid #ccc;
+										div{
+											display: none;
+											position: absolute;
+											top: 10px;
+											right: 10px;
+											link{
+												display: block;
+												padding: 5px;
+												margin-bottom: 5px;
+												border-radius: 3px;
+												background: #b3b3b3;
+												color: #fff;
+												font-size: 25px;
+												cursor: pointer;
+												&.icon-shanchu{
+													font-size: 23px;
+												}
+												&:hover{
+													background: #fcc505;
+												}
+											}
+										}
+										&:hover{
+											div{
+												display: block;
+											}
+											img{
+												opacity: 0.8;
+											}
 										}
 									}
 									b{
+										position: absolute;
+										bottom: 0;
+										left: 0;
 										font-weight: normal;
 										font-size: 18px;
 									}
