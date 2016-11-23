@@ -1,5 +1,24 @@
 <template>
 <div>
+  <div v-if="showModal" class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>提示</h3>
+        </div>
+
+        <div class="modal-body">
+          确定要删除选中的收藏商品吗？
+        </div>
+
+        <div class="modal-footer">
+          <button @click="_close">关<span class="em"></span>闭</button>
+          <button @click="_del">确<span class="em"></span>定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <BuyerCenterHeader></BuyerCenterHeader>
   <div>
     <div class="container">
@@ -22,8 +41,8 @@
               <div class="buyer-colle-menu">
                 <ul>
                   <li v-on:click="_menu(1)" v-bind:class="menu == 1 ? 'active' : ''">全部<span>{{data.length}}</span></li>
-                  <li v-on:click="_menu(2)" v-bind:class="menu == 2 ? 'active' : ''">免邮<span>12</span></li>
-                  <li v-on:click="_menu(3)" v-bind:class="menu == 3 ? 'active' : ''">优惠<span>10</span></li>
+                  <!-- <li v-on:click="_menu(2)" v-bind:class="menu == 2 ? 'active' : ''">免邮<span>12</span></li>
+                  <li v-on:click="_menu(3)" v-bind:class="menu == 3 ? 'active' : ''">优惠<span>10</span></li> -->
                   <li v-on:click="_menu(4)" v-bind:class="menu == 4 ? 'active' : ''">上架时间<span class="icon-xiajiang"></span></li>
                   <li v-on:click="_menu(5)" v-bind:class="menu == 5 ? 'active' : ''">上架时间<span class="icon-shangshen"></span></li>
                 </ul>
@@ -34,7 +53,7 @@
                 <div class="caozuo-box">
                   <div v-bind:style="{display: isPiliang ? 'block' : 'none'}">
                     <input id="all" type="checkbox" v-on:change="_checkAll($event)"/><label for="all">全选</label>
-                    <a><span class="icon-lajitong"></span>删除</a>
+                    <a v-on:click="_showModal"><span class="icon-lajitong"></span>删除</a>
                   </div>              
                   <a v-on:click="_piliang">{{isPiliang ? '取消管理' : '批量管理'}}</a>
                 </div>
@@ -85,6 +104,7 @@
     },
     data () {
       return {
+        showModal: false,
         menu:1,
         isPiliang:false,
         isChecked:[],
@@ -95,6 +115,50 @@
     methods: {
       _menu (t) {
         this.menu = t
+        this.isChecked.splice(0,this.isChecked.length)
+        if(t == 1){
+          this.$http.get('/api/favorites?type=item')
+            .then(function(ret){
+              this.data = ret.data.data
+            },function(err){
+              console.log(err)
+            })
+        }
+        if(t == 4 || t == 5){
+          var order = (t == 4 ? 'asc' : 'desc')
+          this.$http.get('/api/favorites?type=item&order=' + order)
+            .then(function(ret){
+              this.data = ret.data.data
+            },function(err){
+              console.log(err)
+            })
+        }
+        for(var i = 0;i < this.data.length;i++){
+          this.isChecked.push(false)
+        }
+      },
+      _showModal () {
+        this.showModal = true
+      },
+      _close () {
+        this.showModal = false
+      },
+      _del () {
+        this.showModal = false
+        var delNum = [];
+        for(var i = 0;i < this.isChecked.length;i++){
+          if(this.isChecked[i]){
+            delNum.push(this.data[i].id)
+          }
+        }
+        var ids = delNum.join(',')
+        console.log(ids)
+        // this.$http.delete('/api/favorites?type=item/' + ids)
+        //   .then(function(ret){
+        //     console.log(ret.data)
+        //   },function(err){
+        //     console.log(err)
+        //   })
       },
       _piliang () {
         this.isPiliang = !this.isPiliang

@@ -12,7 +12,7 @@
         </div>
 
         <div class="modal-footer">
-          <button @click="showModal=false">关<span class="em"></span>闭</button>
+          <button @click="_close">关<span class="em"></span>闭</button>
           <button @click="_del">确<span class="em"></span>定</button>
         </div>
       </div>
@@ -81,7 +81,6 @@
                       </a>
                       <div class="oth-info">
                         <p>&yen;{{itemIn.price}}</p>
-                        <p>1小时前</p>
                       </div>
                     </div>
                   </div>
@@ -131,6 +130,10 @@
       _showModal (t) {
         this.showModal = true
         this.delNum = t
+      },
+      _close () {
+        this.showModal = false
+        this.delNum = -1
       },
       _del () {
         this.$http.delete('/api/favorites/' + this.data[this.delNum].id)
