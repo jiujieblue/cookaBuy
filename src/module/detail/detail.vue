@@ -34,17 +34,17 @@
               </div>
               <div class="desc-pri">
                 <div class="price-tidu">
-                  <h4>&yen; 200.00</h4>
-                  <p>2-18件</p>
+                  <h4>&yen; {{data.price}}</h4>
+                  <!-- <p>2-18件</p> -->
                 </div>
-                <div class="price-tidu">
+                <!-- <div class="price-tidu">
                   <h4>&yen; 200.00</h4>
                   <p>19-50件</p>
                 </div>
                 <div class="price-tidu">
                   <h4>&yen; 200.00</h4>
                   <p>50件以上</p>
-                </div>
+                </div> -->
               </div>
               <div class="desc-trans">
                 配<b class="em_5"></b>送 : 广东广州 至
@@ -132,21 +132,13 @@
             <p>本店推荐</p>
           </div>
           <div class="recommend-list">
-            <div class="list-side">
-              <img src="../../assets/images/detail-new.jpg">
-              <div class="price">&yen; 100.00</div>
-            </div>
-            <div class="list-side">
-              <img src="../../assets/images/detail-new.jpg">
-              <div class="price">&yen; 100.00</div>
-            </div>
-            <div class="list-side">
-              <img src="../../assets/images/detail-new.jpg">
-              <div class="price">&yen; 100.00</div>
+            <div class="list-side" v-for="(item,index) in showcase">
+              <a><img v-bind:src="item.pic_url"><div class="price">&yen; {{item.price}}</div></a>
+              
             </div>
           </div>
           <div class="recommend-page">
-            <span class="icon-fanyeup" v-bind:class="{'active' : hasPreviousPage}" v-on:click="fanye(-1)"></span>
+            <span class="icon-fanyeup" v-bind:class="{'active' : showcasePage > 1}" v-on:click="fanye(-1)"></span>
             <span class="icon-fanyedown" v-bind:class="{'active' : hasNextPage}" v-on:click="fanye(1)"></span>
           </div>
         </div>
@@ -163,53 +155,13 @@
               <a href="#"><span class="icon-more"></span></a>
             </div>
             <div class="news-list">
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
+              <div class="news-img" v-for="(item,index) in newList">
                 <a class="img-tit">
-                  aaa
+                  <img v-bind:src="item.pic_url">
+                  <div>{{item.title}}</div>
                 </a>
                 <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
-              </div>
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
-              </div>
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
-              </div>
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
-                  <p>50分钟前</p>
-                </div>
-              </div>
-              <div class="news-img">
-                <img src="../../assets/images/detail-new.jpg">
-                <a class="img-tit">
-                  aaa
-                </a>
-                <div class="img-info">
-                  <p>&yen; 58.00</p>
+                  <p>&yen; {{item.price}}</p>
                   <p>50分钟前</p>
                 </div>
               </div>
@@ -303,11 +255,6 @@
         size_t: -1,
         isSku: false,
         chooseNum: 1,
-        recommend: [],
-        page: 1,
-        hasNextPage: false,
-        hasPreviousPage: false,
-        newList: [],
         tabList: 1,
         item_props: [],
         description: '',
@@ -316,7 +263,14 @@
         subTotal: 0,
         showChooseList: false,
         sku_id: '',
-        prop_name: ''
+        prop_name: '',
+
+        showcase: [],
+        showcasePage: 1,
+        hasNextPage: false,
+        showcaseTotalPage: 1,
+        newList: [],
+        newListPage: 1
       }
     },
     methods: {
@@ -418,22 +372,29 @@
         this.showChooseList = !this.showChooseList
       },
       fanye (t) {
-        if (t === 1 && this.hasNextPage) {
-          ++this.page
+        if (t === 1 && this.showcasePage < this.showcaseTotalPage) {
+          ++this.showcasePage
+          this.$http.get('/api/items?store_id=1&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          .then(function(ret){
+            this.showcase = ret.data.data
+            if(this.showcasePage == this.showcaseTotalPage){
+              this.hasNextPage = false
+            }
+          },function(err){
+            console.log(err)
+          })
         }
-        if (t === -1 && this.hasPreviousPage) {
-          --this.page
-        }
-        if (t === 1 && this.hasNextPage || t === -1 && this.hasPreviousPage) {
-          this.$http.get('/cooka-productDetail-web/recommendProducts?productId=1233&storeId=6&page=' + this.page)
-            .then(function (ret) {
-              this.recommend = ret.data.list
-              this.hasPreviousPage = ret.data.hasPreviousPage
-              this.hasNextPage = ret.data.hasNextPage
-            },
-            function (err) {
-              console.log(err)
-            })
+        if (t === -1 && this.showcasePage > 1) {
+          --this.showcasePage
+          this.$http.get('/api/items?store_id=1&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          .then(function(ret){
+            this.showcase = ret.data.data
+            if(this.showcasePage < this.showcaseTotalPage){
+              this.hasNextPage = true
+            }
+          },function(err){
+            console.log(err)
+          })
         }
       },
       _chooseNum (t) {
@@ -508,6 +469,7 @@
       this.$http.get('/api/items/' + p)
         .then(function (ret) {
           this.data = ret.data.data
+          this.logoUrl = ret.data.data.store.store_logo
           this.skus = ret.data.data.skus
           this.item_id = ret.data.data.num_iid
           this.store_id = ret.data.data.store.id
@@ -554,6 +516,23 @@
             this.item_props.push(arr)
           }
           this.description = ret.data.data.desc
+
+          this.$http.get('/api/items?store_id=1&type=showcase&page=1&page_size=3')
+            .then(function(ret){
+              this.showcase = ret.data.data
+              this.showcaseTotalPage = ret.data.total_pages
+              if(ret.data.total_pages > 1){
+                this.hasNextPage = true
+              }
+            },function(err){
+              console.log(err)
+            })
+          this.$http.get('/api/items?store_id=1&type=new&page=1&page_size=5')
+            .then(function(ret){
+              this.newList = ret.data.data
+            },function(err){
+              console.log(err)
+            })
         },
         function (err) {
           console.log(err)

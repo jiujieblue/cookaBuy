@@ -203,7 +203,7 @@
 							<select v-model="default_cityId" name="city" @change="_selCity">
 								<option :value="item.city_id" v-for="(item, index) in cities" >{{item.city}}</option>
 							</select>
-							<select v-model="default_areaId" name="area" @change="_selArea">
+							<select v-model="default_areaId" name="area">
 								<option :value="item.region_id" v-for="(item, index) in areas" >{{item.region}}</option>
 							</select>
 						</div>
@@ -265,22 +265,22 @@
 				default_addr: true,
 				showDelModal: false,
 				showEditAddrModal: false,
-        data:[],
-        add_index: Number,
-        addr_id: Number,
-        states:[],
-        cities:[],
-        areas:[],
-        default_stateId:'',
-        default_cityId:'',
-        default_areaId:'',
-        state:'',
-        city:'',
-        area:'',
-        zipcode:'',
-        receiver_name:'',
-        mobile:'',
-        phone:''
+		        data:[],
+		        add_index: Number,
+		        addr_id: Number,
+		        states:[],
+		        cities:[],
+		        areas:[],
+		        default_stateId:'',
+		        default_cityId:'',
+		        default_areaId:'',
+		        state:'',
+		        city:'',
+		        area:'',
+		        zipcode:'',
+		        receiver_name:'',
+		        mobile:'',
+		        phone:''
 			}
 		},
 		components:{
@@ -340,6 +340,7 @@
               console.log(err)
             }
           )
+        window.location.reload()
       },
       _submitEdit(e){
         var me = this
@@ -388,8 +389,8 @@
                   console.log(err)
               }
           )
-        /*this.showEditAddrModal = false
-        window.location.reload()*/
+        this.showEditAddrModal = false
+        window.location.reload()
       },
       openDelModal(i,n){
         this.showDelModal = true

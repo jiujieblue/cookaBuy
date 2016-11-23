@@ -14,15 +14,15 @@
             </div>
             <div class="buyer-public-detail-tit">              
               <div>
-                <h4>标题</h4>
+                <h4>{{data.title}}</h4>
               </div>
             </div>
             <div class="buyer-public-detail-time">
-              <p>times</p>
-              <p>商城公告</p>
+              <p>{{time}}</p>
+              <p>{{data.type == 0 ? '商城公告' : '市场通知'}}</p>
             </div>
-            <div>
-              Content
+            <div class="buyer-public-detail-content">
+              <p>{{data.content}}</p>
             </div>
           </div>
         </div>
@@ -51,14 +51,22 @@
     },
     data () {
       return {
-
+        data:{},
+        time:''
       }
     },
     methods: {
 
     },
     mounted () {
-      
+      var id = location.href.split('?')[1]
+      this.$http.get('/api/bulletins/' + id)
+        .then(function(ret){
+          this.data = ret.data.data
+          this.time = this.data.inserted_at.split('T')[0]
+        },function(){
+
+        })
     }
   }
 </script>

@@ -35,9 +35,11 @@
 							<img src="../assets/images/logo.svg" width="150"/>
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-1"></div>
+					<div class="col-md-6">
 						<CkSearch>
 					</div>
+					<div class="col-md-1"></div>
 					<div class="col-md-2">
 						<div class="header-qrcode">
 							<img src="../assets/images/qrcode.jpg" width="100" height="100"/>

@@ -86,15 +86,15 @@
 									</a>
 								</h4>
 								<div class="index-note-items">
-									<a href="#" class="index-note-item">
+									<a href="#" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
+										[公告] {{announcementsItem.title}}
+									</a>
+									<!--<a href="#" class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
 									</a>
 									<a href="#" class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
-									</a>
-									<a href="#" class="index-note-item">
-										[公告] 我是标题我是标题我是标题我是标题我是标题
-									</a>
+									</a>-->
 								</div>
 							</div>
 						</div>
@@ -115,185 +115,174 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product">
+									<div class="index-product" v-for="(productsItem, productsIndex) in products">
 										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
+											<img :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ 123
+											¥ {{productsItem.price}}
 											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
 												<span class="icon-shoucang" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a href="#" class="index-product-store">
-												店铺名称
+												{{productsItem.nick}}
 											</a>
 											<span class="index-product-market">
 												市场 档口号
 											</span>
 										</div>
 									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-shoucang" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                    </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
+                  <div class="index-product">
+                      <a href="#" class="index-product-link">
+                          <img src="../../assets/images/250x250.png" />
+                      </a>
+                      <div class="index-product-price">
+                          ¥ 123
+                          <a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+                              <span class="icon-shoucang" />
+                          </a>
+                      </div>
+                      <div class="index-product-extra">
+                          <a href="#" class="index-product-store">
+                              店铺名称
+                          </a>
+                          <span class="index-product-market">
+                              市场 档口号
+                          </span>
+                      </div>
+                  </div>
 								</div>
 								<div class="right">
 									<div class="carousel">
 										<ul class="carousel-list">
-											<li class="carousel-list-items">
+											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts">
 												<a href="#">
 													<div class="product">
 														<div class="img">
-															<img src="../../assets/images/test_avatar.png">
+															<img :src="sideproductsItem.pic_url">
 														</div>
-														<a href="#" ><span class="store">店铺名称</span></a>
+														<a href="#" ><span class="store">{{sideproductsItem.nick}}</span></a>
 														<span class="extra">市场  档口号</span>
 													</div>
 												</a>
 											</li>
-											<li class="carousel-list-items">
-												<a href="#">
-													<div class="product">
-														<div class="img">
-															<img src="../../assets/images/test_avatar.png">
-														</div>
-														<a href="#"><span class="store">店铺名称</span></a>
-														<span class="extra">市场  档口号</span>
-													</div>
-												</a>
-											</li>
-											<li class="carousel-list-items">
+											<!--<li class="carousel-list-items">
 												<a href="#">
 													<div class="product">
 														<div class="img">
@@ -326,6 +315,17 @@
 													</div>
 												</a>
 											</li>
+											<li class="carousel-list-items">
+												<a href="#">
+													<div class="product">
+														<div class="img">
+															<img src="../../assets/images/test_avatar.png">
+														</div>
+														<a href="#"><span class="store">店铺名称</span></a>
+														<span class="extra">市场  档口号</span>
+													</div>
+												</a>
+											</li>-->
 										</ul>
 									</div>
 								</div>
@@ -345,24 +345,23 @@
 							</h4>
 
 							<div class="index-block-body">
-								<div class="index-store">
-									<div class="index-store-info">
-										<div class="index-store-name">
-											店铺名称
-										</div>
-										<div class="index-store-market">
-											市场 档口号
-										</div>
+                <div class="index-store" v-for="(storesItem, storesIndex) in stores">
+                  <div class="index-store-info">
+                    <div class="index-store-name">
+                      {{storesItem.store_name}}
+                    </div>
+                    <div class="index-store-market">
+                      {{storesItem.market}} {{storesItem.store_number}}
+                    </div>
 
-										<a href="#" class="index-store-link">
-											进店逛逛
-										</a>
-									</div>
-
-									<a href="#" class="index-store-product">
-										<img src="../../assets/images/250x250.png" />
-									</a>
-								</div>
+                    <a :href="storesItem.taobao_url" class="index-store-link">
+                      进店逛逛
+                    </a>
+                  </div>
+                  <a href="#" class="index-store-product">
+                    <img :src="storesItem.store_logo" />
+                  </a>
+                </div>
 							</div>
 						</div>
 						<!-- girl -->
@@ -380,7 +379,26 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product">
+									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls">
+										<a href="#" class="index-product-link">
+											<img :src="girlsItem.pic_url" />
+										</a>
+										<div class="index-product-price">
+											¥ {{girlsItem.price}}
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+												<span class="icon-jiahao" />
+											</a>
+										</div>
+										<div class="index-product-extra">
+											<a href="#" class="index-product-store">
+												{{girlsItem.nick}}
+											</a>
+											<span class="index-product-market">
+												市场 档口号
+											</span>
+										</div>
+									</div>
+									<!--<div class="index-product">
 										<a href="#" class="index-product-link">
 											<img src="../../assets/images/250x250.png" />
 										</a>
@@ -512,26 +530,7 @@
 												市场 档口号
 											</span>
 										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-jiahao" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
+									</div>-->
 								</div>
 							</div>
 						</div>
@@ -550,7 +549,26 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product">
+									<div class="index-product" v-for="(boysItem, boysIndex) in boys">
+										<a href="#" class="index-product-link">
+											<img :src="boysItem.pic_url" />
+										</a>
+										<div class="index-product-price">
+											¥ {{boysItem.price}}
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+												<span class="icon-jiahao" />
+											</a>
+										</div>
+										<div class="index-product-extra">
+											<a href="#" class="index-product-store">
+												{{boysItem.nick}}
+											</a>
+											<span class="index-product-market">
+												市场 档口号
+											</span>
+										</div>
+									</div>
+									<!--<div class="index-product">
 										<a href="#" class="index-product-link">
 											<img src="../../assets/images/250x250.png" />
 										</a>
@@ -682,26 +700,7 @@
 												市场 档口号
 											</span>
 										</div>
-									</div>
-									<div class="index-product">
-										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
-										</a>
-										<div class="index-product-price">
-											¥ 123
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
-												<span class="icon-jiahao" />
-											</a>
-										</div>
-										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												店铺名称
-											</a>
-											<span class="index-product-market">
-												市场 档口号
-											</span>
-										</div>
-									</div>
+									</div>-->
 								</div>
 							</div>
 						</div>
@@ -720,19 +719,19 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product">
+									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits">
 										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
+											<img :src="maternitsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ 123
+											¥ {{maternitsItem.price}}
 											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a href="#" class="index-product-store">
-												店铺名称
+												{{maternitsItem.nick}}
 											</a>
 											<span class="index-product-market">
 												市场 档口号
@@ -757,19 +756,19 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product">
+									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens">
 										<a href="#" class="index-product-link">
-											<img src="../../assets/images/250x250.png" />
+											<img src="childrensItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ 123
+											¥ {{childrensItem.price}}
 											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a href="#" class="index-product-store">
-												店铺名称
+												{{childrensItem.nick}}
 											</a>
 											<span class="index-product-market">
 												市场 档口号
@@ -786,7 +785,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<footerComponent></footerComponent>
 	</div>
 </template>
@@ -802,25 +801,107 @@ Vue.use(VueResource)
 export default {
 	data () {
     	return {
-    		list:[]
+        recommend_data:[],
+        stores:[],
+        products:[],
+        sideproducts:[],
+        announcements:[],
+        girls:[],
+        boys:[],
+        maternits:[],
+        childrens:[]
     	}
 	},
 	components:{
 		headerComponent,
 		footerComponent
-	}
-	/*mounted(){
-		this.$http.get('/cooka-user-web/getIndexGroupProducts?groupId=1')
+	},
+	mounted(){
+		this.$http.get('/api/recommend_stores')
 		.then(
 			function(res){
-				console.log(res.data.list)
-				this.list = res.data.list
+				//console.log(res.data.data)
+				this.recommend_data = res.data.data
+        for (var i = 0 ; i < this.recommend_data.length ; i ++){
+          this.stores.push(this.recommend_data[i].store)
+        }
+        //console.log(this.stores)
 			},
 			function(err){
 				console.log(err)
 			}
 		)
-	}*/
+     this.$http.get('/api/recommends'+'?page=1&location=100&size=5')
+       .then(
+           function(res){
+             //console.log(res)
+             this.products = res.data.data
+             //console.log(this.products)
+           },function(err){
+               console.log(err)
+         }
+       )
+    this.$http.get('/api/recommends'+'?page=1&location=200&size=5')
+      .then(
+        function(res){
+          //console.log(res)
+          this.sideproducts = res.data.data
+          //console.log(this.sideproducts)
+        },function(err){
+          console.log(err)
+        }
+      )
+    this.$http.get('/api/recommends'+'?page=1&location=300&size=5')
+      .then(
+        function(res){
+          //console.log(res)
+          this.girls = res.data.data
+          //console.log(this.girls)
+        },function(err){
+          console.log(err)
+        }
+      )
+    this.$http.get('/api/recommends'+'?page=1&location=400&size=5')
+      .then(
+        function(res){
+          //console.log(res)
+          this.boys = res.data.data
+          //console.log(this.boys)
+        },function(err){
+          console.log(err)
+        }
+      )
+    this.$http.get('/api/recommends'+'?page=1&location=500&size=5')
+      .then(
+        function(res){
+          //console.log(res)
+          this.maternits = res.data.data
+          //console.log(this.maternits)
+        },function(err){
+          console.log(err)
+        }
+      )
+    this.$http.get('/api/recommends'+'?page=1&location=600&size=5')
+      .then(
+        function(res){
+          //console.log(res)
+          this.childrens = res.data.data
+          //console.log(this.childrens)
+        },function(err){
+          console.log(err)
+        }
+      )
+    this.$http.get('/api/bulletins'+'?type=0')
+      .then(
+        function(res){
+          //console.log(res)
+          this.announcements = res.data.data
+          console.log(this.announcements)
+        },function(err){
+          console.log(err)
+        }
+      )
+	}
 }
 </script>
 

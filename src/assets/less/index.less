@@ -4,7 +4,7 @@
     background: #fff;
     .clearfix();
   }
-  
+
   &-category {
     float: left;
     width: 20%;
@@ -158,6 +158,7 @@
       display: block;
       > img {
         width: 100%;
+        height: 250px;
       }
     }
 
@@ -200,11 +201,14 @@
   &-store {
     float: left;
     width: 20%;
-
+    margin: 5px 0px;
+    &:hover{
+      border: 1px solid #efefef;
+    }
     &-info {
       text-align: center;
     }
-    
+
     &-name {
       font-size: 18px;
     }
@@ -324,8 +328,10 @@
                 position: relative;
                 .img{
                   width: 80px;
+                  height: 80px;
                   img{
                     width: 100%;
+                    height: 100%;
                   }
                 }
                 .store{

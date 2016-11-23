@@ -32,6 +32,15 @@ var proxyTable = {
       '^/api/items/': '/api/items/'
     }
   },
+  '/api/items': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/items': '/api/items'
+    }
+  },
+
+  // cart
   '/api/carts': {
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -39,7 +48,8 @@ var proxyTable = {
       '^/api/carts': '/api/carts'
     }
   },
-  // cart
+  
+  // favorites
   '/api/favorites': {
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -47,6 +57,7 @@ var proxyTable = {
       '^/api/favorites': '/api/favorites'
     }
   },
+
 
   // register
   '/checkAvaiable': {
@@ -137,7 +148,20 @@ var proxyTable = {
     }
   },
 
+<<<<<<< HEAD
   // bizhi
+=======
+  // public
+  '/api/bulletins': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/bulletins': '/api/bulletins'
+    }
+  },
+
+  //
+>>>>>>> d1f8c5292d7c626d4cc6fe86ea2a9fa88e9a2c2b
   '/cooka': {
 		target: 'http://localhost',
 		changeOrigin: true,
@@ -185,6 +209,27 @@ var proxyTable = {
     changeOrigin: true,
     pathRewrite:{
       '^/api/regions':'/api/regions'
+      }
+    },
+  '/api/recommend_stores':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/recommend_stores':'/api/recommend_stores'
+      }
+    },
+  '/api/recommends':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/recommends':'/api/recommends'
+      }
+    },
+  '/api/bulletins':{
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/bulletins':'/api/bulletins'
       }
     }
 }

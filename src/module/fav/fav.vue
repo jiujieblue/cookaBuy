@@ -1,5 +1,24 @@
 <template>
 <div>
+  <div v-if="showModal" class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>提示</h3>
+        </div>
+
+        <div class="modal-body">
+          确定要删除该商铺吗？
+        </div>
+
+        <div class="modal-footer">
+          <button @click="showModal=false">关<span class="em"></span>闭</button>
+          <button @click="_del">确<span class="em"></span>定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <headerComponent></headerComponent>
 
   <div class="fav-m">
@@ -9,59 +28,42 @@
           <div class="fav-tit">
             <span class="icon-guanzhudianjia"></span>
             <span>我关注的店家</span>
-            <span>(85家)</span>  
+            <span>({{this.data.length}})家</span>  
           </div>
-          <div class="fav-shp">
+
+          <div class="fav-shp" v-for="(item,index) in data">
             <div class="shp-l">
               <div class="l-t">
-                <img src="../../assets/images/default_avatar.png" height="80" width="80">
+                <img v-bind:src="item.store.store_logo" height="80" width="80">
                 <div>
-                  <h4>吴江市甜心服饰</h4>
-                  <p>12345612345</p>
+                  <h4>{{item.store.store_name}}</h4>
+                  <p>{{item.store.mobile}}</p>
                 </div>
               </div>
               <div class="l-m">
-                <p>市场 : 长城</p>
-                <p>楼层 : 3F</p>
-                <p>电话 : 12345612345</p>
+                <p>市场 : {{item.store.market}}</p>
+                <p>楼层 : {{item.store.floor}}</p>
+                <p>电话 : {{item.store.mobile2}}</p>
               </div>
               <div class="l-b">
-                <span class="icon-shanchu"></span><a>删除</a>
+                <a v-on:click="_showModal(index)"><span class="icon-shanchu"></span>删除</a>
                 <button>进店逛逛</button>
               </div>
             </div>
             <div class="shp-r">
               <div class="r-menu">
-                <a v-bind:class="menu == 1 ? 'active' : ''" v-on:click="_menu(1)">最新上架</a>
-                <a v-bind:class="menu == 2 ? 'active' : ''" v-on:click="_menu(2)">本店热卖</a>
+                <a v-bind:class="menu[index] == 1 ? 'active' : ''" v-on:click="_menu(index,1)">最新上架</a>
+                <a v-bind:class="menu[index] == 2 ? 'active' : ''" v-on:click="_menu(index,2)">本店热卖</a>
               </div>
               <div class="r-slider">
                 <div>
                   <swiper :options="swiperOption">
-                    <swiper-slide>
-                      <img src="../../assets/images/1.jpg" height="150" width="150">
-                      <div>&yen; 520.00</div>
-                      <a>我的卡萨浪费拉的手机费</a>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <img src="../../assets/images/1.jpg" height="150" width="150">
-                      <div>&yen; 520.00</div>
-                      <a>我的卡萨浪费拉的手机费</a>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <img src="../../assets/images/1.jpg" height="150" width="150">
-                      <div>&yen; 520.00</div>
-                      <a>我的卡萨浪费拉的手机费</a>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <img src="../../assets/images/1.jpg" height="150" width="150">
-                      <div>&yen; 520.00</div>
-                      <a>我的卡萨浪费拉的手机费</a>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <img src="../../assets/images/1.jpg" height="150" width="150">
-                      <div>&yen; 520.00</div>
-                      <a>我的卡萨浪费拉的手机费</a>
+                    <swiper-slide v-for="(itemIn,indexIn) in item.store.items">
+                      <a>
+                        <img v-bind:src="itemIn.pic_url" height="150" width="150">
+                      </a>
+                      <div>&yen; {{itemIn.price}}</div>
+                      <a>{{itemIn.title}}</a>
                     </swiper-slide>
                     <div class="swiper-button-prev" slot="button-prev"><span class="icon-xiangqian"></span></div>
                     <div class="swiper-button-next" slot="button-next"><span class="icon-xianghou"></span></div>
@@ -70,11 +72,11 @@
               </div>
             </div>
           </div>
+
         </div>  
       </div>
     </div>  
   </div>
-
   <footerComponent></footerComponent>
 </div>
 </template>
@@ -95,7 +97,9 @@
     },
     data () {
       return {
-        menu: 1,
+        showModal: false,
+        delNum: -1,
+        menu: [],
         swiperOption: {
           name: 'mySwiper',
           slidesPerView: 4,
@@ -103,16 +107,39 @@
           autoplay: 0,
           prevButton:'.swiper-button-prev',
           nextButton:'.swiper-button-next'
-        }
+        },
+        data:[]
       }
     },
     methods: {
-      _menu (t) {
-        this.menu = t
+      _menu (t1,t2) {
+        this.$set(this.menu, t1, t2)
+      },
+      _showModal (t) {
+        this.showModal = true
+        this.delNum = t
+      },
+      _del () {
+        this.$http.delete('/api/favorites/' + this.data[this.delNum].id)
+        .then(function(ret){
+          window.location.reload()
+        },function(err){
+          console.log(err)
+        })
+        this.showModal = false
+        this.delNum = -1
       }
     },
     mounted () {
-
+      this.$http.get('/api/favorites?type=store')
+        .then(function(ret){
+          this.data = ret.data.data
+          for(var i = 0;i < this.data.length;i++){
+            this.menu.push(1)
+          }
+        },function(err){
+          console.log(err)
+        })
     }
   }
 </script>
