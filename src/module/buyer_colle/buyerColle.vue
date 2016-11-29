@@ -48,8 +48,8 @@
                 </ul>
               </div>
               <div class="buyer-colle-caozuo">
-                <p>您有<span>{{invalidNum}}</span>个失效商品</p>
-                <a v-on:click="_delInvalid" v-if="invalidNum">全部删除</a>
+                <p>您有<span>{{invalid_count}}</span>个失效商品</p>
+                <a v-on:click="_delInvalid" v-if="invalid_count">全部删除</a>
                 <div class="caozuo-box">
                   <div v-bind:style="{display: isPiliang ? 'block' : 'none'}">
                     <input id="all" type="checkbox" v-on:change="_checkAll($event)"/><label for="all">全选</label>
@@ -77,7 +77,7 @@
                 </div>                   
               </div>
             </div>
-            <Page></Page>
+            <Page :pageNum="page" :pages="total_pages" ></Page>
           </div>
         </div>
       </div>
@@ -109,8 +109,11 @@
       return {
         modalType: -1,
         showModal: false,
-        menu:1,
-        invalidNum: 0,
+        menu: 1,
+        page: 1,
+        interface: '',
+        total_pages: 0,
+        invalid_count: 0,
         isPiliang:false,
         isChecked:[],
         isAll:false,
@@ -200,14 +203,15 @@
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=item&page_size=16')
+      this.interface = '/api/favorites?type=item&page_size=16'
+      this.$http.get('/api/favorites?type=item&page_size=16&page=1')
         .then(function(ret){
           this.data = ret.data.data
+          this.page = ret.data.page_number
+          this.total_pages = ret.data.total_pages
+          this.invalid_count = ret.data.invalid_count
           for(var i = 0;i <  this.data.length;i++){
             this.isChecked.push(false)
-            if(!this.data[i].item.valid){
-              ++this.invalidNum
-            }
           }
         },function(err){
           console.log(err)
