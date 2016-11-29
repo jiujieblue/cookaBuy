@@ -148,20 +148,6 @@ var proxyTable = {
     }
   },
 
-<<<<<<< HEAD
-  // bizhi
-=======
-  // public
-  '/api/bulletins': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/bulletins': '/api/bulletins'
-    }
-  },
-
-  //
->>>>>>> d1f8c5292d7c626d4cc6fe86ea2a9fa88e9a2c2b
   '/cooka': {
 		target: 'http://localhost',
 		changeOrigin: true,
@@ -181,6 +167,13 @@ var proxyTable = {
     }
   },
 
+  '/api/footprints/deleteInvalid': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/footprints/deleteInvalid': '/api/footprints/deleteInvalid'
+    }
+  },
 	'/api/addresses':{
     target:'http://localhost:4000',
     changeOrigin: true,
