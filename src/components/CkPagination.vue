@@ -12,7 +12,7 @@
       	{{ index }}
       </li>
       <li v-if='shennue'>...</li>
-      <li class="ck-pagination-text" @click="childPage(pages)">{{ pages }}</li>
+      <li :class="['ck-pagination-text',pages == pageNum ? 'active' : '']" @click="childPage(pages)">{{ pages }}</li>
       <li class="ck-pagination-text" v-if="showLast" @click="childPage(pageNum+1)"><span class="icon-xianghou"></span></li>
       <li class="ck-pagination-input">到 <input type="text" ref="go_num" @input="validation"> 页</li>
      	<li class="ck-pagination-input"><button @click='go_num($event)'>确定</button></li>

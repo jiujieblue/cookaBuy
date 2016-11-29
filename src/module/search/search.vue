@@ -167,7 +167,8 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages=10 :pageNum.sync=2 @submitPage="subPage"></CkPagination>
+	    	<CkPagination :pages=10 :pageNum="pageNum" @submitPage="subPage"></CkPagination>
+	    	<button @click="addPage">addPage</button>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -267,7 +268,9 @@
 	      hitsProduct: '',
 	      hitsProductList: [],
 	      istotalHeight: false,
-	      isscrollFunc: false
+	      isscrollFunc: false,
+
+	      pageNum:1
 	    }
 	  },
 	  mounted () {
@@ -301,6 +304,9 @@
 
 		  subPage (val) {
 		  	console.log(val)
+		  },
+		  addPage () {
+		  	this.pageNum ++
 		  }
 	  },
 	  components: {
