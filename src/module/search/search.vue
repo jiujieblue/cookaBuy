@@ -167,7 +167,7 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages='10' :prePage='1' :pageNum.sync="2" :nextPage='3'></CkPagination>
+	    	<CkPagination :pages=10 :pageNum.sync=2 ></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -248,6 +248,8 @@
  	</div>
 	<goTop></goTop>
 	<footerComponent></footerComponent>
+	<label for="wheelDelta">滚动值:</label>(IE/Opera)<input type="text" id="wheelDelta"/>
+	<label for="detail">滚动值:(Firefox)</label><input type="text" id="detail"/>
 </div>
 </template>
 
@@ -263,7 +265,9 @@
 	    return {
 	      isGridOrBar: 0,
 	      hitsProduct: '',
-	      hitsProductList: []
+	      hitsProductList: [],
+	      istotalHeight: false,
+	      isscrollFunc: false
 	    }
 	  },
 	  mounted () {

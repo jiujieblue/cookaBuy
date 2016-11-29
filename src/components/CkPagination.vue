@@ -8,13 +8,14 @@
 	<div class="ck-pagination">
     <ul>
       <li v-if="showFirst" class="ck-pagination-text"><a class="icon-xiangqian" :href="pathname + '?' + qs.stringify({page: prePage})"></a></li>
-      <li class="ck-pagination-text" v-for='index in indexs'>
-      	<a :class="{active : index == pageNum}" :href="pathname + '?' + qs.stringify({page: index})" @click='btnClick(index)'>{{ index }}</a>
+      <li class="ck-pagination-text" v-for='index in indexs' :class="{active : index == pageNum}">
+      	<a v-show="index != pageNum" :href="pathname + '?' + qs.stringify({page: index})" @click='btnClick(index)'>{{ index }}</a>
+      	{{ index == pageNum ? index : ''}}
       </li>
-      <li class="ck-pagination-text" v-if='shennueRight'>...</li>
+      <li class="ck-pagination-text" v-if='shennue'>...</li>
       <li class="ck-pagination-text"><a :class="{active : pageNum == pages}" :href="pathname + '?' + qs.stringify({page: pages})">{{ this.pages }}</a></li>
       <li class="ck-pagination-text" v-if="showLast"><a class="icon-xianghou" :href="pathname + '?' + qs.stringify({page: nextPage})"></a></li>
-      <li class="ck-pagination-input">到 <input type="text" ref="go_num"> 页</li>
+      <li class="ck-pagination-input">到 <input type="text" ref="go_num" @input="validation"> 页</li>
      	<li class="ck-pagination-input"><button @click='go_num($event)'>确定</button></li>
     </ul>
   </div>
@@ -30,7 +31,9 @@
     return {
       pathname: '',
       stringify: '',
-      qs: qs
+      qs: qs,
+      prePage: this.pageNum-1,
+      nextPage: this.pageNum+1
     }
   },
   props: {
@@ -39,9 +42,7 @@
   	},
   	pageNum: {
   		default: 1
-  	},
-  	prePage: {},
-  	nextPage: {}
+  	}
   },
   computed : {
     indexs () {
@@ -50,7 +51,7 @@
       var pages = parseInt(this.pages)
       var pageNum = parseInt(this.pageNum)
       var ar = []
-      if(pages <= 8){
+      if(pages <= 6){
       	left = 1
       	right = pages-1
       }else{
@@ -58,7 +59,7 @@
       		left = 1
       		right = 5
       	}else if(pages-pageNum <= 2){
-      		left = pages-4
+      		left = pages-5
       		right = pages-1
       	}else{
       		left = pageNum-2
@@ -83,8 +84,8 @@
       }
       return true
     },
-    shennueRight: function(){
-    	if(this.pages-this.pageNum >= 4){
+    shennue: function(){
+    	if(this.pages-this.pageNum >= 4 && this.pages >6 ){
     		return true
     	}
     	return false
@@ -93,17 +94,20 @@
   methods: {
   	go_num (e) {
   		e.preventDefault();
-  		var val = parseInt(this.$refs.go_num.value.replace(/\s*/g,''))
-  		if(!val){
-  			return
+  		if(this.validation(e)){
+  			var val = parseInt(this.$refs.go_num.value.replace(/\s*/g,''))
+  			window.location.href = window.location.pathname + "?" + qs.stringify(_.assign({page: val}))
   		}
-  		if(!/^[1-9][\d]*$/.test(val)){
-  			return
+  	},
+
+  	validation (e) {
+  		var val = parseInt(e.target.value.replace(/\s*/g,''))
+  		if(!/^\d*$/.test(val) || parseInt(val)>this.pages || !val){
+  			e.target.value = ''
+  			return false
+  		}else{
+  			return true
   		}
-  		if(parseInt(val)>this.pages){
-  			return
-  		}
-  		window.location.href = window.location.pathname + "?" + qs.stringify(_.assign({page: val}))
   	}
   },
   mounted () {

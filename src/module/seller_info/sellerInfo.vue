@@ -118,7 +118,7 @@
 		          <slot name="body">
 		            <button data_img="close" @click="chooseImg($event)"><span class="icon-iconfont-tupianku"></span>选择照片</button><br>
 								<button data_img="shooting" @click="chooseImg($event)"><span class="icon-iconfont-xiangji"></span>拍摄照片</button>
-								<input style="display:none" ref="changeImg" type="file" accept="image/*" @change="changeImg($event)">
+								<input style="display:none" ref="changeImg" type="file" @change="changeImg($event)">
 		          </slot>
 		        </div>
 
