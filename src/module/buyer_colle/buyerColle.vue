@@ -4,11 +4,11 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
-          <h3>提示</h3>
+          <h3><span class="icon-wenhao"></span><span>{{modalType == 1 ? '删除收藏的商品' : '删除收藏的失效商品'}}</span></h3>
         </div>
 
         <div class="modal-body">
-          确定要删除选中的收藏商品吗？
+        {{modalType == 1 ? '确定要删除选中的收藏商品吗？' : '确定要删除全部失效商品吗？'}}
         </div>
 
         <div class="modal-footer">
@@ -48,8 +48,8 @@
                 </ul>
               </div>
               <div class="buyer-colle-caozuo">
-                <p>您有<span>10</span>个失效商品</p>
-                <a>全部删除</a>
+                <p>您有<span>{{invalidNum}}</span>个失效商品</p>
+                <a v-on:click="_delInvalid" v-if="invalidNum">全部删除</a>
                 <div class="caozuo-box">
                   <div v-bind:style="{display: isPiliang ? 'block' : 'none'}">
                     <input id="all" type="checkbox" v-on:change="_checkAll($event)"/><label for="all">全选</label>
@@ -77,6 +77,7 @@
                 </div>                   
               </div>
             </div>
+            <Page></Page>
           </div>
         </div>
       </div>
@@ -92,6 +93,7 @@
   import BuyerCenterHeader from 'components/BuyerCenterHeader'
   import fot from 'components/footer'
   import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
+  import Page from '../../components/CkPagination.vue'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   const fto = require('form_to_object')
@@ -100,12 +102,15 @@
     components: {
       BuyerCenterHeader,
       fot,
-      BuyerCenterSideBar
+      BuyerCenterSideBar,
+      Page
     },
     data () {
       return {
+        modalType: -1,
         showModal: false,
         menu:1,
+        invalidNum: 0,
         isPiliang:false,
         isChecked:[],
         isAll:false,
@@ -139,26 +144,43 @@
       },
       _showModal () {
         this.showModal = true
+        this.modalType = 1
       },
       _close () {
         this.showModal = false
+        this.modalType = -1
+      },
+      _delInvalid () {
+        this.showModal = true
+        this.modalType = 0
       },
       _del () {
-        this.showModal = false
-        var delNum = [];
-        for(var i = 0;i < this.isChecked.length;i++){
-          if(this.isChecked[i]){
-            delNum.push(this.data[i].id)
+        if(this.modalType){
+          var delNum = [];
+          for(var i = 0;i < this.isChecked.length;i++){
+            if(this.isChecked[i]){
+              delNum.push(this.data[i].id)
+            }
           }
+          var ids = delNum.join(',')
+          this.$http.delete('/api/favorites/' + ids)
+            .then(function(ret){
+              console.log(ret.data)
+            },function(err){
+              console.log(err)
+            })
         }
-        var ids = delNum.join(',')
-        console.log(ids)
-        // this.$http.delete('/api/favorites?type=item/' + ids)
-        //   .then(function(ret){
-        //     console.log(ret.data)
-        //   },function(err){
-        //     console.log(err)
-        //   })
+        else{
+          this.$http.get('/api/favorites/deleteInvalid')
+            .then(function(ret){
+              console.log(ret.data)
+            },function(err){
+              console.log(err)
+            })
+        }
+        this.showModal = false
+        this.modalType = -1
+        // window.location.reload()
       },
       _piliang () {
         this.isPiliang = !this.isPiliang
@@ -178,11 +200,14 @@
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=item')
+      this.$http.get('/api/favorites?type=item&page_size=16')
         .then(function(ret){
           this.data = ret.data.data
           for(var i = 0;i <  this.data.length;i++){
             this.isChecked.push(false)
+            if(!this.data[i].item.valid){
+              ++this.invalidNum
+            }
           }
         },function(err){
           console.log(err)
