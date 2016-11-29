@@ -167,7 +167,7 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages=10 :pageNum.sync=2 ></CkPagination>
+	    	<CkPagination :pages=10 :pageNum.sync=2 @submitPage="subPage"></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -297,6 +297,10 @@
 		    }else{
 		    	return list
 		    }
+		  },
+
+		  subPage (val) {
+		  	console.log(val)
 		  }
 	  },
 	  components: {

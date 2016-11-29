@@ -24,7 +24,7 @@
   		margin-right: 10px;
   		font-size: 16px;
   		text-align: center;
-			&.ck-pagination-text>a{
+			&.ck-pagination-text{
 				display: inline-block;
   			width: 40px;
   			height: 40px;
@@ -32,19 +32,21 @@
   			border: 1px solid #ececec;
   			background: #fff;
   			border-radius: 3px;
+  			cursor: pointer;
   			&:hover{
   				background: #efefef;
   			}
   			&.icon-xiangqian,&.icon-xianghou{
   				font-size: 28px;
   			}
-			}
-			&.active{
-  			width: 40px;
-  			height: 40px;
-  			border-radius: 3px;
-				background: #fcc505;
-				color: #fff;
+				&.active{
+	  			width: 40px;
+	  			height: 40px;
+	  			border-radius: 3px;
+					background: #fcc505;
+					color: #fff;
+					cursor: context-menu;
+				}
 			}
 			&.ck-pagination-input{
 				margin: 0 15px;
