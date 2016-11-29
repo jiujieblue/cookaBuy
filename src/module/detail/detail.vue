@@ -207,9 +207,9 @@
                 <div v-html="description"></div>
               </div>
             </div>
-            <div v-else>
+            <!-- <div v-else>
               <h2>我是评论</h2>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

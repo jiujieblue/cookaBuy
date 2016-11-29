@@ -46,7 +46,14 @@ var proxyTable = {
     }
   },
 
-
+  // collect
+  '/api/favorites/deleteInvalid': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/favorites/deleteInvalid': '/api/favorites/deleteInvalid'
+    }
+  },
   // register
   '/checkAvaiable': {
     target: 'http://localhost:8080',
