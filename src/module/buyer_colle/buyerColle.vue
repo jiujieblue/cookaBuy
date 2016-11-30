@@ -40,7 +40,7 @@
             <div class="buyer-colle-data" style="display:block">
               <div class="buyer-colle-menu">
                 <ul>
-                  <li v-on:click="_menu(1)" v-bind:class="menu == 1 ? 'active' : ''">全部<span>{{data.length}}</span></li>
+                  <li v-on:click="_menu(1)" v-bind:class="menu == 1 ? 'active' : ''">全部<span>{{total_entries}}</span></li>
                   <!-- <li v-on:click="_menu(2)" v-bind:class="menu == 2 ? 'active' : ''">免邮<span>12</span></li>
                   <li v-on:click="_menu(3)" v-bind:class="menu == 3 ? 'active' : ''">优惠<span>10</span></li> -->
                   <li v-on:click="_menu(4)" v-bind:class="menu == 4 ? 'active' : ''">上架时间<span class="icon-xiajiang"></span></li>
@@ -48,8 +48,8 @@
                 </ul>
               </div>
               <div class="buyer-colle-caozuo">
-                <p>您有<span>{{invalidNum}}</span>个失效商品</p>
-                <a v-on:click="_delInvalid" v-if="invalidNum">全部删除</a>
+                <p>您有<span>{{invalid_count}}</span>个失效商品</p>
+                <a v-on:click="_delInvalid" v-if="invalid_count">全部删除</a>
                 <div class="caozuo-box">
                   <div v-bind:style="{display: isPiliang ? 'block' : 'none'}">
                     <input id="all" type="checkbox" v-on:change="_checkAll($event)"/><label for="all">全选</label>
@@ -77,7 +77,7 @@
                 </div>                   
               </div>
             </div>
-            <Page></Page>
+            <Page :pageNum="page" :pages="total_pages" @submitPage="_page"></Page>
           </div>
         </div>
       </div>
@@ -109,8 +109,12 @@
       return {
         modalType: -1,
         showModal: false,
-        menu:1,
-        invalidNum: 0,
+        menu: 1,
+        page: 1,
+        total_entries: 0,
+        interface: '',
+        total_pages: 0,
+        invalid_count: 0,
         isPiliang:false,
         isChecked:[],
         isAll:false,
@@ -130,8 +134,9 @@
             })
         }
         if(t == 4 || t == 5){
+          this.page = 1
           var order = (t == 4 ? 'asc' : 'desc')
-          this.$http.get('/api/favorites?type=item&order=' + order)
+          this.$http.get('/api/favorites?type=item&page_size=16&order=' + order)
             .then(function(ret){
               this.data = ret.data.data
             },function(err){
@@ -197,17 +202,35 @@
         for(var i = 0;i < this.isChecked.length;i++){
           this.$set(this.isChecked, i, e.target.checked)
         }
+      },
+      _page (val) {
+        this.page = val
+        this.isChecked.splice(0,this.isChecked.length)
+        this.$http.get('/api/favorites?type=item&page_size=16&page=' + val)
+          .then(function(ret){
+            this.data = ret.data.data
+            this.total_pages = ret.data.total_pages
+            this.invalid_count = ret.data.invalid_count
+            console.log(this.page)
+            for(var i = 0;i <  this.data.length;i++){
+              this.isChecked.push(false)
+            }
+          },function(err){
+            console.log(err)
+          })
       }
     },
     mounted () {
-      this.$http.get('/api/favorites?type=item&page_size=16')
+      this.interface = '/api/favorites?type=item&page_size=16'
+      this.$http.get('/api/favorites?type=item&page_size=16&page=1')
         .then(function(ret){
           this.data = ret.data.data
+          this.page = ret.data.page_number
+          this.total_pages = ret.data.total_pages
+          this.invalid_count = ret.data.invalid_count
+          this.total_entries = ret.data.total_entries
           for(var i = 0;i <  this.data.length;i++){
             this.isChecked.push(false)
-            if(!this.data[i].item.valid){
-              ++this.invalidNum
-            }
           }
         },function(err){
           console.log(err)
