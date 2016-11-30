@@ -134,7 +134,7 @@
 											</span>
 										</div>
 									</div>
-                  <div class="index-product">
+                  <!--<div class="index-product">
                       <a href="#" class="index-product-link">
                           <img src="../../assets/images/250x250.png" />
                       </a>
@@ -266,10 +266,10 @@
                               市场 档口号
                           </span>
                       </div>
-                  </div>
+                  </div>-->
 								</div>
 								<div class="right">
-									<div class="carousel">
+									<div id="side" class="carousel">
 										<ul class="carousel-list">
 											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts">
 												<a href="#">
@@ -758,7 +758,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens">
 										<a href="#" class="index-product-link">
-											<img src="childrensItem.pic_url" />
+											<img :src="childrensItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.price}}
@@ -801,20 +801,25 @@ Vue.use(VueResource)
 export default {
 	data () {
     	return {
-        recommend_data:[],
-        stores:[],
-        products:[],
-        sideproducts:[],
-        announcements:[],
-        girls:[],
-        boys:[],
-        maternits:[],
-        childrens:[]
+	        recommend_data:[],
+	        stores:[],
+	        products:[],
+	        sideproducts:[],
+	        announcements:[],
+	        girls:[],
+	        boys:[],
+	        maternits:[],
+	        childrens:[],
+	        init_page:1,
+	        total_entries:''
     	}
 	},
 	components:{
 		headerComponent,
 		footerComponent
+	},
+	methods:{
+		
 	},
 	mounted(){
 		this.$http.get('/api/recommend_stores')
@@ -831,28 +836,49 @@ export default {
 				console.log(err)
 			}
 		)
-     this.$http.get('/api/recommends'+'?page=1&location=100&size=5')
-       .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page=1')
+    	.then(
            function(res){
              //console.log(res)
              this.products = res.data.data
-             //console.log(this.products)
+             console.log(this.products)
            },function(err){
                console.log(err)
          }
        )
-    this.$http.get('/api/recommends'+'?page=1&location=200&size=5')
-      .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
+    	.then(
         function(res){
           //console.log(res)
-          this.sideproducts = res.data.data
-          //console.log(this.sideproducts)
+        	this.sideproducts = res.data.data
+        	this.total_entries  = res.data.total_entries
+        	console.log(this.total_entries)
+        	var me = this
+    		var timer = setInterval(function(){
+
+	        	
+    			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+			    	.then(
+				        function(res){
+				          //console.log(res)
+		          			me.sideproducts = res.data.data		          
+		          			//console.log(this.sideproducts)
+		          			me.init_page ++ 
+				      		if(me.init_page > me.total_entries ){
+				      			me.init_page = 1
+				      		}
+		        },function(err){
+		          console.log(err)
+		        }
+		      )
+		    },3000)
+          console.log(this.sideproducts)
         },function(err){
           console.log(err)
         }
       )
-    this.$http.get('/api/recommends'+'?page=1&location=300&size=5')
-      .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
+    	.then(
         function(res){
           //console.log(res)
           this.girls = res.data.data
@@ -861,8 +887,8 @@ export default {
           console.log(err)
         }
       )
-    this.$http.get('/api/recommends'+'?page=1&location=400&size=5')
-      .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=8')
+    	.then(
         function(res){
           //console.log(res)
           this.boys = res.data.data
@@ -871,8 +897,8 @@ export default {
           console.log(err)
         }
       )
-    this.$http.get('/api/recommends'+'?page=1&location=500&size=5')
-      .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=maternit&page_size=8')
+    	.then(
         function(res){
           //console.log(res)
           this.maternits = res.data.data
@@ -881,8 +907,8 @@ export default {
           console.log(err)
         }
       )
-    this.$http.get('/api/recommends'+'?page=1&location=600&size=5')
-      .then(
+    	this.$http.get('/api/recommends'+'?page_name=index&location=children&page_size=8')
+    	.then(
         function(res){
           //console.log(res)
           this.childrens = res.data.data
@@ -891,12 +917,12 @@ export default {
           console.log(err)
         }
       )
-    this.$http.get('/api/bulletins'+'?type=0')
-      .then(
+    	this.$http.get('/api/bulletins'+'?type=0')
+    	.then(
         function(res){
           //console.log(res)
           this.announcements = res.data.data
-          console.log(this.announcements)
+          //console.log(this.announcements)
         },function(err){
           console.log(err)
         }
