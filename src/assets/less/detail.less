@@ -1,3 +1,4 @@
+
 .header{
   text-align:center;
 }
@@ -28,7 +29,6 @@
     text-decoration: none;
     cursor: pointer;
   }
-  margin-top: 50px;
   .detail-shopping-box{
     margin-top: 25px;
     overflow: hidden;
@@ -396,6 +396,7 @@
           }
           img{
             width:100%; 
+            height: 163px;
           }
           .price{
             position: absolute;
@@ -430,161 +431,164 @@
     }
   }
 }
-.bg-b{
+.container-b-box{
   background:#f7f7f7;
-  .em{
-    display:inline-block;
-    width:1em;
-  }
-  .em_5{
-    display:inline-block;
-    width:.5em;
-  }
-  ul, ol, li, p, h1, h2, h3,h4, h5, h6, dl, dt, dd, input {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-  }
-  a {
-    color: #665c59;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .detail-news{
-    .ellipsis() {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+  .bg-b{
+    .em{
+      display:inline-block;
+      width:1em;
     }
-    margin-top:20px;
-    .news-tit{
-      overflow:hidden;
-      >span:first-child{
-        float: left;
-        padding: 0 3px;
-        background: #fe3c00;
-        color: #fff;
-        margin-top: 18px;
-        margin-right: 10px;
-      }
-      p{
-        float:left;
-        margin-top:10px;
-        font-size: 24px;
-      }
-      a{
-        float:right;
-        span{       
-          font-size:44px;
-          margin-top: 12px;
-        }
-      }
-      padding-bottom:10px;
-      border-bottom:1px solid #372f2c;
+    .em_5{
+      display:inline-block;
+      width:.5em;
     }
-    .news-list{
+    ul, ol, li, p, h1, h2, h3,h4, h5, h6, dl, dt, dd, input {
+      margin: 0px;
+      padding: 0px;
+      list-style: none;
+    }
+    a {
+      color: #665c59;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .detail-news{
+      .ellipsis() {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       margin-top:20px;
-      overflow: hidden;
-      .news-img{
-        background: #fff;
-        float:left;
-        width:19.6%;
+      .news-tit{
         overflow:hidden;
-        margin-right:0.5%;
-        padding-bottom: 20px;
+        >span:first-child{
+          float: left;
+          padding: 0 3px;
+          background: #fe3c00;
+          color: #fff;
+          margin-top: 18px;
+          margin-right: 10px;
+        }
+        p{
+          float:left;
+          margin-top:10px;
+          font-size: 24px;
+        }
         a{
-          img{
-            display: block;
-            width: 100%;
-          }
-          div{
-            padding: 0 10px;
-            .ellipsis();
+          float:right;
+          span{       
+            font-size:44px;
+            margin-top: 12px;
           }
         }
-        
-        >div{
-          padding:0 10px;
-          margin-top:5px;
-        }
-        .img-tit{
-           display:block;
-           .ellipsis();
-        }
-        .img-info{
+        padding-bottom:10px;
+        border-bottom:1px solid #372f2c;
+      }
+      .news-list{
+        margin-top:20px;
+        overflow: hidden;
+        .news-img{
+          background: #fff;
+          float:left;
+          width:19.6%;
           overflow:hidden;
-          p:first-child{
+          margin-right:0.5%;
+          padding-bottom: 20px;
+          a{
+            img{
+              display: block;
+              width: 100%;
+              height: 223px;
+            }
+            div{
+              padding: 0 10px;
+              .ellipsis();
+            }
+          }
+          
+          >div{
+            padding:0 10px;
+            margin-top:5px;
+          }
+          .img-tit{
+             display:block;
+             .ellipsis();
+          }
+          .img-info{
+            overflow:hidden;
+            p:first-child{
+              float:left;
+            }
+            p:last-child{
+              float:right;
+            }
+          }
+        }
+        .news-img:last-child{
+          margin:0;
+        }
+      }
+    } 
+    .oth{ 
+      margin-top:20px;
+      padding-bottom:100px;
+      .detail-det{ 
+      background:#fff;  
+        .shopping-menu{
+          background:#ececec;
+          li{
+            display:inline-block;
+            padding:10px 20px;
+            font-size: 18px;
+          }
+          .active{
+            border-top:2px solid #fcc505;
+            color:#fcc505;
+            background:#fff;
+            margin-top:-1px;
+          }
+        }
+        .specif,.detail-desc{
+          padding:0 20px;
+          margin-top:20px;
+          overflow:hidden;
+          >div{
             float:left;
           }
-          p:last-child{
-            float:right;
+          .sanjiao{
+            width:0;
+            height:0;
+            border:6px solid transparent;
+            border-left:10px solid #665d58;
+            margin-top:7px;
+          }
+          .text{
+            font-size: 18px;
+          }
+          .hr{
+            width:90%;
+            border-bottom:1px solid #dfdfdf;
+            margin-top: 13px;
+            margin-left:10px;
           }
         }
-      }
-      .news-img:last-child{
-        margin:0;
-      }
-    }
-  } 
-  .oth{ 
-    margin-top:20px;
-    padding-bottom:100px;
-    .detail-det{ 
-    background:#fff;  
-      .shopping-menu{
-        background:#ececec;
-        li{
-          display:inline-block;
-          padding:10px 20px;
-          font-size: 18px;
-        }
-        .active{
-          border-top:2px solid #fcc505;
-          color:#fcc505;
-          background:#fff;
-          margin-top:-1px;
-        }
-      }
-      .specif,.detail-desc{
-        padding:0 20px;
-        margin-top:20px;
-        overflow:hidden;
-        >div{
-          float:left;
-        }
-        .sanjiao{
-          width:0;
-          height:0;
-          border:6px solid transparent;
-          border-left:10px solid #665d58;
-          margin-top:7px;
-        }
-        .text{
-          font-size: 18px;
-        }
-        .hr{
-          width:90%;
-          border-bottom:1px solid #dfdfdf;
-          margin-top: 13px;
-          margin-left:10px;
-        }
-      }
-      .specif-tab{
-        width:70%;
-        padding:50px 0;
-        margin-left:15%;
-        table{
-          border-collapse: collapse;
-          width:100%;
-          td{
-            border:1px solid #ddd;
-            padding:5px 20px;
+        .specif-tab{
+          width:70%;
+          padding:50px 0;
+          margin-left:15%;
+          table{
+            border-collapse: collapse;
+            width:100%;
+            td{
+              border:1px solid #ddd;
+              padding:5px 20px;
+            }
           }
         }
-      }
-      .detail-desc-des{
-        margin-top:50px;
-        text-align:center;
+        .detail-desc-des{
+          margin-top:50px;
+          text-align:center;
+        }
       }
     }
   }

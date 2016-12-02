@@ -1,7 +1,7 @@
 <template>
 <div>
-  <headerComponent></headerComponent>
-  <div></div>
+  <headerComponent pageName="detailPage"></headerComponent>
+
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -147,78 +147,80 @@
       </div>
     </div>
   </div>
-  <div class="container bg-b">
-    <div class="row">
-      <div class="col-md-12">
-          <div class="detail-news">
-            <div class="news-tit">
-              <span>NEW</span>
-              <p>最新上架</p>
-              <a v-on:click="_more"><span class="icon-more"></span></a>
-            </div>
-            <div class="news-list">
-              <div class="news-img" v-for="(item,index) in newList">
-                <a class="img-tit" v-on:click="_n_detail(index)">
-                  <img v-bind:src="item.pic_url">
-                  <div v-on:click="_n_detail(index)">{{item.title}}</div>
-                </a>
-                <div class="img-info">
-                  <p>&yen; {{item.price}}</p>
-                  <p>50分钟前</p>
+  <div class="container-b-box">
+    <div class="container bg-b">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="detail-news">
+              <div class="news-tit">
+                <span>NEW</span>
+                <p>最新上架</p>
+                <a v-on:click="_more"><span class="icon-more"></span></a>
+              </div>
+              <div class="news-list">
+                <div class="news-img" v-for="(item,index) in newList">
+                  <a class="img-tit" v-on:click="_n_detail(index)">
+                    <img v-bind:src="item.pic_url">
+                    <div v-on:click="_n_detail(index)">{{item.title}}</div>
+                  </a>
+                  <div class="img-info">
+                    <p>&yen; {{item.price}}</p>
+                    <p>50分钟前</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+        </div>
       </div>
-    </div>
-    <div class="oth">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="detail-det">
-            <ul class="shopping-menu">
-              <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
-                商品详情
-              </li>
-              <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
-                商品评论
-              </li>
-            </ul>
-            <div v-if="tabList==1">
-              <div class="specif">
-                <div class="sanjiao"></div>
-                <div class="text">规格参数</div>
-                <div class="hr"></div>
+      <div class="oth">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="detail-det">
+              <ul class="shopping-menu">
+                <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
+                  商品详情
+                </li>
+                <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
+                  商品评论
+                </li>
+              </ul>
+              <div v-if="tabList==1">
+                <div class="specif">
+                  <div class="sanjiao"></div>
+                  <div class="text">规格参数</div>
+                  <div class="hr"></div>
+                </div>
+                <div class="specif-tab">
+                  <table>
+                    <tbody>
+                      <tr v-for="(item,index) in item_props">
+                        <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
+                        <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
+                        <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="detail-desc">
+                  <div class="sanjiao"></div>
+                  <div class="text">图文详情</div>
+                  <div class="hr"></div>
+                </div>
+                <div class="detail-desc-des">
+                  <div v-html="description"></div>
+                </div>
               </div>
-              <div class="specif-tab">
-                <table>
-                  <tbody>
-                    <tr v-for="(item,index) in item_props">
-                      <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
-                      <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
-                      <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="detail-desc">
-                <div class="sanjiao"></div>
-                <div class="text">图文详情</div>
-                <div class="hr"></div>
-              </div>
-              <div class="detail-desc-des">
-                <div v-html="description"></div>
-              </div>
+              <!-- <div v-else>
+                <h2>我是评论</h2>
+              </div> -->
             </div>
-            <!-- <div v-else>
-              <h2>我是评论</h2>
-            </div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <footerComponent></footerComponent>
+  <goTop></goTop>
 </div>
 </template>
 
@@ -227,12 +229,14 @@
   import Vue from 'vue'
   import headerComponent from 'components/header'
   import footerComponent from 'components/footer'
+  import goTop from 'components/goTop'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   export default{
     components:{
       headerComponent,
-      footerComponent
+      footerComponent,
+      goTop
     },
     data () {
       return {
@@ -575,7 +579,8 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/detail.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  @import "../../assets/less/detail.less";
+  
 </style>
