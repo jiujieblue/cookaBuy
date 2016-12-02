@@ -78,7 +78,7 @@
               <div class="desc-num">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
-                <input type="text" v-on:change="_changeNum" v-model="chooseNum">
+                <input type="text" v-on:change="_chooseNum($event)" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>              
@@ -108,9 +108,9 @@
                         <div class="info-size">{{itemIn.prop_name.split(';')[0].split(':')[1]}}</div>
                         <div class="info-num">
                           <span>数量 ：</span>
-                          <button>-</button>
-                          <input type="text" v-model="itemIn.num">
-                          <button>+</button>
+                          <button v-on:click="_changeChooseNum(-1,index,indexIn)">-</button>
+                          <input type="text" v-on:change="_changeChooseNum($event,index,indexIn)" v-model="itemIn.num">
+                          <button v-on:click="_changeChooseNum(1,index,indexIn)">+</button>
                         </div>
                       </div>
                     </div>
@@ -152,7 +152,7 @@
             <div class="news-tit">
               <span>NEW</span>
               <p>最新上架</p>
-              <a href="#"><span class="icon-more"></span></a>
+              <a v-on:click="_more"><span class="icon-more"></span></a>
             </div>
             <div class="news-list">
               <div class="news-img" v-for="(item,index) in newList">
@@ -303,7 +303,7 @@
             this.price = this.skus[i].price
             var obj={}
             if(!this.chooseShopping.length){
-              obj.num = 1
+              obj.num = this.chooseNum
               obj.sku_id = this.skus[i].id
               obj.prop_name = this.skus[i].properties_name
               obj.price = this.skus[i].price
@@ -325,7 +325,7 @@
               }
               if(k == this.chooseShopping.length){
                 this.chooseNum = 1                  
-                obj.num = 1
+                obj.num = this.chooseNum
                 obj.sku_id = this.skus[i].id
                 obj.prop_name = this.skus[i].properties_name
                 obj.price = this.skus[i].price
@@ -414,25 +414,49 @@
             }
           }
         }
-        this._chooseList();
-      },
-      _changeNum (e) {
-        if(!(/^\d$/.test(e.target.value))){
-          this.chooseNum = 1
-        }
-        else if(e.target.value < 1){  
-          this.chooseNum = 1
-        }
         else{
-          this.chooseNum = parseInt(e.target.value)
-        }
-        
-        for(var i = 0;i < this.chooseShopping.length;i ++){
-          if(this.chooseShopping[i].sku_id == this.sku_id){
-            this.chooseShopping[i].num = this.chooseNum
+          if(!(/^\d$/.test(t.target.value))){
+            this.chooseNum = 1
+          }
+          else if(t.target.value < 1){  
+            this.chooseNum = 1
+          }
+          else{
+            this.chooseNum = parseInt(t.target.value)
+          }
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
           }
         }
-        this._chooseList();
+        if(this.size_t != -1 && this.color_t != -1){
+          this._chooseList();
+        }
+        
+      },
+      _changeChooseNum (s,t1,t2) {
+        if(s == 1){
+          ++this.chooseList[t1][t2].num
+           
+        }
+        if(s == -1){
+          if(this.chooseList[t1][t2].num > 1){
+            --this.chooseList[t1][t2].num
+          }
+        }
+        else{
+          if(!(/^\d$/.test(s.target.value))){
+            this.chooseList[t1][t2].num = 1
+          }
+          else if(s.target.value < 1){  
+            this.chooseList[t1][t2].num = 1
+          }
+          else{
+            this.chooseList[t1][t2].num = parseInt(s.target.value)
+          }
+        }
+        this.chooseNum = this.chooseList[t1][t2].num
       },
       _addCart () {
         if(this.size_t == -1 || this.color_t == -1){
@@ -448,7 +472,6 @@
             obj.origin_price = this.price
             // obj.price = this.price
             obj.sub_total = obj.num * this.price
-            console.log(obj.num)
             this.$http.post('/api/carts', {"cart":obj})
               .then(function (ret) {
                 console.log(ret.data)
@@ -459,6 +482,9 @@
           }
         }
         
+      },
+      _more () {
+        window.location.href= 'http://localhost:9090/module/SellerAllProduct.html?store_id=' + this.store_id
       },
       tab (t) {
         this.tabList = t
@@ -497,7 +523,7 @@
                 }               
               }
             }
-            if(ret.data.data.sku_props[i].prop_name == '尺码'){
+            if(ret.data.data.sku_props[i].prop_name == '尺码' || ret.data.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
@@ -517,7 +543,7 @@
           }
           this.description = ret.data.data.desc
 
-          this.$http.get('/api/items?store_id=1&type=showcase&page=1&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
               this.showcaseTotalPage = ret.data.total_pages
@@ -527,7 +553,7 @@
             },function(err){
               console.log(err)
             })
-          this.$http.get('/api/items?store_id=1&type=new&page=1&page_size=5')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=5')
             .then(function(ret){
               this.newList = ret.data.data
             },function(err){
