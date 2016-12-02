@@ -484,7 +484,7 @@
         
       },
       _more () {
-        window.location.href= 'http://localhost:9090/module/SellerAllProduct.html?store_id=' + this.store_id
+        window.location.href= 'http://localhost:9090/module/sellerAllProduct.html?store_id=' + this.store_id
       },
       tab (t) {
         this.tabList = t
