@@ -167,8 +167,7 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages=10 :pageNum="pageNum" @submitPage="subPage"></CkPagination>
-	    	<button @click="addPage">addPage</button>
+	    	<CkPagination :pages="10" :pageNum="2" @submitPage="subPage"></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -249,8 +248,6 @@
  	</div>
 	<goTop></goTop>
 	<footerComponent></footerComponent>
-	<label for="wheelDelta">滚动值:</label>(IE/Opera)<input type="text" id="wheelDelta"/>
-	<label for="detail">滚动值:(Firefox)</label><input type="text" id="detail"/>
 </div>
 </template>
 
@@ -266,11 +263,7 @@
 	    return {
 	      isGridOrBar: 0,
 	      hitsProduct: '',
-	      hitsProductList: [],
-	      istotalHeight: false,
-	      isscrollFunc: false,
-
-	      pageNum:1
+	      hitsProductList: []
 	    }
 	  },
 	  mounted () {
@@ -304,9 +297,6 @@
 
 		  subPage (val) {
 		  	console.log(val)
-		  },
-		  addPage () {
-		  	this.pageNum ++
 		  }
 	  },
 	  components: {

@@ -9,4 +9,4 @@ Vue.use(VueRouter)
 new Vue({
 	el: '#sellerInfo',
   render: h => h(sellerInfo)
-}).$mount('#sellerInfo')
+})
