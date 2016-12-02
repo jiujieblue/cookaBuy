@@ -1,6 +1,92 @@
 @import "./C.less";
 
 .buyFootprint{
+	.modal{
+		&-mask {
+		  position: fixed;
+		  z-index: 9998;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(0, 0, 0, .5);
+		  display: table;
+		  transition: all 0.3s linear;
+		}
+		&-wrapper {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+		&-container {
+		  width: 400px;
+		  margin: 0px auto;
+		  padding: 10px 20px;
+		  background-color: #fff;
+		  border-radius: 2px;
+		  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+		  transition: all 0.3s linear;
+		}
+		&-header {
+		  padding: 10px;
+		  border-bottom: 2px solid #fcc505;
+		  font-size: 18px;
+		  color: #fcc505;
+		  position: relative;
+		  span{
+		  	&.icon-wenhao{
+		  		padding-bottom: 3px;
+		  		font-size: 20px;
+		  		color: red;
+		  	}
+		  	&.icon-cha{
+		  		font-size: 25px;
+		  		float: right;
+			  	color: #989898;
+			  	cursor: pointer;
+		  	}
+		  	&:hover{
+		  		color: #1a1a1a;
+		  	}
+		  }
+		}
+		&-body {
+		  margin: 40px 0;
+		  text-align: center;
+		  font-size: 18px;
+		}
+		&-footer{
+			padding: 20px 20px;
+			button{
+				width: 120px;
+				height: 35px;
+				border: 1px solid #aaa;
+				border-radius: 3px;
+				&.cancel{
+					float: left;
+					background: #fff;
+					color: #1a1a1a;
+				}
+				&.determine{
+					float: right;
+					background: #fcc505;
+					color: #372f2c;
+				}
+			}
+		}
+		&-default-button {
+		  float: right;
+		}
+		&-enter {
+		  opacity: 1;
+		}
+		&-leave-active {
+		  opacity: 1;
+		}
+		&-container {
+		  -webkit-transform: scale(1.1);
+		  transform: scale(1.1);
+		}
+	}
 	ul,li,p{
 		padding: 0;
 		margin: 0;
@@ -47,52 +133,75 @@
 				}
 			}
 			&-list{
-				>ul{
+				.buyFootprint-right-container-list-nav{
 					.clearfix();
 					margin: 15px 20px 15px 0;
 					>li{
 						float: right;
 						&:last-child{
-							margin-right: 250px;
 							span{
 								color: red;
 								margin-left: 15px;
 								&:first-child{
 									margin: 0 5px;
 								}
-								&.allDel{
+								&:last-child{							
 									cursor: pointer;
+								}
+								&.delFailure{
+									cursor: default;
+									color: #a89d99;
 								}
 							}
 						}
 						&:first-child{
-							>a{
-								link{
-									margin-right: 5px;
-									margin-left: 20px;
+							width: 40%;
+							>div{
+								float: right;
+								margin-right: 20px;
+								>a{
+									link{
+										margin-right: 5px;
+										margin-left: 20px;
+									}
+								}
+								>span{
+									color: #a89d99;
+									cursor: pointer;
+									link{
+										margin: 0 5px;
+									}
+									span[class^=icon]{
+										.path1{
+											position: relative;
+											left: 7px;
+										}
+										.path2{
+											font-weight: bold;
+										}
+									}
+									&:hover{
+										color: #372f2c;
+									}
+									&.noSelected{
+										cursor: default;
+										&:hover{
+											color: #a89d99;
+										}
+									}
 								}
 							}
 							>span{
-								color: #a89d99;
+								float: right;
+								margin-right: 5px;
+								color: #50c4fc;
 								cursor: pointer;
-								span[class^=icon]{
-									.path1{
-										position: relative;
-										left: 7px;
-									}
-									.path2{
-										font-weight: bold;
-									}
-								}
-								&:hover{
-									color: #372f2c;
-								}
 							}
 						}
 					}
 				}
 				&-main{
-					>ul{
+						border-top: 1px solid #ccc;
 						>li{
 							padding-top: 15px;
 							>span{
@@ -124,37 +233,7 @@
 											img{
 												width: 210px;
 												height: 210px;
-												border: 1px solid #ccc;
-											}
-										}
-										div{
-											display: none;
-											position: absolute;
-											top: 10px;
-											right: 10px;
-											link{
-												display: block;
-												padding: 5px;
-												margin-bottom: 5px;
-												border-radius: 3px;
-												background: #b3b3b3;
-												color: #fff;
-												font-size: 25px;
-												cursor: pointer;
-												&.icon-shanchu{
-													font-size: 23px;
-												}
-												&:hover{
-													background: #fcc505;
-												}
-											}
-										}
-										&:hover{
-											div{
-												display: block;
-											}
-											img{
-												opacity: 0.8;
+												border: 1px solid #e3e3e3;
 											}
 										}
 									}
@@ -165,10 +244,86 @@
 										font-weight: normal;
 										font-size: 18px;
 									}
+									&.batch{
+										>i{
+											position: absolute;
+											top: 0;
+											width: 100%;
+											height: 100%;
+											cursor: pointer;
+											z-index: 10;
+											&:hover +div{
+												>a >img{
+													border: 1px solid #fcc505;
+												}
+												>div.batch-icon span.icon-shubiaoyiru{
+													color: #fcc505;
+												}
+											}
+										}
+										>div{
+											>div.batch-icon{
+												position: absolute;
+												top: 1px;
+												right: 1px;
+												span{
+													font-size: 45px;
+													&.icon-shubiaoyiru{
+														color: #e3e3e3;
+													}
+													&.icon-xuanzhong{
+														.path1,.path2{
+															position: absolute;
+															right: 0;
+															top: 0;
+														}
+													}
+												}
+											}
+											&.active{
+												>a >img{
+													border: 1px solid #fcc505;
+												}
+											}
+										}
+									}
+									&.noBatch{
+										>div{
+											>div{
+												&.noBatch-icon{
+													display: none;
+													position: absolute;
+													top: 10px;
+													right: 10px;
+													link{
+														display: block;
+														padding: 5px;
+														margin-bottom: 5px;
+														border-radius: 3px;
+														background: #b3b3b3;
+														color: #fff;
+														font-size: 25px;
+														cursor: pointer;
+														&.icon-shanchu{
+															font-size: 23px;
+														}
+														&:hover{
+															background: #fcc505;
+														}
+													}
+												}
+											}
+											&:hover{
+												div{
+													display: block;
+												}
+												img{
+													opacity: 0.8;
+												}
+											}
+										} 
+									}
 								}
-							}
-							&:last-child{
-								border-bottom: 1px solid #ccc;
 							}
 						}
 						&:last-child >li:last-child{
@@ -178,7 +333,7 @@
 							margin-right: 20px;
 							border-top: 1px solid #ccc;
 						}
-					}
+					
 				}
 			}
 		}

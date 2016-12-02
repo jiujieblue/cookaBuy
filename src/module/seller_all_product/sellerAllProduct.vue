@@ -6,7 +6,7 @@
 <template>
 <div id='sellerAllProduct'>
 	<div class="sellerAllProduct-header">
-		<div class="row sellerAllProduct-header-nav">
+		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
 					<li>您好，欢迎光临柯咔商城！</li>
@@ -20,7 +20,7 @@
 			<div class="container">
 				<link rel="stylesheet" class="icon-guanzhudianjia">
 				<ul>
-					<li><b>七匹狼专卖店</b><span>+关注本店</span></li>
+					<li><b>七匹狼专卖店</b><button>+关注本店</button></li>
 					<li>
 						<link rel="stylesheet" class="icon-shimingyanzheng">实名验证
 						<link rel="stylesheet" class="icon-strenzheng">实体认证
@@ -52,20 +52,20 @@
 	    	</p>
 	    	<div>
 	    		<span>女士/女士精品：</span>
-		    	<ul>
-		    		<li v-for="sub in subs">
-		    			<a href="#" v-bind:data-categoryId="sub.categoryId">{{ sub.name }}</a>
+		    	<ul ref="catsUl">
+		    		<li v-for="(cat,index) in cats">
+		    			<a href="#">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
-		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more">更多</span>
+		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" :class="{HeiBig : isHeiBig}">更多</span>
 	    	</div>
 	    </div>
   	</div>
     <nav class="row sellerAllProduct-nav">
     	<ul>
-    		<li>销量<i></i></li>
-    		<li>上新时间<i></i></li>
-    		<li>价格<i></i></li>
+    		<li v-if="false">销量<i></i></li>
+    		<li @click="sorting($event,'list','price',0)">上新时间<i :class="{sorting : list}"></i></li>
+    		<li @click="sorting($event,'price','list',1)">价格<i :class="{sorting : price}"></i></li>
     	</ul>
     	<p>
     		<span>￥</span>
@@ -78,12 +78,12 @@
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
     		<ul>
-    			<li v-for="list in lists">
-    				<img v-bind:src="list.imageUrl" v-bind:data-productId="list.productId" alt="产品图片">
+    			<li v-for="(product,index) in products">
+    				<img :src="product.pic_url" alt="产品图片">
     				<ul>
-    					<li><b>￥&nbsp;{{ list.price }}</b><span rel="stylesheet" class="icon-shoucang"></span></li>
-    					<li>{{ list.title }}</li>
-    					<li><span>#{{ list.productId }}</span><button>一键上传</button></li>
+    					<li><b>￥&nbsp;{{ product.price }}</b><span rel="stylesheet" class="icon-shoucang"></span></li>
+    					<li>{{ product.title }}</li>
+    					<li><span>#{{ product.num_iid }}</span><button>一键上传</button></li>
     				</ul>
     			</li>
     		</ul>
@@ -91,35 +91,17 @@
     	<div class="sellerAllProduct-product-right">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
-    			<li>
+    			<li v-for="(showcase,index) in showcases">
     				<a href="">
-    					<img src="../../assets/images/hot-sale-side.jpg" />
+    					<img :src="showcase.pic_url" />
     				</a>
-    				<b>￥&nbsp;2510.0</b>
-    			</li>
-    			<li>
-    				<a href="">
-    					<img src="../../assets/images/hot-sale-side.jpg" />
-    				</a>
-    				<b>￥&nbsp;2510.0</b>
-    			</li>
-    			<li>
-    				<a href="">
-    					<img src="../../assets/images/hot-sale-side.jpg" />
-    				</a>
-    				<b>￥&nbsp;2510.0</b>
-    			</li>
-    			<li>
-    				<a href="">
-    					<img src="../../assets/images/hot-sale-side.jpg" />
-    				</a>
-    				<b>￥&nbsp;2510.0</b>
+    				<b>￥&nbsp;{{ showcase.price }}</b>
     			</li>
     		</ul>
     	</div>
     </div>
   </div>
-  <CkPagination :pageNum="pageNum" :pages="pages" :prePage="prePage" :nextPage="nextPage"></CkPagination>
+  <CkPagination :pages="total_pages" :pageNum="page_number" @submitPage="subPage"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -128,49 +110,99 @@
 	import Vue from 'vue'
 	import footerComponent from 'components/footer'
 	import CkPagination from 'components/CkPagination'
-	// window.onload = function () {
-	// 	if(parseInt($("#more").parent().css('height')) <= 50 && this.subs!==undefined) {
-	// 		$('#more').css({display: 'inline-block'})
-	//   }
-	// }
+	
 	export default {
 	  data () {
 	    return {
-	      categories: [],
-	      subs: [],
-	      pageinfo: '',
-	      lists: [],
-	      msg: 'not loader ',
-	      pageNum: 1,
-	      nextPage: 0,
-	      prePage: 0,
-	      pages: 0
+	      products: [],
+	      cats: [],
+	      page_number: Number,
+	      total_pages: Number,
+	      list: true,
+	      price: true,
+	      isSorting: false,
+	      showcases: [],
+	      paixu: '',
+	      paixuRules: '',
+	      isHeiBig: false
 	    }
 	  },
 	  mounted () {
-	    this.$http.get('/cooka-store-web/allStoreProducts')
+	  	var me = this
+
+	    this.$http.get('/api/items?store_id=7&type=all&page=1&page_size=12')
 	    .then(function (res) {
-	    	console.log(res.data)
-	    	this.pageNum = res.data.pageinfo.pageNum
-	    	this.nextPage = res.data.pageinfo.nextPage
-	    	this.prePage = res.data.pageinfo.prePage
-	    	this.pages = res.data.pageinfo.pages
-	    	this.categories = res.data.categories
-	    	this.subs = res.data.categories[0].sub
-	    	console.log(res.data.categories)
-	    	this.pageinfo = res.data.pageinfo
-	    	this.lists = res.data.pageinfo.list
+		    me.cats = res.data.cats
+	    	me.products = res.data.data
+	    	me.page_number = res.data.page_number
+	    	me.total_pages = res.data.total_pages
+	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
+	  			me.isHeiBig = true
+			  }
 	    },
 	    function (res) {
 	    	console.log(res)
 	    })
+	    this.$http.get('/api/items?store_id=7&type=showcase&page_size=4&page=1')
+	    .then(function (res) {
+	    	me.showcases = res.data.data
+	    },
+	    function (res) {
+	    	console.log(res)
+	    })
+
 	  },
 	  methods : {
+	  	// 商品分类过多就隐藏   鼠标事件让其显示
 	  	moreOver : function (e) {
-	  		$(e.target.parentNode).css({maxHeight: '500px'})
+				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
+	  			$(e.target.parentNode).css({maxHeight: '500px'})
+			  }
 	  	},
 	  	moreOut : function (e) {
-	  		$(e.target.parentNode).css({maxHeight: '50px'})
+	  		$(e.target.parentNode).css({maxHeight: '60px'})
+	  	},
+	  	// 分页的跳转
+	  	subPage (n) {
+	  		var me = this
+	  		this.$http.get('/api/items?store_id=7&type=all&order=desc_price&page_size=12&page='+ n + me.paixu + me.paixuRules)
+		    .then(function (res) {
+		    	me.products = res.data.data
+		    	me.page_number = res.data.page_number
+		    	me.total_pages = res.data.total_pages
+		    },
+		    function (res) {
+		    	console.log(res)
+		    })
+		    this.$http.get('/api/items?store_id=7&type=showcase&page_size=4&page='+ n + me.paixu + me.paixuRules)
+		    .then(function (res) {
+		    	me.showcases = res.data.data
+		    },
+		    function (res) {
+		    	console.log(res)
+		    })
+	  	},
+	  	// 排序的规则
+	  	sorting (e,str1,str2,n) {
+	  		$(e.target).addClass('active').siblings('.active').removeClass('active')
+	  		var me = this
+	  		this[str2] = true
+	  		this.paixuRules = str1
+	  		if(this[str1]){
+	  			this.paixu = '&order=asc_'
+	  		}else{
+	  			this.paixu = '&order=desc_'
+	  		}
+	  		this[str1] = !this[str1]
+	  		this.$http.get('/api/items?store_id=7&type=all&page_size=12&page=1'+ me.paixu + me.paixuRules)
+		    .then(function (res) {
+		    	me.products = res.data.data
+		    	me.page_number = res.data.page_number
+		    	me.total_pages = res.data.total_pages
+		    },
+		    function (res) {
+		    	console.log(res)
+		    })
 	  	}
 	  },
 	  components: {

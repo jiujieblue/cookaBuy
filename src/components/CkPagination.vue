@@ -8,7 +8,7 @@
 	<div class="ck-pagination">
     <ul>
       <li v-if="showFirst" class="ck-pagination-text" @click="childPage(pageNum-1)"><span class="icon-xiangqian"></span></li>
-      <li class="ck-pagination-text" v-for='index in indexs' :class="{active : index == pageNum}" @click="childPage(index)">
+      <li :class="['ck-pagination-text', index == pageNum ? 'active': '']" v-for='index in indexs' @click="childPage(index)">
       	{{ index }}
       </li>
       <li v-if='shennue'>...</li>
@@ -89,6 +89,7 @@
   		e.preventDefault();
   		var val = parseInt(this.$refs.go_num.value.replace(/\s*/g,''))
   		if(/^\d*$/.test(val) || !parseInt(val)>this.pages || val){
+  			this.$refs.go_num.value = ''
   			this.$emit('submitPage',val)
   		}
   	},
