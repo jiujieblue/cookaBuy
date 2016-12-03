@@ -783,9 +783,10 @@
 								</div>
 							</div>
 						</div>
-						<a href="#" title="返回页面顶部" class="index-go-to-top">
+						<!-- <a href="#" title="返回页面顶部" class="index-go-to-top">
 							<span class="icon-zhiding" />
-						</a>
+						</a> -->
+						<gotop></gotop>
 					</div>
 				</div>
 			</div>
@@ -799,6 +800,7 @@
 import Vue from 'vue'
 import headerComponent from 'components/header'
 import footerComponent from 'components/footer'
+import gotop from 'components/goTop'
 import 'bootstrap/dist/js/bootstrap.js'
 const VueResource = require('vue-resource')
 Vue.use(VueResource)
@@ -815,13 +817,14 @@ export default {
 	        boys:[],
 	        maternits:[],
 	        childrens:[],
-	        init_page:1,
+	        init_page: 1,
 	        total_entries:''
     	}
 	},
 	components:{
 		headerComponent,
-		footerComponent
+		footerComponent,
+		gotop
 	},
 	methods:{
 		_toStore(t){
@@ -872,18 +875,24 @@ export default {
                console.log(err)
          }
        )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
-    	.then(
+	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+this.init_page)
+		.then(
         function(res){
           //console.log(res)
         	this.sideproducts = res.data.data
         	this.total_entries  = res.data.total_entries
         	console.log(this.total_entries)
-        	var me = this
-    		var timer = setInterval(function(){
+        	console.log(this.sideproducts)
+        	this.init_page++
+        },function(err){
+          console.log(err)
+        }
+      )
 
-	        	
-    			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+		var me = this
+		var timer = setInterval(function(){
+			$('#side').fadeOut('swing',function(){
+				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
 			    	.then(
 				        function(res){
 				          //console.log(res)
@@ -893,26 +902,51 @@ export default {
 				      		if(me.init_page > me.total_entries ){
 				      			me.init_page = 1
 				      		}
+				      		$('#side').fadeIn(500)
 		        },function(err){
 		          console.log(err)
-		        }
-		      )
-		    },3000)
-          console.log(this.sideproducts)
-        },function(err){
-          console.log(err)
-        }
-      )
+		        })
+			})
+	    },4000)
+   //  	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
+			// .then(
+	  //       function(res){
+	  //         //console.log(res)
+	  //       	this.sideproducts = res.data.data
+	  //       	this.total_entries  = res.data.total_entries
+	  //       	console.log(this.total_entries)
+	  //       	var me = this
+	  //   		var timer = setInterval(function(){
+	  //   			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+			// 	    	.then(
+			// 		        function(res){
+			// 		          //console.log(res)
+			//           			me.sideproducts = res.data.data		          
+			//           			//console.log(this.sideproducts)
+			//           			me.init_page ++ 
+			// 		      		if(me.init_page > me.total_entries ){
+			// 		      			me.init_page = 1
+			// 		      		}
+			//         },function(err){
+			//           console.log(err)
+			//         }
+			//       )
+			//     },3000)
+	  //         console.log(this.sideproducts)
+	  //       },function(err){
+	  //         console.log(err)
+	  //       }
+	  //     )
     	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
     	.then(
-        function(res){
-          //console.log(res)
-          this.girls = res.data.data
-          //console.log(this.girls)
-        },function(err){
-          console.log(err)
-        }
-      )
+	        function(res){
+	          //console.log(res)
+	          this.girls = res.data.data
+	          //console.log(this.girls)
+	        },function(err){
+	          console.log(err)
+	        }
+	    )
     	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=8')
     	.then(
         function(res){
