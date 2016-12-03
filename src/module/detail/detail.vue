@@ -1,7 +1,7 @@
 <template>
 <div>
-  <headerComponent></headerComponent>
-  <div></div>
+  <headerComponent pageName="detailPage"></headerComponent>
+
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -78,7 +78,7 @@
               <div class="desc-num">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
-                <input type="text" v-on:change="_changeNum" v-model="chooseNum">
+                <input type="text" v-on:change="_chooseNum($event)" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>              
@@ -108,9 +108,9 @@
                         <div class="info-size">{{itemIn.prop_name.split(';')[0].split(':')[1]}}</div>
                         <div class="info-num">
                           <span>数量 ：</span>
-                          <button>-</button>
-                          <input type="text" v-model="itemIn.num">
-                          <button>+</button>
+                          <button v-on:click="_changeChooseNum(-1,index,indexIn)">-</button>
+                          <input type="text" v-on:change="_changeChooseNum($event,index,indexIn)" v-model="itemIn.num">
+                          <button v-on:click="_changeChooseNum(1,index,indexIn)">+</button>
                         </div>
                       </div>
                     </div>
@@ -133,8 +133,10 @@
           </div>
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
-              <a><img v-bind:src="item.pic_url"><div class="price">&yen; {{item.price}}</div></a>
-              
+              <a v-on:click="_r_detail(index)">
+                <img v-bind:src="item.pic_url">
+                <div class="price">&yen; {{item.price}}</div>
+              </a>
             </div>
           </div>
           <div class="recommend-page">
@@ -145,78 +147,80 @@
       </div>
     </div>
   </div>
-  <div class="container bg-b">
-    <div class="row">
-      <div class="col-md-12">
-          <div class="detail-news">
-            <div class="news-tit">
-              <span>NEW</span>
-              <p>最新上架</p>
-              <a href="#"><span class="icon-more"></span></a>
-            </div>
-            <div class="news-list">
-              <div class="news-img" v-for="(item,index) in newList">
-                <a class="img-tit">
-                  <img v-bind:src="item.pic_url">
-                  <div>{{item.title}}</div>
-                </a>
-                <div class="img-info">
-                  <p>&yen; {{item.price}}</p>
-                  <p>50分钟前</p>
+  <div class="container-b-box">
+    <div class="container bg-b">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="detail-news">
+              <div class="news-tit">
+                <span>NEW</span>
+                <p>最新上架</p>
+                <a v-on:click="_more"><span class="icon-more"></span></a>
+              </div>
+              <div class="news-list">
+                <div class="news-img" v-for="(item,index) in newList">
+                  <a class="img-tit" v-on:click="_n_detail(index)">
+                    <img v-bind:src="item.pic_url">
+                    <div v-on:click="_n_detail(index)">{{item.title}}</div>
+                  </a>
+                  <div class="img-info">
+                    <p>&yen; {{item.price}}</p>
+                    <p>50分钟前</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+        </div>
       </div>
-    </div>
-    <div class="oth">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="detail-det">
-            <ul class="shopping-menu">
-              <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
-                商品详情
-              </li>
-              <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
-                商品评论
-              </li>
-            </ul>
-            <div v-if="tabList==1">
-              <div class="specif">
-                <div class="sanjiao"></div>
-                <div class="text">规格参数</div>
-                <div class="hr"></div>
+      <div class="oth">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="detail-det">
+              <ul class="shopping-menu">
+                <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
+                  商品详情
+                </li>
+                <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
+                  商品评论
+                </li>
+              </ul>
+              <div v-if="tabList==1">
+                <div class="specif">
+                  <div class="sanjiao"></div>
+                  <div class="text">规格参数</div>
+                  <div class="hr"></div>
+                </div>
+                <div class="specif-tab">
+                  <table>
+                    <tbody>
+                      <tr v-for="(item,index) in item_props">
+                        <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
+                        <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
+                        <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="detail-desc">
+                  <div class="sanjiao"></div>
+                  <div class="text">图文详情</div>
+                  <div class="hr"></div>
+                </div>
+                <div class="detail-desc-des">
+                  <div v-html="description"></div>
+                </div>
               </div>
-              <div class="specif-tab">
-                <table>
-                  <tbody>
-                    <tr v-for="(item,index) in item_props">
-                      <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
-                      <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
-                      <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="detail-desc">
-                <div class="sanjiao"></div>
-                <div class="text">图文详情</div>
-                <div class="hr"></div>
-              </div>
-              <div class="detail-desc-des">
-                <div v-html="description"></div>
-              </div>
+              <!-- <div v-else>
+                <h2>我是评论</h2>
+              </div> -->
             </div>
-            <!-- <div v-else>
-              <h2>我是评论</h2>
-            </div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <footerComponent></footerComponent>
+  <goTop></goTop>
 </div>
 </template>
 
@@ -225,12 +229,14 @@
   import Vue from 'vue'
   import headerComponent from 'components/header'
   import footerComponent from 'components/footer'
+  import goTop from 'components/goTop'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
   export default{
     components:{
       headerComponent,
-      footerComponent
+      footerComponent,
+      goTop
     },
     data () {
       return {
@@ -303,7 +309,7 @@
             this.price = this.skus[i].price
             var obj={}
             if(!this.chooseShopping.length){
-              obj.num = 1
+              obj.num = this.chooseNum
               obj.sku_id = this.skus[i].id
               obj.prop_name = this.skus[i].properties_name
               obj.price = this.skus[i].price
@@ -325,7 +331,7 @@
               }
               if(k == this.chooseShopping.length){
                 this.chooseNum = 1                  
-                obj.num = 1
+                obj.num = this.chooseNum
                 obj.sku_id = this.skus[i].id
                 obj.prop_name = this.skus[i].properties_name
                 obj.price = this.skus[i].price
@@ -374,7 +380,7 @@
       fanye (t) {
         if (t === 1 && this.showcasePage < this.showcaseTotalPage) {
           ++this.showcasePage
-          this.$http.get('/api/items?store_id=1&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage == this.showcaseTotalPage){
@@ -386,7 +392,7 @@
         }
         if (t === -1 && this.showcasePage > 1) {
           --this.showcasePage
-          this.$http.get('/api/items?store_id=1&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage < this.showcaseTotalPage){
@@ -414,25 +420,49 @@
             }
           }
         }
-        this._chooseList();
-      },
-      _changeNum (e) {
-        if(!(/^\d$/.test(e.target.value))){
-          this.chooseNum = 1
-        }
-        else if(e.target.value < 1){  
-          this.chooseNum = 1
-        }
         else{
-          this.chooseNum = parseInt(e.target.value)
-        }
-        
-        for(var i = 0;i < this.chooseShopping.length;i ++){
-          if(this.chooseShopping[i].sku_id == this.sku_id){
-            this.chooseShopping[i].num = this.chooseNum
+          if(!(/^\d$/.test(t.target.value))){
+            this.chooseNum = 1
+          }
+          else if(t.target.value < 1){  
+            this.chooseNum = 1
+          }
+          else{
+            this.chooseNum = parseInt(t.target.value)
+          }
+          for(var i = 0;i < this.chooseShopping.length;i ++){
+            if(this.chooseShopping[i].sku_id == this.sku_id){
+              this.chooseShopping[i].num = this.chooseNum
+            }
           }
         }
-        this._chooseList();
+        if(this.size_t != -1 && this.color_t != -1){
+          this._chooseList();
+        }
+        
+      },
+      _changeChooseNum (s,t1,t2) {
+        if(s == 1){
+          ++this.chooseList[t1][t2].num
+           
+        }
+        if(s == -1){
+          if(this.chooseList[t1][t2].num > 1){
+            --this.chooseList[t1][t2].num
+          }
+        }
+        else{
+          if(!(/^\d$/.test(s.target.value))){
+            this.chooseList[t1][t2].num = 1
+          }
+          else if(s.target.value < 1){  
+            this.chooseList[t1][t2].num = 1
+          }
+          else{
+            this.chooseList[t1][t2].num = parseInt(s.target.value)
+          }
+        }
+        this.chooseNum = this.chooseList[t1][t2].num
       },
       _addCart () {
         if(this.size_t == -1 || this.color_t == -1){
@@ -448,7 +478,6 @@
             obj.origin_price = this.price
             // obj.price = this.price
             obj.sub_total = obj.num * this.price
-            console.log(obj.num)
             this.$http.post('/api/carts', {"cart":obj})
               .then(function (ret) {
                 console.log(ret.data)
@@ -459,6 +488,15 @@
           }
         }
         
+      },
+      _r_detail (t) {
+        window.location.href = 'http://localhost:9090/module/detail.html?' + this.showcase[t].num_iid
+      },
+      _n_detail (t) {
+        window.location.href = 'http://localhost:9090/module/detail.html?' + this.newList[t].num_iid
+      },
+      _more () {
+        window.location.href = 'http://localhost:9090/module/sellerAllProduct.html?store_id=' + this.store_id
       },
       tab (t) {
         this.tabList = t
@@ -497,7 +535,7 @@
                 }               
               }
             }
-            if(ret.data.data.sku_props[i].prop_name == '尺码'){
+            if(ret.data.data.sku_props[i].prop_name == '尺码' || ret.data.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
@@ -517,7 +555,7 @@
           }
           this.description = ret.data.data.desc
 
-          this.$http.get('/api/items?store_id=1&type=showcase&page=1&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
               this.showcaseTotalPage = ret.data.total_pages
@@ -527,7 +565,7 @@
             },function(err){
               console.log(err)
             })
-          this.$http.get('/api/items?store_id=1&type=new&page=1&page_size=5')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=5')
             .then(function(ret){
               this.newList = ret.data.data
             },function(err){
@@ -541,7 +579,8 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/detail.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  @import "../../assets/less/detail.less";
+  
 </style>

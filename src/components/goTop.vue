@@ -1,6 +1,6 @@
 <template>
   <div class="go-top">
-  	<span class="icon-zhiding" @click='go_top'></span>
+  	<span class="icon-zhiding" @click='go_top' v-if="!mouseGoTop"></span>
   </div>
 </template>
 
@@ -19,39 +19,43 @@ $(window).bind("scroll", function(){
 export default{
 	data () {
 		return{
-			sdelay: 0
+			isUpward: false,
+			mouseGoTop: false
 		}
 	},
+	mounted () {
+		var me = this
+		var scrollFunc=function(e){
+	    e=e || window.event; 
+	    if(e.wheelDelta){//IE/Opera/Chrome 
+	      if(e.wheelDelta<0 && me.isUpward){
+	      	me.isUpward = false
+	      }
+	    }else if(e.detail){//Firefox 
+	      if(e.detail<0 && me.isUpward){
+	      	me.isUpward = false
+	      }
+	    }
+		}
+		if(document.addEventListener){ 
+	    document.addEventListener('DOMMouseScroll',scrollFunc,false);
+		}//W3C 
+		window.onmousewheel=document.onmousewheel=scrollFunc;//IE/Opera/Chrome
+	},
   methods: {
-  	go_top (acceleration) {
-  		// var Tops = $(window).scrollTop()
-  		// var count = 200
-  		// var num = 0
-  		// var step = Tops/count
-  		// var timer = setInterval(function(){
-  		// 	num ++
-  		// 	window.scrollBy(0,-step)
-  		// 	if(num >= count){
-  		// 		clearInterval(timer)
-  		// 		timer = null
-  		// 		num = 0
-  		// 	}
-  		// },0.01)
-
-  		acceleration = 0.1
+  	go_top () {
+  		this.isUpward = true
+  		this.upMove()
+  	},
+  	upMove () {
 			var y = window.scrollY || 0
 			// 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小
-			var speed = 1 + acceleration
+			var speed = 1.1
 			window.scrollTo(0, Math.floor(y / speed))
 			// 如果距离不为零, 继续调用迭代本函数
-			if( y > 0) {
-			  window.setTimeout(this.go_top,16)
+			if( y > 0 && this.isUpward ) {
+			  window.setTimeout(this.upMove,10)
 			}
-
-      // window.scrollBy(0,-10);//Only for y vertical-axis
-      // if(document.body.scrollTop>0) {
-      //   this.sdelay = setTimeout(this.go_top(),100);
-      // }
   	}
   }
 }
@@ -60,24 +64,28 @@ export default{
 	.go-top{
 		width: 0;
 		height: 0;
+		line-height: 25px;
 		overflow: hidden;
 		position: fixed;
 		right: 80px;
 		bottom: 100px;
 		z-index: 1000;
+		border: 1px solid #d7d7d7;
+		border-radius: 3px;
+		text-align: center;
+		color: #1a1a1a;
+		cursor: pointer;
 		transition: all 0.3s linear;
 		span{
 			padding: 5px;
-			background: #c2c2c2;
 			font-size: 45px;
-			color: #fff;
-			&:hover{
-				background: #818181;
-			}
 		}
 		&.scroll{
 			width: 55px;
 			height: 55px;
+		}
+		&:hover{
+			background: #dedede;
 		}
 	}
 </style>
