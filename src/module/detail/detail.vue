@@ -8,14 +8,17 @@
         <div class="col-md-10 detail-shopping">
           <div class="shop-tit">
             <div class="shop-logo">
-              <img v-bind:src="logoUrl">
+              <div>SHOP</div>
             </div>
             <div class="shop-name">
               <h4>{{store_name}}</h4>
               <p>本店{{productNum}}件商品</p>
             </div>
             <div class="shop-conn">
-              <p>{{phone}}</p>
+              <p>
+                <span class="icon-dianhua"></span>
+                <span>{{phone}}</span>
+              </p>
               <p>{{addr}}</p>
             </div>
           </div>
@@ -46,7 +49,7 @@
                   <p>50件以上</p>
                 </div> -->
               </div>
-              <div class="desc-trans">
+              <div class="desc-trans" style="display:none">
                 配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
@@ -62,31 +65,32 @@
                 <div class="desc-color">
                   <div>颜<b class="em_5"></b>色 : </div>
                   <div>
-                    <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url + ')' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
                 <div class="desc-size">
                   <div>尺<b class="em_5"></b>码 : </div>
                   <div>
-                    <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
+                    <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="sku-alert" v-bind:style="{display: isSku ? 'block' : 'none'}">
                 <span>!</span>请选择规格
               </div>
-              <div class="desc-num">
+              <div class="desc-num" style="display:none">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
                 <input type="text" v-on:change="_chooseNum($event)" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>              
-              <div class="desc-action">
+              <div class="desc-action" style="display:none">
                 <button v-on:click="_addCart">加入进货单</button>
                 <button>去购物车结算</button>
               </div>
-              <div class="desc-oth">
+              <div class="desc-oth" style="display:none">
                 <div>收藏</div>
                 <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4000)</div>
                 <div>
@@ -95,7 +99,7 @@
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
               </div>
-              <div class="desc-choosed">
+              <div class="desc-choosed" style="display:none">
                 <div class="choosed-tishi">
                   <div class="yixuan" v-on:click="_showChooseList">已选清单(共<span>{{chooseShopping.length}}</span>件)</div>
                   <div class="sanjiao"></div>
