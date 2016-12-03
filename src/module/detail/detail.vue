@@ -510,23 +510,24 @@
       var p = window.location.href.split('?')[1];
       this.$http.get('/api/items/' + p)
         .then(function (ret) {
-          this.data = ret.data.data
-          this.logoUrl = ret.data.data.store.store_logo
-          this.skus = ret.data.data.skus
-          this.item_id = ret.data.data.num_iid
-          this.store_id = ret.data.data.store.id
-          this.carousel = ret.data.data.item_imgs
-          this.store_name = ret.data.data.store.store_name
-          this.phone = ret.data.data.store.mobile
-          this.price = ret.data.data.price
-          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
-          this.tit = ret.data.data.title
-          if(ret.data.data.prop_imgs){
-            this.colorItem = ret.data.data.prop_imgs
+          this.data = ret.data
+          this.productNum = ret.data.count
+          this.logoUrl = ret.data.store.store_logo
+          this.skus = ret.data.skus
+          this.item_id = ret.data.num_iid
+          this.store_id = ret.data.store.id
+          this.carousel = ret.data.item_imgs
+          this.store_name = ret.data.store.store_name
+          this.phone = ret.data.store.mobile
+          this.price = ret.data.price
+          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
+          this.tit = ret.data.title
+          if(ret.data.prop_imgs){
+            this.colorItem = ret.data.prop_imgs
           }
-          for(var i = 0;i < ret.data.data.sku_props.length;i++){
-            var diff = ret.data.data.sku_props[i].sku_prop_vals;
-            if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
+          for(var i = 0;i < ret.data.sku_props.length;i++){
+            var diff = ret.data.sku_props[i].sku_prop_vals;
+            if(ret.data.sku_props[i].prop_name == '颜色分类'){
               for(var j = 0 ;j < diff.length;j++){
                 for(var k = 0;k < this.colorItem.length; k++){
                   if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
@@ -539,25 +540,25 @@
                 }               
               }
             }
-            if(ret.data.data.sku_props[i].prop_name == '尺码' || ret.data.data.sku_props[i].prop_name == '尺寸'){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
             }
           }
-          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
+          var l = ret.data.com_props.length % 3 ? parseInt(ret.data.com_props.length / 3) + 1 : ret.data.com_props.length / 3;
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
             for(var j = 0; j < 3; j++){
-              if(ret.data.data.com_props[n]){
-                arr.push(ret.data.data.com_props[n])
+              if(ret.data.com_props[n]){
+                arr.push(ret.data.com_props[n])
                 n++
               }
             }
             this.item_props.push(arr)
           }
-          this.description = ret.data.data.desc
+          this.description = ret.data.desc
 
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
             .then(function(ret){
