@@ -8,14 +8,17 @@
         <div class="col-md-10 detail-shopping">
           <div class="shop-tit">
             <div class="shop-logo">
-              <img v-bind:src="logoUrl">
+              <div>SHOP</div>
             </div>
             <div class="shop-name">
               <h4>{{store_name}}</h4>
               <p>本店{{productNum}}件商品</p>
             </div>
             <div class="shop-conn">
-              <p>{{phone}}</p>
+              <p>
+                <span class="icon-dianhua"></span>
+                <span>{{phone}}</span>
+              </p>
               <p>{{addr}}</p>
             </div>
           </div>
@@ -46,7 +49,7 @@
                   <p>50件以上</p>
                 </div> -->
               </div>
-              <div class="desc-trans">
+              <div class="desc-trans" style="display:none">
                 配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
@@ -62,31 +65,32 @@
                 <div class="desc-color">
                   <div>颜<b class="em_5"></b>色 : </div>
                   <div>
-                    <img v-for="(imgItem,index) in colorItem" v-bind:src="imgItem.tb_url" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index}">
+                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url + ')' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
                 <div class="desc-size">
                   <div>尺<b class="em_5"></b>码 : </div>
                   <div>
-                    <img v-for="(imgItem,index) in sizeItem" v-bind:src="imgItem.image" v-bind:title="imgItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">
+                    <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="sku-alert" v-bind:style="{display: isSku ? 'block' : 'none'}">
                 <span>!</span>请选择规格
               </div>
-              <div class="desc-num">
+              <div class="desc-num" style="display:none">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
                 <input type="text" v-on:change="_chooseNum($event)" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>              
-              <div class="desc-action">
+              <div class="desc-action" style="display:none">
                 <button v-on:click="_addCart">加入进货单</button>
                 <button>去购物车结算</button>
               </div>
-              <div class="desc-oth">
+              <div class="desc-oth" style="display:none">
                 <div>收藏</div>
                 <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4000)</div>
                 <div>
@@ -95,7 +99,7 @@
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
               </div>
-              <div class="desc-choosed">
+              <div class="desc-choosed" style="display:none">
                 <div class="choosed-tishi">
                   <div class="yixuan" v-on:click="_showChooseList">已选清单(共<span>{{chooseShopping.length}}</span>件)</div>
                   <div class="sanjiao"></div>
@@ -506,23 +510,24 @@
       var p = window.location.href.split('?')[1];
       this.$http.get('/api/items/' + p)
         .then(function (ret) {
-          this.data = ret.data.data
-          this.logoUrl = ret.data.data.store.store_logo
-          this.skus = ret.data.data.skus
-          this.item_id = ret.data.data.num_iid
-          this.store_id = ret.data.data.store.id
-          this.carousel = ret.data.data.item_imgs
-          this.store_name = ret.data.data.store.store_name
-          this.phone = ret.data.data.store.mobile
-          this.price = ret.data.data.price
-          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.data.store.location
-          this.tit = ret.data.data.title
-          if(ret.data.data.prop_imgs){
-            this.colorItem = ret.data.data.prop_imgs
+          this.data = ret.data
+          this.productNum = ret.data.count
+          this.logoUrl = ret.data.store.store_logo
+          this.skus = ret.data.skus
+          this.item_id = ret.data.num_iid
+          this.store_id = ret.data.store.id
+          this.carousel = ret.data.item_imgs
+          this.store_name = ret.data.store.store_name
+          this.phone = ret.data.store.mobile
+          this.price = ret.data.price
+          this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
+          this.tit = ret.data.title
+          if(ret.data.prop_imgs){
+            this.colorItem = ret.data.prop_imgs
           }
-          for(var i = 0;i < ret.data.data.sku_props.length;i++){
-            var diff = ret.data.data.sku_props[i].sku_prop_vals;
-            if(ret.data.data.sku_props[i].prop_name == '颜色分类'){
+          for(var i = 0;i < ret.data.sku_props.length;i++){
+            var diff = ret.data.sku_props[i].sku_prop_vals;
+            if(ret.data.sku_props[i].prop_name == '颜色分类'){
               for(var j = 0 ;j < diff.length;j++){
                 for(var k = 0;k < this.colorItem.length; k++){
                   if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
@@ -535,25 +540,25 @@
                 }               
               }
             }
-            if(ret.data.data.sku_props[i].prop_name == '尺码' || ret.data.data.sku_props[i].prop_name == '尺寸'){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
             }
           }
-          var l = ret.data.data.com_props.length % 3 ? parseInt(ret.data.data.com_props.length / 3) + 1 : ret.data.data.com_props.length / 3;
+          var l = ret.data.com_props.length % 3 ? parseInt(ret.data.com_props.length / 3) + 1 : ret.data.com_props.length / 3;
           var n = 0;
           for(var i = 0;i < l;i++){
             var arr = [];
             for(var j = 0; j < 3; j++){
-              if(ret.data.data.com_props[n]){
-                arr.push(ret.data.data.com_props[n])
+              if(ret.data.com_props[n]){
+                arr.push(ret.data.com_props[n])
                 n++
               }
             }
             this.item_props.push(arr)
           }
-          this.description = ret.data.data.desc
+          this.description = ret.data.desc
 
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
             .then(function(ret){

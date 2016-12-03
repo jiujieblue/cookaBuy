@@ -41,9 +41,13 @@
           float: left;
         }
         .shop-logo{
-          img{
-            width:80px;
-            height:25px;
+          div{
+            width:70px;
+            height:22px;
+            background: #372f2c;
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
           }
         }
         .shop-name{
@@ -57,6 +61,11 @@
         .shop-conn{
           color:#999;
           margin-left: 20px;
+          p{
+            span:first-child{
+              color: #fcc505;
+            }
+          }
         }
       }
       .shopping-detail{
@@ -72,6 +81,7 @@
           }
           .img-list{
             padding:20px 35px;
+            text-align: center;
             img{
               width:70px;
               height:70px;
@@ -154,18 +164,26 @@
               width:300px;
               margin-left:10px;
               overflow:hidden;
-              img{
+              div{
                 float:left;
+                cursor: pointer;
                 margin-top:10px;
                 margin-right:10px;
-                width:45px;
-                height:45px;
+                height: 40px;
                 line-height:35px;
+                padding: 0 3px;
                 text-align:center;
-                border:2px solid transparent;
+                border:2px solid #ddd;
               }
               .active{
                 border:2px solid #fcc505;
+              }
+            }
+          }
+          .desc-color{
+            >div:last-child{
+              .b-img{
+                width: 40px;
               }
             }
           }
