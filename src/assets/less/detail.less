@@ -163,7 +163,11 @@
             >div:last-child{
               width:300px;
               margin-left:10px;
-              overflow:hidden;
+              &:after{
+                content: '';
+                display: table;
+                clear: both;
+              }
               div{
                 float:left;
                 cursor: pointer;
@@ -171,13 +175,14 @@
                 margin-right:10px;
                 height: 40px;
                 line-height:35px;
-                padding: 0 5px;
+                padding: 1px 5px;
                 min-width: 45px;
                 text-align:center;
-                border:2px solid #ddd;
+                border:1px solid #ddd;
               }
               .active{
                 border:2px solid #fcc505;
+                padding: 0 4px;
               }
             }
           }
