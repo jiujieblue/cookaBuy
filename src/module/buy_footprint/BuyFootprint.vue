@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/BuyFootprint.less';
+	@import '../../assets/less/buyFootprint.less';
 </style>
 
 <template>
@@ -58,7 +58,7 @@
 											<!-- 让i有一个遮罩层  以免点击事件需要加许多判断的条件 -->
 											<i @click="_select(index1,index2)"></i>
 											<div :class="{active : isSelectObj[index1][index2]}">
-												<a href="">
+												<a :href="list.item && 'http://localhost:9090/module/detail.html?'+list.item.num_iid">
 													<img :src="list.item && list.item.pic_url" alt="足迹图片">
 												</a>
 												<!-- 不是批量管理 -->
@@ -128,6 +128,12 @@
 
 	
 	export default {
+	  components: {
+	  	BuyerCenterHeader,
+	  	footerComponent,
+	  	BuyerCenterSideBar,
+	  	goTop
+	  },
 	  data () {
 	    return {
 	    	footprintsObj: {},
@@ -154,19 +160,24 @@
 	  		this.total_entries = res.data.total_entries
 
 	  		for(var i=0; i<res.data.data.length ; i++){
-	  			if(!this.footprintsObj[res.data.data[i].date]){
-	  				this.footprintsObj[res.data.data[i].date] = []
-	  				this.footprintsObj[res.data.data[i].date].push(res.data.data[i])
+	  			if( res.data.data[i].item){
+		  			if(!this.footprintsObj[res.data.data[i].date]){
+		  				this.footprintsObj[res.data.data[i].date] = []
+		  				this.footprintsObj[res.data.data[i].date].push(res.data.data[i])
 
-	  				this.isSelectObj[res.data.data[i].date] = []
-	  				this.isSelectObj[res.data.data[i].date].push(false)
+		  				this.isSelectObj[res.data.data[i].date] = []
+		  				this.isSelectObj[res.data.data[i].date].push(false)
+		  			}else{
+		  				this.footprintsObj[res.data.data[i].date].push(res.data.data[i])
+
+		  				this.isSelectObj[res.data.data[i].date].push(false)
+		  			}
 	  			}else{
-	  				this.footprintsObj[res.data.data[i].date].push(res.data.data[i])
-
-	  				this.isSelectObj[res.data.data[i].date].push(false)
+	  				this.date_counts[res.data.data[i]]--
 	  			}
 	  		}
 	  		this.nums++
+	  		// 防止第一次请求的时候  滚轮到达底部直接进行第二次刷新
 	  		this.isRequest = true
 	  	},
 	  	function (res) {
@@ -177,9 +188,9 @@
     	var me = this
     	$(window).bind("scroll", function(){
 			  var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop())
-			  //判断滚动条是否到达指点位置
+			  // 判断滚动条是否到达指点位置
 		  	if ($(document).height() <= totalheight + 400 && me.isRequest){
-		  		//防止连续请求，加载一次后先停止
+		  		// 防止连续请求，加载一次后先停止
 		  		if(me.isAjax){
 		  			me.isAjax = false
 			    	me.$http.get('/api/footprints?page_size=20&page='+me.nums)
@@ -192,17 +203,21 @@
 				  			me.isRequest = false
 				  		}
 				  		for(var i=0; i<res.data.data.length ; i++){
-				  			if(!me.footprintsObj[res.data.data[i].date]){
-				  				me.footprintsObj[res.data.data[i].date] = []
-				  				me.footprintsObj[res.data.data[i].date].push(res.data.data[i])
-				  				me.isSelectObj[res.data.data[i].date] = []
-				  				me.isSelectObj[res.data.data[i].date].push(false)
+				  			if( res.data.data[i].item){
+					  			if(!me.footprintsObj[res.data.data[i].date]){
+					  				me.footprintsObj[res.data.data[i].date] = []
+					  				me.footprintsObj[res.data.data[i].date].push(res.data.data[i])
+					  				me.isSelectObj[res.data.data[i].date] = []
+					  				me.isSelectObj[res.data.data[i].date].push(false)
+					  			}else{
+					  				me.footprintsObj[res.data.data[i].date].push(res.data.data[i])
+					  				me.isSelectObj[res.data.data[i].date].push(false)
+					  			}
 				  			}else{
-				  				me.footprintsObj[res.data.data[i].date].push(res.data.data[i])
-				  				me.isSelectObj[res.data.data[i].date].push(false)
+	  							this.date_counts[res.data.data[i]]--
 				  			}
 				  		}
-				  		// 页面加载一次后先停止1.5s
+				  		// 页面加载一次后先停止0.5s
 				  		setTimeout(function(){
 					  		me.isAjax = true
 		  					me.nums++
@@ -246,6 +261,8 @@
 	  	// 批量管理
 	  	_batch () {
 	  		this.batch = !this.batch
+	  		this.isAllChoose = false
+	  		this.isSel = false
 	  		if(!this.batch){
 		  		for(var key in this.isSelectObj){
 		  			for(var i=0;i<this.isSelectObj[key].length;i++){
@@ -370,12 +387,6 @@
 		  	}
 		  	this.showModal = false
 	  	}
-	  },
-	  components: {
-	  	BuyerCenterHeader,
-	  	footerComponent,
-	  	BuyerCenterSideBar,
-	  	goTop
 	  }
 	}
 </script>

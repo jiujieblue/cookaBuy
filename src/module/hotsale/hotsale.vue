@@ -16,7 +16,18 @@
 									<!-- 此处应有好厉害的图片轮播 -->
 									<div class="myswiper">
 										<swiper :options="swiperOption">
-											<swiper-slide>
+											<swiper-slide v-for="(sliderItem, sliderIndex) in sliderData">
+												<img :src="sliderItem.pic_url" @click="_toSliderDetail(sliderIndex)">
+												<div @click="_toSliderDetail(sliderIndex)">
+													<p>¥{{sliderItem.price}}</p>
+													<a href="#"><p>{{sliderItem.title}}</p></a>
+												</div>
+												<div>
+													<span>{{sliderItem.store.store_name}}</span>
+													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
+												</div>
+											</swiper-slide>
+											<!-- <swiper-slide>
 												<img src="../../assets/images/hot-sale-today.jpg" alt="">
 												<div>
 													<p>¥666</p>
@@ -92,18 +103,7 @@
 													<span>宝丽美服饰</span>
 													<span>大西豪 823档</span>
 												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
+											</swiper-slide> -->
 											<div class="swiper-pagination" slot="pagination"></div>
 										</swiper>
 										<div class="swiper-button-prev swiper-button-black"></div>
@@ -120,7 +120,16 @@
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
 											<li><img class="hotsalepage-left-womenhotsale-links-wbigimg" src="../../assets/images/women-bk-show440335.jpg"/></li>
-											<li>
+											<li v-for="(girlItem, girlIndex) in girlData" @click="_toGirlDetail(girlIndex)">
+												<div class="hotsalepage-left-womenhotsale-links-item">
+													<img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" />
+													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">{{girlItem.store.store_name}}</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
+												</div>
+											</li>
+											<!-- <li>
 												<div class="hotsalepage-left-womenhotsale-links-item">
 													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
@@ -147,6 +156,15 @@
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
 												</div>
 											</li>
+											<li>
+												<div class="hotsalepage-left-womenhotsale-links-item">
+													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
+													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">宝丽美服饰</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
+												</div>
+											</li> -->
 										</ul>
 									</div>
 								</div>
@@ -160,13 +178,13 @@
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
 											<li><img class="hotsalepage-left-manhotsale-links-wbigimg" src="../../assets/images/women-bk-show440335.jpg"/></li>
-											<li>
+											<li v-for="(boyItem, boyIndex) in boyData" @click="_toBoyDetail(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
-													<img class="hotsalepage-left-manhotsale-links-item-mimg" src="../../assets/images/women-bk-pic.jpg" />
-													<span class="hotsalepage-left-manhotsale-links-item-price">¥520.00</span>
-													<span class="hotsalepage-left-manhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanleft">宝丽美服饰</span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanright">大西豪823档</span>
+													<img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/>
+													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
+													<span class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanleft">{{boyItem.store.store_name}}</span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
 												</div>
 											</li>
 										</ul>
@@ -183,13 +201,13 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li key={index}>
+										<li v-for="(rightItem, rightIndex) in rightData" @click="_toRightDetail(rightIndex)">
 											<div class="hotsalepage-right-links-item">
-												<span class="hotsalepage-right-links-item-hotnum">1</span>
-												<img class="hotsalepage-right-links-item-himg" src="../../assets/images/my-fav.jpg"/>
-												<span class="hotsalepage-right-links-item-price">¥666</span>
-												<span class="hotsalepage-right-links-item-title"><a href="#">我是title</a></span>
-												<span class="hotsalepage-right-links-item-spanleft">我是店铺名</span>
+												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
+												<img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url"/>
+												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
+												<span class="hotsalepage-right-links-item-title"><a href="#">{{rightItem.store.title}}</a></span>
+												<span class="hotsalepage-right-links-item-spanleft">{{rightItem.store.store_name}}</span>
 											</div>
 										</li>
 									</ul>
@@ -209,6 +227,8 @@
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
+	const VueResource = require('vue-resource')
+	Vue.use(VueResource)
 	Vue.use(AwesomeSwiper)
 	export default{
 		name:'carrousel',
@@ -223,14 +243,72 @@
 		          autoplay: 3000,
 		          prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
-		        }
+		        },
+		        sliderData:[],
+		        rightData:[],
+		        girlData:[],
+		        boyData:[]
 			}
 		},
 		components:{
 			headerComponent,
 			footerComponent
 		},
+		methods:{
+			_toSliderDetail(t){
+				window.location.href = "http://localhost:9090/module/detail.html?"+this.sliderData[t].num_iid
+			},
+			_toRightDetail(t){
+				window.location.href = "http://localhost:9090/module/detail.html?"+this.rightData[t].num_iid
+			},
+			_toGirlDetail(t){
+				window.location.href = "http://localhost:9090/module/detail.html?"+this.girlData[t].num_iid
+			},
+			_toBoyDetail(t){
+				window.location.href = "http://localhost:9090/module/detail.html?"+this.boyData[t].num_iid
+			}
+		},
 		mounted(){
+			this.$http.get('/api/recommends'+'?page_name=hot&location=top&page_size=8')
+	    	.then(
+		        function(res){
+		          //console.log(res)
+		          this.sliderData = res.data.data
+		          console.log(this.sliderData)
+		        },function(err){
+		          console.log(err)
+		        }
+	    	)
+	    	this.$http.get('/api/recommends'+'?page_name=hot&location=right&page_size=5')
+	    	.then(
+		        function(res){
+		          //console.log(res)
+		          this.rightData = res.data.data
+		          console.log(this.rightData)
+		        },function(err){
+		          console.log(err)
+		        }
+	    	)
+	    	this.$http.get('/api/recommends'+'?page_name=hot&location=girl&page_size=6')
+	    	.then(
+		        function(res){
+		          //console.log(res)
+		          this.girlData = res.data.data
+		          console.log(this.girlData)
+		        },function(err){
+		          console.log(err)
+		        }
+	    	)
+	    	this.$http.get('/api/recommends'+'?page_name=hot&location=boy&page_size=6')
+	    	.then(
+		        function(res){
+		          //console.log(res)
+		          this.boyData = res.data.data
+		          console.log(this.boyData)
+		        },function(err){
+		          console.log(err)
+		        }
+	    	)
 		}
 	}
 </script>

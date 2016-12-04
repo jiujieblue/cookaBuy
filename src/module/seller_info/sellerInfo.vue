@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/SellerInfo.less';
+	@import '../../assets/less/sellerInfo.less';
 </style>
 
 <template>

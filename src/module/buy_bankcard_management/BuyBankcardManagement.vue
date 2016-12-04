@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/BuyBankcardManagement.less';
+	@import '../../assets/less/buyBankcardManagement.less';
 </style>
 
 <template>
