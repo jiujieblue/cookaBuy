@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="detailPage"></headerComponent>
+		<headerComponent></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -85,7 +85,11 @@
 										<span class="icon-gengduo"></span>
 									</a>
 								</h4>
-								<div class="index-note-items">
+								<div class="index-note-body">
+									<span class="icon-tongzhi"></span>
+									<p>(づ｡◕‿‿◕｡)づ暂时没有公告哦～</p>
+								</div>
+								<div class="index-note-items" v-if="false">
 									<a href="#" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
 									</a>
@@ -115,8 +119,8 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(productsItem, productsIndex) in products">
-										<a href="#" class="index-product-link">
+									<div class="index-product" v-for="(productsItem, productsIndex) in products" @click="_toRecommendDetail(productsIndex)">
+										<a class="index-product-link">
 											<img :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
@@ -130,7 +134,7 @@
 												{{productsItem.nick}}
 											</a>
 											<span class="index-product-market">
-												市场 档口号
+												{{productsItem.store.store_number}} {{productsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -271,14 +275,15 @@
 								<div class="right">
 									<div id="side" class="carousel">
 										<ul class="carousel-list">
-											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts">
+											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts" @click="_toSideProductDetail(sideproductsIndex)">
 												<a href="#">
 													<div class="product">
 														<div class="img">
 															<img :src="sideproductsItem.pic_url">
 														</div>
 														<a href="#" ><span class="store">{{sideproductsItem.nick}}</span></a>
-														<span class="extra">市场  档口号</span>
+														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
+														</span>
 													</div>
 												</a>
 											</li>
@@ -345,7 +350,7 @@
 							</h4>
 
 							<div class="index-block-body">
-                <div class="index-store" v-for="(storesItem, storesIndex) in stores">
+                <div class="index-store" v-for="(storesItem, storesIndex) in stores" @click="_toStore(storesIndex)">
                   <div class="index-store-info">
                     <div class="index-store-name">
                       {{storesItem.store_name}}
@@ -379,7 +384,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls">
+									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" @click="_toGirlDetail(girlsIndex)">
 										<a href="#" class="index-product-link">
 											<img :src="girlsItem.pic_url" />
 										</a>
@@ -394,7 +399,7 @@
 												{{girlsItem.nick}}
 											</a>
 											<span class="index-product-market">
-												市场 档口号
+												{{girlsItem.store.store_number}} {{girlsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -549,7 +554,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(boysItem, boysIndex) in boys">
+									<div class="index-product" v-for="(boysItem, boysIndex) in boys" @click="_toBoyDetail(boysIndex)">
 										<a href="#" class="index-product-link">
 											<img :src="boysItem.pic_url" />
 										</a>
@@ -564,7 +569,7 @@
 												{{boysItem.nick}}
 											</a>
 											<span class="index-product-market">
-												市场 档口号
+												{{boysItem.store.store_number}} {{boysItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -719,7 +724,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits">
+									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits" @click="_toMaternitDetail(maternitsIndex)">
 										<a href="#" class="index-product-link">
 											<img :src="maternitsItem.pic_url" />
 										</a>
@@ -734,7 +739,7 @@
 												{{maternitsItem.nick}}
 											</a>
 											<span class="index-product-market">
-												市场 档口号
+												{{maternitsItem.store.store_number}} {{maternitsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -756,7 +761,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens">
+									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens" @click="_toChildrenDetail(childrensIndex)">
 										<a href="#" class="index-product-link">
 											<img :src="childrensItem.pic_url" />
 										</a>
@@ -771,16 +776,17 @@
 												{{childrensItem.nick}}
 											</a>
 											<span class="index-product-market">
-												市场 档口号
+												{{childrensItem.store.store_number}} {{childrensItem.store.market}}
 											</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<a href="#" title="返回页面顶部" class="index-go-to-top">
+						<!-- <a href="#" title="返回页面顶部" class="index-go-to-top">
 							<span class="icon-zhiding" />
-						</a>
+						</a> -->
+						<gotop></gotop>
 					</div>
 				</div>
 			</div>
@@ -794,6 +800,7 @@
 import Vue from 'vue'
 import headerComponent from 'components/header'
 import footerComponent from 'components/footer'
+import gotop from 'components/goTop'
 import 'bootstrap/dist/js/bootstrap.js'
 const VueResource = require('vue-resource')
 Vue.use(VueResource)
@@ -810,16 +817,38 @@ export default {
 	        boys:[],
 	        maternits:[],
 	        childrens:[],
-	        init_page:1,
+	        init_page: 1,
 	        total_entries:''
     	}
 	},
 	components:{
 		headerComponent,
-		footerComponent
+		footerComponent,
+		gotop
 	},
 	methods:{
-		
+		_toStore(t){
+			window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+this.stores[t].id
+		},
+		_toRecommendDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.products[t].num_iid
+		},
+		_toSideProductDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.sideproducts[t].num_iid
+		},
+		_toGirlDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.girls[t].num_iid
+		},
+		_toBoyDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.boys[t].num_iid
+		},
+		_toMaternitDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.maternits[t].num_iid
+		},
+		_toChildrenDetail(t){
+			window.location.href = "http://localhost:9090/module/detail.html?"+this.childrens[t].num_iid
+		},
+
 	},
 	mounted(){
 		this.$http.get('/api/recommend_stores')
@@ -830,7 +859,7 @@ export default {
         for (var i = 0 ; i < this.recommend_data.length ; i ++){
           this.stores.push(this.recommend_data[i].store)
         }
-        //console.log(this.stores)
+        console.log(this.stores)
 			},
 			function(err){
 				console.log(err)
@@ -846,18 +875,24 @@ export default {
                console.log(err)
          }
        )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
-    	.then(
+	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+this.init_page)
+		.then(
         function(res){
           //console.log(res)
         	this.sideproducts = res.data.data
         	this.total_entries  = res.data.total_entries
         	console.log(this.total_entries)
-        	var me = this
-    		var timer = setInterval(function(){
+        	console.log(this.sideproducts)
+        	this.init_page++
+        },function(err){
+          console.log(err)
+        }
+      )
 
-	        	
-    			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+		var me = this
+		var timer = setInterval(function(){
+			$('#side').fadeOut('swing',function(){
+				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
 			    	.then(
 				        function(res){
 				          //console.log(res)
@@ -867,26 +902,51 @@ export default {
 				      		if(me.init_page > me.total_entries ){
 				      			me.init_page = 1
 				      		}
+				      		$('#side').fadeIn(500)
 		        },function(err){
 		          console.log(err)
-		        }
-		      )
-		    },3000)
-          console.log(this.sideproducts)
-        },function(err){
-          console.log(err)
-        }
-      )
+		        })
+			})
+	    },4000)
+   //  	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
+			// .then(
+	  //       function(res){
+	  //         //console.log(res)
+	  //       	this.sideproducts = res.data.data
+	  //       	this.total_entries  = res.data.total_entries
+	  //       	console.log(this.total_entries)
+	  //       	var me = this
+	  //   		var timer = setInterval(function(){
+	  //   			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+			// 	    	.then(
+			// 		        function(res){
+			// 		          //console.log(res)
+			//           			me.sideproducts = res.data.data		          
+			//           			//console.log(this.sideproducts)
+			//           			me.init_page ++ 
+			// 		      		if(me.init_page > me.total_entries ){
+			// 		      			me.init_page = 1
+			// 		      		}
+			//         },function(err){
+			//           console.log(err)
+			//         }
+			//       )
+			//     },3000)
+	  //         console.log(this.sideproducts)
+	  //       },function(err){
+	  //         console.log(err)
+	  //       }
+	  //     )
     	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
     	.then(
-        function(res){
-          //console.log(res)
-          this.girls = res.data.data
-          //console.log(this.girls)
-        },function(err){
-          console.log(err)
-        }
-      )
+	        function(res){
+	          //console.log(res)
+	          this.girls = res.data.data
+	          //console.log(this.girls)
+	        },function(err){
+	          console.log(err)
+	        }
+	    )
     	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=8')
     	.then(
         function(res){
