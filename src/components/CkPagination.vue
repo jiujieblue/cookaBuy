@@ -8,10 +8,12 @@
 	<div class="ck-pagination">
     <ul>
       <li v-if="showFirst" class="ck-pagination-text" @click="childPage(pageNum-1)"><span class="icon-xiangqian"></span></li>
+			<li v-if="shennueLeft" class="ck-pagination-text" @click="childPage(1)">1</li>
+			<li v-if="shennueLeft">...</li>
       <li :class="['ck-pagination-text', index == pageNum ? 'active': '']" v-for='index in indexs' @click="childPage(index)">
       	{{ index }}
       </li>
-      <li v-if='shennue'>...</li>
+      <li v-if='shennueRigth'>...</li>
       <li :class="['ck-pagination-text',pages == pageNum ? 'active' : '']" @click="childPage(pages)">{{ pages }}</li>
       <li class="ck-pagination-text" v-if="showLast" @click="childPage(pageNum+1)"><span class="icon-xianghou"></span></li>
       <li class="ck-pagination-input">到 <input type="text" ref="go_num" @input="validation"> 页</li>
@@ -51,6 +53,9 @@
       	if(pageNum <= 3){
       		left = 1
       		right = 5
+      	}else if(pageNum <= 5){
+      		left = 1
+      		right = pageNum + 2
       	}else if(pages-pageNum <= 2){
       		left = pages-5
       		right = pages-1
@@ -77,8 +82,14 @@
       }
       return true
     },
-    shennue: function(){
+    shennueRigth: function(){
     	if(this.pages-this.pageNum >= 4 && this.pages >6 ){
+    		return true
+    	}
+    	return false
+    },
+    shennueLeft: function(){
+    	if(this.pageNum > 5){
     		return true
     	}
     	return false

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import buyFootprint from './BuyFootprint.vue'
+import buyFootprint from './buyFootprint.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 

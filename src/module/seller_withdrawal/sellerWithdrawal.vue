@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/SellerWithdrawal.less';
+	@import '../../assets/less/sellerWithdrawal.less';
 </style>
 
 <template>
@@ -68,7 +68,7 @@
 							<p><span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。</p>
 							<p><button>提<span class="em"></span>交</button></p>
 						</form>
-						<SellerFirstWithdrawal v-else></SellerFirstWithdrawal>
+						<sellerFirstWithdrawal v-else></sellerFirstWithdrawal>
 					</div>
 				</div>
 			</div>
@@ -83,8 +83,14 @@
 	import SellerCenterHeader from 'components/SellerCenterHeader'
 	import footerComponent from 'components/footer'
 	import SellerCenterSideBar from 'components/SellerCenterSideBar'
-	import SellerFirstWithdrawal from './SellerFirstWithdrawal'
+	import sellerFirstWithdrawal from './sellerFirstWithdrawal'
 	export default {
+	  components: {
+	  	SellerCenterHeader,
+	  	footerComponent,
+	  	SellerCenterSideBar,
+	  	sellerFirstWithdrawal
+	  },
 	  data () {
 	    return {
 	      moneyHtml: '',
@@ -135,12 +141,6 @@
 	  			this.pwdHtml = ''
 	  		}
 	  	}
-	  },
-	  components: {
-	  	SellerCenterHeader,
-	  	footerComponent,
-	  	SellerCenterSideBar,
-	  	SellerFirstWithdrawal
 	  }
 	}
 </script>

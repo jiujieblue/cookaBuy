@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import daifaWithdrawal from './DaifaWithdrawal.vue'
+import daifaWithdrawal from './daifaWithdrawal.vue'
 /* eslint-disable no-new */
 new Vue({
 	el: '#daifaWithdrawal',
