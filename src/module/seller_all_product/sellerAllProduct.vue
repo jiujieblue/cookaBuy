@@ -73,10 +73,10 @@
     	</ul>
     	<p>
     		<span>￥</span>
-    		<input ref="reflowPrice" type="text" placeholder="最低价" @blur="_priceVal($event,'isLow','refhighPrice', 'low_price')"/>
+    		<input ref="reflowPrice" type="text" placeholder="最低价" @blur="_priceVal($event,'isLow','refhighPrice', 'low_price')" @keyup="_subLowHigh($event, 'isLow','refhighPrice', 'low_price', 1)"/>
     		<b>~</b>
     		<span>￥</span>
-    		<input ref="refhighPrice" type="text" placeholder="最高价" @blur="_priceVal($event,'isHigh','reflowPrice', 'high_price')"/>
+    		<input ref="refhighPrice" type="text" placeholder="最高价" @blur="_priceVal($event,'isHigh','reflowPrice', 'high_price')" @keyup="_subLowHigh($event, 'isHigh','reflowPrice', 'high_price', 1)"/>
     		<button @click="_subLowHigh">确<span class="em_5"></span>定</button>
     	</p>
     </nav>
@@ -153,10 +153,10 @@
 	  	var high_price_index = parseInt(hrefstr.indexOf('high_price'))
 
 	  	// 从链接中拿取 store_id
-	  	this._calcuStroId(store_index, 'store_id', hrefstr)
+	  	this._calcuStroId(store_index, 'store_id', hrefstr, 9)
 	  	
 	  	// 从链接中拿取 page
-	  	this._calcuStroId(page_index, 'page', hrefstr) 
+	  	this._calcuStroId(page_index, 'page', hrefstr , 5) 
 	  	
 	  	if(paixu_index != -1){
 	  		this.paixu = '&order='
@@ -174,7 +174,6 @@
 	  	// 从链接中拿取 high_price
 	  	this._calcuLow(high_price_index, 'refhighPrice', 'high_price', hrefstr)
 
-	  	
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.paixu + this.paixuRules + this.low_price +this.high_price)
 	    .then(function (res) {
 		    me.cats = res.data.cats
@@ -220,9 +219,9 @@
 		  	}
 	  	},
 			// 从链接中拿取 page stroe_id
-	  	_calcuStroId (index, str, hrefstr) {
+	  	_calcuStroId (index, str, hrefstr, n) {
 	  		if(index != -1){
-		  		this[str] = hrefstr.slice(parseInt(index)+9)
+		  		this[str] = hrefstr.slice(parseInt(index)+n)
 		  		if(parseInt(this[str].indexOf('&')) != -1){
 		  			this[str] = this[str].slice(0,parseInt(this[str].indexOf('&')))
 		  		}
@@ -273,9 +272,9 @@
 	  	// 筛选价格区间input 的验证
 	  	_priceVal (e,str1,str2 ,lowHi_price) {
 	  		var reg = /^\d(\d|.)*$/
-	  		var val1 = e.target.value.replace(/\s/g,'')
+	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		if(reg.test(val1)){
+	  		if(reg.test(val1) && val1 != 0){
 	  			if(val1 == +this[lowHi_price].slice(this[lowHi_price].indexOf('=')+1)){
 	  				this[str1] = false
 	  				return
@@ -305,7 +304,14 @@
 	  		}
 	  	},
 	  	// 提交价格筛选的规则
-	  	_subLowHigh () {
+	  	_subLowHigh (e,str1,str2 ,lowHi_price, n) {
+	  		if(n){
+	  			if(e.which != 13){
+	  				return
+	  			}else{
+		  			this._priceVal (e,str1,str2 ,lowHi_price)
+		  		}
+	  		}
 	  		if(this.isLow || this.isHigh){
 		  		var lowPrice = this.$refs.reflowPrice.value
 		  		var highPrice = this.$refs.refhighPrice.value

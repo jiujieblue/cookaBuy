@@ -16,8 +16,8 @@
       <li v-if='shennueRigth'>...</li>
       <li :class="['ck-pagination-text',pages == pageNum ? 'active' : '']" @click="childPage(pages)">{{ pages }}</li>
       <li class="ck-pagination-text" v-if="showLast" @click="childPage(pageNum+1)"><span class="icon-xianghou"></span></li>
-      <li class="ck-pagination-input">到 <input type="text" ref="go_num" @input="validation"> 页</li>
-     	<li class="ck-pagination-input"><button @click='go_num($event)'>确定</button></li>
+      <li class="ck-pagination-input">到 <input type="text" ref="go_num" @input="validation" @keyup="go_num($event, 1)"> 页</li>
+     	<li class="ck-pagination-input"><button @click='go_num'>确定</button></li>
     </ul>
   </div>
 </template>
@@ -96,7 +96,10 @@
     }
   },
   methods: {
-  	go_num (e) {
+  	go_num (e, n) {
+  		if(n && e.which != 13){
+  			return
+  		}
   		e.preventDefault();
   		var val = parseInt(this.$refs.go_num.value.replace(/\s*/g,''))
   		if(/^\d*$/.test(val) || !parseInt(val)>this.pages || val){
