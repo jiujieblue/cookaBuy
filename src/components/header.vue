@@ -3,10 +3,10 @@
 		<div class="header-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-2 trim-col">
 						你好，欢迎光临柯咔商城！
 					</div>
-					<div class="col-md-3 trim-left" style="display:none">
+					<div class="col-md-3 trim-col" style="display: none;">
 						<div class="text-left">
 							<a href="#" class="header-top-link">
 								请登录
@@ -17,10 +17,13 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-md-6" style="display:none">
+					<div class="col-md-7" style="display: none;">
 						<div class="text-right">
-							<a href="#" class="header-top-link">
+							<a href="#" class="header-top-link" style="margin-right: 30px;">
 								商家入驻
+							</a>
+							<a href="#" class="header-top-link">
+								收藏本站
 							</a>
 						</div>
 					</div>
@@ -30,7 +33,7 @@
 		<div class="header-inner" :style="{backgroundColor:this.pageName == 'detailPage'?'#FFFFFF':''}">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-2 trim-left">
 						<div class="header-logo">
 							<img src="../assets/images/logo.svg" width="150"/>
 						</div>
@@ -40,7 +43,7 @@
 						<CkSearch>
 					</div>
 					<div class="col-md-1"></div>
-					<div class="col-md-2">
+					<div class="col-md-2 trim-right">
 						<div class="header-qrcode">
 							<img src="../assets/images/qrcode.jpg" width="100" height="100"/>
 						</div>
