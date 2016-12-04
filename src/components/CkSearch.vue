@@ -35,9 +35,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
+@import "../assets/less/C.less";
 @import '../assets/css/icons.css';
 @import '../assets/css/bootstrap.css';
 @import "../assets/less/CkSearch.less";
 @import "../assets/less/public.less";
-@import "../assets/less/C.less";
+
 </style>
