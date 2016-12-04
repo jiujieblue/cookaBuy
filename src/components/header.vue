@@ -1,5 +1,5 @@
 <template>
-	<div class="header">
+	<div class="header" :style="{marginBottom:this.pageName == 'detailPage'?'0px':'20px'}">
 		<div class="header-top">
 			<div class="container">
 				<div class="row">
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="header-inner">
+		<div class="header-inner" :style="{backgroundColor:this.pageName == 'detailPage'?'#FFFFFF':''}">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-2">
