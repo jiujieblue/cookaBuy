@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import buyBankcardManagement from './BuyBankcardManagement.vue'
+import buyBankcardManagement from './buyBankcardManagement.vue'
 
 /* eslint-disable no-new */
 new Vue({

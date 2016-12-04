@@ -169,7 +169,7 @@
                   </a>
                   <div class="img-info">
                     <p>&yen; {{item.price}}</p>
-                    <p>50分钟前</p>
+                    <p>{{_n_times(item.list_time)}}</p>
                   </div>
                 </div>
               </div>
@@ -496,6 +496,26 @@
       _r_detail (t) {
         window.location.href = 'http://localhost:9090/module/detail.html?' + this.showcase[t].num_iid
       },
+      _n_times (t) {
+        var date = new Date().getTime()
+        var subTime = date - t
+        subTime = subTime/1000/60
+        if (subTime < 1) {
+          return '1分钟前'
+        }
+        else if (subTime < 1 * 60) {
+          return parseInt(subTime) + '分钟前'
+        }
+        else if (subTime < 1 * 60 * 24){
+          return parseInt(subTime/60) + '小时前'
+        }
+        else if (subTime < 1 * 60 * 24 * 30){
+          return parseInt(subTime/60/24) + '天前'
+        }
+        else {
+          return parseInt(subTime/60/24/30) + '个月前'
+        }
+      },
       _n_detail (t) {
         window.location.href = 'http://localhost:9090/module/detail.html?' + this.newList[t].num_iid
       },
@@ -572,7 +592,7 @@
             })
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=5')
             .then(function(ret){
-              this.newList = ret.data.data
+              this.newList = ret.data.data 
             },function(err){
               console.log(err)
             })

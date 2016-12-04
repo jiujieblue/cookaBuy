@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import buyWalletBalance from './BuyWalletBalance.vue'
+import buyWalletBalance from './buyWalletBalance.vue'
 
 /* eslint-disable no-new */
 new Vue({

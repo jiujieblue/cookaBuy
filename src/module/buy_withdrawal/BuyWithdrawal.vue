@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/BuyWithdrawal.less';
+	@import '../../assets/less/buyWithdrawal.less';
 </style>
 
 <template>
@@ -76,7 +76,7 @@
 								<span>&lowast;</span>一千元以上不收手续费，低于一千元收两块钱手续费。视具体银行到账时间稍有延迟，请注意查收。
 							</p>
 						</form>
-						<SellerFirstWithdrawal v-if="!isActive"></SellerFirstWithdrawal>
+						<sellerFirstWithdrawal v-if="!isActive"></sellerFirstWithdrawal>
 					</div>
 				</div>
 			</div>
@@ -91,8 +91,14 @@
 	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
 	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
-	import SellerFirstWithdrawal from '../seller_withdrawal/SellerFirstWithdrawal.vue'
+	import sellerFirstWithdrawal from '../seller_withdrawal/sellerFirstWithdrawal.vue'
 	export default {
+	  components: {
+	  	BuyerCenterHeader,
+	  	footerComponent,
+	  	BuyerCenterSideBar,
+	  	sellerFirstWithdrawal
+	  },
 	  data () {
 	    return {
 	      moneyHtml: '',
@@ -143,12 +149,6 @@
 	  			this.pwdHtml = ''
 	  		}
 	  	}
-	  },
-	  components: {
-	  	BuyerCenterHeader,
-	  	footerComponent,
-	  	BuyerCenterSideBar,
-	  	SellerFirstWithdrawal
 	  }
 	}
 </script>

@@ -1,7 +1,7 @@
 <style lang="less">
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
-	@import '../../assets/less/BuyWalletWdrlResults.less';
+	@import '../../assets/less/buyWalletWdrlResults.less';
 </style>
 
 <template>
