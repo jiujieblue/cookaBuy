@@ -240,7 +240,7 @@
 		          paginationClickable: true,
 		          spaceBetween: 10,
 		          freeMode: true,
-		          autoplay: false,
+		          autoplay: 3000,
 		          prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
 		        },
