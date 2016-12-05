@@ -321,7 +321,6 @@
                 obj.pic_url = this.colorItem[this.color_t].tb_url
               }
               else{
-                console.log(this.carousel[0].tb_url)
                 obj.pic_url = this.carousel[0].tb_url
               }                
               this.chooseShopping.push(obj)
