@@ -191,10 +191,13 @@
 	      page: '1',
 
 	      // 价格筛选
-	      lowHigh_price: {
+	      lHPrice_isNot: {
 		      isLow: false,
 		      isHigh: false
-	      }
+	      },
+				lHPrice_str: {
+					
+				}
 	    }
 	  },
 	  mounted () {
