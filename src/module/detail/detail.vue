@@ -137,7 +137,7 @@
           </div>
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
-              <a v-on:click="_r_detail(index)">
+              <a v-on:click="_r_detail($event,index)">
                 <img v-bind:src="item.pic_url">
                 <div class="price">&yen; {{item.price}}</div>
               </a>
@@ -492,8 +492,8 @@
         }
         
       },
-      _r_detail (t) {
-        window.location.href = 'http://localhost:9090/module/detail.html?' + this.showcase[t].num_iid
+      _r_detail (e,t) {
+        window.location.href = './detail.html?' + this.showcase[t].num_iid
       },
       _n_times (t) {
         var date = new Date().getTime()
