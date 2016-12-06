@@ -11,7 +11,6 @@
           <div class="modal-body">
             确定要删除该宝贝吗？
           </div>
-
           <div class="modal-footer">
             <button @click="_close">关<span class="em"></span>闭</button>
             <button @click="_del">确<span class="em"></span>定</button>
