@@ -579,7 +579,7 @@
           }
           this.description = ret.data.desc
 
-          this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
               this.showcaseTotalPage = ret.data.total_pages
