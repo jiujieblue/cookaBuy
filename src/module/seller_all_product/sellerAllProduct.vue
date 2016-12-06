@@ -84,12 +84,12 @@
     	<div class="sellerAllProduct-product-left">
     		<ul>
     			<li v-for="(product,index) in products">
-    				<a :href="'http://localhost:9090/module/detail.html?'+product.num_iid" target="_blank">
+    				<a :href="'./detail.html?'+product.num_iid" target="_blank">
     					<img :src="product.pic_url" alt="产品图片">
     				</a>
     				<ul>
     					<li><b>￥&nbsp;{{ product.price }}</b><span rel="stylesheet" class="icon-shoucang"></span></li>
-    					<li><a target="_blank" :href="'http://localhost:9090/module/detail.html?'+product.num_iid" v-html="_titleHtml(product.title)"></a></li>
+    					<li><a target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleHtml(product.title)"></a></li>
     					<li><span v-if="product.item_no">#{{ product.item_no }}</span><button>一键上传</button></li>
     				</ul>
     			</li>
@@ -99,7 +99,7 @@
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in showcases">
-    				<a :href="'http://localhost:9090/module/detail.html?'+showcase.num_iid" target="_blank">
+    				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url" />
     				</a>
     				<b>￥&nbsp;{{ showcase.price }}</b>
