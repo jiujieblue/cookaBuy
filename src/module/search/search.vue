@@ -188,7 +188,13 @@
 	      sortingUrl: '',
 	      sortingStan: '',
 	      // 分页
-	      page: '1'
+	      page: '1',
+
+	      // 价格筛选
+	      lowHigh_price: {
+		      isLow: false,
+		      isHigh: false
+	      }
 	    }
 	  },
 	  mounted () {
