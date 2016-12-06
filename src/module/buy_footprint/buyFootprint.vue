@@ -58,7 +58,7 @@
 											<!-- 让i有一个遮罩层  以免点击事件需要加许多判断的条件 -->
 											<i @click="_select(index1,index2)"></i>
 											<div :class="{active : isSelectObj[index1][index2]}">
-												<a :href="list.item && 'http://localhost:9090/module/detail.html?'+list.item.num_iid" target="_blank">
+												<a :href="list.item && './detail.html?'+list.item.num_iid" target="_blank">
 													<img :src="list.item && list.item.pic_url" alt="足迹图片">
 												</a>
 												<!-- 不是批量管理 -->
@@ -75,7 +75,7 @@
 													</span>
 												</div>
 											</div>
-											<a :href="list.item && 'http://localhost:9090/module/detail.html?'+list.item.num_iid" target="_blank">{{ list.item && list.item.title }}</a>
+											<a :href="list.item && './detail.html?'+list.item.num_iid" target="_blank">{{ list.item && list.item.title }}</a>
 											<b>￥{{ list.item && list.item.price }}</b>
 										</li>
 									</ul>
