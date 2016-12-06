@@ -13,16 +13,6 @@ var port = process.env.PORT || config.dev.port
 // https://github.com/chimurai/http-proxy-middleware
 
 
-function local(localhost){
-	return {
-		target: localhost,
-		changeOrigin: true,
-		pathRewrite: {
-			'^/*': '/*'
-		}
-	}
-}
-
 var proxyTable = {
   // detail
   '/api/items/': {
@@ -162,17 +152,6 @@ var proxyTable = {
 			'^/cooka': '/cooka'
 		}
 	},
-	// Search
-  '/item02': local('http://119.29.224.238:9200'),
-
-  // BuyFootprint
-  '/api/footprints': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/footprints': '/api/footprints'
-    }
-  },
 
   '/api/footprints/deleteInvalid': {
     target: 'http://localhost:4000',
@@ -231,7 +210,23 @@ var proxyTable = {
     pathRewrite: {
       '^/api/bulletins':'/api/bulletins'
       }
+    },
+  //  ybz_/api/searchs
+  '/api/searchs': {
+    target: 'http://localhost:4001',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/searchs': '/api/searchs'
     }
+  },
+  //  ybz_buyFootprint_sellerAllProduct
+  '/api': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '/api'
+    }
+  }
 }
 
 var app = express()

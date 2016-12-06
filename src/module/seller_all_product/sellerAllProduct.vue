@@ -58,10 +58,10 @@
 	    		<span>女士/女士精品：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
-		    			<a href="#">{{ cat.name }}</a>
+		    			<span>{{ cat.name }}</span>
 		    		</li>
 		    	</ul>
-		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" :class="{HeiBig : isHeiBig}">更多</span>
+		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" v-if="isHeiBig" :class="{HeiBig : isHeiBig}">更多</span>
 	    	</div>
 	    </div>
   	</div>
@@ -89,8 +89,8 @@
     				</a>
     				<ul>
     					<li><b>￥&nbsp;{{ product.price }}</b><span rel="stylesheet" class="icon-shoucang"></span></li>
-    					<li><a target="_blank" :href="'http://localhost:9090/module/detail.html?'+product.num_iid">{{ product.title }}</a></li>
-    					<li><span>#{{ product.num_iid }}</span><button>一键上传</button></li>
+    					<li><a target="_blank" :href="'http://localhost:9090/module/detail.html?'+product.num_iid" v-html="_titleHtml(product.title)"></a></li>
+    					<li><span v-if="product.item_no">#{{ product.item_no }}</span><button>一键上传</button></li>
     				</ul>
     			</li>
     		</ul>
@@ -133,13 +133,19 @@
 	      price: true,
 	      paixu: '',
 	      paixuRules: '',
+	      // 店铺 id
 	      store_id: 7,
+	      // 页数
 	      page: 1,
 
+	      // 价格区间
 	     	isLow: false,
 	     	isHigh: false,
 	      low_price: '',
-	      high_price: ''
+	      high_price: '',
+
+	      // 判断信息是否超过两行
+	     	titleHtml: '',
 
 	    }
 	  },
@@ -187,6 +193,7 @@
 	    function (res) {
 	    	console.log(res)
 	    })
+
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page='+ this.page)
 	    .then(function (res) {
 	    	me.showcases = res.data.data
@@ -230,11 +237,15 @@
 	  	// 商品分类过多就隐藏   鼠标事件让其显示
 	  	moreOver : function (e) {
 				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
+	  		console.log(55)
 	  			$(e.target.parentNode).css({maxHeight: '500px'})
 			  }
 	  	},
 	  	moreOut : function (e) {
-	  		$(e.target.parentNode).css({maxHeight: '60px'})
+	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
+	  		console.log(55)
+	  			$(e.target.parentNode).css({maxHeight: '60px'})
+	  		}
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
@@ -324,6 +335,17 @@
 		  		window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.paixu + this.paixuRules + this.low_price + this.high_price
 	  		}
 	  	},
+	    // 过滤文字的行数不能超过两行
+	  	_titleHtml (str) {
+	  		if(str){
+		  		if(str.length < 14){
+		  			return str
+		  		}else{
+		  			return '<span>'+ str.slice(0,14) +'</span>\
+		  							<span class="text_overflow">'+ str.slice(14) +'</span>'
+		  		}
+	  		}
+	  	}
 	  },
 	  components: {
 	  	CkPagination,

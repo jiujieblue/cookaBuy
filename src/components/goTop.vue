@@ -70,10 +70,9 @@ export default{
 		right: 80px;
 		bottom: 100px;
 		z-index: 1000;
-		border: 1px solid #d7d7d7;
-		border-radius: 3px;
+		background: #c2c2c2;
 		text-align: center;
-		color: #1a1a1a;
+		color: #fff;
 		cursor: pointer;
 		transition: all 0.3s linear;
 		span{
@@ -85,7 +84,7 @@ export default{
 			height: 55px;
 		}
 		&:hover{
-			background: #dedede;
+			background: #818181;
 		}
 	}
 </style>
