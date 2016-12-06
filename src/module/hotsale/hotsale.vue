@@ -256,16 +256,16 @@
 		},
 		methods:{
 			_toSliderDetail(t){
-				window.location.href = "http://localhost:9090/module/detail.html?"+this.sliderData[t].num_iid
+				window.location.href = "./detail.html?"+this.sliderData[t].num_iid
 			},
 			_toRightDetail(t){
-				window.location.href = "http://localhost:9090/module/detail.html?"+this.rightData[t].num_iid
+				window.location.href = "./detail.html?"+this.rightData[t].num_iid
 			},
 			_toGirlDetail(t){
-				window.location.href = "http://localhost:9090/module/detail.html?"+this.girlData[t].num_iid
+				window.location.href = "./detail.html?"+this.girlData[t].num_iid
 			},
 			_toBoyDetail(t){
-				window.location.href = "http://localhost:9090/module/detail.html?"+this.boyData[t].num_iid
+				window.location.href = "./detail.html?"+this.boyData[t].num_iid
 			}
 		},
 		mounted(){

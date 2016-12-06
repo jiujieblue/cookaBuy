@@ -828,25 +828,25 @@ export default {
 	},
 	methods:{
 		_toStore(t){
-			window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+this.stores[t].id
+			window.location.href = "./sellerAllProduct.html?store_id="+this.stores[t].id
 		},
 		_toRecommendDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.products[t].num_iid
+			window.location.href = "./detail.html?"+this.products[t].num_iid
 		},
 		_toSideProductDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.sideproducts[t].num_iid
+			window.location.href = "./detail.html?"+this.sideproducts[t].num_iid
 		},
 		_toGirlDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.girls[t].num_iid
+			window.location.href = "./detail.html?"+this.girls[t].num_iid
 		},
 		_toBoyDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.boys[t].num_iid
+			window.location.href = "./detail.html?"+this.boys[t].num_iid
 		},
 		_toMaternitDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.maternits[t].num_iid
+			window.location.href = "./detail.html?"+this.maternits[t].num_iid
 		},
 		_toChildrenDetail(t){
-			window.location.href = "http://localhost:9090/module/detail.html?"+this.childrens[t].num_iid
+			window.location.href = "./detail.html?"+this.childrens[t].num_iid
 		},
 
 	},
