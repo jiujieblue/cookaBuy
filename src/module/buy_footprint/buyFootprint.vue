@@ -121,9 +121,9 @@
 
 <script>
 	import Vue from 'vue'
-	import BuyerCenterHeader from 'components/BuyerCenterHeader'
-	import footerComponent from 'components/footer'
-	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
+	import BuyerCenterHeader from 'components/BuyerCenterHeader.vue'
+	import footerComponent from 'components/footer.vue'
+	import BuyerCenterSideBar from 'components/BuyerCenterSideBar.vue'
 	import goTop from 'components/goTop'
 
 	
