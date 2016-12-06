@@ -516,10 +516,10 @@
         }
       },
       _n_detail (t) {
-        window.location.href = 'http://localhost:9090/module/detail.html?' + this.newList[t].num_iid
+        window.location.href = './detail.html?' + this.newList[t].num_iid
       },
       _more () {
-        window.location.href = 'http://localhost:9090/module/sellerAllProduct.html?store_id=' + this.store_id
+        window.location.href = './sellerAllProduct.html?store_id=' + this.store_id
       },
       tab (t) {
         this.tabList = t
