@@ -383,7 +383,7 @@
       fanye (t) {
         if (t === 1 && this.showcasePage < this.showcaseTotalPage) {
           ++this.showcasePage
-          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage == this.showcaseTotalPage){
@@ -395,7 +395,7 @@
         }
         if (t === -1 && this.showcasePage > 1) {
           --this.showcasePage
-          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage < this.showcaseTotalPage){
