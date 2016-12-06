@@ -19,12 +19,12 @@
     </div>
   </div>
 
-  <BuyerCenterHeader></BuyerCenterHeader>
+  <buyerCenterHeader></buyerCenterHeader>
   <div>
     <div class="container">
       <div class="row">
         <div class="col-md-2">
-          <BuyerCenterSideBar></BuyerCenterSideBar>
+          <buyerCenterSideBar></buyerCenterSideBar>
         </div>
         <div class="col-md-10">
           <div class="buyer-colle">
@@ -90,9 +90,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
   import Vue from 'vue'
-  import BuyerCenterHeader from 'components/BuyerCenterHeader'
+  import buyerCenterHeader from 'components/BuyerCenterHeader'
   import fot from 'components/footer'
-  import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
+  import buyerCenterSideBar from 'components/BuyerCenterSideBar'
   import Page from '../../components/CkPagination.vue'
   const VueResource = require('vue-resource')
   Vue.use(VueResource)
@@ -100,9 +100,9 @@
   Vue.use(fto)
   export default{
     components: {
-      BuyerCenterHeader,
+      buyerCenterHeader,
       fot,
-      BuyerCenterSideBar,
+      buyerCenterSideBar,
       Page
     },
     data () {
