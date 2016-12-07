@@ -44,7 +44,7 @@
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-2 trim-right">
-						<div class="header-qrcode">
+						<div class="header-qrcode" style="display: none">
 							<img src="../assets/images/qrcode.jpg" width="100" height="100"/>
 						</div>
 					</div>
