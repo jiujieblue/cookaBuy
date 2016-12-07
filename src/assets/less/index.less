@@ -90,6 +90,17 @@
         right: -50px;
       }
     }
+    .carousel-indicators{
+      bottom: 0;
+      >li{
+        background-color: rgba(0,0,0,0.2);
+        border: none;
+        &.active{
+          width: 24px;
+          background-color: rgba(225,225,225,0.9);
+        }
+      }
+    }
   }
 
   &-note {
@@ -152,7 +163,7 @@
             width: 100%;
           }
       }
-      
+
       p{
         margin:10px 0 0 0;
         padding: 0;
@@ -220,7 +231,7 @@
 
     &-price {
       font-size: 18px;
-      padding: 5px;
+      padding: 20px 0 10px 0;
     }
 
     &-fav {
@@ -257,10 +268,6 @@
   &-store {
     float: left;
     width: 20%;
-    margin: 5px 0px;
-    &:hover{
-      border: 1px solid #efefef;
-    }
     &-info {
       text-align: center;
     }
