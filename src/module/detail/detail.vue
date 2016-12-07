@@ -383,7 +383,7 @@
       fanye (t) {
         if (t === 1 && this.showcasePage < this.showcaseTotalPage) {
           ++this.showcasePage
-          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage == this.showcaseTotalPage){
@@ -395,7 +395,7 @@
         }
         if (t === -1 && this.showcasePage > 1) {
           --this.showcasePage
-          this.$http.get('/api/items?store_id=' + this.store_id + '&type=showcase&page='+ this.showcasePage +'&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
             if(this.showcasePage < this.showcaseTotalPage){
@@ -516,10 +516,10 @@
         }
       },
       _n_detail (t) {
-        window.location.href = './detail.html?' + this.newList[t].num_iid
+        window.open('./detail.html?' + this.newList[t].num_iid)
       },
       _more () {
-        window.location.href = './sellerAllProduct.html?store_id=' + this.store_id
+        window.open('./sellerAllProduct.html?store_id=' + this.store_id)
       },
       tab (t) {
         this.tabList = t
@@ -579,7 +579,7 @@
           }
           this.description = ret.data.desc
 
-          this.$http.get('/api/items?store_id=' + this.store_id +'&type=showcase&page=1&page_size=3')
+          this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
               this.showcaseTotalPage = ret.data.total_pages
