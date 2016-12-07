@@ -612,15 +612,31 @@
           }
         }
         .specif-tab{
+          text-align:center;
           width:70%;
           padding:50px 0;
           margin-left:15%;
-          table{
-            border-collapse: collapse;
-            width:100%;
-            td{
-              border:1px solid #ddd;
+          >div{
+            overflow: hidden;
+            >div{
+              text-align:left;
               padding:5px 20px;
+              float:left;
+              height: 30px;
+              width: 250px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              border-left: 1px solid #ddd;
+              border-top: 1px solid #ddd;
+            }
+            >div:last-child{
+              border-right: 1px solid #ddd;
+            }
+          }
+          >div:last-child{
+            >div{
+              border-bottom: 1px solid #ddd;
             }
           }
         }
