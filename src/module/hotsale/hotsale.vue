@@ -27,83 +27,6 @@
 													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
 												</div>
 											</swiper-slide>
-											<!-- <swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide>
-											<swiper-slide>
-												<img src="../../assets/images/hot-sale-today.jpg" alt="">
-												<div>
-													<p>¥666</p>
-													<a href="#"><p>韩红战地抱款牛仔卫裤2016春秋装新款</p></a>
-												</div>
-												<div>
-													<span>宝丽美服饰</span>
-													<span>大西豪 823档</span>
-												</div>
-											</swiper-slide> -->
 											<div class="swiper-pagination" slot="pagination"></div>
 										</swiper>
 										<div class="swiper-button-prev swiper-button-black"></div>
@@ -129,42 +52,6 @@
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
 												</div>
 											</li>
-											<!-- <li>
-												<div class="hotsalepage-left-womenhotsale-links-item">
-													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">宝丽美服饰</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
-												</div>
-											</li>
-											<li>
-												<div class="hotsalepage-left-womenhotsale-links-item">
-													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">宝丽美服饰</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
-												</div>
-											</li>
-											<li>
-												<div class="hotsalepage-left-womenhotsale-links-item">
-													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">宝丽美服饰</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
-												</div>
-											</li>
-											<li>
-												<div class="hotsalepage-left-womenhotsale-links-item">
-													<img class="hotsalepage-left-womenhotsale-links-item-wimg" src="../../assets/images/women-bk-pic.jpg" />
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥520.00</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-title">韩红战地抱款牛仔卫裤2016春秋装新款</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">宝丽美服饰</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">大西豪823档</span>
-												</div>
-											</li> -->
 										</ul>
 									</div>
 								</div>
@@ -275,6 +162,9 @@
 		          //console.log(res)
 		          this.sliderData = res.data.data
 		          console.log(this.sliderData)
+		          for(var i = 0 ; i < this.sliderData.length ; i++){
+	             	this.sliderData[i].pic_url += '_250x250.jpg'
+	              }
 		        },function(err){
 		          console.log(err)
 		        }
@@ -285,6 +175,9 @@
 		          //console.log(res)
 		          this.rightData = res.data.data
 		          console.log(this.rightData)
+		          for(var i = 0 ; i < this.rightData.length ; i++){
+	             	this.rightData[i].pic_url += '_180x180.jpg'
+	              }
 		        },function(err){
 		          console.log(err)
 		        }
@@ -295,6 +188,9 @@
 		          //console.log(res)
 		          this.girlData = res.data.data
 		          console.log(this.girlData)
+		          for(var i = 0 ; i < this.girlData.length ; i++){
+	             	this.girlData[i].pic_url += '_220x220.jpg'
+	              }
 		        },function(err){
 		          console.log(err)
 		        }
@@ -305,6 +201,9 @@
 		          //console.log(res)
 		          this.boyData = res.data.data
 		          console.log(this.boyData)
+		          for(var i = 0 ; i < this.boyData.length ; i++){
+	             	this.boyData[i].pic_url += '_220x220.jpg'
+	              }
 		        },function(err){
 		          console.log(err)
 		        }
