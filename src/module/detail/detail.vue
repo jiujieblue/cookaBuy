@@ -28,7 +28,7 @@
                 <img v-bind:src="carousel[img_t] && carousel[img_t].tb_url">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}" v-bind:title="">
               </div>
             </div>
             <div class="shopping-desc">
@@ -138,7 +138,7 @@
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
               <a v-on:click="_r_detail($event,index)">
-                <img v-bind:src="item.pic_url">
+                <img v-bind:src="item.pic_url" v-bind:title="">
                 <div class="price">&yen; {{item.price}}</div>
               </a>
             </div>
@@ -164,7 +164,7 @@
               <div class="news-list">
                 <div class="news-img" v-for="(item,index) in newList">
                   <a class="img-tit" v-on:click="_n_detail(index)">
-                    <img v-bind:src="item.pic_url">
+                    <img v-bind:src="item.pic_url" v-bind:title="">
                     <div v-on:click="_n_detail(index)">{{item.title}}</div>
                   </a>
                   <div class="img-info">
@@ -516,10 +516,10 @@
         }
       },
       _n_detail (t) {
-        window.location.href = './detail.html?' + this.newList[t].num_iid
+        window.open('./detail.html?' + this.newList[t].num_iid)
       },
       _more () {
-        window.location.href = './sellerAllProduct.html?store_id=' + this.store_id
+        window.open('./sellerAllProduct.html?store_id=' + this.store_id)
       },
       tab (t) {
         this.tabList = t
