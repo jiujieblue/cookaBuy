@@ -71,23 +71,27 @@
 									</div>
 									<!-- Controls -->
 									<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-										<span class="glyphicon glyphicon-chevron-left"></span>
+										<span class="icon-xiangqian"></span>
 									</a>
 									<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-										<span class="glyphicon glyphicon-chevron-right"></span>
+										<span class="icon-xianghou"></span>
 									</a>
 								</div>
 							</div>
 							<div class="index-note">
 								<h4 class="index-note-title">
-									<span class="icon-gonggao">商城公告</span>
+									<span class="icon-gonggao"></span><a>商城公告</a>
 									<a href="#" class="index-note-more">
 										<span class="icon-gengduo"></span>
 									</a>
 								</h4>
 								<div class="index-note-body">
-									<span class="icon-tongzhi"></span>
-									<p>(づ｡◕‿‿◕｡)づ暂时没有公告哦～</p>
+									<!-- <span class="icon-tongzhi"></span>
+									<p>(づ｡◕‿‿◕｡)づ暂时没有公告哦～</p> -->
+									<div class="img">
+										<img src="../../assets/images/announcement.png" alt="">
+									</div>
+									<p>暂无公告</p>
 								</div>
 								<div class="index-note-items" v-if="false">
 									<a href="#" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
@@ -111,7 +115,7 @@
 								</span>
 								新品上架
 
-								<a href="#" class="index-block-title-aside">
+								<a @click="_changePro" class="index-block-title-aside">
 									换一批
 									<span class="icon-huanyipi" />
 								</a>
@@ -125,7 +129,7 @@
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-shoucang" />
 											</a>
 										</div>
@@ -390,7 +394,7 @@
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
@@ -560,7 +564,7 @@
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
@@ -730,7 +734,7 @@
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
@@ -767,7 +771,7 @@
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:block">
+											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
@@ -791,7 +795,6 @@
 				</div>
 			</div>
 		</div>
-
 		<footerComponent></footerComponent>
 	</div>
 </template>
@@ -827,36 +830,64 @@ export default {
 		gotop
 	},
 	methods:{
+		_changePro(){
+			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)
+	    	.then(
+	           function(res){
+	             //console.log(res)
+	            this.products = res.data.data
+	            this.init_page ++ 
+	      		if(this.init_page > this.total_entries ){
+	      			this.init_page = 1
+	      		}
+	             console.log(this.products)
+	           },function(err){
+	               console.log(err)
+	         }
+	       )
+		},
 		_toStore(t){
-			window.location.href = "./sellerAllProduct.html?store_id="+this.stores[t].id
+			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
 		},
 		_toRecommendDetail(t){
-			window.location.href = "./detail.html?"+this.products[t].num_iid
+			window.open("./detail.html?"+this.products[t].num_iid)
 		},
 		_toSideProductDetail(t){
-			window.location.href = "./detail.html?"+this.sideproducts[t].num_iid
+			window.open("./detail.html?"+this.sideproducts[t].num_iid)
 		},
 		_toGirlDetail(t){
-			window.location.href = "./detail.html?"+this.girls[t].num_iid
+			window.open("./detail.html?"+this.girls[t].num_iid)
 		},
 		_toBoyDetail(t){
-			window.location.href = "./detail.html?"+this.boys[t].num_iid
+			window.open("./detail.html?"+this.boys[t].num_iid)
 		},
 		_toMaternitDetail(t){
-			window.location.href = "./detail.html?"+this.maternits[t].num_iid
+			window.open("./detail.html?"+this.maternits[t].num_iid)
 		},
 		_toChildrenDetail(t){
-			window.location.href = "./detail.html?"+this.childrens[t].num_iid
+			window.open("./detail.html?"+this.childrens[t].num_iid)
 		},
 
 	},
 	mounted(){
+
+		$('.index-carousel').hover(
+			function(){
+				$('.icon-xiangqian').css('left','0').fadeIn('slow')
+				$('.icon-xianghou').css('right','0').fadeIn('slow')
+			},
+			function(){
+				$('.icon-xiangqian').css('left','-50px').fadeOut('slow')
+				$('.icon-xianghou').css('right','-50px').fadeOut('slow')
+			}
+		)
+
 		this.$http.get('/api/recommend_stores')
 		.then(
 			function(res){
 				//console.log(res.data.data)
 				this.recommend_data = res.data.data
-        for (var i = 0 ; i < this.recommend_data.length ; i ++){
+        for (var i = 0 ; i < 5 ; i ++){
           this.stores.push(this.recommend_data[i].store)
         }
         console.log(this.stores)
@@ -875,7 +906,7 @@ export default {
                console.log(err)
          }
        )
-	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+this.init_page)
+	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=5&page='+this.init_page)
 		.then(
         function(res){
           //console.log(res)
@@ -892,7 +923,7 @@ export default {
 		var me = this
 		var timer = setInterval(function(){
 			$('#side').fadeOut('swing',function(){
-				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
+				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=5&page='+me.init_page)
 			    	.then(
 				        function(res){
 				          //console.log(res)
