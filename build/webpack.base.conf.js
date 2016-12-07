@@ -1,8 +1,8 @@
 var path = require('path')
-var webpack = require('webpack')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
 
@@ -46,7 +46,7 @@ module.exports = {
         loader: 'vue-html'
       },
       {
-        test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
@@ -65,17 +65,7 @@ module.exports = {
   },
   vue: {
     loaders: utils.cssLoaders()
-  },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      minChunks : Infinity
-      }),
-    new webpack.ProvidePlugin({
-      jQuery: "jquery",
-      $: "jquery"
-    })
-  ]
+  }
 }
 
 function getEntry(globPath) {
