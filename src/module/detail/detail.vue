@@ -195,15 +195,11 @@
                   <div class="hr"></div>
                 </div>
                 <div class="specif-tab">
-                  <table>
-                    <tbody>
-                      <tr v-for="(item,index) in item_props">
-                        <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
-                        <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
-                        <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div v-for="(item,index) in item_props">
+                    <div>{{item[0].name + ' : '}}{{item[0].value}}</div>
+                    <div>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</div>
+                    <div>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</div>
+                  </div>
                 </div>
                 <div class="detail-desc">
                   <div class="sanjiao"></div>
