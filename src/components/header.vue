@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-6">
-						<CkSearch>
+						<CkSearch @submitStr="_subkey"></CkSearch>
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-2 trim-right">
@@ -110,6 +110,11 @@ export default{
 	props:['pageName'],
 	components:{
 		CkSearch
+	},
+	methods: {
+		_subkey (val) {
+			this.$emit('submitStr',val)
+		}
 	}
 }
 </script>

@@ -286,6 +286,7 @@
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
 	  		if(reg.test(val1) && val1 != 0){
+	  			console.log(this[lowHi_price])
 	  			if(val1 == +this[lowHi_price].slice(this[lowHi_price].indexOf('=')+1)){
 	  				this[str1] = false
 	  				return
