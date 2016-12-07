@@ -28,7 +28,7 @@
                 <img v-bind:src="carousel[img_t] && carousel[img_t].tb_url">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}" v-bind:title="">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}">
               </div>
             </div>
             <div class="shopping-desc">
@@ -138,7 +138,7 @@
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
               <a v-on:click="_r_detail($event,index)">
-                <img v-bind:src="item.pic_url" v-bind:title="">
+                <img v-bind:src="item.pic_url">
                 <div class="price">&yen; {{item.price}}</div>
               </a>
             </div>
@@ -164,7 +164,7 @@
               <div class="news-list">
                 <div class="news-img" v-for="(item,index) in newList">
                   <a class="img-tit" v-on:click="_n_detail(index)">
-                    <img v-bind:src="item.pic_url" v-bind:title="">
+                    <img v-bind:src="item.pic_url">
                     <div v-on:click="_n_detail(index)">{{item.title}}</div>
                   </a>
                   <div class="img-info">
