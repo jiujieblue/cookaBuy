@@ -46,7 +46,7 @@ module.exports = {
         loader: 'vue-html'
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
@@ -67,10 +67,18 @@ module.exports = {
     loaders: utils.cssLoaders()
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor','vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks : Infinity
+      }),
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
     })
   ]
 }
