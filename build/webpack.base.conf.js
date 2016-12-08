@@ -67,12 +67,14 @@ module.exports = {
     loaders: utils.cssLoaders()
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor','vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks : Infinity
+      }),
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
-    }),
-    new webpack.optimize.CommonsChunkPlugin('common.js')
+    })
   ]
 }
 
