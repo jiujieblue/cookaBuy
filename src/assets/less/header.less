@@ -3,7 +3,6 @@ body{
 	background-color: #fff;
 }
 .header {
-	margin-bottom: 20px;
 	&-top {
 		background-color: #efedee;
 		padding: 5px 0;
@@ -56,34 +55,21 @@ body{
 			float: left;
 			position: relative;
 
-			&.active {
-				&:before {
-					content: "";
-					background-color: #fff;
-					height: 2px;
-					position: absolute;
-					left: 30px;
-					right: 30px;
-					top: 0;
-				}
-
-				> a {
-					color: #fff;
-				}
-			}
-
 			> a {
 				display: block;
 				padding: 10px 30px;
 				color: #87807d;
 				font-size: 16px;
-
-				&:hover,
-				&:focus,
-				&:active {
-					color: #d6c8c3;
-					text-decoration: none;
-				}
+				text-decoration: none;
+				cursor: pointer;
+			}
+			a:hover{
+				color: #d6c8c3;
+				text-decoration: none;
+			}
+			a:active{
+				color: #fff;
+				text-decoration: none;
 			}
 		}
 	}

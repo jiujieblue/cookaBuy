@@ -54,7 +54,7 @@
 		<div class="header-nav" v-if="this.pageName != 'detailPage'">
 			<div class="header-nav-inner">
 				<span href="#" class="header-category-all">
-					<a href="#"> 全部商品分类 <span class="icon-xianghou"/></a>
+					<a href="#"> 全部商品分类 </a><span class="icon-xianghou"/>
 
 					<ul class="header-category-lv-1">
 						<li>
@@ -92,9 +92,9 @@
 				</span>
 
 				<ul class="header-nav-items">
-					<li class="header-nav-item active"><a href="#">首页</a></li>
-					<li class="header-nav-item"><a href="#">爆款专区</a></li>
-					<li class="header-nav-item"><a href="#">逛市场</a></li>
+					<li class="header-nav-item"><a href="./index.html">首页</a></li>
+					<li class="header-nav-item"><a href="./hotsale.html">爆款专区</a></li>
+					<li class="header-nav-item"><a href="./visitingmarket.html">逛市场</a></li>
 					<li class="header-nav-item" style="display:none"><a href="#">我的关注</a></li>
 				</ul>
 			</div>
