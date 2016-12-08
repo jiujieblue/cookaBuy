@@ -11,11 +11,10 @@ module.exports = {
   // entry: entries,
   entry: { 
     'module/index': './src/module/index/index.js',
-    'module/hotsale': './src/module/hotsale/hotsale.js',
-    'module/visitingmarket': './src/module/visitingmarket/visitingmarket.js',
+    'module/hotSale': './src/module/hotSale/hotSale.js',
     'module/detail': './src/module/detail/detail.js',
     'module/search': './src/module/search/search.js',
-    'module/seller_all_product': './src/module/seller_all_product/sellerAllProduct.js'
+    'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js'
   },
   output: {
     path: config.build.assetsRoot,
