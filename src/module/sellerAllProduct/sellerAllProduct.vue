@@ -89,7 +89,7 @@
     		<ul>
     			<li v-for="(product,index) in products">
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
-    					<img :src="product.pic_url" alt="产品图片">
+    					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
     				</a>
     				<ul>
     					<li>
@@ -112,7 +112,7 @@
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url" />
+    					<img :src="showcase.pic_url+'_200x200.jpg'" />
     				</a>
     				<b>￥&nbsp;{{ showcase.price }}</b>
     			</li>
