@@ -19,29 +19,19 @@
 	  				 >
 	  			</li>
 	  		</ul>
-	  		<div>
-	  			<ul>  				
-	  				<li>dsafasd</li>
-	  				<li>
-	  					<ul>
-	  						<li v-for="(bucket, index) in abc">
-	  							<span>阿哥过去</span>
-	  						</li>
-	  					</ul>
-	  					<span>更多</span>
-	  				</li>
-	  			</ul>
-	  			<!-- <ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key]">  				
+	  		<div v-if="isnosearchR">
+	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key]">  				
 	  				<li v-html="product_nav(key)"></li>
-	  				<li :ref="'aggregation'+index">
-	  					<ul>
+	  				<li>
+	  					<ul :ref="'aggregation'+index">
 	  						<li v-for="(bucket, index) in aggregation.buckets">
 	  							<span @click="_urlTarget(key, bucket.key)">{{ bucket.key }}</span>
 	  						</li>
 	  					</ul>
-	  					<span>更多</span>
+	  					{{ _isMore('aggregation'+index) }}
+	  					<span v-if="isMore['aggregation'+index]" @mouseover="_moreOver(index)" @mouseout="_moreOut(index)">更多</span>
 	  				</li>
-	  			</ul> -->
+	  			</ul>
 	  		</div>
 	  	</div>
 	    <nav class="row search-nav">
@@ -63,59 +53,83 @@
 	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
 	    </nav>
 	    <div class="row search-product">
-	    	<div class="search-product-left-grid" v-if='isGridOrBar == 0'>
-	    		<ul>
-	    			<li v-for="(hit,index) in hits.hits" :data_id='hit._id'>
-	    				<div class="search-product-left-gridRecommended">
-		    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">
-		    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
-		    				</a>
-		    				<ul>
-		    					<li><b>￥&nbsp;{{ hit._source.price }}</b><p style="display:none"><span rel="stylesheet" class="icon-liulan"></span>150</p></li>
-		    					<li>
-		    						<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
-		    					</li>
-		    					<li><a href="#">店铺名称</a><span>{{ hit._source.market }} {{ hit._source.store_number }}</span></li>
-		    					<li style="display:none">图片</li>
-		    				</ul>
-	    				</div>
-	    				<div style="display:none">
-	    					<a  href="#"><img @mouseover="changeImg($event)" alt="图片2"></a>
-	    				</div>
-	    			</li>
-	    		</ul>
-	    	</div>
-	    	<div class="search-product-left-bar" v-else>
-	    		<ul>
-	    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
-	    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid">
-	    					<img :ref="'Img_'+index" :src="hit._source.pic_url">
-	    				</a>
-	    				<ul>
-	    					<li><a href="">{{ hit._source.title }}</a></li>
-	    					<li><a href="#">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
-	    				</ul>
-	    				<ul>
-	    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
-	    					<li style="display:none">预留图片</li>
-	    				</ul>
-	    			</li>
-	    		</ul>
+	    	<div class="search-product-left">
+	    		<div class="search-product-left-succee" v-if="isnosearchR">
+			    	<div class="search-product-left-succee-grid" v-if='isGridOrBar == 0'>
+			    		<ul>
+			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
+			    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
+			    				</a>
+			    				<ul>
+			    					<li>
+			    						<b>￥&nbsp;{{ hit._source.price }}</b>
+			    						<p style="display:none">
+			    							<span rel="stylesheet" class="icon-liulan"></span>150
+			    						</p>
+			    					</li>
+			    					<li>
+			    						<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
+			    					</li>
+			    					<li>
+			    						<a href="#">店铺名称</a>
+			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
+			    					</li>
+			    					<li v-if="false">图片</li>
+			    				</ul>
+			    			</li>
+			    		</ul>
+			    	</div>
+			    	<div class="search-product-left-succee-bar" v-else>
+			    		<ul>
+			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
+			    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url">
+			    				</a>
+			    				<ul>
+			    					<li><a href="">{{ hit._source.title }}</a></li>
+			    					<li><a href="#">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    				</ul>
+			    				<ul>
+			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
+			    					<li style="display:none">预留图片</li>
+			    				</ul>
+			    			</li>
+			    		</ul>
+			    	</div>
+	    		</div>
+		    	<div class="search-product-left-error" v-else>
+		    		<div>
+		    			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
+		    			<ul>
+		    				<li><p>没有相关商品哦~~</p></li>
+		    				<li>
+		    					<a href="">去商城逛逛</a>
+		    				</li>
+		    			</ul>
+		    		</div>
+		    	</div>
 	    	</div>
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
-	    			<li v-for="ren in renqi">
-	    				<a href=""><img src="../../assets/images/hot-sale-side.jpg" /></a>
-	    				<b>￥&nbsp;2510.0</b>
-	    				<p>战地吉普男装牛仔卫裤2016春装新款</p>
-	    				<a href="#">宝立美服饰</a>
+	    			<li v-for="(hot,index) in setLength(hotData.data)">
+	    				<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+		    				<img :src="hot.pic_url+'_200x200.jpg'">
+		    			</a>
+	    				<b>￥{{ hot.price }}</b>
+	    				<p>
+	    					<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    						{{ hot.title }}
+	    					</a>
+	    				</p>
+	    				<a href="#">{{ hot.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages="10" :pageNum="page" @submitPage="subPage"></CkPagination>
+	    	<CkPagination :pages="10" :pageNum="page" @submitPage="subPage" v-if="isnosearchR"></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -128,12 +142,21 @@
 	    <div class="row search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
 	    	<ul>
-	    		<li class="search-product-left-gridRecommended" v-for="ren in renqi">
-	    			<a href="#"><img src="../../assets/images/hot-sale-today.jpg"></a>
+	    		<li class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+	    			<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    				<img :src="hot.pic_url+'_200x200.jpg'">
+	    			</a>
 	    			<ul>
-	    				<li><b>￥520.00</b></li>
-	    				<li>收到货了放开手暗示的批复后奥斯丁发货票违法普</li>
-	    				<li><a href="#">宝立美服饰</a><span>大西豪 823档</span></li>
+	    				<li><b>￥{{ hot.price }}</b></li>
+	    				<li>
+	    					<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    						{{ hot.title }}
+	    					</a>
+	    				</li>
+	    				<li>
+	    					<a :href="'http://localhost:9090/module/sellerAllProduct.html?store_id='+hot.store.id">{{ hot.store.store_name }}</a>
+	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
+	    				</li>
 	    			</ul>
 	    		</li>
 	    	</ul>
@@ -151,6 +174,9 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
+
+	
+
 	export default {
 	  data () {
 	    return {
@@ -159,6 +185,8 @@
 	    	// 请求数据
 	      aggregations: '',
 	      hits: '',
+
+	      hotData: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -193,7 +221,7 @@
 
 				isMore: {},
 				renqi: 5,
-				abc: 30
+				isnosearchR: true
 	    }
 	  },
 	  mounted () {
@@ -223,13 +251,57 @@
 	  	.then(function (res) {
 	  		this.aggregations = res.data[2].aggregations
 	  		this.hits = res.data[2].hits
+	  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
+	  			this.isnosearchR = true
+	  		}else{
+	  			this.isnosearchR = false
+	  		}
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
+
+	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=5&page=1')
+	  	.then(function (res) {
+	  		this.hotData = res.data
 	  	},
 	  	function (res) {
 	  		console.log(res)
 	  	})
 
 	  },
+	  computed: {
+	  	
+	  },
+	  updated () {
+	  	for(var key in this.isMore){
+	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
+	  			this.isMore[key] = true
+	  		}
+	  	}
+	  },
 	  methods: {
+	  	setLength (val) {
+	  		if(val){
+		  		if(val.length > 3){
+		  			return val.slice(0,4)
+		  		}
+	  		}
+	  	},
+	  	_moreOver (i) {
+	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
+					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
+	  		}
+	  	},
+	  	_moreOut () {
+				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
+	  	},
+	  	_isMore (val) {
+	  		this.isMore[val] = false
+	  	},
+	  	_cli () {
+	  		console.log(this.$refs.aggregation0)
+	  	},
 	  	// 获取风格等分类 href
 	  	_aggUrl (str1, str2, hrefStr) {
 	  		var i = hrefStr.indexOf(str2)

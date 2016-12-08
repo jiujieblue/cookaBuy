@@ -91,7 +91,7 @@
 	import BuyerCenterHeader from 'components/BuyerCenterHeader'
 	import footerComponent from 'components/footer'
 	import BuyerCenterSideBar from 'components/BuyerCenterSideBar'
-	import sellerFirstWithdrawal from '../seller_withdrawal/sellerFirstWithdrawal.vue'
+	import sellerFirstWithdrawal from '../sellerWithdrawal/sellerFirstWithdrawal.vue'
 	export default {
 	  components: {
 	  	BuyerCenterHeader,

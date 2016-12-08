@@ -42,7 +42,7 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
-											<li><img class="hotsalepage-left-womenhotsale-links-wbigimg" src="../../assets/images/women-bk-show440335.jpg"/></li>
+											<li><img src="../../assets/images/hotsale_women.jpg"/></li>
 											<li v-for="(girlItem, girlIndex) in girlData" @click="_toGirlDetail(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
 													<img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" />
@@ -64,7 +64,7 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
-											<li><img class="hotsalepage-left-manhotsale-links-wbigimg" src="../../assets/images/women-bk-show440335.jpg"/></li>
+											<li><img src="../../assets/images/hotsale_man.jpg"/></li>
 											<li v-for="(boyItem, boyIndex) in boyData" @click="_toBoyDetail(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
 													<img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/>
