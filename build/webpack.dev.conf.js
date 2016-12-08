@@ -18,8 +18,7 @@ module.exports = merge(baseWebpackConfig, {
     loaders: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
   // eval-source-map is faster for development
-  // devtool: '#eval-source-map',
-  devtool: 'cheap-module-source-map',
+  devtool: false,
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env
