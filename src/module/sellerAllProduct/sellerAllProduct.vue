@@ -89,7 +89,7 @@
     		<ul>
     			<li v-for="(product,index) in products">
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
-    					<img :src="product.pic_url" alt="产品图片">
+    					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
     				</a>
     				<ul>
     					<li>
@@ -112,7 +112,7 @@
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url" />
+    					<img :src="showcase.pic_url+'_200x200.jpg'" />
     				</a>
     				<b>￥&nbsp;{{ showcase.price }}</b>
     			</li>
@@ -149,7 +149,7 @@
 	      store_id: 7,
 	      // 页数
 	      page: 1,
-
+	      hotPage: 1,
 	      // 价格区间
 	     	isLow: false,
 	     	isHigh: false,
@@ -201,12 +201,13 @@
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 	  			me.isHeiBig = true
 			  }
+
 	    },
 	    function (res) {
 	    	console.log(res)
 	    })
 
-	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page='+ this.page)
+	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
 	    },
