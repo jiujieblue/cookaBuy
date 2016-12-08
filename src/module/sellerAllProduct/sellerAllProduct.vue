@@ -68,8 +68,12 @@
     <nav class="row sellerAllProduct-nav">
     	<ul>
     		<li v-if="false">销量<i></i></li>
-    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'list'}" @click="sorting($event,'list','price',0)">上新时间<i :class="{sorting : list}"></i></li>
-    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'price'}" @click="sorting($event,'price','list',1)">价格<i :class="{sorting : price}"></i></li>
+    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'list'}" @click="sorting($event,'list','price',0)">
+    			上新时间<i :class="{sorting : list}"></i>
+    		</li>
+    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'price'}" @click="sorting($event,'price','list',1)">
+    			价格<i :class="{sorting : price}"></i>
+    		</li>
     	</ul>
     	<p>
     		<span>￥</span>
@@ -88,9 +92,17 @@
     					<img :src="product.pic_url" alt="产品图片">
     				</a>
     				<ul>
-    					<li><b>￥&nbsp;{{ product.price }}</b><span rel="stylesheet" class="icon-shoucang"></span></li>
-    					<li><a target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleHtml(product.title)"></a></li>
-    					<li><span v-if="product.item_no">#{{ product.item_no }}</span><button>一键上传</button></li>
+    					<li>
+    						<b>￥&nbsp;{{ product.price }}</b>
+    						<span rel="stylesheet" class="icon-shoucang"></span>
+    					</li>
+    					<li>
+    						<a target="_blank" :href="'./detail.html?'+product.num_iid">{{ product.title }}</a>
+    					</li>
+    					<li>
+    						<span v-if="product.item_no">#{{ product.item_no }}</span>
+    						<button>一键上传</button>
+    					</li>
     				</ul>
     			</li>
     		</ul>

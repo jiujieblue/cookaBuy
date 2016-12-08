@@ -343,13 +343,12 @@
 							&:nth-child(2){
 								a{
 									color: #665c59;
-									.text_overflow{
-										display: block;
-										width: 202.52px;
-										white-space: nowrap;
-										overflow: hidden;
-										text-overflow: ellipsis;
-									}
+									text-overflow:ellipsis;
+									display:-webkit-box;
+									-webkit-box-orient:vertical;
+									-webkit-line-clamp:2;
+									overflow:hidden;
+									color: #665c59;
 									&:hover{
 										color: #a89d99;
 										text-decoration: none;

@@ -122,9 +122,6 @@
 				}
 	    }
 	  },
-	  mounted () {
-
-	  },
 	  methods: {
 	  	_del () {
 	  		this.showModal = true
