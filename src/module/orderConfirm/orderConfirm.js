@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import orderconfirm from './orderconfirm.vue'
+import orderconfirm from './orderConfirm.vue'
 
 /* eslint-disable no-new */
 new Vue({

@@ -19,8 +19,8 @@
 	import Vue from 'vue'
 	import oh from 'components/OrderHeader'
 	import fc from 'components/footer'
-	import ri from './receiptinfo.vue'
-	import od from './orderdetail.vue'
+	import ri from './receiptInfo.vue'
+	import od from './orderDetail.vue'
 	import cp from './coupon.vue'
 	import account from './account.vue'
 	export default{
