@@ -5,17 +5,16 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
-  // entry: entries,
   entry: { 
     'module/index': './src/module/index/index.js',
-    'module/hotsale': './src/module/hotsale/hotsale.js',
-    'module/visitingmarket': './src/module/visitingmarket/visitingmarket.js',
+    'module/hotSale': './src/module/hotSale/hotSale.js',
+    'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
     'module/detail': './src/module/detail/detail.js',
     'module/search': './src/module/search/search.js',
-    'module/seller_all_product': './src/module/seller_all_product/sellerAllProduct.js'
+    'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -23,7 +22,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue','css','less'],
+    extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       'src': path.resolve(__dirname, '../src'),
