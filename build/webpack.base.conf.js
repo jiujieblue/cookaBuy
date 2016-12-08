@@ -5,6 +5,7 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: entries,
@@ -27,6 +28,7 @@ module.exports = {
   },
   module: {
     loaders: [
+
       {
         test: /\.vue$/,
         loader: 'vue'
@@ -46,7 +48,7 @@ module.exports = {
         loader: 'vue-html'
       },
       {
-        test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
           limit: 10000,
@@ -74,11 +76,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
     })
   ]
 }
