@@ -28,16 +28,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', {
-          publicPath: './'
-        })
-      }, 
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css!less?indentedSyntax=true&sourceMap=true')
-      },
+
       {
         test: /\.vue$/,
         loader: 'vue'
