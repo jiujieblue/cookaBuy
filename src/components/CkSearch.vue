@@ -9,9 +9,9 @@
 							<option value="s">店铺</option>
 						</select>
 					</span>
-					<input type="search" name="query" class="form-control" placeholder="搜索关键字..."/>
+					<input type="search" name="query" class="form-control" placeholder="搜索关键字..." ref="query"/>
 					<span class="input-group-btn">
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-primary" @click="_sub">
 							搜索
 						</button>
 					</span>
@@ -29,6 +29,13 @@ import CkSearch from 'components/CkSearch'
 export default {
 	components:{
 		CkSearch
+	},
+	methods: {
+		_sub (e) {
+			e.preventDefault()
+			var val = this.$refs.query.value
+			this.$emit('submitStr',val)
+		}
 	}
 }
 </script>

@@ -25,10 +25,10 @@
           <div class="shopping-detail">
             <div class="img-box">
               <div class="img-show">
-                <img v-bind:src="carousel[img_t] && carousel[img_t].tb_url">
+                <img v-bind:src="showImg">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="showImg(index)" v-bind:class="{'active' : img_t==index}">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}">
               </div>
             </div>
             <div class="shopping-desc">
@@ -195,15 +195,11 @@
                   <div class="hr"></div>
                 </div>
                 <div class="specif-tab">
-                  <table>
-                    <tbody>
-                      <tr v-for="(item,index) in item_props">
-                        <td>{{item[0].name + ' : '}}{{item[0].value}}</td>
-                        <td>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</td>
-                        <td>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div v-for="(item,index) in item_props">
+                    <div>{{item[0].name + ' : '}}{{item[0].value}}</div>
+                    <div>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</div>
+                    <div>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</div>
+                  </div>
                 </div>
                 <div class="detail-desc">
                   <div class="sanjiao"></div>
@@ -253,6 +249,7 @@
         phone: '',
         price: '',
         addr: '',
+        showImg: '',
         carousel: [],
         tit: '',
         skus: [],
@@ -274,7 +271,6 @@
         showChooseList: false,
         sku_id: '',
         prop_name: '',
-
         showcase: [],
         showcasePage: 1,
         hasNextPage: false,
@@ -284,8 +280,9 @@
       }
     },
     methods: {
-      showImg (t) {
-        this.img_t = t
+      _showImg (t) {
+        var s = this.carousel[t].tb_url
+        this.showImg = s.slice(0,s.length-10)
       },
       chooseColor (t) {
         this.color_t = t
@@ -535,7 +532,11 @@
           this.skus = ret.data.skus
           this.item_id = ret.data.num_iid
           this.store_id = ret.data.store.id
+          this.showImg = ret.data.item_imgs[0].tb_url
           this.carousel = ret.data.item_imgs
+          for(var i = 0;i < this.carousel.length;i++){
+            this.carousel[i].tb_url += '_70x70.jpg' 
+          }
           this.store_name = ret.data.store.store_name
           this.phone = ret.data.store.mobile
           this.price = ret.data.price
@@ -582,6 +583,9 @@
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
+              for(var i = 0;i < this.showcase.length;i++){
+                this.showcase[i].pic_url += '_160x160.jpg'
+              }
               this.showcaseTotalPage = ret.data.total_pages
               if(ret.data.total_pages > 1){
                 this.hasNextPage = true
@@ -592,6 +596,9 @@
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=5')
             .then(function(ret){
               this.newList = ret.data.data 
+              for(var i = 0;i < this.newList.length;i++){
+                this.newList[i].pic_url += '_220x220.jpg'
+              }
             },function(err){
               console.log(err)
             })

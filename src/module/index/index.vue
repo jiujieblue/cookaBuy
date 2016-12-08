@@ -60,13 +60,13 @@
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
 										<div class="item active">
-											<img src="../../assets/images/indexCarousel01.jpg" alt="...">
+											<img src="../../assets/images/indexBanner01.jpg" alt="...">
 										</div>
 										<div class="item">
-											<img src="../../assets/images/indexCarousel02.jpg" alt="...">
+											<img src="../../assets/images/indexBanner02.jpg" alt="...">
 										</div>
 										<div class="item">
-											<img src="../../assets/images/indexCarousel01.jpg" alt="...">
+											<img src="../../assets/images/indexBanner03.jpg" alt="...">
 										</div>
 									</div>
 									<!-- Controls -->
@@ -438,10 +438,9 @@ export default {
 			function(res){
 				//console.log(res.data.data)
 				this.recommend_data = res.data.data
-        for (var i = 0 ; i < 5 ; i ++){
-          this.stores.push(this.recommend_data[i].store)
-        }
-        console.log(this.stores)
+	        	for (var i = 0 ; i < 5 ; i ++){
+	          		this.stores.push(this.recommend_data[i].store)
+	        	}
 			},
 			function(err){
 				console.log(err)
@@ -452,20 +451,23 @@ export default {
            function(res){
              //console.log(res)
              this.products = res.data.data
-             console.log(this.products)
+             for(var i = 0 ; i < this.products.length ; i++){
+             	this.products[i].pic_url += '_210x210.jpg'
+             }
            },function(err){
                console.log(err)
          }
        )
-	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=5&page='+this.init_page)
+	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+this.init_page)
 		.then(
         function(res){
           //console.log(res)
         	this.sideproducts = res.data.data
         	this.total_entries  = res.data.total_entries
-        	console.log(this.total_entries)
-        	console.log(this.sideproducts)
         	this.init_page++
+        	for(var i = 0 ; i < this.sideproducts.length ; i++){
+             	this.sideproducts[i].pic_url += '_80x80.jpg'
+             }
         },function(err){
           console.log(err)
         }
@@ -474,11 +476,14 @@ export default {
 		var me = this
 		var timer = setInterval(function(){
 			$('#side').fadeOut('swing',function(){
-				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=5&page='+me.init_page)
+				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
 			    	.then(
 				        function(res){
 				          //console.log(res)
-		          			me.sideproducts = res.data.data		          
+		          			me.sideproducts = res.data.data	
+		          			for(var i = 0 ; i < this.sideproducts.length ; i++){
+				             	this.sideproducts[i].pic_url += '_80x80.jpg'
+				            }	          
 		          			//console.log(this.sideproducts)
 		          			me.init_page ++ 
 				      		if(me.init_page > me.total_entries ){
@@ -490,41 +495,15 @@ export default {
 		        })
 			})
 	    },4000)
-   //  	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6')
-			// .then(
-	  //       function(res){
-	  //         //console.log(res)
-	  //       	this.sideproducts = res.data.data
-	  //       	this.total_entries  = res.data.total_entries
-	  //       	console.log(this.total_entries)
-	  //       	var me = this
-	  //   		var timer = setInterval(function(){
-	  //   			me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
-			// 	    	.then(
-			// 		        function(res){
-			// 		          //console.log(res)
-			//           			me.sideproducts = res.data.data		          
-			//           			//console.log(this.sideproducts)
-			//           			me.init_page ++ 
-			// 		      		if(me.init_page > me.total_entries ){
-			// 		      			me.init_page = 1
-			// 		      		}
-			//         },function(err){
-			//           console.log(err)
-			//         }
-			//       )
-			//     },3000)
-	  //         console.log(this.sideproducts)
-	  //       },function(err){
-	  //         console.log(err)
-	  //       }
-	  //     )
     	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
     	.then(
 	        function(res){
 	          //console.log(res)
 	          this.girls = res.data.data
 	          //console.log(this.girls)
+	          for(var i = 0 ; i < this.girls.length ; i++){
+             	this.girls[i].pic_url += '_270x270.jpg'
+              }
 	        },function(err){
 	          console.log(err)
 	        }
@@ -534,6 +513,9 @@ export default {
         function(res){
           //console.log(res)
           this.boys = res.data.data
+      	  for(var i = 0 ; i < this.boys.length ; i++){
+         	this.boys[i].pic_url += '_270x270.jpg'
+          }
           //console.log(this.boys)
         },function(err){
           console.log(err)
@@ -545,6 +527,9 @@ export default {
           //console.log(res)
           this.maternits = res.data.data
           //console.log(this.maternits)
+          for(var i = 0 ; i < this.maternits.length ; i++){
+             	this.maternits[i].pic_url += '_270x270.jpg'
+           }
         },function(err){
           console.log(err)
         }
@@ -554,6 +539,9 @@ export default {
         function(res){
           //console.log(res)
           this.childrens = res.data.data
+          for(var i = 0 ; i < this.childrens.length ; i++){
+         	this.childrens[i].pic_url += '_270x270.jpg'
+          }
           //console.log(this.childrens)
         },function(err){
           console.log(err)

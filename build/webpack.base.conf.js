@@ -5,6 +5,7 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: entries,
@@ -27,6 +28,7 @@ module.exports = {
   },
   module: {
     loaders: [
+
       {
         test: /\.vue$/,
         loader: 'vue'
@@ -67,7 +69,10 @@ module.exports = {
     loaders: utils.cssLoaders()
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor','vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks : Infinity
+      }),
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
