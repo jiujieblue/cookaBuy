@@ -8,14 +8,22 @@ var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: entries,
+  // entry: entries,
+  entry: { 
+    'module/index': './src/module/index/index.js',
+    'module/hotsale': './src/module/hotsale/hotsale.js',
+    'module/visitingmarket': './src/module/visitingmarket/visitingmarket.js',
+    'module/detail': './src/module/detail/detail.js',
+    'module/search': './src/module/search/search.js',
+    'module/seller_all_product': './src/module/seller_all_product/sellerAllProduct.js'
+  },
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.vue','css','less'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       'src': path.resolve(__dirname, '../src'),
@@ -28,7 +36,6 @@ module.exports = {
   },
   module: {
     loaders: [
-
       {
         test: /\.vue$/,
         loader: 'vue'
