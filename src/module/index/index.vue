@@ -86,8 +86,6 @@
 									</a>
 								</h4>
 								<div class="index-note-body">
-									<!-- <span class="icon-tongzhi"></span>
-									<p>(づ｡◕‿‿◕｡)づ暂时没有公告哦～</p> -->
 									<div class="img">
 										<img src="../../assets/images/announcement.png" alt="">
 									</div>
@@ -344,9 +342,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- <a href="#" title="返回页面顶部" class="index-go-to-top">
-							<span class="icon-zhiding" />
-						</a> -->
 						<gotop></gotop>
 					</div>
 				</div>
@@ -438,7 +433,6 @@ export default {
 				$('.icon-xianghou').css('right','-50px').fadeOut('slow')
 			}
 		)
-
 		this.$http.get('/api/recommend_stores')
 		.then(
 			function(res){

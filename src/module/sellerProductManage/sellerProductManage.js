@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import seller_productmanage from './seller_productmanage.vue'
+import seller_productmanage from './sellerProductManage.vue'
 
 /* eslint-disable no-new */
 new Vue({

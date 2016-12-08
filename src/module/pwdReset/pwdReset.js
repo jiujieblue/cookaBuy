@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import pwdReset from './pwd_reset.vue'
+import pwdReset from './pwdReset.vue'
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#pwd_reset',
+  el: '#pwdReset',
   render: h => h(pwdReset)
 })

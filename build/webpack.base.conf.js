@@ -5,9 +5,17 @@ var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 var glob = require('glob');
 var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
+  // entry: { 
+  //   'module/index': './src/module/index/index.js',
+  //   'module/hotSale': './src/module/hotSale/hotSale.js',
+  //   'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
+  //   'module/detail': './src/module/detail/detail.js',
+  //   'module/search': './src/module/search/search.js',
+  //   'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js'
+  // },
   entry: entries,
   output: {
     path: config.build.assetsRoot,
@@ -28,7 +36,6 @@ module.exports = {
   },
   module: {
     loaders: [
-
       {
         test: /\.vue$/,
         loader: 'vue'

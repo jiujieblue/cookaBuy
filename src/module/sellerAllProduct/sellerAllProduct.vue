@@ -149,7 +149,7 @@
 	      store_id: 7,
 	      // 页数
 	      page: 1,
-
+	      hotPage: 1,
 	      // 价格区间
 	     	isLow: false,
 	     	isHigh: false,
@@ -201,12 +201,13 @@
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 	  			me.isHeiBig = true
 			  }
+
 	    },
 	    function (res) {
 	    	console.log(res)
 	    })
 
-	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page='+ this.page)
+	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
 	    },

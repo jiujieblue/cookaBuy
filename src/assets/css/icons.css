@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?v7vn0w');
-  src:  url('../fonts/icomoon.eot?v7vn0w#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?v7vn0w') format('truetype'),
-    url('../fonts/icomoon.woff?v7vn0w') format('woff'),
-    url('../fonts/icomoon.svg?v7vn0w#icomoon') format('svg');
+  src:  url('../fonts/icomoon.eot?9jcx1l');
+  src:  url('../fonts/icomoon.eot?9jcx1l#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?9jcx1l') format('truetype'),
+    url('../fonts/icomoon.woff?9jcx1l') format('woff'),
+    url('../fonts/icomoon.svg?9jcx1l#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -66,7 +66,7 @@
 .icon-check:before {
   content: "\e90b";
 }
-.icon-cooka:before {
+.icon-cooka2:before {
   content: "\e90c";
 }
 .icon-dangkouzhinan:before {
@@ -90,7 +90,7 @@
 .icon-disable_radio:before {
   content: "\e913";
 }
-.icon-dizhi:before {
+.icon-dizhi2:before {
   content: "\e914";
 }
 .icon-fanye:before {
@@ -393,7 +393,7 @@
 .icon-zhiding:before {
   content: "\e96b";
 }
-.icon-zhifuchenggong:before {
+.icon-zhifuchenggong2:before {
   content: "\e96c";
 }
 .icon-zhifufangshi:before {
@@ -407,5 +407,179 @@
 }
 .icon-zizhanghu:before {
   content: "\e970";
+}
+.icon-cooka:before {
+  content: "\e971";
+}
+.icon-denglu:before {
+  content: "\e972";
+}
+.icon-dizhi:before {
+  content: "\e973";
+}
+.icon-done:before {
+  content: "\e974";
+}
+.icon-logo .path1:before {
+  content: "\e975";
+  color: rgb(242, 191, 30);
+}
+.icon-logo .path2:before {
+  content: "\e976";
+  margin-left: -1.7578125em;
+  color: rgb(242, 191, 30);
+}
+.icon-logo .path3:before {
+  content: "\e977";
+  margin-left: -1.7578125em;
+  color: rgb(242, 191, 30);
+}
+.icon-logo .path4:before {
+  content: "\e978";
+  margin-left: -1.7578125em;
+  color: rgb(242, 191, 30);
+}
+.icon-logo .path5:before {
+  content: "\e979";
+  margin-left: -1.7578125em;
+  color: rgb(242, 191, 30);
+}
+.icon-logo .path6:before {
+  content: "\e97a";
+  margin-left: -1.7578125em;
+  color: rgb(51, 51, 51);
+}
+.icon-logo .path7:before {
+  content: "\e97b";
+  margin-left: -1.7578125em;
+  color: rgb(51, 51, 51);
+}
+.icon-logo .path8:before {
+  content: "\e97c";
+  margin-left: -1.7578125em;
+  color: rgb(51, 51, 51);
+}
+.icon-logo .path9:before {
+  content: "\e97d";
+  margin-left: -1.7578125em;
+  color: rgb(51, 51, 51);
+}
+.icon-logo .path10:before {
+  content: "\e97e";
+  margin-left: -1.7578125em;
+  color: rgb(51, 51, 51);
+}
+.icon-logo .path11:before {
+  content: "\e97f";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path12:before {
+  content: "\e980";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path13:before {
+  content: "\e981";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path14:before {
+  content: "\e982";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path15:before {
+  content: "\e983";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path16:before {
+  content: "\e984";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path17:before {
+  content: "\e985";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path18:before {
+  content: "\e986";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path19:before {
+  content: "\e987";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path20:before {
+  content: "\e988";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path21:before {
+  content: "\e989";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path22:before {
+  content: "\e98a";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path23:before {
+  content: "\e98b";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path24:before {
+  content: "\e98c";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path25:before {
+  content: "\e98d";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-logo .path26:before {
+  content: "\e98e";
+  margin-left: -1.7578125em;
+  color: rgb(110, 110, 109);
+}
+.icon-mingxingdianpu .path1:before {
+  content: "\e98f";
+  color: rgb(242, 191, 30);
+}
+.icon-mingxingdianpu .path2:before {
+  content: "\e990";
+  margin-left: -1em;
+  color: rgb(235, 94, 31);
+}
+.icon-mingxingdianpu .path3:before {
+  content: "\e991";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-mingxingdianpu .path4:before {
+  content: "\e992";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-mingxingdianpu .path5:before {
+  content: "\e993";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-shouji:before {
+  content: "\e994";
+}
+.icon-zhifu:before {
+  content: "\e995";
+}
+.icon-zhifuchenggong:before {
+  content: "\e996";
 }
 
