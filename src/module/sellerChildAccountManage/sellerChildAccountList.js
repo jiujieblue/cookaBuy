@@ -1,6 +1,6 @@
 
 import Vue from 'vue'
-import seller_cal_list from './seller_childaccountlist.vue'
+import seller_cal_list from './sellerChildAccountList.vue'
 
 /* eslint-disable no-new */
 new Vue({

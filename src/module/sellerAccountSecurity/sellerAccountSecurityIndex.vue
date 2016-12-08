@@ -78,9 +78,9 @@
 	import SCS from 'components/SellerCenterSideBar'
 	import FC from 'components/footer'
 
-	import EditBindPhone from './seller_accountsecurity_editbindphone.vue'
-	import EditLoginPwd from './seller_accountsecurity_editloginpwd.vue'
-	import EditPaymentPwd from './seller_accountsecurity_settingpaymentpwd.vue'
+	import EditBindPhone from './sellerAccountSecurityEditBindPhone.vue'
+	import EditLoginPwd from './sellerAccountSecurityEditLoginPwd.vue'
+	import EditPaymentPwd from './sellerAccountSecuritySettingPaymentPwd.vue'
 	
 	export default{
 		data(){

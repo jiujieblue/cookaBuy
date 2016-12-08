@@ -78,9 +78,9 @@
 	import BCS from 'components/BuyerCenterSideBar'
 	import FC from 'components/footer'
 
-	import EditBindPhone from './buyer_accountsecurity_editbindphone.vue'
-	import EditLoginPwd from './buyer_accountsecurity_editloginpwd.vue'
-	import EditPaymentPwd from './buyer_accountsecurity_settingpaymentpwd.vue'
+	import EditBindPhone from './buyerAccountSecurityEditBindPhone.vue'
+	import EditLoginPwd from './buyerAccountSecurityEditLoginPwd.vue'
+	import EditPaymentPwd from './buyerAccountSecuritySettingPaymentPwd.vue'
 
 	export default{
 		data(){

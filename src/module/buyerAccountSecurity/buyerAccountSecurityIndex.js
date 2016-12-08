@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import buyer_as_index from './buyer_accountsecurity_index.vue'
+import buyer_as_index from './buyerAccountSecurityIndex.vue'
 
 /* eslint-disable no-new */
 new Vue({

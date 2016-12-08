@@ -346,28 +346,6 @@
 										<span>大西豪823档</span>
 									</div>
 								</div>
-								<div class="stroeblock">
-									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
-									</div>
-									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
-									<div>
-										<span>宝立美服饰</span>
-										<span>大西豪823档</span>
-									</div>
-								</div>
-								<div class="stroeblock">
-									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
-									</div>
-									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
-									<div>
-										<span>宝立美服饰</span>
-										<span>大西豪823档</span>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
