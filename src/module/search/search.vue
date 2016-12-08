@@ -58,7 +58,7 @@
 			    	<div class="search-product-left-succee-grid" v-if='isGridOrBar == 0'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
-			    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">
+			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
 			    				</a>
 			    				<ul>
@@ -69,10 +69,10 @@
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
+			    						<a :href="'.detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
 			    					</li>
 			    					<li>
-			    						<a href="#">店铺名称</a>
+			    						<a href=".sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
 			    					<li v-if="false">图片</li>
@@ -83,12 +83,12 @@
 			    	<div class="search-product-left-succee-bar" v-else>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
-			    				<a :href="'http://localhost:9090/module/detail.html?' + hit._source.num_iid">
+			    				<a :href="'.detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url">
 			    				</a>
 			    				<ul>
-			    					<li><a href="">{{ hit._source.title }}</a></li>
-			    					<li><a href="#">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    					<li><a :href="'.detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a></li>
+			    					<li><a href=".sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
 			    				<ul>
 			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
@@ -104,7 +104,7 @@
 		    			<ul>
 		    				<li><p>没有相关商品哦~~</p></li>
 		    				<li>
-		    					<a href="">去商城逛逛</a>
+		    					<a href=".index.html" target="_blank">去商城逛逛</a>
 		    				</li>
 		    			</ul>
 		    		</div>
@@ -114,16 +114,16 @@
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
 	    			<li v-for="(hot,index) in setLength(hotData.data)">
-	    				<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    				<a :href="'.detail.html?'+hot.num_iid" target="_blank">
 		    				<img :src="hot.pic_url+'_200x200.jpg'">
 		    			</a>
 	    				<b>￥{{ hot.price }}</b>
 	    				<p>
-	    					<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    					<a :href="'.detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
-	    				<a href="#">{{ hot.store.store_name }}</a>
+	    				<a href=".sellerAllProduct.html?store_id=7" target="_blank">{{ hot.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
@@ -143,18 +143,18 @@
 	    	<p><span>HTO</span><b>人气推荐</b></p>
 	    	<ul>
 	    		<li class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-	    			<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    			<a :href="'.detail.html?'+hot.num_iid" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
 	    				<li><b>￥{{ hot.price }}</b></li>
 	    				<li>
-	    					<a :href="'http://localhost:9090/module/detail.html?'+hot.num_iid" target="_blank">
+	    					<a :href="'.detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</li>
 	    				<li>
-	    					<a :href="'http://localhost:9090/module/sellerAllProduct.html?store_id='+hot.store.id">{{ hot.store.store_name }}</a>
+	    					<a :href="'.sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
 	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
 	    				</li>
 	    			</ul>
@@ -227,9 +227,9 @@
 	  mounted () {
 	  	var hrefStr = window.location.href
 
-	  	var qI = hrefStr.indexOf('?q=')
+	  	var qI = hrefStr.indexOf('q=')
 	  	if(qI != -1){
-	  		this.q = hrefStr.slice(qI+1)
+	  		this.q = hrefStr.slice(qI)
 	  		if((qI = this.q.indexOf('&')) != -1){
 	  			this.q = this.q.slice(0,qI)
 	  		}
