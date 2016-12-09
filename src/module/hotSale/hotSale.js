@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import hotsale from './hotSale.vue'
 
 /* eslint-disable no-new */

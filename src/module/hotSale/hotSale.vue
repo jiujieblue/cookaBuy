@@ -110,6 +110,7 @@
 </template>
 
 <script>
+	import Vue from 'vue'
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'

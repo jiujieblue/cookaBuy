@@ -226,6 +226,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
+  import Vue from 'vue'
   import headerComponent from 'components/header'
   import footerComponent from 'components/footer'
   import goTop from 'components/goTop'

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import visitingmarket from './visitingMarket.vue'
 
 /* eslint-disable no-new */

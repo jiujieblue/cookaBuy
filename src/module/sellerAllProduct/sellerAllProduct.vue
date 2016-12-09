@@ -126,6 +126,7 @@
 </template>
 
 <script>
+	import Vue from 'vue'
 	import footerComponent from 'components/footer'
 	import CkPagination from 'components/CkPagination'
 	

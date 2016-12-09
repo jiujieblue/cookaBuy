@@ -168,6 +168,7 @@
 </template>
 
 <script>
+	import Vue from 'vue'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
 	import CkSearch from 'components/CkSearch'
