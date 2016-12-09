@@ -11,7 +11,7 @@
               <div>SHOP</div>
             </div>
             <div class="shop-name">
-              <h4>{{store_name}}</h4>
+              <h4 v-on:click="_more">{{store_name}}</h4>
               <p>本店{{productNum}}件商品</p>
             </div>
             <div class="shop-conn">
@@ -550,7 +550,7 @@
           }
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
-            if(ret.data.sku_props[i].prop_name == '颜色分类'){
+            if(ret.data.sku_props[i].prop_name == '颜色分类' || ret.data.sku_props[i].prop_name == '颜色'){
               for(var j = 0 ;j < diff.length;j++){
                 for(var k = 0;k < this.colorItem.length; k++){
                   if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){

@@ -1,7 +1,6 @@
 <template>
 <div class="aaa">
-  <div v-for="(item,index) in list" v-if="index < 3">{{item}}</div>
-  <button @click="_timer">aaa</button>
+  
 </div>
 </template>
 
@@ -45,17 +44,16 @@
       }
     },
     methods: {
-      _timer () {
-        var me = this;
-        var timer = setInterval(function(){
-          var s = me.list.splice(0,3)
-          me.list = me.list.concat(s)
-          console.log(me.list)
-        },1000)
-      }
+      
     },
     mounted () {
-      this.list = [1,2,3,4,5,6,7,8]
+      this.$http.get('/api/items?store_id=6&type=new')
+            .then(function(ret){
+              this.list = ret.data.data
+              console.log(this.list)
+            },function(err){
+              console.log(err)
+            })
     }
   }
 </script>
