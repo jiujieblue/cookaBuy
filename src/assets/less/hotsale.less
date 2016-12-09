@@ -17,7 +17,7 @@ img {
 		background-color: #F7F7F7;
 		&-todayhotsale {
 			&-top {
-				margin-top: 50px;
+				margin-top: 20px;
 
 				&-hotone {
 					background-color: @ck-main;
@@ -166,21 +166,19 @@ img {
 					height: 335px;
 					position: relative;
 					width: 214px;
-			        transition: transform 0.2s linear;
-			        -o-transition: transform 0.2s linear;
-			        -moz-transition: transform 0.2s linear;
-			        -webkit-transition: transform 0.2s linear;
-			        cursor: pointer;
-			        &:hover{
-			        	transform: scale(1.1);
-			        	-o-transform: scale(1.1);
-			        	-moz-transform: scale(1.1);
-			        	-webkit-transform: scale(1.1);
-			        	box-shadow: 10px 2px 20px #888888;
-			        	-o-box-shadow: 10px 2px 20px #888888;
-			        	-moz-box-shadow: 10px 2px 20px #888888;
-			        	-webkit-box-shadow: 10px 2px 20px #888888;
-			        }
+		            overflow: hidden;
+		            img{
+		            	transition: transform 0.5s linear;
+		            	-o-transition: transform 0.5s linear;
+		            	-moz-transition: transform 0.5s linear;
+		            	-webkit-transition: transform 0.5s linear;
+		            	&:hover{
+		            		transform: scale(1.05);
+		            		-o-transform: scale(1.05);
+		            		-moz-transform: scale(1.05);
+		            		-webkit-transform: scale(1.05);
+		            	}
+		            }
 					&-wimg {
 						position: absolute;
 						width: 214px;
@@ -293,21 +291,20 @@ img {
 					height: 335px;
 					position: relative;
 					width: 214px;
-					transition: transform 0.2s linear;
-			        -o-transition: transform 0.2s linear;
-			        -moz-transition: transform 0.2s linear;
-			        -webkit-transition: transform 0.2s linear;
-			        cursor: pointer;
-			        &:hover{
-			        	transform: scale(1.1);
-			        	-o-transform: scale(1.1);
-			        	-moz-transform: scale(1.1);
-			        	-webkit-transform: scale(1.1);
-			        	box-shadow: 10px 2px 20px #888888;
-			        	-o-box-shadow: 10px 2px 20px #888888;
-			        	-moz-box-shadow: 10px 2px 20px #888888;
-			        	-webkit-box-shadow: 10px 2px 20px #888888;
-			        }
+					overflow: hidden;
+		            img{
+		            	transition: transform 0.5s linear;
+		            	-o-transition: transform 0.5s linear;
+		            	-moz-transition: transform 0.5s linear;
+		            	-webkit-transition: transform 0.5s linear;
+		            	&:hover{
+		            		transform: scale(1.05);
+		            		-o-transform: scale(1.05);
+		            		-moz-transform: scale(1.05);
+		            		-webkit-transform: scale(1.05);
+		            	}
+		            }
+
 					&-mimg {
 						position: absolute;
 						width: 214px;
@@ -377,7 +374,7 @@ img {
 	&-right {
 		&-top {
 			position: relative;
-			margin-top: 44px;
+			margin-top: 14px;
 			padding:0;
 			&-myicon {
 				color: @ck-main;

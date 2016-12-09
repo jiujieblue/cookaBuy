@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent></headerComponent>
+		<headerComponent @submitStr="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -144,7 +144,7 @@
 								<div class="right">
 									<div id="side" class="carousel">
 										<ul class="carousel-list">
-											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts" @click="_toSideProductDetail(sideproductsIndex)">
+											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts" v-if="sideproductsIndex < 6" @click="_toSideProductDetail(sideproductsIndex)">
 												<a href="#">
 													<div class="product">
 														<div class="img">
@@ -382,6 +382,9 @@ export default {
 		gotop
 	},
 	methods:{
+		_subkeyword(keyword){
+			window.location.href = "./search.html?q="+keyword
+		},
 		_changePro(){
 			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)
 	    	.then(
@@ -418,8 +421,7 @@ export default {
 		},
 		_toChildrenDetail(t){
 			window.open("./detail.html?"+this.childrens[t].num_iid)
-		},
-
+		}
 	},
 	mounted(){
 
@@ -458,7 +460,7 @@ export default {
                console.log(err)
          }
        )
-	 	this.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+this.init_page)
+	 	this.$http.get('/api/recommends'+'?page_name=index&location=right')
 		.then(
         function(res){
           //console.log(res)
@@ -476,23 +478,9 @@ export default {
 		var me = this
 		var timer = setInterval(function(){
 			$('#side').fadeOut('swing',function(){
-				me.$http.get('/api/recommends'+'?page_name=index&location=right&page_size=6&page='+me.init_page)
-			    	.then(
-				        function(res){
-				          //console.log(res)
-		          			me.sideproducts = res.data.data	
-		          			for(var i = 0 ; i < this.sideproducts.length ; i++){
-				             	this.sideproducts[i].pic_url += '_80x80.jpg'
-				            }	          
-		          			//console.log(this.sideproducts)
-		          			me.init_page ++ 
-				      		if(me.init_page > me.total_entries ){
-				      			me.init_page = 1
-				      		}
-				      		$('#side').fadeIn(500)
-		        },function(err){
-		          console.log(err)
-		        })
+				var s = me.sideproducts.splice(0,6)
+				me.sideproducts = me.sideproducts.concat(s)
+				$('#side').fadeIn(500)
 			})
 	    },4000)
     	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
