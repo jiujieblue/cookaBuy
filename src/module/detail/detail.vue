@@ -542,6 +542,9 @@
           this.price = ret.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
           this.tit = ret.data.title
+          var tit = document.createElement('title')
+          tit.innerHTML = this.tit
+          document.getElementsByTagName('head')[0].appendChild(tit)
           if(ret.data.prop_imgs){
             this.colorItem = ret.data.prop_imgs
           }
