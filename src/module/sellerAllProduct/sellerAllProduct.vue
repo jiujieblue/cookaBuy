@@ -18,19 +18,21 @@
 		</div>
 		<div class="row sellerAllProduct-header-info">
 			<div class="container">
-				<link rel="stylesheet" class="icon-guanzhudianjia">
+				<p>
+					<img :src="storesInfo && storesInfo.store_logo" alt="店铺头像">
+				</p>
 				<ul>
 					<li>
-						<b>七匹狼专卖店</b>
-						<button @click="subStor" v-if="true">+关注本店</button>
+						<b>{{ storesInfo && storesInfo.store_name }}</b>
+						<button @click="subStor" v-if="false">+关注本店</button>
 						<span v-if="false">已<span class="em_5"></span>关<span class="em_5"></span>注</span>
 					</li>
-					<li>
+					<li v-if="false">
 						<link rel="stylesheet" class="icon-shimingyanzheng">实名验证
 						<link rel="stylesheet" class="icon-strenzheng">实体认证
 					</li>
 					<li>
-						<link rel="stylesheet" class="icon-dizhi">广东省广州市 沙河区 灏丰批发市场 1202档
+						<link rel="stylesheet" class="icon-dizhi">{{ storesInfo && storesInfo.location }}
 					</li>
 				</ul>
 				<p>
@@ -77,10 +79,10 @@
     	</ul>
     	<p>
     		<span>￥</span>
-    		<input ref="reflowPrice" type="text" placeholder="最低价" @blur="_priceVal($event,'isLow','refhighPrice', 'low_price')" @keyup="_subLowHigh($event, 'isLow','refhighPrice', 'low_price', 1)"/>
-    		<b>~</b>
+    		<input ref="low_price" type="text" placeholder="最低价" @blur="_priceVal($event,'low_price','high_price')"/>
+    		<b>~&nbsp;</b>
     		<span>￥</span>
-    		<input ref="refhighPrice" type="text" placeholder="最高价" @blur="_priceVal($event,'isHigh','reflowPrice', 'high_price')" @keyup="_subLowHigh($event, 'isHigh','reflowPrice', 'high_price', 1)"/>
+    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')"/>
     		<button @click="_subLowHigh">确<span class="em_5"></span>定</button>
     	</p>
     </nav>
@@ -112,7 +114,7 @@
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url+'_200x200.jpg'" />
+    					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
     				<b>￥&nbsp;{{ showcase.price }}</b>
     			</li>
@@ -140,6 +142,7 @@
 	      total_pages: Number,
 	      isSorting: false,
 	      showcases: [],
+	      storesInfo: null,
 	      // 排序
 	      list: true,
 	      price: true,
@@ -151,10 +154,22 @@
 	      page: 1,
 	      hotPage: 1,
 	      // 价格区间
-	     	isLow: false,
-	     	isHigh: false,
-	      low_price: '',
-	      high_price: '',
+
+	      // 价格筛选
+	      lHPrice_isNot: {
+		      low_price: false,
+		      high_price: false,
+		      ifSub: false
+	      },
+				lHPrice_str: {
+					low_price: '',
+					high_price: ''
+				},
+
+	     	// isLow: false,
+	     	// isHigh: false,
+	      // low_price: '',
+	      // high_price: '',
 
 	      // 判断信息是否超过两行
 	     	titleHtml: '',
@@ -186,13 +201,11 @@
 	  			this[this.paixuRules.slice(parseInt(this.paixuRules.indexOf('_'))+1)] = false
 	  		}
 	  	}
-	  	// 从链接中拿取 low_price
-	  	this._calcuLow(low_price_index, 'reflowPrice', 'low_price', hrefstr)
+	  	// 从链接中拿取 low_price  high_price
+	  	this._obtainLHPriceUrl('low_price',hrefstr)
+	  	this._obtainLHPriceUrl('high_price',hrefstr)
 
-	  	// 从链接中拿取 high_price
-	  	this._calcuLow(high_price_index, 'refhighPrice', 'high_price', hrefstr)
-
-	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.paixu + this.paixuRules + this.low_price +this.high_price)
+	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.paixu + this.paixuRules +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
 		    me.cats = res.data.cats
 	    	me.products = res.data.data
@@ -214,8 +227,30 @@
 	    function (res) {
 	    	console.log(res)
 	    })
+
+	    this.$http.get('/api/stores/'+this.store_id)
+	    .then(function (res) {
+	    	me.storesInfo = res.data.data
+	    },
+	    function (res) {
+	    	console.log(res)
+	    })
 	  },
 	  methods : {
+	  	// 获取价格筛选 href
+	  	_obtainLHPriceUrl (str,hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+	  		if(i != -1){
+		  		this.lHPrice_str[str] = hrefStr.slice(i)
+		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
+		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
+		  		}
+		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
+		  		if(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1) != 0){
+		  			this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
+		  		}
+		  	}
+	  	},
 		  // 从链接中拿取 low_price  high_price
 	  	_calcuLow (index, refPrice, LowHiprice, hrefstr) {
 		  	if(index != -1){
@@ -293,60 +328,83 @@
 	        console.log(err)
 	      })
 	  	},
-	  	// 筛选价格区间input 的验证
-	  	_priceVal (e,str1,str2 ,lowHi_price) {
+
+
+	  	// 提交筛选价格区间
+	  	_subLowHigh () {
+	  		if(this.lHPrice_isNot.ifSub){
+		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
+		  			if(this.lHPrice_isNot.low_price){
+		  				if(this.$refs.low_price.value == 0){
+		  					this.lHPrice_str.low_price = ''
+		  				}else{
+		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
+		  				}
+		  			}else{
+		  				this.lHPrice_str.low_price = ''
+		  			}
+		  			if(this.lHPrice_isNot.high_price){
+		  				if(this.$refs.high_price.value == 0){
+		  					this.lHPrice_str.high_price = ''
+		  				}else{
+		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
+		  				}
+		  			}else{
+		  				this.lHPrice_str.high_price = ''
+		  			}
+		  			window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.paixu + this.paixuRules + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  		}
+	  		}
+	  	},
+	  	// 价格筛选区间的验证
+	  	_priceVal (e,str1,str2) {
 	  		var reg = /^\d(\d|.)*$/
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		if(reg.test(val1) && val1 != 0){
-	  			console.log(this[lowHi_price])
-	  			if(val1 == +this[lowHi_price].slice(this[lowHi_price].indexOf('=')+1)){
-	  				this[str1] = false
+	  		if(reg.test(val1)){
+	  			if(this.lHPrice_str[str1]){
+		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+		  				this.lHPrice_isNot[str1] = false
+		  				return
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+	  					this.lHPrice_isNot.ifSub = true
+		  			}
+	  			}else if(val1 == 0){
+	  				e.target.value = ''
+	  				this.lHPrice_isNot[str1] = false
 	  				return
 	  			}
 	  			if(val2){
-	  				if(str1 == 'isLow'){
+	  				if(str1 == 'low_price'){
 	  					if(val1 < val2){
-	  						this[str1] = true
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
 	  					}else{
 	  						e.target.value = ''
-	  						this[str1] = false
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
 	  					}
 	  				}else{
 	  					if(val1 > val2){
-	  						this[str1] = true
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
 	  					}else{
 	  						e.target.value = ''
-	  						this[str1] = false
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
 	  					}
 	  				}
 	  			}else{
-	  				this[str1] = true
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
 	  			}
 	  		}else{
 	  			e.target.value = ''
-	  			this[str1] = false
-	  		}
-	  	},
-	  	// 提交价格筛选的规则
-	  	_subLowHigh (e,str1,str2 ,lowHi_price, n) {
-	  		if(n){
-	  			if(e.which != 13){
-	  				return
-	  			}else{
-		  			this._priceVal (e,str1,str2 ,lowHi_price)
-		  		}
-	  		}
-	  		if(this.isLow || this.isHigh){
-		  		var lowPrice = this.$refs.reflowPrice.value
-		  		var highPrice = this.$refs.refhighPrice.value
-		  		if(lowPrice){
-		  			this.low_price = '&low_price='+lowPrice
-		  		}
-		  		if(highPrice){
-		  			this.high_price = '&high_price='+highPrice
-		  		}
-		  		window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.paixu + this.paixuRules + this.low_price + this.high_price
+	  			this.lHPrice_isNot[str1] = false
+	  			return
 	  		}
 	  	},
 	    // 过滤文字的行数不能超过两行

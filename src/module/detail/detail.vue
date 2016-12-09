@@ -139,7 +139,8 @@
             <div class="list-side" v-for="(item,index) in showcase">
               <a v-on:click="_r_detail($event,index)">
                 <img v-bind:src="item.pic_url">
-                <div class="price">&yen; {{item.price}}</div>
+                <div class="price"></div>
+                <p>&yen; {{item.price}}</p>
               </a>
             </div>
           </div>

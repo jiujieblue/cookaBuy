@@ -9,7 +9,7 @@
 							<option value="s">店铺</option>
 						</select>
 					</span>
-					<input type="search" name="query" class="form-control" placeholder="搜索关键字..." ref="query"/>
+					<input type="search" name="query" class="form-control" placeholder="搜索关键字..." ref="query" :value="keyword"/>
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary" @click="_sub">
 							搜索
@@ -34,7 +34,12 @@ export default {
 		_sub (e) {
 			e.preventDefault()
 			var val = this.$refs.query.value
-			this.$emit('submitStr',val)
+			this.$emit('subKeyword',val)
+		}
+	},
+	props: {
+		keyword: {
+			default: ''
 		}
 	}
 }

@@ -6,7 +6,7 @@
 
 <template>
 <div id='search'>
-	<headerComponent @submitStr="_subkeyword"></headerComponent>
+	<headerComponent @subKeyword="_subkeyword" :keyword="keyword"></headerComponent>
 	<div class='search container'>
 	  	<div class="row search-list">
 	  		<ul>
@@ -16,7 +16,6 @@
 			  			{{ product_nav(k,1) }}：{{ agg.doc_count }}
 			  			<link rel="stylesheet" class="icon-cha" @click="_delAggUrl(k)">
 	  				</span>
-	  				 >
 	  			</li>
 	  		</ul>
 	  		<div v-if="isnosearchR">
@@ -49,8 +48,8 @@
 	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')"/>
 	    		<button @click="_subLowHigh">确定</button>
 	    	</p>
-	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
 	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
+	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
 	    </nav>
 	    <div class="row search-product">
 	    	<div class="search-product-left">
@@ -69,10 +68,10 @@
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a :href="'.detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
+			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
-			    						<a href=".sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>
+			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
 			    					<li v-if="false">图片</li>
@@ -83,12 +82,12 @@
 			    	<div class="search-product-left-succee-bar" v-else>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
-			    				<a :href="'.detail.html?' + hit._source.num_iid" target="_blank">
+			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url">
 			    				</a>
 			    				<ul>
-			    					<li><a :href="'.detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a></li>
-			    					<li><a href=".sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    					<li><a :href="'./detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a></li>
+			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
 			    				<ul>
 			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
@@ -104,7 +103,7 @@
 		    			<ul>
 		    				<li><p>没有相关商品哦~~</p></li>
 		    				<li>
-		    					<a href=".index.html" target="_blank">去商城逛逛</a>
+		    					<a href="./index.html" target="_blank">去商城逛逛</a>
 		    				</li>
 		    			</ul>
 		    		</div>
@@ -113,17 +112,17 @@
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
-	    			<li v-for="(hot,index) in setLength(hotData.data)">
-	    				<a :href="'.detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_200x200.jpg'">
+	    			<li v-for="(hot,index) in hotData.data">
+	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+		    				<img :src="hot.pic_url+'_180x180.jpg'">
 		    			</a>
 	    				<b>￥{{ hot.price }}</b>
 	    				<p>
-	    					<a :href="'.detail.html?'+hot.num_iid" target="_blank">
+	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
-	    				<a href=".sellerAllProduct.html?store_id=7" target="_blank">{{ hot.store.store_name }}</a>
+	    				<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hot.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
@@ -137,29 +136,38 @@
 	    <div class="row search-aginsearch">
 	   		<p>没有找到合适的商品？您可以搜索：</p>
 	   		<!-- 搜索框 -->
-	   		<CkSearch @submitStr="_subkeyword"></CkSearch>
+	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
 	    </div>
 	    <div class="row search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
-	    	<ul>
+	    	<!-- <ul>
 	    		<li class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-	    			<a :href="'.detail.html?'+hot.num_iid" target="_blank">
+	    			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
 	    				<li><b>￥{{ hot.price }}</b></li>
 	    				<li>
-	    					<a :href="'.detail.html?'+hot.num_iid" target="_blank">
+	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</li>
 	    				<li>
-	    					<a :href="'.sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
+	    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
 	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
 	    				</li>
 	    			</ul>
 	    		</li>
-	    	</ul>
+	    	</ul> -->
+      	<swiper :options="swiperOption">
+        	<swiper-slide v-for="i in 9">
+	        	<img src="../../assets/images/detail-new.jpg" alt="">
+	        	<i>{{i}}</i>
+	        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      	</swiper>
+        <div class="swiper-button-next"></div> <!-- 白色 -->
+				<div class="swiper-button-prev"></div> <!-- 黑色 -->
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -174,6 +182,8 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
+	import AwesomeSwiper from 'vue-awesome-swiper'
+	Vue.use(AwesomeSwiper)
 
 	
 
@@ -221,7 +231,31 @@
 
 				isMore: {},
 				renqi: 5,
-				isnosearchR: true
+				isnosearchR: true,
+
+				keyword: '',
+
+				// swiperOption: {
+    //       //pagination: '.swiper-pagination',
+    //       slidesPerView: 4,
+    //       paginationClickable: true,
+    //       spaceBetween: 30,
+    //       prevButton:'.swiper-button-prev',
+				// 	nextButton:'.swiper-button-next'
+    //     }
+     	swiperOption: {
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+    			slidesPerView: 4,
+          spaceBetween: 30,
+          autoplay:1000,
+          prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next',
+
+					onMouseover: function(swiper){
+						console.log(444)
+					}
+        }
 	    }
 	  },
 	  mounted () {
@@ -233,7 +267,9 @@
 	  		if((qI = this.q.indexOf('&')) != -1){
 	  			this.q = this.q.slice(0,qI)
 	  		}
+	  		this.keyword = decodeURI(this.q.slice(this.q.indexOf('=')+1))
 	  	}
+	  	console.log(this.keyword)
 			
 			this._aggUrl('colors', 'color', hrefStr)
 			this._aggUrl('sizes', 'size', hrefStr)
@@ -247,7 +283,7 @@
 
 	  	this._obtainSorUrl('order',hrefStr)
 	  	
-	  	this.$http.get('/api/searchs?'+this.q+'&search_size=12&from=1'+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl())
+	  	this.$http.get('/api/searchs?'+this.q+'&search_size=16&from=1'+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl())
 	  	.then(function (res) {
 	  		this.aggregations = res.data[2].aggregations
 	  		this.hits = res.data[2].hits
@@ -273,6 +309,7 @@
 	  computed: {
 	  	
 	  },
+	  // 组件加载完成之后
 	  updated () {
 	  	for(var key in this.isMore){
 	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
@@ -280,12 +317,14 @@
 	  		}
 	  	}
 	  },
+	  // 组件加载完成之前
 	  methods: {
-	  	setLength (val) {
-	  		if(val){
-		  		if(val.length > 3){
-		  			return val.slice(0,4)
-		  		}
+	  	_titleColor (val) {
+	  		if(this.keyword){
+		  		var html = "<span>"+ this.keyword +"</span>"
+		  		return val.replace(this.keyword,html)
+	  		}else{
+	  			return val
 	  		}
 	  	},
 	  	_moreOver (i) {
