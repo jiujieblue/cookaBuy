@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent></headerComponent>
+		<headerComponent @submitStr="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -382,6 +382,9 @@ export default {
 		gotop
 	},
 	methods:{
+		_subkeyword(keyword){
+			window.location.href = "./search.html?q="+keyword
+		},
 		_changePro(){
 			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)
 	    	.then(
