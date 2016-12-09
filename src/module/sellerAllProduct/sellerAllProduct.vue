@@ -21,16 +21,16 @@
 				<link rel="stylesheet" class="icon-guanzhudianjia">
 				<ul>
 					<li>
-						<b>七匹狼专卖店</b>
-						<button @click="subStor" v-if="true">+关注本店</button>
+						<b>{{ storesInfo.store_name }}</b>
+						<button @click="subStor" v-if="false">+关注本店</button>
 						<span v-if="false">已<span class="em_5"></span>关<span class="em_5"></span>注</span>
 					</li>
-					<li>
+					<li v-if="false">
 						<link rel="stylesheet" class="icon-shimingyanzheng">实名验证
 						<link rel="stylesheet" class="icon-strenzheng">实体认证
 					</li>
 					<li>
-						<link rel="stylesheet" class="icon-dizhi">广东省广州市 沙河区 灏丰批发市场 1202档
+						<link rel="stylesheet" class="icon-dizhi">{{ storesInfo.location }}
 					</li>
 				</ul>
 				<p>
@@ -112,7 +112,7 @@
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url+'_200x200.jpg'" />
+    					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
     				<b>￥&nbsp;{{ showcase.price }}</b>
     			</li>
@@ -140,6 +140,7 @@
 	      total_pages: Number,
 	      isSorting: false,
 	      showcases: [],
+	      storesInfo: null,
 	      // 排序
 	      list: true,
 	      price: true,
@@ -210,6 +211,15 @@
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
+	    },
+	    function (res) {
+	    	console.log(res)
+	    })
+
+	    this.$http.get('/api/stores/7')
+	    .then(function (res) {
+	    	console.log(res)
+	    	me.storesInfo = res.data.data
 	    },
 	    function (res) {
 	    	console.log(res)
