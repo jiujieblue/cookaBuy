@@ -167,7 +167,7 @@
                   <a class="img-tit" v-on:click="_n_detail(index)">
                     <img v-bind:src="item.pic_url">
                   </a>
-                  <div v-on:click="_n_detail(index)">{{item.title}}</div>
+                  <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
                   <div class="img-info">
                     <p>&yen; {{item.price}}</p>
                     <p>{{_n_times(item.list_time)}}</p>
