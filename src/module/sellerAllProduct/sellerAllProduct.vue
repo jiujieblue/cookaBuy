@@ -69,12 +69,9 @@
   	</div>
     <nav class="row sellerAllProduct-nav">
     	<ul>
-    		<li v-if="false">销量<i></i></li>
-    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'list'}" @click="sorting($event,'list','price',0)">
-    			上新时间<i :class="{sorting : list}"></i>
-    		</li>
-    		<li :class="{active : paixuRules.slice(parseInt(paixuRules.indexOf('_'))+1) == 'price'}" @click="sorting($event,'price','list',1)">
-    			价格<i :class="{sorting : price}"></i>
+    		<li v-for="(sor,index) in sorting" @click="_sorting($event, index)" :class="{active: sortingStan == index}">
+    			{{ sor.total }}
+    			<i :class="{ rising: !sor.statu }"></i>
     		</li>
     	</ul>
     	<p>
@@ -89,7 +86,7 @@
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
     		<ul>
-    			<li v-for="(product,index) in products">
+    			<li v-for="(product,index) in products" v-if="product.price || product.pic_url">
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
     					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
     				</a>
@@ -144,16 +141,20 @@
 	      showcases: [],
 	      storesInfo: null,
 	      // 排序
-	      list: true,
-	      price: true,
-	      paixu: '',
-	      paixuRules: '',
+	      sorting:{
+	      	//comprehensive: {statu: false, total: '综合排序'},
+		      list: {statu: false, total: '上架时间'},
+		      //sales: {statu: false, total: '销量'},
+		      price: {statu: false, total: '价格'}
+	      },
+	      sortingUrl: '',
+	      sortingStan: '',
+
 	      // 店铺 id
 	      store_id: 7,
 	      // 页数
 	      page: 1,
 	      hotPage: 1,
-	      // 价格区间
 
 	      // 价格筛选
 	      lHPrice_isNot: {
@@ -165,47 +166,26 @@
 					low_price: '',
 					high_price: ''
 				},
-
-	     	// isLow: false,
-	     	// isHigh: false,
-	      // low_price: '',
-	      // high_price: '',
-
-	      // 判断信息是否超过两行
-	     	titleHtml: '',
-
 	    }
 	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefstr = window.location.href
-	  	var store_index = parseInt(hrefstr.indexOf('store_id'))
-	  	var page_index = parseInt(hrefstr.indexOf('page'))
-	  	var paixu_index = parseInt(hrefstr.indexOf('order'))
-	  	var low_price_index = parseInt(hrefstr.indexOf('low_price'))
-	  	var high_price_index = parseInt(hrefstr.indexOf('high_price'))
 
 	  	// 从链接中拿取 store_id
-	  	this._calcuStroId(store_index, 'store_id', hrefstr, 9)
+	  	this._calcuInfo('store_id', hrefstr, 9)
 	  	
 	  	// 从链接中拿取 page
-	  	this._calcuStroId(page_index, 'page', hrefstr , 5) 
+	  	this._calcuInfo('page', hrefstr , 5) 
 	  	
-	  	if(paixu_index != -1){
-	  		this.paixu = '&order='
-	  		this.paixuRules = hrefstr.slice(parseInt(paixu_index)+6)
-	  		if(parseInt(this.paixuRules.indexOf('&')) != -1){
-	  			this.paixuRules = this.paixuRules.slice(0,parseInt(this.paixuRules.indexOf('&')))
-	  		}
-	  		if(this.paixuRules.slice(0,parseInt(this.paixuRules.indexOf('_'))) == 'asc'){
-	  			this[this.paixuRules.slice(parseInt(this.paixuRules.indexOf('_'))+1)] = false
-	  		}
-	  	}
 	  	// 从链接中拿取 low_price  high_price
 	  	this._obtainLHPriceUrl('low_price',hrefstr)
 	  	this._obtainLHPriceUrl('high_price',hrefstr)
 
-	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.paixu + this.paixuRules +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
+
+	  	this._obtainSorUrl('order',hrefstr)
+
+	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
 		    me.cats = res.data.cats
 	    	me.products = res.data.data
@@ -237,6 +217,34 @@
 	    })
 	  },
 	  methods : {
+			// 从链接中拿取 page stroe_id
+	  	_calcuInfo (str, hrefstr, n) {
+	  		var i = parseInt(hrefstr.indexOf(str))
+	  		if(i != -1){
+		  		this[str] = hrefstr.slice(parseInt(i)+n)
+		  		if(parseInt(this[str].indexOf('&')) != -1){
+		  			this[str] = this[str].slice(0,parseInt(this[str].indexOf('&')))
+		  		}
+		  	}
+	  	},
+	  	// 获取排序的 href
+	  	_obtainSorUrl (str, hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+		  	if(i != -1){
+		  		this.sortingUrl = hrefStr.slice(i)
+		  		var str1,str2
+		  		if((i = this.sortingUrl.indexOf('&')) != -1){
+		  			this.sortingUrl = this.sortingUrl.slice(0,i)
+		  		}
+		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
+		  		str2 = str1.slice(0,str1.indexOf('_'))
+		  		this.sortingStan = str1 = str1.slice(str1.indexOf('_')+1)
+		  		if(str2 == 'asc'){
+		  			this.sorting[str1].statu = true
+		  		}
+		  		this.sortingUrl = '&' + this.sortingUrl
+	  		}
+	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str)
@@ -273,15 +281,6 @@
 		  		}
 		  	}
 	  	},
-			// 从链接中拿取 page stroe_id
-	  	_calcuStroId (index, str, hrefstr, n) {
-	  		if(index != -1){
-		  		this[str] = hrefstr.slice(parseInt(index)+n)
-		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = this[str].slice(0,parseInt(this[str].indexOf('&')))
-		  		}
-		  	}
-	  	},
 	  	// 商品分类过多就隐藏   鼠标事件让其显示
 	  	moreOver : function (e) {
 				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
@@ -297,23 +296,24 @@
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.paixu + this.paixuRules + this.low_price +this.high_price
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price
 	  	},
-	  	// 排序的规则
-	  	sorting (e,str1,str2,n) {
-	  		$(e.target).addClass('active').siblings('.active').removeClass('active')
-	  		var me = this
-	  		this[str2] = true
-	  		this.paixuRules = str1
-	  		if(this[str1]){
-	  			this.paixu = '&order=asc_'
-	  		}else{
-	  			this.paixu = '&order=desc_'
-	  		}
-	  		this[str1] = !this[str1]
-
-	  		window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.paixu + this.paixuRules + this.low_price +this.high_price
-	  	},
+	  	_sorting (e, str) {
+		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	if(this.sorting[str].statu){
+		  		this.sortingUrl = '&order=' + 'desc_' +str
+		  	}else{
+		  		this.sortingUrl = '&order=' + 'asc_' + str
+		  	}
+		  	for(var key in this.sorting){
+		  		if(key == str){
+		  			this.sorting[key].statu = !this.sorting[key].statu
+		  		}else if(this.sorting[key].statu){
+		  			this.sorting[key].statu = false
+		  		}
+		  	}
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  },
 	  	// 关注本店
 	  	subStor () {
 	  		var favorite={
@@ -328,7 +328,6 @@
 	        console.log(err)
 	      })
 	  	},
-
 
 	  	// 提交筛选价格区间
 	  	_subLowHigh () {
@@ -405,17 +404,6 @@
 	  			e.target.value = ''
 	  			this.lHPrice_isNot[str1] = false
 	  			return
-	  		}
-	  	},
-	    // 过滤文字的行数不能超过两行
-	  	_titleHtml (str) {
-	  		if(str){
-		  		if(str.length < 14){
-		  			return str
-		  		}else{
-		  			return '<span>'+ str.slice(0,14) +'</span>\
-		  							<span class="text_overflow">'+ str.slice(14) +'</span>'
-		  		}
 	  		}
 	  	}
 	  },

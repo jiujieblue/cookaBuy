@@ -48,13 +48,13 @@
 	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')"/>
 	    		<button @click="_subLowHigh">确定</button>
 	    	</p>
-	    	<span rel="stylesheet" class="icon-liebiao" @click='gridOrBar($event,1)'></span>
-	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='gridOrBar($event,0)'></span>
+	    	<span rel="stylesheet" class="icon-liebiao" @click='_gridOrBar'></span>
+	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='_gridOrBar'></span>
 	    </nav>
 	    <div class="row search-product">
 	    	<div class="search-product-left">
 	    		<div class="search-product-left-succee" v-if="isnosearchR">
-			    	<div class="search-product-left-succee-grid" v-if='isGridOrBar == 0'>
+			    	<div class="search-product-left-succee-grid" v-if='isGridOrBar'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
@@ -79,14 +79,16 @@
 			    			</li>
 			    		</ul>
 			    	</div>
-			    	<div class="search-product-left-succee-bar" v-else>
+			    	<div class="search-product-left-succee-bar" v-if='!isGridOrBar'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'">
 			    				</a>
 			    				<ul>
-			    					<li><a :href="'./detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a></li>
+			    					<li>
+			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
+			    					</li>
 			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
 			    				<ul>
@@ -97,7 +99,7 @@
 			    		</ul>
 			    	</div>
 	    		</div>
-		    	<div class="search-product-left-error" v-else>
+		    	<div class="search-product-left-error" v-if='!isnosearchR'>
 		    		<div>
 		    			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
 		    			<ul>
@@ -112,7 +114,7 @@
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
-	    			<li v-for="(hot,index) in hotData.data">
+	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 		    				<img :src="hot.pic_url+'_180x180.jpg'">
 		    			</a>
@@ -138,11 +140,12 @@
 	   		<!-- 搜索框 -->
 	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
 	    </div>
-	    <div class="row search-recommended search-product-left-grid">
+	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
-	    	<!-- <ul>
-	    		<li class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-	    			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+      	
+      	<swiper :options="swiperOption">
+        	<swiper-slide class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
@@ -157,17 +160,12 @@
 	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
 	    				</li>
 	    			</ul>
-	    		</li>
-	    	</ul> -->
-      	<swiper :options="swiperOption">
-        	<swiper-slide v-for="i in 9">
-	        	<img src="../../assets/images/detail-new.jpg" alt="">
-	        	<i>{{i}}</i>
 	        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       	</swiper>
-        <div class="swiper-button-next"></div> <!-- 白色 -->
-				<div class="swiper-button-prev"></div> <!-- 黑色 -->
+      	</swiper>
+        <div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -191,11 +189,10 @@
 	  data () {
 	    return {
 	    	// 浏览方式切换
-	      isGridOrBar: 0,
+	      isGridOrBar: true,
 	    	// 请求数据
 	      aggregations: '',
 	      hits: '',
-
 	      hotData: '',
 	      // 排序
 	      sorting:{
@@ -224,43 +221,30 @@
 				// 分类链接 url 关键字
 				aggUrl: {
 					// colors: {key: '',doc_count: ''},
-					// markets: {key: '',doc_count: ''},
-					// sizes: {key: '',doc_count: ''},
-					// style: {key: '',doc_count: ''}
 				},
 
 				isMore: {},
 				renqi: 5,
 				isnosearchR: true,
-
+				// 搜索关键字
 				keyword: '',
-
-				// swiperOption: {
-    //       //pagination: '.swiper-pagination',
-    //       slidesPerView: 4,
-    //       paginationClickable: true,
-    //       spaceBetween: 30,
-    //       prevButton:'.swiper-button-prev',
-				// 	nextButton:'.swiper-button-next'
-    //     }
-     	swiperOption: {
-          pagination: '.swiper-pagination',
+				// 轮播
+     		swiperOption: {
           paginationClickable: true,
-    			slidesPerView: 4,
+    			slidesPerView: 5,
           spaceBetween: 30,
-          autoplay:1000,
+          autoplay:3000,
+          speed:500,
           prevButton:'.swiper-button-prev',
 					nextButton:'.swiper-button-next',
-
-					onMouseover: function(swiper){
-						console.log(444)
-					}
+					loop : true,
+					loopAdditionalSlides : 1
         }
 	    }
 	  },
 	  mounted () {
 	  	var hrefStr = window.location.href
-
+	  	// 获取搜索关键字
 	  	var qI = hrefStr.indexOf('q=')
 	  	if(qI != -1){
 	  		this.q = hrefStr.slice(qI)
@@ -269,21 +253,29 @@
 	  		}
 	  		this.keyword = decodeURI(this.q.slice(this.q.indexOf('=')+1))
 	  	}
-	  	console.log(this.keyword)
-			
+
+	  	// 获取分类关键字
 			this._aggUrl('colors', 'color', hrefStr)
 			this._aggUrl('sizes', 'size', hrefStr)
 			this._aggUrl('markets', 'market', hrefStr)
 			this._aggUrl('style', 'style', hrefStr)
-			
+	  	// 获取价格筛选
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
-
+	  	// 获取page
 	  	this._aggUrl('page','from',hrefStr)
-
+	  	// 获取排序关键字
 	  	this._obtainSorUrl('order',hrefStr)
-	  	
-	  	this.$http.get('/api/searchs?'+this.q+'&search_size=16&from=1'+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl())
+
+
+	  	var hrefUrlStr = ''
+	  	if(!this.q){
+				hrefUrlStr = ''
+	  	}else{
+	  		hrefUrlStr = this.q+'&search_size=20&from=1'+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  	}
+		
+	  	this.$http.get('/api/searchs?' + hrefUrlStr)
 	  	.then(function (res) {
 	  		this.aggregations = res.data[2].aggregations
 	  		this.hits = res.data[2].hits
@@ -297,7 +289,7 @@
 	  		console.log(res)
 	  	})
 
-	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=5&page=1')
+	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
 	  	},
@@ -307,7 +299,7 @@
 
 	  },
 	  computed: {
-	  	
+
 	  },
 	  // 组件加载完成之后
 	  updated () {
@@ -319,6 +311,17 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	// 热销商品长度的控制
+	  	_hotLength (val) {
+	  		if(val){
+		  		if(val.length > 5){
+		  			return val.slice(0,5)
+		  		}else{
+		  			return val
+		  		}
+	  		}
+	  	},
+	  	// 搜索关键字高光
 	  	_titleColor (val) {
 	  		if(this.keyword){
 		  		var html = "<span>"+ this.keyword +"</span>"
@@ -327,6 +330,7 @@
 	  			return val
 	  		}
 	  	},
+	  	// 分类更多鼠标进入
 	  	_moreOver (i) {
 	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
 					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
@@ -337,9 +341,6 @@
 	  	},
 	  	_isMore (val) {
 	  		this.isMore[val] = false
-	  	},
-	  	_cli () {
-	  		console.log(this.$refs.aggregation0)
 	  	},
 	  	// 获取风格等分类 href
 	  	_aggUrl (str1, str2, hrefStr) {
@@ -362,7 +363,7 @@
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
 	  		this.q = keyword
-	  		window.location.href = 'http://localhost:9090/module/search.html?q='+ this.q +'&from=1'
+	  		window.location.href = './search.html?q='+ this.q +'&from=1'
 	  	},
 	  	// 输出 aggUrl中的关键字
 	  	_retAggUrl () {
@@ -377,7 +378,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = 'http://localhost:9090/module/search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+	  		window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -446,7 +447,7 @@
 		  			}else{
 		  				this.lHPrice_str.high_price = ''
 		  			}
-		  			window.location.href = 'http://localhost:9090/module/search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
@@ -518,13 +519,13 @@
 	  		}
 	  	},
 	  	// 浏览方式的切换
-	  	gridOrBar (e,n) {
+	  	_gridOrBar (e,n) {
 	  		$(e.target).addClass('selected').siblings('.selected').removeClass('selected')
-	  		this.isGridOrBar = n
+	  		this.isGridOrBar = !this.isGridOrBar
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = 'http://localhost:9090/module/search.html?'+ this.q +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?'+ this.q +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -541,7 +542,7 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = 'http://localhost:9090/module/search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  }
 	  },
 	  components: {
