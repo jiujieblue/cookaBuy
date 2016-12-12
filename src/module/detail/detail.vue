@@ -568,6 +568,7 @@
               }
             }
           }
+          this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           props_name.splice(props_name.length-1,1)
           if(props_name.length % 3){
@@ -576,19 +577,7 @@
             }
           }
           this.item_props = props_name
-          // var n = 0;
-          // for(var i = 0;i < l;i++){
-          //   var arr = [];
-          //   for(var j = 0; j < 3; j++){
-          //     if(ret.data.com_props[n]){
-          //       arr.push(ret.data.com_props[n])
-          //       n++
-          //     }
-          //   }
-          //   this.item_props.push(arr)
-          // }
           this.description = ret.data.desc
-
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
