@@ -19,6 +19,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  color: #665c59;
   ul, ol, li, p, h1, h2, h3,h4, h5, h6, dl, dt, dd, input {
     margin: 0px;
     padding: 0px;
@@ -497,6 +498,7 @@
 }
 .container-b-box{
   background:#f7f7f7;
+  color: #665c59;
   .bg-b{
     .em{
       display:inline-block;
@@ -563,11 +565,26 @@
               display: block;
               width: 100%;
               height: 223px;
+              transition: transform 0.5s linear;
+              -o-transition: transform 0.5s linear;
+              -moz-transition: transform 0.5s linear;
+              -webkit-transition: transform 0.5s linear;
+              &:hover{
+                transform: scale(1.05);
+                -o-transform: scale(1.05);
+                -moz-transform: scale(1.05);
+                -webkit-transform: scale(1.05);
+              }
             }
             div{
               padding: 0 10px;
               margin-top: 10px;
+              cursor: pointer;
+              color: #665c59;
               .ellipsis();
+              &:hover{
+                color: #372f2c;
+              }
             }
           }
           
@@ -586,6 +603,7 @@
             }
             p:last-child{
               float:right;
+              color: #c4bebc;
             }
           }
         }
@@ -615,7 +633,7 @@
         }
         .specif,.detail-desc{
           padding:0 20px;
-          margin-top:30px;
+          margin-top:50px;
           overflow:hidden;
           >div{
             float:left;
