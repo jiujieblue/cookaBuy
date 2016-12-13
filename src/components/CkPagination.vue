@@ -43,8 +43,8 @@
     indexs () {
       var left = 0
       var right = 0
-      var pages = parseInt(this.pages)
-      var pageNum = parseInt(this.pageNum)
+      var pages = !isNaN(parseInt(this.pages)) ? parseInt(this.pages) : 1
+      var pageNum = !isNaN(parseInt(this.pageNum)) ? parseInt(this.pageNum) : 1
       var ar = []
       if(pages <= 6){
       	left = 1

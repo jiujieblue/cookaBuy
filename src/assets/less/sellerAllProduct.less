@@ -233,25 +233,21 @@
 				text-align: center;
 				border-radius: 2px;
 				cursor: pointer;
-				i{
-					content: '';
-					display: inline-block;
-					height: 10px;
-					width: 10px;
-					margin-left: 10px;
-					margin-bottom: 2px;
-					border-right: 1px solid #fcc505;
-					border-bottom: 1px solid #fcc505;
-					transform: rotate(45deg);
-					transform-origin: 75% 75%;
-					opacity: 0;
-				}
 				&.active{
 					background: #fff;
 					color: #fcc505;
 					i{
-						opacity: 1;
-						&.sorting{
+						content: '';
+						display: inline-block;
+						height: 10px;
+						width: 10px;
+						margin-left: 10px;
+						margin-bottom: 2px;
+						border-right: 1px solid #fcc505;
+						border-bottom: 1px solid #fcc505;
+						transform: rotate(45deg);
+						transform-origin: 75% 75%;
+						&.rising{
 							transform: rotate(225deg);
 						}
 					}
@@ -351,7 +347,7 @@
 									overflow:hidden;
 									color: #665c59;
 									&:hover{
-										color: #a89d99;
+										color: #372f2c;
 										text-decoration: none;
 									}
 								}
