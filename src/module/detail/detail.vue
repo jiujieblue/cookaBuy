@@ -375,6 +375,9 @@
           this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
+            for(var i = 0;i < this.showcase.length;i++){
+              this.showcase[i].pic_url += '_160x160.jpg'
+            }
             if(this.showcasePage == this.showcaseTotalPage){
               this.hasNextPage = false
             }
@@ -387,6 +390,9 @@
           this.$http.get('/api/items?store_id=' + this.store_id + '&type=new&page='+ this.showcasePage +'&page_size=3')
           .then(function(ret){
             this.showcase = ret.data.data
+            for(var i = 0;i < this.showcase.length;i++){
+              this.showcase[i].pic_url += '_160x160.jpg'
+            }
             if(this.showcasePage < this.showcaseTotalPage){
               this.hasNextPage = true
             }
