@@ -8,45 +8,45 @@
 						<div class="index-top">
 							<div class="index-category">
 								<div class="index-category-block">
-									<a href="#" class="index-category-lv-1">女装</a>
-									<a href="#" class="index-category-lv-2">连衣裙</a>
-									<a href="#" class="index-category-lv-2">牛仔装</a>
-									<a href="#" class="index-category-lv-2">毛呢外套</a>
-									<a href="#" class="index-category-lv-2">短外套</a>
-									<a href="#" class="index-category-lv-2">卫衣</a>
-									<a href="#" class="index-category-lv-2">马甲</a>
-									<a href="#" class="index-category-lv-2">T恤</a>
-									<a href="#" class="index-category-lv-2">衬衫</a>
+									<a class="index-category-lv-1">女装</a>
+									<a class="index-category-lv-2">连衣裙</a>
+									<a class="index-category-lv-2">牛仔装</a>
+									<a class="index-category-lv-2">毛呢外套</a>
+									<a class="index-category-lv-2">短外套</a>
+									<a class="index-category-lv-2">卫衣</a>
+									<a class="index-category-lv-2">马甲</a>
+									<a class="index-category-lv-2">T恤</a>
+									<a class="index-category-lv-2">衬衫</a>
 								</div>
 								<div class="index-category-block">
-									<a href="#" class="index-category-lv-1">男装</a>
-									<a href="#" class="index-category-lv-2">羽绒服</a>
-									<a href="#" class="index-category-lv-2">毛呢大衣</a>
-									<a href="#" class="index-category-lv-2">棉衣</a>
-									<a href="#" class="index-category-lv-2">毛衣</a>
-									<a href="#" class="index-category-lv-2">牛仔裤</a>
-									<a href="#" class="index-category-lv-2">马甲</a>
-									<a href="#" class="index-category-lv-2">T恤</a>
-									<a href="#" class="index-category-lv-2">衬衫</a>
+									<a class="index-category-lv-1">男装</a>
+									<a class="index-category-lv-2">羽绒服</a>
+									<a class="index-category-lv-2">毛呢大衣</a>
+									<a class="index-category-lv-2">棉衣</a>
+									<a class="index-category-lv-2">毛衣</a>
+									<a class="index-category-lv-2">牛仔裤</a>
+									<a class="index-category-lv-2">马甲</a>
+									<a class="index-category-lv-2">T恤</a>
+									<a class="index-category-lv-2">衬衫</a>
 								</div>
 								<div class="index-category-block">
-									<a href="#" class="index-category-lv-1">家具</a>
-									<a href="#" class="index-category-lv-2">文胸</a>
-									<a href="#" class="index-category-lv-2">睡裙</a>
-									<a href="#" class="index-category-lv-2">睡袍</a>
-									<a href="#" class="index-category-lv-2">吊带</a>
-									<a href="#" class="index-category-lv-2">保暖</a>
-									<a href="#" class="index-category-lv-2">抹胸</a>
-									<a href="#" class="index-category-lv-2">内裤</a>
+									<a class="index-category-lv-1">家具</a>
+									<a class="index-category-lv-2">文胸</a>
+									<a class="index-category-lv-2">睡裙</a>
+									<a class="index-category-lv-2">睡袍</a>
+									<a class="index-category-lv-2">吊带</a>
+									<a class="index-category-lv-2">保暖</a>
+									<a class="index-category-lv-2">抹胸</a>
+									<a class="index-category-lv-2">内裤</a>
 								</div>
 								<div class="index-category-block">
-									<a href="#" class="index-category-lv-1">女鞋</a>
-									<a href="#" class="index-category-lv-2">低帮鞋</a>
-									<a href="#" class="index-category-lv-2">高帮鞋</a>
-									<a href="#" class="index-category-lv-2">靴子</a>
-									<a href="#" class="index-category-lv-2">帆布鞋</a>
-									<a href="#" class="index-category-lv-2">拖鞋</a>
-									<a href="#" class="index-category-lv-2">凉鞋</a>
+									<a class="index-category-lv-1">女鞋</a>
+									<a class="index-category-lv-2">低帮鞋</a>
+									<a class="index-category-lv-2">高帮鞋</a>
+									<a class="index-category-lv-2">靴子</a>
+									<a class="index-category-lv-2">帆布鞋</a>
+									<a class="index-category-lv-2">拖鞋</a>
+									<a class="index-category-lv-2">凉鞋</a>
 								</div>
 							</div>
 							<div class="index-carousel" >
@@ -81,7 +81,7 @@
 							<div class="index-note">
 								<h4 class="index-note-title">
 									<span class="icon-gonggao"></span><a>商城公告</a>
-									<a href="#" class="index-note-more">
+									<a class="index-note-more">
 										<span class="icon-gengduo"></span>
 									</a>
 								</h4>
@@ -92,13 +92,13 @@
 									<p>暂无公告</p>
 								</div>
 								<div class="index-note-items" v-if="false">
-									<a href="#" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
+									<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
 									</a>
-									<!--<a href="#" class="index-note-item">
+									<!--<a class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
 									</a>
-									<a href="#" class="index-note-item">
+									<a class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
 									</a>-->
 								</div>
@@ -121,19 +121,19 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(productsItem, productsIndex) in products" @click="_toRecommendDetail(productsIndex)">
-										<a class="index-product-link">
+									<div class="index-product" v-for="(productsItem, productsIndex) in products">
+										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
 											<img :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
+											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-shoucang" />
 											</a>
 										</div>
 										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												{{productsItem.nick}}
+											<a class="index-product-store" @click="_toProStore(productsIndex)">
+												{{productsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
 												{{productsItem.store.store_number}} {{productsItem.store.market}}
@@ -145,12 +145,12 @@
 									<div id="side" class="carousel">
 										<ul class="carousel-list">
 											<li class="carousel-list-items" v-for="(sideproductsItem, sideproductsIndex) in sideproducts" v-if="sideproductsIndex < 6" @click="_toSideProductDetail(sideproductsIndex)">
-												<a href="#">
+												<a>
 													<div class="product">
 														<div class="img">
 															<img :src="sideproductsItem.pic_url">
 														</div>
-														<a href="#" ><span class="store">{{sideproductsItem.nick}}</span></a>
+														<a ><span class="store">{{sideproductsItem.nick}}</span></a>
 														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
 														</span>
 													</div>
@@ -169,7 +169,7 @@
 								</span>
 								推荐店铺
 
-								<a href="#" title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a href="./visitingMarket.html" title="更多" class="index-block-title-aside index-block-title-aside-lg" >
 									<span class="icon-more" />
 								</a>
 							</h4>
@@ -184,11 +184,11 @@
                       {{storesItem.market}} {{storesItem.store_number}}
                     </div>
 
-                    <a :href="storesItem.taobao_url" class="index-store-link">
+                    <a class="index-store-link" @click="_toStore(storesIndex)">
                       进店逛逛
                     </a>
                   </div>
-                  <a href="#" class="index-store-product">
+                  <a class="index-store-product">
                     <img :src="storesItem.store_logo" />
                   </a>
                 </div>
@@ -202,26 +202,26 @@
 								</span>
 								女装
 
-								<a href="#" title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
 									<span class="icon-more" />
 								</a>
 							</h4>
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" @click="_toGirlDetail(girlsIndex)">
-										<a href="#" class="index-product-link">
+									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" >
+										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
 											<img :src="girlsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
+											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												{{girlsItem.nick}}
+											<a class="index-product-store" @click="_toGirlStore(girlsIndex)">
+												{{girlsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
 												{{girlsItem.store.store_number}} {{girlsItem.store.market}}
@@ -239,26 +239,26 @@
 								</span>
 								男装
 
-								<a href="#" title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
 									<span class="icon-more" />
 								</a>
 							</h4>
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(boysItem, boysIndex) in boys" @click="_toBoyDetail(boysIndex)">
-										<a href="#" class="index-product-link">
+									<div class="index-product" v-for="(boysItem, boysIndex) in boys" >
+										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
 											<img :src="boysItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
+											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												{{boysItem.nick}}
+											<a class="index-product-store" @click="_toBoyStore(boysIndex)">
+												{{boysItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
 												{{boysItem.store.store_number}} {{boysItem.store.market}}
@@ -276,26 +276,26 @@
 								</span>
 								孕妇装
 
-								<a href="#" title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
 									<span class="icon-more" />
 								</a>
 							</h4>
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits" @click="_toMaternitDetail(maternitsIndex)">
-										<a href="#" class="index-product-link">
+									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits" >
+										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
 											<img :src="maternitsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
+											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												{{maternitsItem.nick}}
+											<a class="index-product-store" @click="_toMaternitStore(maternitsIndex)">
+												{{maternitsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
 												{{maternitsItem.store.store_number}} {{maternitsItem.store.market}}
@@ -313,26 +313,26 @@
 								</span>
 								童装
 
-								<a href="#" title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
 									<span class="icon-more" />
 								</a>
 							</h4>
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens" @click="_toChildrenDetail(childrensIndex)">
-										<a href="#" class="index-product-link">
+									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens" >
+										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
 											<img :src="childrensItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.price}}
-											<a href="#" class="index-product-fav" title="收藏商品" style="display:none">
+											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
-											<a href="#" class="index-product-store">
-												{{childrensItem.nick}}
+											<a class="index-product-store" @click="_toChildrenStore(childrensIndex)">
+												{{childrensItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
 												{{childrensItem.store.store_number}} {{childrensItem.store.market}}
@@ -403,6 +403,21 @@ export default {
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+		},
+		_toProStore(t){
+			window.open("./sellerAllProduct.html?store_id="+this.products[t].store.id)
+		},
+		_toGirlStore(t){
+			window.open("./sellerAllProduct.html?store_id="+this.girls[t].store.id)
+		},
+		_toBoyStore(t){
+			window.open("./sellerAllProduct.html?store_id="+this.boys[t].store.id)
+		},
+		_toMaternitStore(t){
+			window.open("./sellerAllProduct.html?store_id="+this.maternits[t].store.id)
+		},
+		_toChildrenStore(t){
+			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].store.id)
 		},
 		_toRecommendDetail(t){
 			window.open("./detail.html?"+this.products[t].num_iid)
@@ -535,16 +550,16 @@ export default {
           console.log(err)
         }
       )
-    	this.$http.get('/api/bulletins'+'?type=0')
-    	.then(
-        function(res){
-          //console.log(res)
-          this.announcements = res.data.data
-          //console.log(this.announcements)
-        },function(err){
-          console.log(err)
-        }
-      )
+    	// this.$http.get('/api/bulletins'+'?type=0')
+    	// .then(
+     //    function(res){
+     //      //console.log(res)
+     //      this.announcements = res.data.data
+     //      //console.log(this.announcements)
+     //    },function(err){
+     //      console.log(err)
+     //    }
+     //  )
 	}
 }
 </script>
