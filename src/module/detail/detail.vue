@@ -166,8 +166,8 @@
                 <div class="news-img" v-for="(item,index) in newList">
                   <a class="img-tit" v-on:click="_n_detail(index)">
                     <img v-bind:src="item.pic_url">
-                    <div v-on:click="_n_detail(index)">{{item.title}}</div>
                   </a>
+                  <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
                   <div class="img-info">
                     <p>&yen; {{item.price}}</p>
                     <p>{{_n_times(item.list_time)}}</p>
@@ -196,10 +196,8 @@
                   <div class="hr"></div>
                 </div>
                 <div class="specif-tab">
-                  <div v-for="(item,index) in item_props">
-                    <div>{{item[0].name + ' : '}}{{item[0].value}}</div>
-                    <div>{{item[1] ? item[1].name + ' : ' : ''}}{{item[1] ? item[1].value : ''}}</div>
-                    <div>{{item[2] ? item[2].name + ' : ' : ''}}{{item[2] ? item[2].value : ''}}</div>
+                  <div>
+                    <div v-for="(item,index) in item_props">{{item}}</div>
                   </div>
                 </div>
                 <div class="detail-desc">
@@ -570,20 +568,16 @@
               }
             }
           }
-          var l = ret.data.com_props.length % 3 ? parseInt(ret.data.com_props.length / 3) + 1 : ret.data.com_props.length / 3;
-          var n = 0;
-          for(var i = 0;i < l;i++){
-            var arr = [];
-            for(var j = 0; j < 3; j++){
-              if(ret.data.com_props[n]){
-                arr.push(ret.data.com_props[n])
-                n++
-              }
+          this.sizeItem.reverse()
+          var props_name = ret.data.props_name.split(';')
+          props_name.splice(props_name.length-1,1)
+          if(props_name.length % 3){
+            for(var i = 0; i < props_name.length % 3;i++){
+              props_name.push('')
             }
-            this.item_props.push(arr)
           }
+          this.item_props = props_name
           this.description = ret.data.desc
-
           this.$http.get('/api/items?store_id=' + this.store_id +'&type=new&page=1&page_size=3')
             .then(function(ret){
               this.showcase = ret.data.data
