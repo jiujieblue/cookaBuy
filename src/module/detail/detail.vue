@@ -174,40 +174,38 @@
           </div>
       </div>
       <div class="oth">
-        <div class="row">
-          <div class="detail-det">
-            <ul class="shopping-menu">
-              <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
-                商品详情
-              </li>
-              <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
-                商品评论
-              </li>
-            </ul>
-            <div v-if="tabList==1">
-              <div class="specif">
-                <div class="sanjiao"></div>
-                <div class="text">规格参数</div>
-                <div class="hr"></div>
-              </div>
-              <div class="specif-tab">
-                <div>
-                  <div v-for="(item,index) in item_props">{{item}}</div>
-                </div>
-              </div>
-              <div class="detail-desc">
-                <div class="sanjiao"></div>
-                <div class="text">图文详情</div>
-                <div class="hr"></div>
-              </div>
-              <div class="detail-desc-des">
-                <div v-html="description"></div>
+        <div class="row detail-det">
+          <ul class="shopping-menu">
+            <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
+              商品详情
+            </li>
+            <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
+              商品评论
+            </li>
+          </ul>
+          <div v-if="tabList==1">
+            <div class="specif">
+              <div class="sanjiao"></div>
+              <div class="text">规格参数</div>
+              <div class="hr"></div>
+            </div>
+            <div class="specif-tab">
+              <div>
+                <div v-for="(item,index) in item_props">{{item}}</div>
               </div>
             </div>
-            <!-- <div v-else>
-              <h2>我是评论</h2>
-            </div> -->
+            <div class="detail-desc">
+              <div class="sanjiao"></div>
+              <div class="text">图文详情</div>
+              <div class="hr"></div>
+            </div>
+            <div class="detail-desc-des">
+              <div v-html="description"></div>
+            </div>
           </div>
+          <!-- <div v-else>
+            <h2>我是评论</h2>
+          </div> -->
         </div>
       </div>
     </div>
