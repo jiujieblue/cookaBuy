@@ -54,7 +54,7 @@
 		<div class="header-nav" v-if="this.pageName != 'detailPage'">
 			<div class="header-nav-inner">
 				<span href="#" class="header-category-all">
-					<a href="#"> 全部商品分类 </a><span class="icon-zhankai"/>
+					<a href="#"> 全部商品分类 </a><span class="icon-daohangxianghou"/>
 
 					<ul class="header-category-lv-1">
 						<li>

@@ -4,8 +4,10 @@
 }
 .bg-t{
   background:#fff;
+  min-width: 1280px;
 }
 .detail{
+  min-width: 1200px;
   .em{
     display:inline-block;
     width:1em;
@@ -31,9 +33,14 @@
     cursor: pointer;
   }
   .detail-shopping-box{
+    min-width: 1200px;
+    margin: 0;
     margin-top: 25px;
     overflow: hidden;
     .detail-shopping{
+      float: left;
+      padding: 0 15px;
+      width: 83.33337%;
       .shop-tit{
         overflow:hidden;
         padding-bottom: 8px;
@@ -82,13 +89,15 @@
         }
       }
       .shopping-detail{
+        min-width: 975px;
         margin-top:40px;
         overflow:hidden;
         .img-box{
-          float:left;
+          float: left;
+          width: 480px;
           .img-show{
             img{
-              width:480px;
+              width: 480px;
               height: 480px;
             }
           }
@@ -110,11 +119,11 @@
           }
         }
         .shopping-desc{
-          float:right;
-          margin-right: 15px;
-          width:400px;
+          float: left;
+          width: 400px;
+          margin-left: 30px;
           .desc-tit{
-            font-size: 16px;
+            font-size: 18px;
           }
           .desc-pri{
             margin-top:20px;
@@ -416,6 +425,9 @@
       }
     }
     .detail-recommend{
+      float: left;
+      padding: 0 15px;
+      width: 16.66663%;
       .recommend-tit{
         overflow:hidden;
         span{
@@ -519,6 +531,8 @@
       cursor: pointer;
     }
     .detail-news{
+      padding: 0 15px;
+      min-width: 1200px;
       .ellipsis() {
         white-space: nowrap;
         overflow: hidden;
@@ -611,76 +625,77 @@
         }
       }
     } 
-    .oth{ 
+    .oth{
+      padding-right: 30px;
       margin-top:20px;
-      padding-bottom:100px;
+      min-width: 1200px;
       .detail-det{ 
-      background:#fff;  
-        .shopping-menu{
-          background:#ececec;
-          li{
-            display:inline-block;
-            padding:10px 20px;
-            font-size: 18px;
-          }
-          .active{
-            border-top:2px solid #fcc505;
-            color:#fcc505;
-            background:#fff;
-            margin-top:-1px;
-          }
+      background:#fff; 
+      margin: 0;
+      .shopping-menu{
+        background:#ececec;
+        li{
+          display:inline-block;
+          padding:10px 20px;
+          font-size: 18px;
         }
-        .specif,.detail-desc{
-          padding:0 20px;
-          margin-top:50px;
-          overflow:hidden;
+        .active{
+          border-top:2px solid #fcc505;
+          color:#fcc505;
+          background:#fff;
+          margin-top:-1px;
+        }
+      }
+      .specif,.detail-desc{
+        padding:0 20px;
+        margin-top:50px;
+        overflow:hidden;
+        >div{
+          float:left;
+        }
+        .sanjiao{
+          width:0;
+          height:0;
+          border:6px solid transparent;
+          border-left:10px solid #665d58;
+          margin-top:7px;
+        }
+        .text{
+          font-size: 18px;
+        }
+        .hr{
+          width:90%;
+          border-bottom:1px solid #dfdfdf;
+          margin-top: 13px;
+          margin-left:10px;
+        }
+      }
+      .specif-tab{
+        padding:50px 0;
+        margin: 0 auto;
+        >div{
+          margin: 0 120px;
+          overflow: hidden;
+          border-bottom: 1px solid #ddd;
+          border-right: 1px solid #ddd;
           >div{
+            text-align:left;
+            padding:5px 20px;
             float:left;
-          }
-          .sanjiao{
-            width:0;
-            height:0;
-            border:6px solid transparent;
-            border-left:10px solid #665d58;
-            margin-top:7px;
-          }
-          .text{
-            font-size: 18px;
-          }
-          .hr{
-            width:90%;
-            border-bottom:1px solid #dfdfdf;
-            margin-top: 13px;
-            margin-left:10px;
-          }
-        }
-        .specif-tab{
-          padding:50px 0;
-          margin: 0 auto;
-          >div{
-            width: 841px;
-            margin: 0 auto;
+            height: 30px;
+            width: 33.3333333%;
+            white-space: nowrap;
             overflow: hidden;
-            border-bottom: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            >div{
-              text-align:left;
-              padding:5px 20px;
-              float:left;
-              height: 30px;
-              width: 280px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              border-left: 1px solid #ddd;
-              border-top: 1px solid #ddd;
-            }
+            text-overflow: ellipsis;
+            border-left: 1px solid #ddd;
+            border-top: 1px solid #ddd;
           }
         }
-        .detail-desc-des{
-          margin-top:50px;
-          text-align:center;
-        }
+      }
+      .detail-desc-des{
+        margin-top:50px;
+        text-align:center;
+      }
       }
     }
   }

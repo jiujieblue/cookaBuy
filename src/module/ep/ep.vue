@@ -1,6 +1,10 @@
 <template>
 <div class="aaa">
-  
+  <select>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+  </select>
 </div>
 </template>
 
@@ -58,7 +62,9 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/ep.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  select option:hover{
+    background: url('../../assets/images/1.jpg')
+  }
 </style>
