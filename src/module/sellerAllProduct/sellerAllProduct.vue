@@ -76,10 +76,10 @@
     	</ul>
     	<p>
     		<span>￥</span>
-    		<input ref="low_price" type="text" placeholder="最低价" @blur="_priceVal($event,'low_price','high_price')"/>
+    		<input ref="low_price" type="text" placeholder="最低价" @blur="_priceVal($event,'low_price','high_price')" @keyup="_subLowHigh($event, 1,'low_price','high_price')"/>
     		<b>~&nbsp;</b>
     		<span>￥</span>
-    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')"/>
+    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')" @keyup="_subLowHigh($event, 1,'high_price','low_price')"/>
     		<button @click="_subLowHigh">确<span class="em_5"></span>定</button>
     	</p>
     </nav>
@@ -182,7 +182,6 @@
 	  	this._obtainLHPriceUrl('low_price',hrefstr)
 	  	this._obtainLHPriceUrl('high_price',hrefstr)
 
-
 	  	this._obtainSorUrl('order',hrefstr)
 
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
@@ -194,12 +193,10 @@
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 	  			me.isHeiBig = true
 			  }
-
 	    },
 	    function (res) {
 	    	console.log(res)
 	    })
-
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
@@ -211,6 +208,7 @@
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {
 	    	me.storesInfo = res.data.data
+	    	$('title').html(res.data.data.store_name + ' 全部商品')
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -249,6 +247,7 @@
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str)
 	  		if(i != -1){
+	  			this.lHPrice_isNot[str] = true
 		  		this.lHPrice_str[str] = hrefStr.slice(i)
 		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
@@ -256,28 +255,6 @@
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
 		  		if(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1) != 0){
 		  			this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
-		  		}
-		  	}
-	  	},
-		  // 从链接中拿取 low_price  high_price
-	  	_calcuLow (index, refPrice, LowHiprice, hrefstr) {
-		  	if(index != -1){
-		  		this[LowHiprice] = hrefstr.slice(parseInt(index))
-		  		if(parseInt(this[LowHiprice].indexOf('&')) != -1){
-		  			this[LowHiprice] = '&' + this[LowHiprice].slice(0,parseInt(this[LowHiprice].indexOf('&')))
-		  		}else{
-		  			this[LowHiprice] = '&' + this[LowHiprice]
-		  		}
-		  		var val = this[LowHiprice].slice(this[LowHiprice].indexOf('=')+1)
-		  		var valFl = val.slice(val.indexOf('.')+1)
-		  		if(valFl.length > 2){
-		  			this.$refs[refPrice].value = val.slice(0,val.indexOf('.')+3)
-		  		}else if(valFl.length == 2){
-		  			this.$refs[refPrice].value = val
-		  		}else if(valFl.length == 1){
-		  			this.$refs[refPrice].value = val + '0'
-		  		}else if(!valFl){
-		  			this.$refs[refPrice].value = val + '00'
 		  		}
 		  	}
 	  	},
@@ -330,7 +307,14 @@
 	  	},
 
 	  	// 提交筛选价格区间
-	  	_subLowHigh () {
+	  	_subLowHigh (e, n,str1,str2) {
+	  		if(n){
+	  			if(e.which == 13){
+	  				this._priceVal (e,str1,str2)
+	  			}else{
+	  				return
+	  			}
+	  		}
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
@@ -351,7 +335,7 @@
 		  			}else{
 		  				this.lHPrice_str.high_price = ''
 		  			}
-		  			window.location.href = "http://localhost:9090/module/sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.paixu + this.paixuRules + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
 		  		}
 	  		}
 	  	},
@@ -368,6 +352,9 @@
 		  			}else{
 		  				this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
+	  					if(val1 == 0){
+	  						return
+	  					}
 		  			}
 	  			}else if(val1 == 0){
 	  				e.target.value = ''
