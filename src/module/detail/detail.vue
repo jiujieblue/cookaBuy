@@ -280,6 +280,7 @@
     },
     methods: {
       _showImg (t) {
+        this.img_t = t
         var s = this.carousel[t].tb_url
         this.showImg = s.slice(0,s.length-10)
       },
