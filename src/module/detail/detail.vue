@@ -22,8 +22,8 @@
               <p>{{addr}}</p>
             </div>
           </div>
-          <div class="shopping-detail">
-            <div class="img-box">
+          <div class="row shopping-detail">
+            <div class="col-md-6 img-box">
               <div class="img-show">
                 <img v-bind:src="showImg">
               </div>
@@ -31,10 +31,8 @@
                 <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}">
               </div>
             </div>
-            <div class="shopping-desc">
-              <div class="desc-tit">
-                {{tit}}
-              </div>
+            <div class="col-md-6 shopping-desc">
+              <div class="desc-tit">{{tit}}</div>
               <div class="desc-pri">
                 <div class="price-tidu">
                   <h4>&yen; {{data.price}}</h4>
