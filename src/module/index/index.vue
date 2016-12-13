@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent @submitStr="_subkeyword"></headerComponent>
+		<headerComponent pageName="indexPage" @submitStr="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">

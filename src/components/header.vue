@@ -92,10 +92,10 @@
 				</span>
 
 				<ul class="header-nav-items">
-					<li class="header-nav-item"><a href="./index.html">首页</a></li>
-					<li class="header-nav-item"><a href="./hotSale.html">爆款专区</a></li>
-					<li class="header-nav-item"><a href="./visitingMarket.html">逛市场</a></li>
-					<li class="header-nav-item" style="display:none"><a href="#">我的关注</a></li>
+					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }"href="./index.html">首页</a></li>
+					<li :class="['header-nav-item', this.pageName == 'hotPage'? 'active':'']"><a href="./hotSale.html">爆款专区</a></li>
+					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html">逛市场</a></li>
+					<li class="header-nav-item" style="display:none"><a>我的关注</a></li>
 				</ul>
 			</div>
 		</div>
@@ -107,7 +107,6 @@ import Vue from 'vue'
 import CkSearch from 'components/CkSearch'
 
 export default{
-	props:['pageName'],
 	components:{
 		CkSearch
 	},
@@ -119,7 +118,13 @@ export default{
 	props: {
 		keyword: {
 			default: ''
+		},
+		pageName: {
+			default: ''
 		}
+	},
+	mounted(){
+		console.log(this.pageName)
 	}
 }
 </script>
