@@ -5,7 +5,7 @@
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
-        <div class="col-md-10 detail-shopping">
+        <div class="detail-shopping">
           <div class="shop-tit">
             <div class="shop-logo">
               <div>SHOP</div>
@@ -32,9 +32,7 @@
               </div>
             </div>
             <div class="shopping-desc">
-              <div class="desc-tit">
-                {{tit}}
-              </div>
+              <div class="desc-tit">{{tit}}</div>
               <div class="desc-pri">
                 <div class="price-tidu">
                   <h4>&yen; {{data.price}}</h4>
@@ -130,7 +128,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2 detail-recommend">
+        <div class="detail-recommend">
           <div class="recommend-tit">
             <span class="icon-bendiantuijian"></span>
             <p>本店推荐</p>
@@ -155,65 +153,59 @@
   <div class="container-b-box">
     <div class="container bg-b">
       <div class="row">
-        <div class="col-md-12">
-            <div class="detail-news">
-              <div class="news-tit">
-                <span>NEW</span>
-                <p>最新上架</p>
-                <a v-on:click="_more"><span class="icon-more"></span></a>
-              </div>
-              <div class="news-list">
-                <div class="news-img" v-for="(item,index) in newList">
-                  <a class="img-tit" v-on:click="_n_detail(index)">
-                    <img v-bind:src="item.pic_url">
-                  </a>
-                  <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
-                  <div class="img-info">
-                    <p>&yen; {{item.price}}</p>
-                    <p>{{_n_times(item.list_time)}}</p>
-                  </div>
-                </div>
-              </div>
+          <div class="detail-news">
+            <div class="news-tit">
+              <span>NEW</span>
+              <p>最新上架</p>
+              <a v-on:click="_more"><span class="icon-more"></span></a>
             </div>
-        </div>
-      </div>
-      <div class="oth">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="detail-det">
-              <ul class="shopping-menu">
-                <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
-                  商品详情
-                </li>
-                <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
-                  商品评论
-                </li>
-              </ul>
-              <div v-if="tabList==1">
-                <div class="specif">
-                  <div class="sanjiao"></div>
-                  <div class="text">规格参数</div>
-                  <div class="hr"></div>
-                </div>
-                <div class="specif-tab">
-                  <div>
-                    <div v-for="(item,index) in item_props">{{item}}</div>
-                  </div>
-                </div>
-                <div class="detail-desc">
-                  <div class="sanjiao"></div>
-                  <div class="text">图文详情</div>
-                  <div class="hr"></div>
-                </div>
-                <div class="detail-desc-des">
-                  <div v-html="description"></div>
+            <div class="news-list">
+              <div class="news-img" v-for="(item,index) in newList">
+                <a class="img-tit" v-on:click="_n_detail(index)">
+                  <img v-bind:src="item.pic_url">
+                </a>
+                <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
+                <div class="img-info">
+                  <p>&yen; {{item.price}}</p>
+                  <p>{{_n_times(item.list_time)}}</p>
                 </div>
               </div>
-              <!-- <div v-else>
-                <h2>我是评论</h2>
-              </div> -->
             </div>
           </div>
+      </div>
+      <div class="oth">
+        <div class="row detail-det">
+          <ul class="shopping-menu">
+            <li v-bind:class="{'active': tabList == 1}" v-on:click="tab(1)">
+              商品详情
+            </li>
+            <li v-bind:class="{'active': tabList == 2}" v-on:click="tab(2)" style="display:none;">
+              商品评论
+            </li>
+          </ul>
+          <div v-if="tabList==1">
+            <div class="specif">
+              <div class="sanjiao"></div>
+              <div class="text">规格参数</div>
+              <div class="hr"></div>
+            </div>
+            <div class="specif-tab">
+              <div>
+                <div v-for="(item,index) in item_props">{{item}}</div>
+              </div>
+            </div>
+            <div class="detail-desc">
+              <div class="sanjiao"></div>
+              <div class="text">图文详情</div>
+              <div class="hr"></div>
+            </div>
+            <div class="detail-desc-des">
+              <div v-html="description"></div>
+            </div>
+          </div>
+          <!-- <div v-else>
+            <h2>我是评论</h2>
+          </div> -->
         </div>
       </div>
     </div>
@@ -280,6 +272,7 @@
     },
     methods: {
       _showImg (t) {
+        this.img_t = t
         var s = this.carousel[t].tb_url
         this.showImg = s.slice(0,s.length-10)
       },
