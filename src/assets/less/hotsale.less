@@ -10,6 +10,10 @@ img {
 	margin: 0;
 	padding: 0;
 }
+
+a{
+	cursor: pointer;
+}
 .hotsalepage {
 	
 	font-family: '微软雅黑';
@@ -36,15 +40,12 @@ img {
 			}
 			.myswiper{
 				.swiper-container{
-					height: 500px;
+					height: 450px;
 					padding-top: 50px;
 					background: #fff;
 					.swiper-slide{
 						background: #fff;
-						height: 380px;
-						.swiper-pagination{
-							bottom: 35px;
-						}
+						height: 335px;
 						img{
 							width: 100%;
 							height: 250px;
@@ -91,7 +92,7 @@ img {
 						}
 						&:hover{
 							z-index: 1000;
-							box-shadow: 10px 2px 20px #888888;
+							box-shadow: 0px 0px 30px 5px #888888;
 							img{
 								top: -30px;
 								opacity: 1;
@@ -102,14 +103,27 @@ img {
 							}
 						}
 					}
+					.swiper-pagination{
+						bottom: 30px;
+						.swiper-pagination-bullet{
+							border: 1px solid #000;
+							background: transparent;
+							&-active{
+								border: 1px solid #000;
+								background: #000;
+							}
+						}
+					}
 				}
 				.swiper-button-prev{
-					top: 570px;
-					left: 350px;
+					top: 510px;
+					left: 396px;
+					background-size: 20px 20px;
 				}
 				.swiper-button-next{
-					top: 570px;
-					right: 350px;
+					top: 510px;
+					right: 396px;
+					background-size: 20px 20px;
 				}
 			}
 
@@ -148,14 +162,15 @@ img {
 				ul li {
 					display: block;
 					float: left;
-					height: 335px;
+					height: 390px;
 					margin: 6px 6px;
 					
 					&:nth-child(1) {
-						width: 440px;
-						height: 335px;
+						width: 468px;
+						height: 390px;
 						img{
 							width: 100%;
+							height: 100%
 						}
 					}
 
@@ -163,9 +178,9 @@ img {
 
 				&-item {
 					background-color: #fff;
-					height: 335px;
+					height: 100%;
 					position: relative;
-					width: 214px;
+					width: 228px;
 		            overflow: hidden;
 		            img{
 		            	transition: transform 0.5s linear;
@@ -181,8 +196,8 @@ img {
 		            }
 					&-wimg {
 						position: absolute;
-						width: 214px;
-						height: 214px;
+						width: 228px;
+						height: 228px;
 						img{
 							width: 100%;
 							height: 100%;
@@ -191,18 +206,18 @@ img {
 
 					&-price {
 						position: absolute;
-						top: 215px;
-						left: 10px;
+						top: 238px;
+						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
-						font-size: 22px;
+						font-size: 26px;
 						letter-spacing: 1px;
 					}
 
 					&-title {
 						position: absolute;
-						top: 255px;
-						left: 10px;
+						top: 290px;
+						left: 4px;
 						margin: 0;
 						padding: 10px;
 						font-size: 14px;
@@ -220,8 +235,8 @@ img {
 
 					&-spanleft {
 						position: absolute;
-						top: 300px;
-						left: 10px;
+						top: 340px;
+						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
@@ -229,8 +244,8 @@ img {
 
 					&-spanright {
 						position: absolute;
-						top: 300px;
-						right: 10px;
+						top: 340px;
+						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
@@ -273,14 +288,15 @@ img {
 				ul li {
 					display: block;
 					float: left;
-					height: 335px;
+					height: 390px;
 					margin: 6px 6px;
-
+					
 					&:nth-child(1) {
-						width: 440px;
-						height: 335px;
+						width: 468px;
+						height: 390px;
 						img{
 							width: 100%;
+							height: 100%
 						}
 					}
 
@@ -288,10 +304,10 @@ img {
 
 				&-item {
 					background-color: #fff;
-					height: 335px;
+					height: 100%;
 					position: relative;
-					width: 214px;
-					overflow: hidden;
+					width: 228px;
+		            overflow: hidden;
 		            img{
 		            	transition: transform 0.5s linear;
 		            	-o-transition: transform 0.5s linear;
@@ -304,11 +320,10 @@ img {
 		            		-webkit-transform: scale(1.05);
 		            	}
 		            }
-
 					&-mimg {
 						position: absolute;
-						width: 214px;
-						height: 214px;
+						width: 228px;
+						height: 228px;
 						img{
 							width: 100%;
 							height: 100%;
@@ -317,19 +332,18 @@ img {
 
 					&-price {
 						position: absolute;
-						top: 215px;
-						left: 10px;
+						top: 238px;
+						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
-						font-size: 22px;
+						font-size: 26px;
 						letter-spacing: 1px;
 					}
 
 					&-title {
 						position: absolute;
-						top: 255px;
-						left: 10px;
-						word-wrap: break-word;
+						top: 290px;
+						left: 4px;
 						margin: 0;
 						padding: 10px;
 						font-size: 14px;
@@ -347,8 +361,8 @@ img {
 
 					&-spanleft {
 						position: absolute;
-						top: 300px;
-						left: 10px;
+						top: 340px;
+						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
@@ -356,8 +370,8 @@ img {
 
 					&-spanright {
 						position: absolute;
-						top: 300px;
-						right: 10px;
+						top: 340px;
+						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
@@ -374,7 +388,7 @@ img {
 	&-right {
 		&-top {
 			position: relative;
-			margin-top: 14px;
+			margin-top: 18px;
 			padding:0;
 			&-myicon {
 				color: @ck-main;
@@ -384,6 +398,7 @@ img {
 
 			&-hotfourtitle {
 				font-size: 24px;
+				vertical-align: middle;
 			}
 
 		}
@@ -412,7 +427,7 @@ img {
 					background-color: @ck-main;
 					color: #fff;
 					padding: 2px 20px;
-					z-index: 9999;
+					z-index: 2;
 				}
 
 				&-himg {
@@ -431,16 +446,16 @@ img {
 
 				&-price {
 					position: absolute;
-					top: 190px;
-					left: 10px;
+					top: 184px;
+					left: 4px;
 					padding: 10px;
 					font-size: 22px;
 				}
 
 				&-title {
 					position: absolute;
-					top: 230px;
-					left: 10px;
+					top: 218px;
+					left: 4px;
 					word-wrap: break-word;
 					margin: 0;
 					padding: 10px;
@@ -460,7 +475,7 @@ img {
 				&-spanleft {
 					position: absolute;
 					top: 245px;
-					left: 10px;
+					left: 4px;
 					padding: 10px;
 					color: #AA9C99;
 				}

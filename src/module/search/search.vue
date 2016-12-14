@@ -42,19 +42,19 @@
 	    	</ul>
 	    	<p>
 	    		<span>￥</span>
-	    		<input ref="low_price" type="text" placeholder="最低价" @blur="_priceVal($event,'low_price','high_price')"/>
+	    		<input ref="low_price" type="text" placeholder="最低价" @blur="_priceVal($event,'low_price','high_price')" @keyup="_subLowHigh($event, 1,'low_price','high_price')"/>
 	    		<b>~&nbsp;</b>
 	    		<span>￥</span>
-	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')"/>
+	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')" @keyup="_subLowHigh($event,1,'high_price','low_price')"/>
 	    		<button @click="_subLowHigh">确定</button>
 	    	</p>
-	    	<span rel="stylesheet" class="icon-liebiao" @click='_gridOrBar'></span>
-	    	<span rel="stylesheet" class="icon-pingpumoshi selected" @click='_gridOrBar'></span>
+	    	<span rel="stylesheet" :class="['icon-liebiao', isGridOrList == 1 ? 'selected' : '']" @click='_gridOrList($event, 1)'></span>
+	    	<span rel="stylesheet" :class="['icon-pingpumoshi', isGridOrList == 0 ? 'selected': '']" @click='_gridOrList($event, 0)'></span>
 	    </nav>
 	    <div class="row search-product">
 	    	<div class="search-product-left">
 	    		<div class="search-product-left-succee" v-if="isnosearchR">
-			    	<div class="search-product-left-succee-grid" v-if='isGridOrBar'>
+			    	<div class="search-product-left-succee-grid" v-if='isGridOrList == 0'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
@@ -79,7 +79,7 @@
 			    			</li>
 			    		</ul>
 			    	</div>
-			    	<div class="search-product-left-succee-bar" v-if='!isGridOrBar'>
+			    	<div class="search-product-left-succee-list" v-if='isGridOrList == 1'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
@@ -130,7 +130,7 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<CkPagination :pages="10" :pageNum="page" @submitPage="subPage" v-if="isnosearchR"></CkPagination>
+	    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isnosearchR"></CkPagination>
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -189,7 +189,7 @@
 	  data () {
 	    return {
 	    	// 浏览方式切换
-	      isGridOrBar: true,
+	      isGridOrList: 0,
 	    	// 请求数据
 	      aggregations: '',
 	      hits: '',
@@ -204,7 +204,8 @@
 	      sortingUrl: '',
 	      sortingStan: '',
 	      // 分页
-	      page: '1',
+	      page: 1,
+	      pages: 0,
 	      // 搜索关键字
 	      q: '',
 	      // 价格筛选
@@ -244,6 +245,11 @@
 	  },
 	  mounted () {
 	  	var hrefStr = window.location.href
+	  	// 获取本地储存
+	  	if(sessionStorage.getItem('browse')){
+	  		this.isGridOrList = sessionStorage.getItem('browse')
+	  	}
+
 	  	// 获取搜索关键字
 	  	var qI = hrefStr.indexOf('q=')
 	  	if(qI != -1){
@@ -254,6 +260,8 @@
 	  		this.keyword = decodeURI(this.q.slice(this.q.indexOf('=')+1))
 	  	}
 
+	  	// 修改 title
+	  	$('title').html(this.keyword + ' 柯咔搜索')
 	  	// 获取分类关键字
 			this._aggUrl('colors', 'color', hrefStr)
 			this._aggUrl('sizes', 'size', hrefStr)
@@ -269,25 +277,26 @@
 
 
 	  	var hrefUrlStr = ''
-	  	if(!this.q){
-				hrefUrlStr = ''
+	  	if(this.q){
+	  		hrefUrlStr = this.q+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+			
+		  	this.$http.get('/api/searchs?' + hrefUrlStr)
+		  	.then(function (res) {
+		  		this.aggregations = res.data[2].aggregations
+		  		this.hits = res.data[2].hits
+		  		this.pages = Math.ceil(res.data[2].hits.total/20)
+		  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
+		  			this.isnosearchR = true
+		  		}else{
+		  			this.isnosearchR = false
+		  		}
+		  	},
+		  	function (res) {
+		  		console.log(res)
+		  	})
 	  	}else{
-	  		hrefUrlStr = this.q+'&search_size=20&from=1'+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  		this.isnosearchR = false
 	  	}
-		
-	  	this.$http.get('/api/searchs?' + hrefUrlStr)
-	  	.then(function (res) {
-	  		this.aggregations = res.data[2].aggregations
-	  		this.hits = res.data[2].hits
-	  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
-	  			this.isnosearchR = true
-	  		}else{
-	  			this.isnosearchR = false
-	  		}
-	  	},
-	  	function (res) {
-	  		console.log(res)
-	  	})
 
 	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
 	  	.then(function (res) {
@@ -397,6 +406,7 @@
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str)
 	  		if(i != -1){
+	  			this.lHPrice_isNot[str] = true
 		  		this.lHPrice_str[str] = hrefStr.slice(i)
 		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
@@ -426,7 +436,14 @@
 	  		}
 	  	},
 	  	// 提交筛选价格区间
-	  	_subLowHigh () {
+	  	_subLowHigh (e, n,str1,str2) {
+	  		if(n){
+	  			if(e.which == 13){
+	  				this._priceVal (e,str1,str2)
+	  			}else{
+	  				return
+	  			}
+	  		}
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
@@ -437,6 +454,7 @@
 		  				}
 		  			}else{
 		  				this.lHPrice_str.low_price = ''
+		  				console.log(111)
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
 		  				if(this.$refs.high_price.value == 0){
@@ -447,7 +465,7 @@
 		  			}else{
 		  				this.lHPrice_str.high_price = ''
 		  			}
-		  			window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?"+ this.q +'&from='+ ((this.page-1)*12+1) + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
@@ -464,6 +482,9 @@
 		  			}else{
 		  				this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
+	  					if(val1 == 0){
+	  						return
+	  					}
 		  			}
 	  			}else if(val1 == 0){
 	  				e.target.value = ''
@@ -519,9 +540,9 @@
 	  		}
 	  	},
 	  	// 浏览方式的切换
-	  	_gridOrBar (e,n) {
-	  		$(e.target).addClass('selected').siblings('.selected').removeClass('selected')
-	  		this.isGridOrBar = !this.isGridOrBar
+	  	_gridOrList (e,n) {
+	  		sessionStorage.setItem('browse',n)
+	  		this.isGridOrList = n
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
