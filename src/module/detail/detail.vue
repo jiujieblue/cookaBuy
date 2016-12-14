@@ -278,7 +278,7 @@
       },
       chooseColor (t) {
         this.color_t = t
-        if (this.size_t !== -1) {  
+        if (this.size_t !== -1) {
           this._pub();
         }
       },
