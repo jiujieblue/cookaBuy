@@ -122,9 +122,6 @@ export default{
 		pageName: {
 			default: ''
 		}
-	},
-	mounted(){
-		console.log(this.pageName)
 	}
 }
 </script>

@@ -349,6 +349,7 @@
 							</div>
 						</div>
 					</div>
+					<gotop></gotop>
 				</div>
 			</div>
 		</div>
@@ -361,6 +362,7 @@
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
+	import gotop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
@@ -386,7 +388,8 @@
 			CkPagination,
 			CKHr,
 			CKSearch,
-			footerComponent
+			footerComponent,
+			gotop
 		},
 		mounted(){
 		}
