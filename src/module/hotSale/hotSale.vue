@@ -20,7 +20,7 @@
 												<a @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url"></a>
 												<div>
 													<p>¥{{sliderItem.price}}</p>
-													<a><p>{{sliderItem.title}}</p></a>
+													<a @click="_toSliderDetail(sliderIndex)"><p>{{sliderItem.title}}</p></a>
 												</div>
 												<!-- <div>
 													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>
@@ -47,7 +47,7 @@
 												<div class="hotsalepage-left-womenhotsale-links-item">
 													<a @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" /></a>
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
-													<a><span class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span></a>
+													<a @click="_toGirlDetail(girlIndex)"><span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span></a>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
 												</div>
@@ -69,7 +69,7 @@
 												<div class="hotsalepage-left-manhotsale-links-item">
 													<a @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/></a>
 													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
-													<a><span class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span></a>
+													<a @click="_toBoyDetail(boyIndex)"><span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span></a>
 													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
 												</div>
@@ -93,7 +93,7 @@
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
 												<a @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url"/></a>
 												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
-												<span class="hotsalepage-right-links-item-title">{{rightItem.title}}</span>
+												<a @click="_toRightDetail(rightIndex)"><span :title="rightItem.title" class="hotsalepage-right-links-item-title">{{rightItem.title}}</span></a>
 												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.store.store_name}}</a></span>
 											</div>
 										</li>

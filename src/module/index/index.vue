@@ -123,7 +123,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :src="productsItem.pic_url" />
+											<img :title="productsItem.title" :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.price}}
@@ -148,7 +148,7 @@
 												<a>
 													<div class="product">
 														<div class="img">
-															<img :src="sideproductsItem.pic_url">
+															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
 														</div>
 														<a ><span class="store">{{sideproductsItem.nick}}</span></a>
 														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
@@ -202,7 +202,7 @@
 								</span>
 								女装
 
-								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg" @click="_goMore('女装')">
 									<span class="icon-more" />
 								</a>
 							</h4>
@@ -211,7 +211,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
-											<img :src="girlsItem.pic_url" />
+											<img :title="girlsItem.title" :src="girlsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.price}}
@@ -239,7 +239,7 @@
 								</span>
 								男装
 
-								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg" @click="_goMore('男装')">
 									<span class="icon-more" />
 								</a>
 							</h4>
@@ -248,7 +248,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
-											<img :src="boysItem.pic_url" />
+											<img :title="boysItem.title" :src="boysItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.price}}
@@ -276,7 +276,7 @@
 								</span>
 								孕妇装
 
-								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg" @click="_goMore('孕妇装')">
 									<span class="icon-more" />
 								</a>
 							</h4>
@@ -285,7 +285,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits" >
 										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
-											<img :src="maternitsItem.pic_url" />
+											<img :title="maternitsItem.title" :src="maternitsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.price}}
@@ -313,7 +313,7 @@
 								</span>
 								童装
 
-								<a title="更多" class="index-block-title-aside index-block-title-aside-lg">
+								<a title="更多" class="index-block-title-aside index-block-title-aside-lg" @click="_goMore('童装')">
 									<span class="icon-more" />
 								</a>
 							</h4>
@@ -322,7 +322,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens" >
 										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
-											<img :src="childrensItem.pic_url" />
+											<img :title="childrensItem.title" :src="childrensItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.price}}
@@ -400,6 +400,10 @@ export default {
 	               console.log(err)
 	         }
 	       )
+		},
+		_goMore(str){
+			//window.open("./search.html?q="+ str)
+			console.log(str)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)

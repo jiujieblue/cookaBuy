@@ -6,7 +6,7 @@
 					<div class="col-md-2 trim-col">
 						你好，欢迎光临柯咔商城！
 					</div>
-					<div class="col-md-3 trim-col" style="display: none;">
+					<div class="col-md-3 trim-col">
 						<div class="text-left">
 							<a href="#" class="header-top-link">
 								请登录
@@ -17,9 +17,10 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-md-7" style="display: none;">
+					<div class="col-md-7">
 						<div class="text-right">
-							<a href="#" class="header-top-link" style="margin-right: 30px;">
+							<a href="./index.html" class="header-top-link">首页</a>
+							<a href="#" class="header-top-link" style="margin-right: 30px;margin-left: 30px;">
 								商家入驻
 							</a>
 							<a href="#" class="header-top-link">
@@ -39,14 +40,14 @@
 						</div>
 					</div>
 					<div class="col-md-1"></div>
-					<div class="col-md-6">
-						<CkSearch @subKeyword="_subkey" :keyword="keyword"></CkSearch>
-					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-2 trim-right">
 						<div class="header-qrcode" style="display: none">
 							<img src="../assets/images/qrcode.jpg" width="100" height="100"/>
 						</div>
+					</div>
+					<div class="col-md-6">
+						<CkSearch @subKeyword="_subkey" :keyword="keyword"></CkSearch>
 					</div>
 				</div>
 			</div>
