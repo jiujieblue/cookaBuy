@@ -15,13 +15,13 @@
 							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu01.jpg" alt="">
+										<img src="../../assets/images/sanye.jpg" alt="">
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu02.jpg" alt="">
+										<img src="../../assets/images/xiangkesinanzhuang.jpg" alt="">
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu03.jpg" alt="">
+										<img src="../../assets/images/xiongmaoyunfuzhuang.jpg" alt="">
 									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
