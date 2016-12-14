@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent></headerComponent>
+		<headerComponent pageName="hotPage"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -17,15 +17,15 @@
 									<div class="myswiper">
 										<swiper :options="swiperOption">
 											<swiper-slide v-for="(sliderItem, sliderIndex) in sliderData">
-												<img :src="sliderItem.pic_url" @click="_toSliderDetail(sliderIndex)">
-												<div @click="_toSliderDetail(sliderIndex)">
-													<p>¥{{sliderItem.price}}</p>
-													<a href="#"><p>{{sliderItem.title}}</p></a>
-												</div>
+												<a @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url"></a>
 												<div>
-													<span>{{sliderItem.store.store_name}}</span>
-													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
+													<p>¥{{sliderItem.price}}</p>
+													<a @click="_toSliderDetail(sliderIndex)"><p>{{sliderItem.title}}</p></a>
 												</div>
+												<!-- <div>
+													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>
+													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
+												</div> -->
 											</swiper-slide>
 											<div class="swiper-pagination" slot="pagination"></div>
 										</swiper>
@@ -43,12 +43,12 @@
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
 											<li><img src="../../assets/images/hotsale_women.jpg"/></li>
-											<li v-for="(girlItem, girlIndex) in girlData" @click="_toGirlDetail(girlIndex)">
+											<li v-for="(girlItem, girlIndex) in girlData">
 												<div class="hotsalepage-left-womenhotsale-links-item">
-													<img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" />
+													<a @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" /></a>
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft">{{girlItem.store.store_name}}</span>
+													<a @click="_toGirlDetail(girlIndex)"><span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span></a>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
 												</div>
 											</li>
@@ -65,12 +65,12 @@
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
 											<li><img src="../../assets/images/hotsale_man.jpg"/></li>
-											<li v-for="(boyItem, boyIndex) in boyData" @click="_toBoyDetail(boyIndex)">
+											<li v-for="(boyItem, boyIndex) in boyData">
 												<div class="hotsalepage-left-manhotsale-links-item">
-													<img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/>
+													<a @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/></a>
 													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
-													<span class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanleft">{{boyItem.store.store_name}}</span>
+													<a @click="_toBoyDetail(boyIndex)"><span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span></a>
+													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
 												</div>
 											</li>
@@ -88,13 +88,13 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li v-for="(rightItem, rightIndex) in rightData" @click="_toRightDetail(rightIndex)">
+										<li v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
-												<img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url"/>
+												<a @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url"/></a>
 												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
-												<span class="hotsalepage-right-links-item-title"><a href="#">{{rightItem.store.title}}</a></span>
-												<span class="hotsalepage-right-links-item-spanleft">{{rightItem.store.store_name}}</span>
+												<a @click="_toRightDetail(rightIndex)"><span :title="rightItem.title" class="hotsalepage-right-links-item-title">{{rightItem.title}}</span></a>
+												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.store.store_name}}</a></span>
 											</div>
 										</li>
 									</ul>
@@ -104,6 +104,7 @@
 					</div>
 				</div>
 			</div>
+			<gotop></gotop>
 		</div>
 		<footerComponent></footerComponent>
 	</div>
@@ -114,6 +115,7 @@
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
+	import gotop from 'components/goTop'
 	const VueResource = require('vue-resource')
 	Vue.use(VueResource)
 	Vue.use(AwesomeSwiper)
@@ -139,9 +141,22 @@
 		},
 		components:{
 			headerComponent,
-			footerComponent
+			footerComponent,
+			gotop
 		},
 		methods:{
+			_toSliderStore(t){
+				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].store.id)
+			},
+			_toRightStore(t){
+				window.open("./sellerAllProduct.html?store_id="+this.rightData[t].store.id)
+			},
+			_toGirlStore(t){
+				window.open("./sellerAllProduct.html?store_id="+this.girlData[t].store.id)
+			},
+			_toBoyStore(t){
+				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].store.id)
+			},
 			_toSliderDetail(t){
 				window.open("./detail.html?"+this.sliderData[t].num_iid)
 			},
