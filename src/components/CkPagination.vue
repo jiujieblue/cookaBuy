@@ -5,7 +5,7 @@
 </style>
 
 <template>
-	<div class="ck-pagination">
+	<div class="ck-pagination" v-if="!isFunction(pages) && !isFunction(pageNum)">
     <ul>
       <li v-if="showFirst" class="ck-pagination-text" @click="childPage(pageNum-1)"><span class="icon-xiangqian"></span></li>
 			<li v-if="shennueLeft" class="ck-pagination-text" @click="childPage(1)">1</li>
@@ -38,6 +38,9 @@
   	pageNum: {
   		default: 1
   	}
+  },
+  mounted () {
+  	
   },
   computed : {
     indexs () {
@@ -106,6 +109,10 @@
   			this.$refs.go_num.value = ''
   			this.$emit('submitPage',val)
   		}
+  	},
+
+  	isFunction (fn) {
+    	return (!!fn&&!fn.nodename&&fn.constructor!=String&&fn.constructor!=RegExp&&fn.constructor!=Array&&/function/i.test(fn+""))
   	},
 
   	childPage (page){

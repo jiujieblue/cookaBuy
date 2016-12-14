@@ -71,7 +71,7 @@
 			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
-			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>
+			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
 			    					<li v-if="false">图片</li>
@@ -87,7 +87,7 @@
 			    				</a>
 			    				<ul>
 			    					<li>
-			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">{{ hit._source.title }}</a>
+			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
@@ -333,8 +333,7 @@
 	  	// 搜索关键字高光
 	  	_titleColor (val) {
 	  		if(this.keyword){
-		  		var html = "<span>"+ this.keyword +"</span>"
-		  		return val.replace(this.keyword,html)
+		  		return val.replace(this.keyword,"<span>"+ this.keyword +"</span>")
 	  		}else{
 	  			return val
 	  		}
