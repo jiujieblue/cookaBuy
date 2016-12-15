@@ -371,14 +371,14 @@
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
-		  				if(this.$refs.low_price.value == 0 || !this.$refs.low_price.value){
+		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
-		  				if(this.$refs.high_price.value == 0 || !this.$refs.high_price.value){
+		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
@@ -393,18 +393,17 @@
 	  		var reg = /^\d(\d|.)*$/
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
-	  				if(this.lHPrice_str[str1]){
+	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
+	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
 	  				}else{
-	  					e.target.value = ''
 	  					this.lHPrice_isNot[str1] = false
-		  				this.lHPrice_isNot.ifSub = false
-		  				return
+	  					this.lHPrice_isNot.ifSub = false
+	  					return
 	  				}
 	  			}else{
 		  			if(val2){ // 比较大小
