@@ -376,7 +376,7 @@
 		          paginationClickable: true,
 		          spaceBetween: 10,
 		          freeMode: true,
-		          autoplay: 3000,
+		          autoplay: false,
 		          slidesPerView: 1,
 		          prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
@@ -392,6 +392,16 @@
 			gotop
 		},
 		mounted(){
+			$('.swiper-container').hover(
+					function(){
+						$('.swiper-button-prev').css('left','0').fadeIn('slow')
+						$('.swiper-button-next').css('right','0').fadeIn('slow')
+					},
+					function(){
+						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
+						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
+					}
+				)
 		}
 	}
 </script>

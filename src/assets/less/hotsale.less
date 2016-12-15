@@ -16,7 +16,6 @@ a{
 }
 .hotsalepage {
 	
-	font-family: '微软雅黑';
 	&-left {
 		background-color: #F7F7F7;
 		&-todayhotsale {
@@ -69,8 +68,8 @@ a{
 								padding-left: 20px;
 							}
 							p:last-child{	
-								font-size: 14px;
-								color: #372f2c;
+								font-size: 12px;
+								color: #a89d99;
 								padding-left: 20px;
 								padding-right: 20px;
 							}
@@ -162,12 +161,12 @@ a{
 				ul li {
 					display: block;
 					float: left;
-					height: 390px;
-					margin: 6px 6px;
+					height: 360px;
+					margin: 6px 1px;
 					
 					&:nth-child(1) {
-						width: 468px;
-						height: 390px;
+						width: 511px;
+						height: 360px;
 						img{
 							width: 100%;
 							height: 100%
@@ -175,7 +174,6 @@ a{
 					}
 
 				}
-
 				&-item {
 					background-color: #fff;
 					height: 100%;
@@ -206,17 +204,17 @@ a{
 
 					&-price {
 						position: absolute;
-						top: 238px;
+						top: 234px;
 						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
-						font-size: 26px;
+						font-size: 22px;
 						letter-spacing: 1px;
 					}
 
 					&-title {
 						position: absolute;
-						top: 290px;
+						top: 284px;
 						left: 4px;
 						margin: 0;
 						padding: 10px;
@@ -228,29 +226,103 @@ a{
 	                    > a {
 		                    color: #675C5A;
 		                }
-		                a:hover{
-		                    color: @ck-main;
-		                }
 					}
 
 					&-spanleft {
 						position: absolute;
-						top: 340px;
+						top: 322px;
 						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
-						font-size: 14px;
+						font-size: 12px;
 					}
 
 					&-spanright {
 						position: absolute;
-						top: 340px;
+						top: 322px;
 						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
-						font-size: 14px;
+						font-size: 12px;
 					}
 
+				}
+				.girlLineTwo{
+					margin: 10px 2px;
+					width: 239px;
+					.hotsalepage-left-womenhotsale-links-item {
+						background-color: #fff;
+						height: 100%;
+						position: relative;
+						width: 100%;
+			            overflow: hidden;
+			            img{
+			            	transition: transform 0.5s linear;
+			            	-o-transition: transform 0.5s linear;
+			            	-moz-transition: transform 0.5s linear;
+			            	-webkit-transition: transform 0.5s linear;
+			            	&:hover{
+			            		transform: scale(1.05);
+			            		-o-transform: scale(1.05);
+			            		-moz-transform: scale(1.05);
+			            		-webkit-transform: scale(1.05);
+			            	}
+			            }
+						&-wimg {
+							position: absolute;
+							width: 239px;
+							height: 239px;
+							img{
+								width: 100%;
+								height: 100%;
+							}
+						}
+
+						&-price {
+							position: absolute;
+							top: 234px;
+							left: 4px;
+							padding: 10px;
+							color: @ck-sub;
+							font-size: 22px;
+							letter-spacing: 1px;
+						}
+
+						&-title {
+							position: absolute;
+							top: 284px;
+							left: 4px;
+							margin: 0;
+							padding: 10px;
+							font-size: 14px;
+							width: 210px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+		                    white-space: nowrap;
+		                    > a {
+			                    color: #675C5A;
+			                }
+						}
+
+						&-spanleft {
+							position: absolute;
+							top: 322px;
+							left: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 12px;
+						}
+
+						&-spanright {
+							position: absolute;
+							top: 322px;
+							right: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 12px;
+						}
+
+					}
 				}
 
 			}
@@ -262,19 +334,21 @@ a{
 				position: relative;
 				margin-top: 50px;
 				padding: 0;
-				&-hotthree {
-					background-color: @ck-sub;
+				
+				&-hottwo {
+					background-color: #FF66F2;
 					color: #fff;
 					font-size: 24px;
 					padding-left: 5px;
 					padding-right: 5px;
 				}
 
-				&-hotthreetitle {
+				&-hottwotitle {
 					font-size: 24px;
 					padding-left: 10px;
 					padding-right: 10px;
 				}
+
 				&-moreicon {
 					position: absolute;
 					right: 0;
@@ -288,12 +362,12 @@ a{
 				ul li {
 					display: block;
 					float: left;
-					height: 390px;
-					margin: 6px 6px;
+					height: 360px;
+					margin: 6px 1px;
 					
 					&:nth-child(1) {
-						width: 468px;
-						height: 390px;
+						width: 511px;
+						height: 360px;
 						img{
 							width: 100%;
 							height: 100%
@@ -301,7 +375,6 @@ a{
 					}
 
 				}
-
 				&-item {
 					background-color: #fff;
 					height: 100%;
@@ -332,17 +405,17 @@ a{
 
 					&-price {
 						position: absolute;
-						top: 238px;
+						top: 234px;
 						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
-						font-size: 26px;
+						font-size: 22px;
 						letter-spacing: 1px;
 					}
 
 					&-title {
 						position: absolute;
-						top: 290px;
+						top: 284px;
 						left: 4px;
 						margin: 0;
 						padding: 10px;
@@ -354,14 +427,11 @@ a{
 	                    > a {
 		                    color: #675C5A;
 		                }
-		                a:hover{
-		                    color: @ck-main;
-		                }
 					}
 
 					&-spanleft {
 						position: absolute;
-						top: 340px;
+						top: 322px;
 						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
@@ -370,13 +440,90 @@ a{
 
 					&-spanright {
 						position: absolute;
-						top: 340px;
+						top: 322px;
 						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
 					}
 
+				}
+				.boyLineTwo{
+					margin: 10px 2px;
+					width: 239px;
+					.hotsalepage-left-manhotsale-links-item {
+						background-color: #fff;
+						height: 100%;
+						position: relative;
+						width: 100%;
+			            overflow: hidden;
+			            img{
+			            	transition: transform 0.5s linear;
+			            	-o-transition: transform 0.5s linear;
+			            	-moz-transition: transform 0.5s linear;
+			            	-webkit-transition: transform 0.5s linear;
+			            	&:hover{
+			            		transform: scale(1.05);
+			            		-o-transform: scale(1.05);
+			            		-moz-transform: scale(1.05);
+			            		-webkit-transform: scale(1.05);
+			            	}
+			            }
+						&-mimg {
+							position: absolute;
+							width: 239px;
+							height: 239px;
+							img{
+								width: 100%;
+								height: 100%;
+							}
+						}
+
+						&-price {
+							position: absolute;
+							top: 234px;
+							left: 4px;
+							padding: 10px;
+							color: @ck-sub;
+							font-size: 22px;
+							letter-spacing: 1px;
+						}
+
+						&-title {
+							position: absolute;
+							top: 284px;
+							left: 4px;
+							margin: 0;
+							padding: 10px;
+							font-size: 14px;
+							width: 210px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+		                    white-space: nowrap;
+		                    > a {
+			                    color: #675C5A;
+			                }
+						}
+
+						&-spanleft {
+							position: absolute;
+							top: 322px;
+							left: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 14px;
+						}
+
+						&-spanright {
+							position: absolute;
+							top: 322px;
+							right: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 14px;
+						}
+
+					}
 				}
 
 			}
@@ -466,9 +613,6 @@ a{
 	                white-space: nowrap;
 	                > a {
 		                color: #675C5A;
-		            }
-		            a:hover{
-		                color: @ck-main;
 		            }
 				}
 

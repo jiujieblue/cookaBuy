@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="indexPage" @submitStr="_subkeyword"></headerComponent>
+		<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -446,12 +446,12 @@ export default {
 
 		$('.index-carousel').hover(
 			function(){
-				$('.icon-xiangqian').css('left','0').fadeIn('slow')
-				$('.icon-xianghou').css('right','0').fadeIn('slow')
+				$('.icon-xiangqian').css('left','0').fadeIn('normal')
+				$('.icon-xianghou').css('right','0').fadeIn('normal')
 			},
 			function(){
-				$('.icon-xiangqian').css('left','-50px').fadeOut('slow')
-				$('.icon-xianghou').css('right','-50px').fadeOut('slow')
+				$('.icon-xiangqian').css('left','-50px').fadeOut('normal')
+				$('.icon-xianghou').css('right','-50px').fadeOut('normal')
 			}
 		)
 		this.$http.get('/api/recommend_stores')
