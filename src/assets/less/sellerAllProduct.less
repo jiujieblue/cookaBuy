@@ -16,6 +16,9 @@
 }
 .sellerAllProduct{
 	&-header{
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #b0b0b0;
 		&-nav{
 			background: #efedee;
 			ul{
@@ -38,17 +41,19 @@
 			}
 		}
 		&-info{
-			margin: 20px 0;
+			margin-top: 20px;
 			.container{
+				padding: 0;
 				>ul{
 					float: left;
 					margin-left: 25px;
 					>li{
 						margin-bottom: 10px;
-						b{
+						a{
+							margin-right: 10px;
 							font-weight: normal;
 							font-size: 22px;
-							margin-right: 10px;
+							color: #372f2c;
 						}
 						button{
 							padding: 3px 10px;
@@ -90,15 +95,16 @@
 					}
 					&:last-child{
 						float: right;
-						margin-top: 35px;
-						select,input,button{
+						margin-top: 15px;
+						span,input,button{
 							float: left;
 							height: 40px;
 						}
-						select{
+						span{
+							line-height: 36px;
 							padding: 0 10px;
 							border: 1px solid #d7d7d7;
-							font-size: 18px;
+							font-size: 16px;
 							text-align: center;
 						}
 						input{
@@ -109,7 +115,7 @@
 							outline: none;
 						}
 						button{
-							padding: 0 20px;
+							padding: 0 10px;
 							border: none;
 							background: #fcc505;
 							font-size: 16px;
@@ -138,7 +144,6 @@
 					width: 100%;
 					background: #fff;
 					padding-left: 15px;
-					//border-top: 2px solid #fcc505;
 				}
 			}
 		}
@@ -148,7 +153,6 @@
 			p{
 				.clearfix();
 				padding: 10px 0;
-				border-bottom: 1px solid #fcc505;
 				color: #a89d99;
 				span{
 					&:last-child{
@@ -158,8 +162,9 @@
 			}
 			>div{
 				padding: 20px 0;
-				max-height: 60px;
+				max-height: 80px;
     		overflow: hidden;
+    		border-top: 1px solid #fcc505;
 				>span{
 					float: left;
 					width: 11%;
@@ -260,11 +265,9 @@
 		>p{
 			float: left;
 			padding: 5px 30px;
-			line-height: 28px;
 			input{
 				width: 100px;
-				padding-left: 25px;
-				padding-right: 10px;
+				padding: 4px 10px 4px 25px;
 				outline: none;
 				border: none;
 			}
@@ -295,13 +298,15 @@
 		&-left{
 			float: left;
 			width: 83%;
-			>ul{
+			&-success{
+				.clearfix();
 				>li{
 					float: left;
 					width: 23.944%;
 					height: 350px;
 					padding: 10px 15px;
 					margin: 0 10px 10px 0;
+					border: 2px solid transparent;
 					background: #fff;
 					position: relative;
 					img{
@@ -346,6 +351,9 @@
 									-webkit-line-clamp:2;
 									overflow:hidden;
 									color: #665c59;
+									span{
+										color: #e03131;
+									}
 									&:hover{
 										color: #372f2c;
 										text-decoration: none;
@@ -354,7 +362,32 @@
 							}
 						}
 					}
+					&:hover{
+						border-color: #ececec;
+					}
 				}
+			}
+			&-failure{
+				height: 350px;
+					display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  >ul{
+				  	margin-top: 60px;
+				  	margin-left: 20px;
+				  	li{
+				  		margin-top: 20px;
+					  	>p{
+					  		font-size: 16px;
+					  	}
+					  	>a{
+					  		padding: 6px 25px;
+					  		border-radius: 3px;
+					  		background: #fcc505;
+					  		color: #fff;
+					  	}
+				  	}
+				  }
 			}
 		}
 		&-right{
@@ -384,6 +417,9 @@
 					img{
 						width: 100%;
 						margin-bottom: 10px;
+						&:hover{
+							opacity: 0.8;
+						}
 					}
 					b{
 						display: inline-block;
