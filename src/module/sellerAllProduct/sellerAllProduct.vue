@@ -9,10 +9,10 @@
 		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
-					<li>您好，欢迎光临柯咔商城！</li>
-					<li><a href="">请登录</a> | <a href="">免费注册</a></li>
-					<li><a href="">收藏本站</a></li>
-					<li><a href="">商家入驻</a></li>
+					<li><a href="./index.html">您好，欢迎光临柯咔商城！</a></li>
+					<li v-if="false"><a href="">请登录</a> | <a href="">免费注册</a></li>
+					<li v-if="false"><a href="">收藏本站</a></li>
+					<li v-if="false"><a href="">商家入驻</a></li>
 				</ul>
 			</div>
 		</div>
@@ -94,13 +94,13 @@
     			</ul>
     		</div>
     		<ul class="sellerAllProduct-product-left-success" v-if="productsAll.length != 0">
-    			<li v-for="(product,index) in productsAll">
+    			<li v-for="(product,index) in productsAll" v-if="product != 0 && _isKey(product,'price') && _isKey(product,'pic_url')">
     				<a :href="'./detail.html?'+_isKey(product,'num_iid')" target="_blank">
     					<img :src="_isKey(product,'pic_url')+'_200x200.jpg'" alt="产品图片">
     				</a>
     				<ul>
     					<li>
-    						<b>￥&nbsp;{{ _isKey(product,'price') }}</b>
+    						<b>￥&nbsp;{{ _priceEtc(_isKey(product,'price')) }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
@@ -121,13 +121,13 @@
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
-    				<b>￥&nbsp;{{ showcase.price }}</b>
+    				<b>￥&nbsp;{{ _priceEtc(showcase.price) }}</b>
     			</li>
     		</ul>
     	</div>
     </div>
   </div>
-  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="productsAll.length != 0"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -236,6 +236,19 @@
 	    })
 	  },
 	  methods : {
+	  	_priceEtc (val) {
+	  		var i = val.indexOf('.'),str = ''
+	  		if(i != -1){
+	  			str = val.slice(i+1)
+	  			if(str.length == 1){
+	  				return val+'0'
+	  			}else if(str.length == 2){
+	  				return val
+	  			}
+	  		}else{
+	  			return val+'.00'
+	  		}
+	  	},
 	  	_titleColor (val) {
 	  		if(this.keyword && val){
 	  			return val.replace(this.keyword,'<span>'+ this.keyword +'</span>')
