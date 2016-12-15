@@ -10,9 +10,12 @@ img {
 	margin: 0;
 	padding: 0;
 }
+
+a{
+	cursor: pointer;
+}
 .hotsalepage {
 	
-	font-family: '微软雅黑';
 	&-left {
 		background-color: #F7F7F7;
 		&-todayhotsale {
@@ -36,15 +39,12 @@ img {
 			}
 			.myswiper{
 				.swiper-container{
-					height: 500px;
+					height: 450px;
 					padding-top: 50px;
 					background: #fff;
 					.swiper-slide{
 						background: #fff;
-						height: 380px;
-						.swiper-pagination{
-							bottom: 35px;
-						}
+						height: 335px;
 						img{
 							width: 100%;
 							height: 250px;
@@ -68,8 +68,8 @@ img {
 								padding-left: 20px;
 							}
 							p:last-child{	
-								font-size: 14px;
-								color: #372f2c;
+								font-size: 12px;
+								color: #a89d99;
 								padding-left: 20px;
 								padding-right: 20px;
 							}
@@ -91,7 +91,7 @@ img {
 						}
 						&:hover{
 							z-index: 1000;
-							box-shadow: 10px 2px 20px #888888;
+							box-shadow: 0px 0px 30px 5px #888888;
 							img{
 								top: -30px;
 								opacity: 1;
@@ -102,14 +102,27 @@ img {
 							}
 						}
 					}
+					.swiper-pagination{
+						bottom: 30px;
+						.swiper-pagination-bullet{
+							border: 1px solid #000;
+							background: transparent;
+							&-active{
+								border: 1px solid #000;
+								background: #000;
+							}
+						}
+					}
 				}
 				.swiper-button-prev{
-					top: 570px;
-					left: 350px;
+					top: 510px;
+					left: 396px;
+					background-size: 20px 20px;
 				}
 				.swiper-button-next{
-					top: 570px;
-					right: 350px;
+					top: 510px;
+					right: 396px;
+					background-size: 20px 20px;
 				}
 			}
 
@@ -148,24 +161,24 @@ img {
 				ul li {
 					display: block;
 					float: left;
-					height: 335px;
-					margin: 6px 6px;
+					height: 360px;
+					margin: 6px 1px;
 					
 					&:nth-child(1) {
-						width: 440px;
-						height: 335px;
+						width: 511px;
+						height: 360px;
 						img{
 							width: 100%;
+							height: 100%
 						}
 					}
 
 				}
-
 				&-item {
 					background-color: #fff;
-					height: 335px;
+					height: 100%;
 					position: relative;
-					width: 214px;
+					width: 228px;
 		            overflow: hidden;
 		            img{
 		            	transition: transform 0.5s linear;
@@ -181,8 +194,8 @@ img {
 		            }
 					&-wimg {
 						position: absolute;
-						width: 214px;
-						height: 214px;
+						width: 228px;
+						height: 228px;
 						img{
 							width: 100%;
 							height: 100%;
@@ -191,8 +204,8 @@ img {
 
 					&-price {
 						position: absolute;
-						top: 215px;
-						left: 10px;
+						top: 234px;
+						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
 						font-size: 22px;
@@ -201,8 +214,8 @@ img {
 
 					&-title {
 						position: absolute;
-						top: 255px;
-						left: 10px;
+						top: 284px;
+						left: 4px;
 						margin: 0;
 						padding: 10px;
 						font-size: 14px;
@@ -213,29 +226,103 @@ img {
 	                    > a {
 		                    color: #675C5A;
 		                }
-		                a:hover{
-		                    color: @ck-main;
-		                }
 					}
 
 					&-spanleft {
 						position: absolute;
-						top: 300px;
-						left: 10px;
+						top: 322px;
+						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
-						font-size: 14px;
+						font-size: 12px;
 					}
 
 					&-spanright {
 						position: absolute;
-						top: 300px;
-						right: 10px;
+						top: 322px;
+						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
-						font-size: 14px;
+						font-size: 12px;
 					}
 
+				}
+				.girlLineTwo{
+					margin: 10px 2px;
+					width: 239px;
+					.hotsalepage-left-womenhotsale-links-item {
+						background-color: #fff;
+						height: 100%;
+						position: relative;
+						width: 100%;
+			            overflow: hidden;
+			            img{
+			            	transition: transform 0.5s linear;
+			            	-o-transition: transform 0.5s linear;
+			            	-moz-transition: transform 0.5s linear;
+			            	-webkit-transition: transform 0.5s linear;
+			            	&:hover{
+			            		transform: scale(1.05);
+			            		-o-transform: scale(1.05);
+			            		-moz-transform: scale(1.05);
+			            		-webkit-transform: scale(1.05);
+			            	}
+			            }
+						&-wimg {
+							position: absolute;
+							width: 239px;
+							height: 239px;
+							img{
+								width: 100%;
+								height: 100%;
+							}
+						}
+
+						&-price {
+							position: absolute;
+							top: 234px;
+							left: 4px;
+							padding: 10px;
+							color: @ck-sub;
+							font-size: 22px;
+							letter-spacing: 1px;
+						}
+
+						&-title {
+							position: absolute;
+							top: 284px;
+							left: 4px;
+							margin: 0;
+							padding: 10px;
+							font-size: 14px;
+							width: 210px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+		                    white-space: nowrap;
+		                    > a {
+			                    color: #675C5A;
+			                }
+						}
+
+						&-spanleft {
+							position: absolute;
+							top: 322px;
+							left: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 12px;
+						}
+
+						&-spanright {
+							position: absolute;
+							top: 322px;
+							right: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 12px;
+						}
+
+					}
 				}
 
 			}
@@ -247,19 +334,21 @@ img {
 				position: relative;
 				margin-top: 50px;
 				padding: 0;
-				&-hotthree {
-					background-color: @ck-sub;
+				
+				&-hottwo {
+					background-color: #FF66F2;
 					color: #fff;
 					font-size: 24px;
 					padding-left: 5px;
 					padding-right: 5px;
 				}
 
-				&-hotthreetitle {
+				&-hottwotitle {
 					font-size: 24px;
 					padding-left: 10px;
 					padding-right: 10px;
 				}
+
 				&-moreicon {
 					position: absolute;
 					right: 0;
@@ -273,25 +362,25 @@ img {
 				ul li {
 					display: block;
 					float: left;
-					height: 335px;
-					margin: 6px 6px;
-
+					height: 360px;
+					margin: 6px 1px;
+					
 					&:nth-child(1) {
-						width: 440px;
-						height: 335px;
+						width: 511px;
+						height: 360px;
 						img{
 							width: 100%;
+							height: 100%
 						}
 					}
 
 				}
-
 				&-item {
 					background-color: #fff;
-					height: 335px;
+					height: 100%;
 					position: relative;
-					width: 214px;
-					overflow: hidden;
+					width: 228px;
+		            overflow: hidden;
 		            img{
 		            	transition: transform 0.5s linear;
 		            	-o-transition: transform 0.5s linear;
@@ -304,11 +393,10 @@ img {
 		            		-webkit-transform: scale(1.05);
 		            	}
 		            }
-
 					&-mimg {
 						position: absolute;
-						width: 214px;
-						height: 214px;
+						width: 228px;
+						height: 228px;
 						img{
 							width: 100%;
 							height: 100%;
@@ -317,8 +405,8 @@ img {
 
 					&-price {
 						position: absolute;
-						top: 215px;
-						left: 10px;
+						top: 234px;
+						left: 4px;
 						padding: 10px;
 						color: @ck-sub;
 						font-size: 22px;
@@ -327,9 +415,8 @@ img {
 
 					&-title {
 						position: absolute;
-						top: 255px;
-						left: 10px;
-						word-wrap: break-word;
+						top: 284px;
+						left: 4px;
 						margin: 0;
 						padding: 10px;
 						font-size: 14px;
@@ -340,15 +427,12 @@ img {
 	                    > a {
 		                    color: #675C5A;
 		                }
-		                a:hover{
-		                    color: @ck-main;
-		                }
 					}
 
 					&-spanleft {
 						position: absolute;
-						top: 300px;
-						left: 10px;
+						top: 322px;
+						left: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
@@ -356,13 +440,90 @@ img {
 
 					&-spanright {
 						position: absolute;
-						top: 300px;
-						right: 10px;
+						top: 322px;
+						right: 4px;
 						padding: 10px;
 						color: #AA9C99;
 						font-size: 14px;
 					}
 
+				}
+				.boyLineTwo{
+					margin: 10px 2px;
+					width: 239px;
+					.hotsalepage-left-manhotsale-links-item {
+						background-color: #fff;
+						height: 100%;
+						position: relative;
+						width: 100%;
+			            overflow: hidden;
+			            img{
+			            	transition: transform 0.5s linear;
+			            	-o-transition: transform 0.5s linear;
+			            	-moz-transition: transform 0.5s linear;
+			            	-webkit-transition: transform 0.5s linear;
+			            	&:hover{
+			            		transform: scale(1.05);
+			            		-o-transform: scale(1.05);
+			            		-moz-transform: scale(1.05);
+			            		-webkit-transform: scale(1.05);
+			            	}
+			            }
+						&-mimg {
+							position: absolute;
+							width: 239px;
+							height: 239px;
+							img{
+								width: 100%;
+								height: 100%;
+							}
+						}
+
+						&-price {
+							position: absolute;
+							top: 234px;
+							left: 4px;
+							padding: 10px;
+							color: @ck-sub;
+							font-size: 22px;
+							letter-spacing: 1px;
+						}
+
+						&-title {
+							position: absolute;
+							top: 284px;
+							left: 4px;
+							margin: 0;
+							padding: 10px;
+							font-size: 14px;
+							width: 210px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+		                    white-space: nowrap;
+		                    > a {
+			                    color: #675C5A;
+			                }
+						}
+
+						&-spanleft {
+							position: absolute;
+							top: 322px;
+							left: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 14px;
+						}
+
+						&-spanright {
+							position: absolute;
+							top: 322px;
+							right: 4px;
+							padding: 10px;
+							color: #AA9C99;
+							font-size: 14px;
+						}
+
+					}
 				}
 
 			}
@@ -374,7 +535,7 @@ img {
 	&-right {
 		&-top {
 			position: relative;
-			margin-top: 14px;
+			margin-top: 18px;
 			padding:0;
 			&-myicon {
 				color: @ck-main;
@@ -384,6 +545,7 @@ img {
 
 			&-hotfourtitle {
 				font-size: 24px;
+				vertical-align: middle;
 			}
 
 		}
@@ -412,7 +574,7 @@ img {
 					background-color: @ck-main;
 					color: #fff;
 					padding: 2px 20px;
-					z-index: 9999;
+					z-index: 2;
 				}
 
 				&-himg {
@@ -431,16 +593,16 @@ img {
 
 				&-price {
 					position: absolute;
-					top: 190px;
-					left: 10px;
+					top: 184px;
+					left: 4px;
 					padding: 10px;
 					font-size: 22px;
 				}
 
 				&-title {
 					position: absolute;
-					top: 230px;
-					left: 10px;
+					top: 218px;
+					left: 4px;
 					word-wrap: break-word;
 					margin: 0;
 					padding: 10px;
@@ -452,15 +614,12 @@ img {
 	                > a {
 		                color: #675C5A;
 		            }
-		            a:hover{
-		                color: @ck-main;
-		            }
 				}
 
 				&-spanleft {
 					position: absolute;
 					top: 245px;
-					left: 10px;
+					left: 4px;
 					padding: 10px;
 					color: #AA9C99;
 				}

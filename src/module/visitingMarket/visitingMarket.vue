@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent></headerComponent>
+		<headerComponent pageName="visitPage"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -15,13 +15,13 @@
 							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu01.jpg" alt="">
+										<img src="../../assets/images/sanye.jpg" alt="">
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu02.jpg" alt="">
+										<img src="../../assets/images/xiangkesinanzhuang.jpg" alt="">
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/mingxingdianpu03.jpg" alt="">
+										<img src="../../assets/images/xiongmaoyunfuzhuang.jpg" alt="">
 									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
@@ -349,6 +349,7 @@
 							</div>
 						</div>
 					</div>
+					<gotop></gotop>
 				</div>
 			</div>
 		</div>
@@ -361,6 +362,7 @@
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
+	import gotop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
@@ -374,7 +376,7 @@
 		          paginationClickable: true,
 		          spaceBetween: 10,
 		          freeMode: true,
-		          autoplay: 3000,
+		          autoplay: false,
 		          slidesPerView: 1,
 		          prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
@@ -386,9 +388,20 @@
 			CkPagination,
 			CKHr,
 			CKSearch,
-			footerComponent
+			footerComponent,
+			gotop
 		},
 		mounted(){
+			$('.swiper-container').hover(
+					function(){
+						$('.swiper-button-prev').css('left','0').fadeIn('slow')
+						$('.swiper-button-next').css('right','0').fadeIn('slow')
+					},
+					function(){
+						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
+						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
+					}
+				)
 		}
 	}
 </script>
