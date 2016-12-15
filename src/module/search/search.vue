@@ -48,6 +48,7 @@
 	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')" @keyup="_subLowHigh($event,1,'high_price','low_price')"/>
 	    		<button @click="_subLowHigh">确定</button>
 	    	</p>
+	    	<!-- 浏览切换 -->
 	    	<span rel="stylesheet" :class="['icon-liebiao', isGridOrList == 1 ? 'selected' : '']" @click='_gridOrList($event, 1)'></span>
 	    	<span rel="stylesheet" :class="['icon-pingpumoshi', isGridOrList == 0 ? 'selected': '']" @click='_gridOrList($event, 0)'></span>
 	    </nav>
@@ -62,7 +63,7 @@
 			    				</a>
 			    				<ul>
 			    					<li>
-			    						<b>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
+			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
 			    						<p style="display:none">
 			    							<span rel="stylesheet" class="icon-liulan"></span>150
 			    						</p>
@@ -74,7 +75,7 @@
 			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
-			    					<li v-if="false">图片</li>
+			    					<!-- <li v-if="false">图片</li> -->
 			    				</ul>
 			    			</li>
 			    		</ul>
@@ -248,6 +249,7 @@
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
 	  		this.isGridOrList = sessionStorage.getItem('browse')
+	  		console.log(this.isGridOrList)
 	  	}
 
 	  	// 获取搜索关键字
@@ -555,6 +557,7 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
+	  		console.log(this.isGridOrList)
 	  	},
 	  	// 分页跳转
 		  subPage (val) {

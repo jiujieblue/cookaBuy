@@ -9,7 +9,8 @@
 		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
-					<li><a href="./index.html">您好，欢迎光临柯咔商城！</a></li>
+					<li>您好，欢迎光临柯咔商城！</li>
+					<li><a href="./index.html">首页</a></li>
 					<li v-if="false"><a href="">请登录</a> | <a href="">免费注册</a></li>
 					<li v-if="false"><a href="">收藏本站</a></li>
 					<li v-if="false"><a href="">商家入驻</a></li>
@@ -46,20 +47,20 @@
 	</div>
 	<div class="container sellerAllProduct">
   	<div class="row sellerAllProduct-list">
-  		<ul>
+  		<ul style="display:none">
 	    	<li class="active">全部商品</li>
-	    	<li style="display:none">会员专区</li>
+	    	<li>会员专区</li>
 	    </ul>
 	    <div>
 	    	<p>
-	    		<span>商品分类</span>
-	    		<span>共 {{ cats.length }} 件相关商品</span>
+	    		<span>{{ keyword ||	 '商品分类'}}</span>
+	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
 	    	<div v-if="cats.length != 0">
 	    		<span>女士/女士精品：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
-		    			<span>{{ cat.name }}</span>
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
 		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" v-if="isHeiBig" :class="{HeiBig : isHeiBig}">更多</span>
@@ -100,7 +101,7 @@
     				</a>
     				<ul>
     					<li>
-    						<b>￥&nbsp;{{ _priceEtc(_isKey(product,'price')) }}</b>
+    						<b>￥{{ _priceEtc(_isKey(product,'price')) }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
@@ -121,7 +122,7 @@
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
-    				<b>￥&nbsp;{{ _priceEtc(showcase.price) }}</b>
+    				<span>￥&nbsp;{{ _priceEtc(showcase.price) }}</span>
     			</li>
     		</ul>
     	</div>
@@ -147,6 +148,7 @@
 	      total_pages: Number,
 	      showcases: [],
 	      storesInfo: null,
+	      total_entries: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -198,6 +200,7 @@
 			    me.cats = res.data.cats
 		    	me.productsAll = res.data.data
 		    	me.total_pages = res.data.total_pages
+		    	me.total_entries = res.data.total_entries
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
@@ -211,6 +214,7 @@
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
+		    	me.total_entries = res.data[2].hits.total
 		    },
 		    function (res) {
 		    	console.log(res)
@@ -462,7 +466,11 @@
 	  		if(n && e.which != 13){
 	  			return
 	  		}
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
+	  		if(this.keyword){
+	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
+	  		}else{
+	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"
+	  		}
 	  	}
 	  },
 	  components: {
