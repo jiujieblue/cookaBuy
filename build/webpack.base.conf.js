@@ -18,7 +18,6 @@ module.exports = {
     'module/publicDetail': './src/module/publicDetail/publicDetail.js',
     'module/contactUs': './src/module/contactUs/contactUs.js',
     'module/aboutUs': './src/module/aboutUs/aboutUs.js'
-
   },
   output: {
     path: config.build.assetsRoot,

@@ -4,7 +4,6 @@ var merge = require('webpack-merge')
 var utils = require('./utils')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-
 var path = require('path');
 var glob = require('glob');
 
