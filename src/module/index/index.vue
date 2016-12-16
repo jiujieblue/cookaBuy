@@ -85,17 +85,20 @@
 										<span class="icon-gengduo"></span>
 									</a>
 								</h4>
-								<div class="index-note-body">
-									<div class="img">
+								<!-- <div class="index-note-body">
+									<div v-if="false" class="img">
 										<img src="../../assets/images/announcement.png" alt="">
 									</div>
-									<p>暂无公告</p>
-								</div>
-								<div class="index-note-items" v-if="false">
-									<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
+									<p v-if="false">暂无公告</p>
+								</div> -->
+								<div class="index-note-items">
+									<a href="./publicDteail.html" class="index-note-item">
+										[公告] 柯咔公告
+									</a>
+									<!--<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
 									</a>
-									<!--<a class="index-note-item">
+									<a class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
 									</a>
 									<a class="index-note-item">
@@ -150,10 +153,13 @@
 														<div class="img">
 															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a ><span class="store">{{sideproductsItem.nick}}</span></a>
-														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
-														</span>
-														<span>{{_times(sideproductsItem.list_time)}}</span>
+														<a><span class="store">{{sideproductsItem.nick}}</span></a>
+														<div class="extra">
+														{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
+														</div>
+														 <div class="time">
+														 {{_times(sideproductsItem.list_time)}}
+														 </div>
 													</div>
 												</a>
 											</li>

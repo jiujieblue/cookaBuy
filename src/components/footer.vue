@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="footer-links">
-			<a href="" class="footer-link">关于我们</a>
+			<a href="./aboutUs.html" class="footer-link">关于我们</a>
 			<a href="" class="footer-link">联系我们</a>
 			<a href="" class="footer-link" style="display:none">商家入驻</a>
 			<p class="footer-copy">Copyright&copy;2016 广州柯咔网络科技有限公司&nbsp;&nbsp;www.cookabuy.com&nbsp;&nbsp;粤ICP备15091531号&nbsp;&nbsp;客服热线:

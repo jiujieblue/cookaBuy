@@ -23,6 +23,12 @@
 									<swiper-slide>
 										<img src="../../assets/images/xiongmaoyunfuzhuang.jpg" alt="">
 									</swiper-slide>
+									<swiper-slide>
+										<img src="../../assets/images/zunyichaonan.jpg" alt="">
+									</swiper-slide>
+									<swiper-slide>
+										<img src="../../assets/images/feiyiban.jpg" alt="">
+									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
 								</swiper>
