@@ -61,7 +61,7 @@
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
 			    				</a>
-			    				<ul>
+			    				<ul data_ul="index">
 			    					<li>
 			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
 			    						<p style="display:none">
@@ -92,10 +92,10 @@
 			    					</li>
 			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
-			    				<!-- <ul>
+			    				<ul>
 			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
 			    					<li style="display:none">预留图片</li>
-			    				</ul> -->
+			    				</ul>
 			    			</li>
 			    		</ul>
 			    	</div>
@@ -249,7 +249,6 @@
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
 	  		this.isGridOrList = sessionStorage.getItem('browse')
-	  		console.log(this.isGridOrList)
 	  	}
 
 	  	// 获取搜索关键字
@@ -557,7 +556,6 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
-	  		console.log(this.isGridOrList)
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
