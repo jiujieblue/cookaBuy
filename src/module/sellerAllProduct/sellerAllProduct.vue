@@ -39,8 +39,8 @@
 				</ul>
 				<p>
 					<span>商&nbsp;&nbsp;品</span>
-					<input :value="keyword" type="text" @keyup="_subkeyword($event, 1)" placeholder="搜索关键字..." ref="keyword">
-					<button @click="_subkeyword">搜本店</button>
+					<input :value="keyword" type="text" :class="{disabled: isDisabled}" placeholder="搜索关键字..." ref="keyword" @blur="_keywordL" @keyup="_subkeyword($event, 1)">
+					<button @click="_subkeyword" :disabled="isDisabled">搜本店</button>
 				</p>
 			</div>
 		</div>
@@ -53,16 +53,10 @@
 	    </ul>
 	    <div>
 	    	<p>
-	    		<span v-if="!keyword">商品分类</span>
-	    		<span v-if="keyword" :class="['keyword',isCla ? 'active' : '']" @mouseover="_claOver($event)" @mouseout="_claOut($event)">{{ keyword }}</span>
-	    		<ul v-show="isCla" @mouseover="_claOver($event)" @mouseout="_claOut($event)">
-		    		<li v-for="(cat,index) in cats">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
-		    		</li>
-	    		</ul>
+	    		<span>商品分类</span>
 	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
-	    	<div v-if="!keyword">
+	    	<div>
 	    		<span>{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
@@ -182,7 +176,8 @@
 					high_price: ''
 				},
 				keyword: '',
-				isCla: false
+				isCla: false,
+				isDisabled: false
 	    }
 	  },
 	  mounted () {
@@ -191,6 +186,9 @@
 
 	  	if(sessionStorage.getItem('cats')){
 	  		this.cats = JSON.parse((sessionStorage.getItem('cats')))
+	  	}
+	  	if(sessionStorage.getItem('root_cat')){
+	  		this.root_cat = JSON.parse((sessionStorage.getItem('root_cat')))
 	  	}
 
 	  	// 从链接中拿取 store_id
@@ -215,6 +213,7 @@
 		    	me.total_pages = res.data.total_pages
 		    	me.total_entries = res.data.total_entries
 		    	me.root_cat = res.data.root_cat
+			    sessionStorage.setItem('root_cat',JSON.stringify(res.data.root_cat))
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
@@ -344,7 +343,7 @@
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + '&q=' + this.keyword
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
@@ -361,7 +360,7 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + '&q=' + this.keyword
 		  },
 	  	// 关注本店
 	  	subStor () {
@@ -404,7 +403,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + '&q=' + this.keyword
 		  		}
 	  		}
 	  	},
@@ -481,7 +480,21 @@
 	  			return
 	  		}
 	  	},
+
+			_keywordL (e) {
+				var val =  this.keyword = e.target.value
+				val = val.replace(/\s/g,'')
+				if(val.length >= 5){
+					this.isDisabled = true
+				}else{
+					this.isDisabled = false
+				}
+			},
 	  	_subkeyword (e,n) {
+	  		var regH = /<[^>]*>/g
+	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var val = this.$refs.keyword.value
+	  		val = val.replace(regH,'').replace(regStr,'')
 	  		if(n && e.which != 13){
 	  			return
 	  		}

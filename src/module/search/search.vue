@@ -19,7 +19,7 @@
 	  			</li>
 	  		</ul>
 	  		<div v-if="isnosearchR">
-	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key]">  				
+	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
 	  					<ul :ref="'aggregation'+index">
@@ -72,7 +72,7 @@
 			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
-			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>
+			    						<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
 			    					<!-- <li v-if="false">图片</li> -->
@@ -90,7 +90,10 @@
 			    					<li>
 			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
-			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    					<li>
+				    					<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
+				    					{{ hit._source.market }} {{ hit._source.store_number }}
+			    					</li>
 			    				</ul>
 			    				<ul>
 			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
@@ -139,7 +142,7 @@
 	    <div class="row search-aginsearch">
 	   		<p>没有找到合适的商品？您可以搜索：</p>
 	   		<!-- 搜索框 -->
-	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
+	   		<CkSearch @subKeyword="_subkeyword"></CkSearch>
 	    </div>
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
@@ -487,52 +490,71 @@
 	  		var reg = /^\d(\d|.)*$/
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		if(reg.test(val1)){
-	  			if(this.lHPrice_str[str1]){
-		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
-		  				this.lHPrice_isNot[str1] = false
-		  				return
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
+	  		if(reg.test(val1)){ // 是否是数字
+	  			if(val1 == 0){
+	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
+	  					console.log(2)
+	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
-	  					if(val1 == 0){
-	  						return
-	  					}
-		  			}
-	  			}else if(val1 == 0){
-	  				e.target.value = ''
-	  				this.lHPrice_isNot[str1] = false
-	  				return
-	  			}
-	  			if(val2){
-	  				if(str1 == 'low_price'){
-	  					if(val1 < val2){
-	  						this.lHPrice_isNot[str1] = true
-	  						this.lHPrice_isNot.ifSub = true
-	  					}else{
-	  						e.target.value = ''
-	  						this.lHPrice_isNot[str1] = false
-	  						this.lHPrice_isNot.ifSub = false
-	  						return
-	  					}
+	  					return
 	  				}else{
-	  					if(val1 > val2){
-	  						this.lHPrice_isNot[str1] = true
-	  						this.lHPrice_isNot.ifSub = true
-	  					}else{
-	  						e.target.value = ''
-	  						this.lHPrice_isNot[str1] = false
-	  						this.lHPrice_isNot.ifSub = false
-	  						return
-	  					}
+	  					this.lHPrice_isNot[str1] = false
+	  					this.lHPrice_isNot.ifSub = false
+	  					return
 	  				}
 	  			}else{
-	  				this.lHPrice_isNot[str1] = true
-	  				this.lHPrice_isNot.ifSub = true
+		  			if(val2){ // 比较大小
+		  				if(str1 == 'low_price'){
+		  					if(val1 <= val2){
+		  						this.lHPrice_isNot[str1] = true
+		  						this.lHPrice_isNot.ifSub = true
+		  					}else{
+		  						e.target.value = ''
+		  						this.lHPrice_isNot[str1] = false
+		  						this.lHPrice_isNot.ifSub = false
+		  						return
+		  					}
+		  				}else{
+		  					if(val1 >= val2){
+		  						this.lHPrice_isNot[str1] = true
+		  						this.lHPrice_isNot.ifSub = true
+		  					}else{
+		  						e.target.value = ''
+		  						this.lHPrice_isNot[str1] = false
+		  						this.lHPrice_isNot.ifSub = false
+		  						return
+		  					}
+		  				}
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+		  				this.lHPrice_isNot.ifSub = true
+		  			}
+		  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
+		  				// 已搜索和现搜索是否一样
+			  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+			  				this.lHPrice_isNot[str1] = false
+			  				if(this.lHPrice_isNot[str2]){
+	  							this.lHPrice_isNot.ifSub = true
+	  							return
+	  						}else{
+	  							this.lHPrice_isNot.ifSub = false
+	  							return
+	  						}
+			  				return
+			  			}else{
+			  				this.lHPrice_isNot[str1] = true
+		  					this.lHPrice_isNot.ifSub = true
+			  			}
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+		  				this.lHPrice_isNot.ifSub = true
+		  				return
+		  			}
 	  			}
 	  		}else{
 	  			e.target.value = ''
 	  			this.lHPrice_isNot[str1] = false
+	  			this.lHPrice_isNot.ifSub = false
 	  			return
 	  		}
 	  	},
