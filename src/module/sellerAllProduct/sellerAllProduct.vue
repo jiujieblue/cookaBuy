@@ -54,7 +54,7 @@
 	    <div>
 	    	<p>
 	    		<span v-if="!keyword">商品分类</span>
-	    		<span v-if="keyword" class="keyword" @mouseover="_claOver($event)" @mouseout="_claOut($event)">{{ keyword }}</span>
+	    		<span v-if="keyword" :class="['keyword',isCla ? 'active' : '']" @mouseover="_claOver($event)" @mouseout="_claOut($event)">{{ keyword }}</span>
 	    		<ul v-show="isCla" @mouseover="_claOver($event)" @mouseout="_claOut($event)">
 		    		<li v-for="(cat,index) in cats">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
@@ -191,7 +191,6 @@
 
 	  	if(sessionStorage.getItem('cats')){
 	  		this.cats = JSON.parse((sessionStorage.getItem('cats')))
-	  		console.log(this.cats)
 	  	}
 
 	  	// 从链接中拿取 store_id
