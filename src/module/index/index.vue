@@ -92,7 +92,7 @@
 									<p v-if="false">暂无公告</p>
 								</div> -->
 								<div class="index-note-items">
-									<a href="./publicDteail.html" class="index-note-item">
+									<a href="./publicDetail.html" class="index-note-item">
 										[公告] 柯咔公告
 									</a>
 									<!--<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">

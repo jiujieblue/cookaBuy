@@ -241,6 +241,13 @@ var proxyTable = {
     pathRewrite:{
       '^/api/stores':'/api/stores'
     }
+  },
+  '/api/categories':{
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/categories':'/api/categories'
+    }
   }
 }
 
