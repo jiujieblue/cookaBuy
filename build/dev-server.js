@@ -226,9 +226,17 @@ var proxyTable = {
     pathRewrite: {
       '^/api': '/api'
     }
-  }
+  },
+  //  ybz_searchs
+  '/s1/searchs': {
+    target: 'http://119.29.224.238',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '/api'
+    }
+  },
   '/api/stores':{
-    target: 'http://localhost:4000'，
+    target: 'http://localhost:4000',
     changeOrigin: true,
     pathRewrite:{
       '^/api/stores':'/api/stores'
