@@ -39,7 +39,7 @@
 				</ul>
 				<p>
 					<span>商&nbsp;&nbsp;品</span>
-					<input v-model="keyword" type="text" @keyup="_subkeyword($event, 1)" placeholder="全场优惠活动火热进行中">
+					<input :value="keyword" type="text" @keyup="_subkeyword($event, 1)" placeholder="搜索关键字..." ref="keyword">
 					<button @click="_subkeyword">搜本店</button>
 				</p>
 			</div>
@@ -53,11 +53,17 @@
 	    </ul>
 	    <div>
 	    	<p>
-	    		<span>{{ keyword ||	 '商品分类'}}</span>
+	    		<span v-if="!keyword">商品分类</span>
+	    		<span v-if="keyword" :class="['keyword',isCla ? 'active' : '']" @mouseover="_claOver($event)" @mouseout="_claOut($event)">{{ keyword }}</span>
+	    		<ul v-show="isCla" @mouseover="_claOver($event)" @mouseout="_claOut($event)">
+		    		<li v-for="(cat,index) in cats">
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
+		    		</li>
+	    		</ul>
 	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
-	    	<div v-if="cats.length != 0">
-	    		<span>女士/女士精品：</span>
+	    	<div v-if="!keyword">
+	    		<span>{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
@@ -149,6 +155,7 @@
 	      showcases: [],
 	      storesInfo: null,
 	      total_entries: '',
+	      root_cat: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -174,12 +181,17 @@
 					low_price: '',
 					high_price: ''
 				},
-				keyword: ''
+				keyword: '',
+				isCla: false
 	    }
 	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefStr = window.location.href
+
+	  	if(sessionStorage.getItem('cats')){
+	  		this.cats = JSON.parse((sessionStorage.getItem('cats')))
+	  	}
 
 	  	// 从链接中拿取 store_id
 	  	this._calcuInfo('store_id', hrefStr, 9)
@@ -198,9 +210,11 @@
 		    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 		    .then(function (res) {
 			    me.cats = res.data.cats
+			    sessionStorage.setItem('cats',JSON.stringify(res.data.cats))
 		    	me.productsAll = res.data.data
 		    	me.total_pages = res.data.total_pages
 		    	me.total_entries = res.data.total_entries
+		    	me.root_cat = res.data.root_cat
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
@@ -210,7 +224,7 @@
 		    })
 	  	}else{
 		    // 搜索本店
-		    this.$http.get('/api/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword)
+		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword)
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
@@ -240,6 +254,12 @@
 	    })
 	  },
 	  methods : {
+	  	_claOver (e) {
+	  		this.isCla = true
+	  	},
+	  	_claOut (e) {
+				this.isCla = false
+	  	},
 	  	_priceEtc (val) {
 	  		var i = val.indexOf('.'),str = ''
 	  		if(i != -1){
@@ -465,6 +485,7 @@
 	  		if(n && e.which != 13){
 	  			return
 	  		}
+	  		this.keyword = this.$refs.keyword.value
 	  		if(this.keyword){
 	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
 	  		}else{

@@ -82,7 +82,7 @@
 			    	</div>
 			    	<div class="search-product-left-succee-list" v-if='isGridOrList == 1'>
 			    		<ul>
-			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id">
+			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'">
 			    				</a>
@@ -92,10 +92,10 @@
 			    					</li>
 			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
-			    				<ul>
+			    				<!-- <ul>
 			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
 			    					<li style="display:none">预留图片</li>
-			    				</ul>
+			    				</ul> -->
 			    			</li>
 			    		</ul>
 			    	</div>
@@ -282,7 +282,7 @@
 	  	if(this.q){
 	  		hrefUrlStr = this.q+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
-		  	this.$http.get('/api/searchs?' + hrefUrlStr)
+		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations = res.data[2].aggregations
 		  		this.hits = res.data[2].hits
