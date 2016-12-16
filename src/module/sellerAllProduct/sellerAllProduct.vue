@@ -9,7 +9,8 @@
 		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
-					<li><a href="./index.html">您好，欢迎光临柯咔商城！</a></li>
+					<li>您好，欢迎光临柯咔商城！</li>
+					<li><a href="./index.html">首页</a></li>
 					<li v-if="false"><a href="">请登录</a> | <a href="">免费注册</a></li>
 					<li v-if="false"><a href="">收藏本站</a></li>
 					<li v-if="false"><a href="">商家入驻</a></li>
@@ -46,20 +47,20 @@
 	</div>
 	<div class="container sellerAllProduct">
   	<div class="row sellerAllProduct-list">
-  		<ul>
+  		<ul style="display:none">
 	    	<li class="active">全部商品</li>
-	    	<li style="display:none">会员专区</li>
+	    	<li>会员专区</li>
 	    </ul>
 	    <div>
 	    	<p>
-	    		<span>商品分类</span>
-	    		<span>共 {{ cats.length }} 件相关商品</span>
+	    		<span>{{ keyword ||	 '商品分类'}}</span>
+	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
 	    	<div v-if="cats.length != 0">
 	    		<span>女士/女士精品：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
-		    			<span>{{ cat.name }}</span>
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
 		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" v-if="isHeiBig" :class="{HeiBig : isHeiBig}">更多</span>
@@ -100,7 +101,7 @@
     				</a>
     				<ul>
     					<li>
-    						<b>￥&nbsp;{{ _priceEtc(_isKey(product,'price')) }}</b>
+    						<b>￥{{ _priceEtc(_isKey(product,'price')) }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
@@ -121,7 +122,7 @@
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
-    				<b>￥&nbsp;{{ _priceEtc(showcase.price) }}</b>
+    				<span>￥&nbsp;{{ _priceEtc(showcase.price) }}</span>
     			</li>
     		</ul>
     	</div>
@@ -147,6 +148,7 @@
 	      total_pages: Number,
 	      showcases: [],
 	      storesInfo: null,
+	      total_entries: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -198,6 +200,7 @@
 			    me.cats = res.data.cats
 		    	me.productsAll = res.data.data
 		    	me.total_pages = res.data.total_pages
+		    	me.total_entries = res.data.total_entries
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
@@ -211,6 +214,7 @@
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
+		    	me.total_entries = res.data[2].hits.total
 		    },
 		    function (res) {
 		    	console.log(res)
@@ -367,14 +371,14 @@
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
-		  				if(this.$refs.low_price.value == 0 || !this.$refs.low_price.value){
+		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
-		  				if(this.$refs.high_price.value == 0 || !this.$refs.high_price.value){
+		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
@@ -389,18 +393,17 @@
 	  		var reg = /^\d(\d|.)*$/
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
-	  				if(this.lHPrice_str[str1]){
+	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
+	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
 	  				}else{
-	  					e.target.value = ''
 	  					this.lHPrice_isNot[str1] = false
-		  				this.lHPrice_isNot.ifSub = false
-		  				return
+	  					this.lHPrice_isNot.ifSub = false
+	  					return
 	  				}
 	  			}else{
 		  			if(val2){ // 比较大小
@@ -462,7 +465,11 @@
 	  		if(n && e.which != 13){
 	  			return
 	  		}
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
+	  		if(this.keyword){
+	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
+	  		}else{
+	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"
+	  		}
 	  	}
 	  },
 	  components: {
