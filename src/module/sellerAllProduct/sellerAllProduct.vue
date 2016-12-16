@@ -185,10 +185,10 @@
 	  	var hrefStr = window.location.href
 
 	  	if(sessionStorage.getItem('cats')){
-	  		this.cats = JSON.parse((sessionStorage.getItem('cats')))
+	  		this.cats = JSON.parse(sessionStorage.getItem('cats'))
 	  	}
 	  	if(sessionStorage.getItem('root_cat')){
-	  		this.root_cat = JSON.parse((sessionStorage.getItem('root_cat')))
+	  		this.root_cat = sessionStorage.getItem('root_cat')
 	  	}
 
 	  	// 从链接中拿取 store_id
@@ -213,7 +213,7 @@
 		    	me.total_pages = res.data.total_pages
 		    	me.total_entries = res.data.total_entries
 		    	me.root_cat = res.data.root_cat
-			    sessionStorage.setItem('root_cat',JSON.stringify(res.data.root_cat))
+			    sessionStorage.setItem('root_cat',res.data.root_cat)
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
