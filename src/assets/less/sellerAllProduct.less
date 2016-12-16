@@ -25,10 +25,13 @@
 				padding: 5px 0;
 				.clearfix();
 				li{
-					margin-right: 30px;
 					float: left;
+					margin-right: 30px;
 					>a{
 						color: #372f2c;
+					}
+					&:nth-child(2){
+						float: right;
 					}
 					&:nth-child(3),
 					&:nth-child(4){
@@ -153,10 +156,23 @@
 			p{
 				.clearfix();
 				padding: 10px 0;
-				color: #a89d99;
 				span{
 					&:last-child{
 						float: right;
+						color: #a89d99;
+					}
+					&:first-child{
+						font-size: 16px;
+						&:before{
+							content: '';
+					    display: inline-block;
+					    width: 3px;
+					    position: relative;
+					    height: 15px;
+					    top: 2px;
+					    margin-right: 10px;
+					    background: #fcc505;
+						}
 					}
 				}
 			}
@@ -215,9 +231,6 @@
 					li{
 						float: left;
 						margin: 0 20px 5px 0;
-						span{
-							color: #a89d99;
-						}
 					}
 				}
 			}
@@ -295,6 +308,7 @@
 		}
 	}
 	&-product{
+		min-height: 500px;
 		&-left{
 			float: left;
 			width: 83%;
@@ -304,23 +318,23 @@
 					float: left;
 					width: 23.944%;
 					height: 350px;
-					padding: 10px 15px;
 					margin: 0 10px 10px 0;
-					border: 2px solid transparent;
+					border: 3px solid transparent;
 					background: #fff;
 					position: relative;
 					img{
 						width: 100%;
-						height: 202px;
+						height: 230px;
 					}
 					>ul{
-						margin: 15px 0 10px;
+						padding: 10px 15px;
 						li{
 							margin-bottom: 10px;
 							&:first-child{
 								b{
 									color: red;
-									font-size: 16px;
+									font-weight: normal;
+									font-size: 18px;
 								}
 								span.icon-shoucang{
 									float: right;
@@ -331,7 +345,7 @@
 							&:last-child{
 								width: 87%;
 								position: absolute;
-								bottom: 0;
+								bottom: -5px;
 								color: #a89d99;
 								button{
 									float: right;
@@ -363,7 +377,7 @@
 						}
 					}
 					&:hover{
-						border-color: #ececec;
+						border-color: #d4d4d4;
 					}
 				}
 			}
@@ -421,7 +435,7 @@
 							opacity: 0.8;
 						}
 					}
-					b{
+					span{
 						display: inline-block;
 						margin: 6px 0;
 					}

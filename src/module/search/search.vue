@@ -48,6 +48,7 @@
 	    		<input ref="high_price" type="text" placeholder="最高价" @blur="_priceVal($event,'high_price','low_price')" @keyup="_subLowHigh($event,1,'high_price','low_price')"/>
 	    		<button @click="_subLowHigh">确定</button>
 	    	</p>
+	    	<!-- 浏览切换 -->
 	    	<span rel="stylesheet" :class="['icon-liebiao', isGridOrList == 1 ? 'selected' : '']" @click='_gridOrList($event, 1)'></span>
 	    	<span rel="stylesheet" :class="['icon-pingpumoshi', isGridOrList == 0 ? 'selected': '']" @click='_gridOrList($event, 0)'></span>
 	    </nav>
@@ -62,7 +63,7 @@
 			    				</a>
 			    				<ul>
 			    					<li>
-			    						<b>￥&nbsp;{{ hit._source.price }}</b>
+			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
 			    						<p style="display:none">
 			    							<span rel="stylesheet" class="icon-liulan"></span>150
 			    						</p>
@@ -74,7 +75,7 @@
 			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
-			    					<li v-if="false">图片</li>
+			    					<!-- <li v-if="false">图片</li> -->
 			    				</ul>
 			    			</li>
 			    		</ul>
@@ -89,10 +90,10 @@
 			    					<li>
 			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
-			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">店铺名称</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
 			    				</ul>
 			    				<ul>
-			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
+			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
 			    					<li style="display:none">预留图片</li>
 			    				</ul>
 			    			</li>
@@ -118,7 +119,7 @@
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 		    				<img :src="hot.pic_url+'_180x180.jpg'">
 		    			</a>
-	    				<b>￥{{ hot.price }}</b>
+	    				<b>￥{{ _priceEtc(hot.price) }}</b>
 	    				<p>
 	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
@@ -149,7 +150,7 @@
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
-	    				<li><b>￥{{ hot.price }}</b></li>
+	    				<li><b>￥{{ _priceEtc(hot.price) }}</b></li>
 	    				<li>
 	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
@@ -248,6 +249,7 @@
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
 	  		this.isGridOrList = sessionStorage.getItem('browse')
+	  		console.log(this.isGridOrList)
 	  	}
 
 	  	// 获取搜索关键字
@@ -320,6 +322,19 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	_priceEtc (val) {
+	  		var i = val.indexOf('.'),str = ''
+	  		if(i != -1){
+	  			str = val.slice(i+1)
+	  			if(str.length == 1){
+	  				return val+'0'
+	  			}else if(str.length == 2){
+	  				return val
+	  			}
+	  		}else{
+	  			return val+'.00'
+	  		}
+	  	},
 	  	// 热销商品长度的控制
 	  	_hotLength (val) {
 	  		if(val){
@@ -542,6 +557,7 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
+	  		console.log(this.isGridOrList)
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
