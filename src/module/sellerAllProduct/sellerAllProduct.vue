@@ -57,7 +57,7 @@
 	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
 	    	<div>
-	    		<span>{{ root_cat }}：</span>
+	    		<span v-if="root_cat">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
