@@ -107,6 +107,7 @@
 							line-height: 36px;
 							padding: 0 10px;
 							border: 1px solid #d7d7d7;
+							border-right: none;
 							font-size: 16px;
 							text-align: center;
 						}
@@ -114,14 +115,20 @@
 							width: 280px;
 							padding: 0 10px;
 							border: 1px solid #d7d7d7;
-							border-left: none;
 							outline: none;
+							&.disabled{
+								border-color: red;
+							}
 						}
 						button{
 							padding: 0 10px;
 							border: none;
 							background: #fcc505;
 							font-size: 16px;
+							&[disabled]{
+								cursor: not-allowed;
+								opacity: .65;
+							}
 							&:hover{
 								background: #ffd131;
 							}
@@ -174,43 +181,6 @@
 					    margin-right: 10px;
 					    background: #fcc505;
 						}
-						&.keyword{
-							position: relative;
-							padding: 12px 30px 12px 0;
-							&:after{
-								content: '';
-								display: inline-block;
-								width: 8px;
-								height: 8px;
-								border-right: 1px solid #fcc505;
-								border-bottom: 1px solid #fcc505;
-								position: absolute;
-								top: 18px;
-								right: 10px;
-								transform: rotate(45deg);
-								transform-origin: 75% 75%;
-								transition: all 0.3s linear;
-							}
-							&.active{
-								&:after{
-									transform: rotate(225deg);
-								}
-							}
-						}
-					}
-				}
-				>ul{
-					position: absolute;
-			    top: 42px;
-			    left: 1px;
-			    background: #fff;
-			    width: 250px;
-			    z-index: 100;
-			    padding: 5px;
-			    box-shadow: 0 2px 8px 3px rgba(49, 49, 49, 0.18);
-					>li{
-						float: left;
-						padding: 5px;
 					}
 				}
 			}

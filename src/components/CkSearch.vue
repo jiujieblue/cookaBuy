@@ -9,9 +9,9 @@
 							<option value="s">店铺</option>
 						</select>
 					</span>
-					<input type="search" name="query" class="form-control" placeholder="搜索关键字..." ref="query" :value="keyword"/>
+					<input type="search" name="query" :class="['form-control',isDisabled ? 'disabled' : '']" placeholder="搜索关键字..." ref="query" :value="key" @blur="_keywordL"/>
 					<span class="input-group-btn">
-						<button type="submit" class="btn btn-primary" @click="_sub">
+						<button :disabled="isDisabled" type="submit" class="btn btn-primary" @click="_sub">
 							搜索
 						</button>
 					</span>
@@ -30,11 +30,33 @@ export default {
 	components:{
 		CkSearch
 	},
+	data () {
+		return{
+			isDisabled: false,
+			key: ''
+		}
+	},
+	mounted () {
+		this.key = this.keyword
+	},
 	methods: {
 		_sub (e) {
 			e.preventDefault()
 			var val = this.$refs.query.value
+  		var regH = /<[^>]*>/g
+  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+  		val = val.replace(regH,'')
+  		val = val.replace(regStr,'')
 			this.$emit('subKeyword',val)
+		},
+		_keywordL (e) {
+			var val =  this.key = e.target.value
+			val = val.replace(/\s/g,'')
+			if(val.length >= 100){
+				this.isDisabled = true
+			}else{
+				this.isDisabled = false
+			}
 		}
 	},
 	props: {
