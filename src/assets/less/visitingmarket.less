@@ -22,6 +22,24 @@
 		.swiper-box{
 			height: 314px;
 			margin-top: 20px;
+			.swiper-button-prev{
+				left: -40px;
+				right: auto;
+				background-size: 30px 30px;
+				background-color: rgba(0,0,0,0.4);
+				width: 40px;
+				height: 60px;
+				border-radius: 0 5px 5px 0;
+			}
+			.swiper-button-next{
+				left: auto;
+				right: -40px;
+				background-size: 30px 30px;
+				background-color: rgba(0,0,0,0.4);
+				width: 40px;
+				height: 60px;
+				border-radius: 5px 0 0px 5px;
+			}
 		}
 		.market-box{
 			margin-top: 20px;
@@ -126,15 +144,22 @@
 					div:nth-child(4){
 						color: #c4bebc;
 						margin: 10px;
+						font-size: 14px;
 					}
 					div:nth-child(5){
 						margin-bottom: 20px;
-						button{
+						.btn-link{
 							color: #fff;
 							background-color: @ck-sub;
 							border-radius: 15px;
-							padding:0 20px;
+							padding:2px 20px;
 							box-shadow: 1px 5px 10px #989898;
+							text-decoration: none;
+							font-size: 16px;
+							&:focus{
+								border: none;
+								outline: none;
+							}
 						}
 					}
 				}

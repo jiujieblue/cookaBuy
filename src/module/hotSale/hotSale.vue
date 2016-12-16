@@ -20,7 +20,7 @@
 												<a @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url"></a>
 												<div>
 													<p>¥{{sliderItem.price}}</p>
-													<a @click="_toSliderDetail(sliderIndex)"><p>{{sliderItem.title}}</p></a>
+													<p @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</p>
 												</div>
 												<!-- <div>
 													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>
@@ -43,11 +43,11 @@
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
 											<li><img src="../../assets/images/hotsale_women.jpg"/></li>
-											<li v-for="(girlItem, girlIndex) in girlData">
+											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
 													<a @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" /></a>
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
-													<a @click="_toGirlDetail(girlIndex)"><span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title">{{girlItem.title}}</span></a>
+													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.title}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
 												</div>
@@ -65,11 +65,11 @@
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
 											<li><img src="../../assets/images/hotsale_man.jpg"/></li>
-											<li v-for="(boyItem, boyIndex) in boyData">
+											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
 													<a @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url"/></a>
 													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
-													<a @click="_toBoyDetail(boyIndex)"><span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title">{{boyItem.title}}</span></a>
+													<span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.title}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.store.store_name}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
 												</div>
@@ -93,7 +93,7 @@
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
 												<a @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url"/></a>
 												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
-												<a @click="_toRightDetail(rightIndex)"><span :title="rightItem.title" class="hotsalepage-right-links-item-title">{{rightItem.title}}</span></a>
+												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.title}}</a></span>
 												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.store.store_name}}</a></span>
 											</div>
 										</li>
@@ -145,6 +145,18 @@
 			gotop
 		},
 		methods:{
+			_reGirlCla (i) {
+				if(i > 1){
+				console.log(i)
+					return "girlLineTwo"
+				}
+			},
+			_reBoyCla (i) {
+				if(i > 1){
+				console.log(i)
+					return "boyLineTwo"
+				}
+			},
 			_toSliderStore(t){
 				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].store.id)
 			},

@@ -33,49 +33,50 @@
 									<tr>
 										<td>市场</td>
 										<td>
-											<div><a href="#">全部</a></div>
-											<div><a href="#">新潮都</a></div>
-											<div><a href="#">灏丰(大西豪)</a></div>
-											<div><a href="#">长运</a></div>
-											<div><a href="#">长城</a></div>
+											<div><a>全部</a></div>
+											<div v-for="(marketItem, marketIndex) in markets" @click="_clickM(marketItem.market_name)"><a>{{marketItem.market_name}}</a></div>
+											<!-- <div><a>新潮都</a></div>
+											<div><a>灏丰(大西豪)</a></div>
+											<div><a>长运</a></div>
+											<div><a>长城</a></div> -->
 										</td>
 									</tr>
 									<tr>
 										<td>楼层</td>
 										<td>
-											<div><a href="#">全部</a></div>
-											<div><a href="#">1F东侧</a></div>
-											<div><a href="#">1F西侧</a></div>
-											<div><a href="#">1F一街A档</a></div>
-											<div><a href="#">1F</a></div>
-											<div><a href="#">2F</a></div>
-											<div><a href="#">3F</a></div>
-											<div><a href="#">4F</a></div>
-											<div><a href="#">5F</a></div>
-											<div><a href="#">6F</a></div>
-											<div><a href="#">7F</a></div>
-											<div><a href="#">8F</a></div>
-											<div><a href="#">三晟A区(1F)</a></div>
-											<div><a href="#">三晟B区(2F)</a></div>
-											<div><a href="#">三晟C区(-1F)</a></div>
+											<div><a>全部</a></div>
+											<div><a>1F东侧</a></div>
+											<div><a>1F西侧</a></div>
+											<div><a>1F一街A档</a></div>
+											<div><a>1F</a></div>
+											<div><a>2F</a></div>
+											<div><a>3F</a></div>
+											<div><a>4F</a></div>
+											<div><a>5F</a></div>
+											<div><a>6F</a></div>
+											<div><a>7F</a></div>
+											<div><a>8F</a></div>
+											<div><a>三晟A区(1F)</a></div>
+											<div><a>三晟B区(2F)</a></div>
+											<div><a>三晟C区(-1F)</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
-											<div><a href="#">女装</a></div>
-											<div><a href="#">男装</a></div>
-											<div><a href="#">童装</a></div>
-											<div><a href="#">孕妇装</a></div>
-											<div><a href="#">其他</a></div>
+											<div><a>女装</a></div>
+											<div><a>男装</a></div>
+											<div><a>童装</a></div>
+											<div><a>孕妇装</a></div>
+											<div><a>其他</a></div>
 										</td>
 									</tr>
 								</table>
 							</div>
 							<div class="crumb-box">
 								<ol class="breadcrumb">
-									<li><a href="#">长城</a></li>
-									<li><a href="#" class="active">1F</a></li>
+									<li><a>长城</a></li>
+									<li><a class="active">1F</a></li>
 								</ol>
 							</div>
 							<div class="storelist-box">
@@ -296,7 +297,7 @@
 										<img src="../../assets/images/test_img.jpg" alt="">
 									</div>
 									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
+									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
 									<div>
 										<span>宝立美服饰</span>
 										<span>大西豪823档</span>
@@ -307,7 +308,7 @@
 										<img src="../../assets/images/test_img.jpg" alt="">
 									</div>
 									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
+									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
 									<div>
 										<span>宝立美服饰</span>
 										<span>大西豪823档</span>
@@ -318,7 +319,7 @@
 										<img src="../../assets/images/test_img.jpg" alt="">
 									</div>
 									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
+									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
 									<div>
 										<span>宝立美服饰</span>
 										<span>大西豪823档</span>
@@ -329,7 +330,7 @@
 										<img src="../../assets/images/test_img.jpg" alt="">
 									</div>
 									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
+									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
 									<div>
 										<span>宝立美服饰</span>
 										<span>大西豪823档</span>
@@ -340,7 +341,7 @@
 										<img src="../../assets/images/test_img.jpg" alt="">
 									</div>
 									<div>¥&nbsp;500</div>
-									<div><a href="#">战地吉普男士牛仔卫裤2016春秋装新款</a></div>
+									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
 									<div>
 										<span>宝立美服饰</span>
 										<span>大西豪823档</span>
@@ -360,13 +361,14 @@
 <script>
 	import Vue from 'vue'
 	import AwesomeSwiper from 'vue-awesome-swiper'
+	import VueResource from 'vue-resource'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
 	import gotop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
-
+	Vue.use(VueResource)
 	Vue.use(AwesomeSwiper)
 	export default{
 		name:'carrousel',
@@ -380,7 +382,10 @@
 		          slidesPerView: 1,
 		          prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
-		        }
+		        },
+		        markets:[],
+		        floors:[],
+		        categories:[]
 			}
 		},
 		components:{
@@ -391,7 +396,42 @@
 			footerComponent,
 			gotop
 		},
+		methods:{
+			_clickM(t){
+				console.log(t)
+				this.$http.get('/api/stores?market='+t)
+				.then(
+					function(res){
+						this.floors = res.data.floors
+						console.log(this.floors)
+					},
+					function(err){
+
+					}
+				)
+			}
+		},
 		mounted(){
+			$('.swiper-container').hover(
+					function(){
+						$('.swiper-button-prev').css('left','0').fadeIn('slow')
+						$('.swiper-button-next').css('right','0').fadeIn('slow')
+					},
+					function(){
+						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
+						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
+					}
+				)
+			this.$http.get('/api/stores?page=2')
+			.then(
+				function(res){
+					this.markets = res.data.markets
+					console.log(this.markets)
+				},
+				function(err){
+					console.log(err)
+				}
+			)
 		}
 	}
 </script>

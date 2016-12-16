@@ -7,7 +7,7 @@
 						你好，欢迎光临柯咔商城！
 					</div>
 					<div class="col-md-3 trim-col">
-						<div class="text-left">
+						<div class="text-left" style="display:none">
 							<a href="#" class="header-top-link">
 								请登录
 							</a>
@@ -19,11 +19,11 @@
 					</div>
 					<div class="col-md-7">
 						<div class="text-right">
-							<a href="./index.html" class="header-top-link">首页</a>
-							<a href="#" class="header-top-link" style="margin-right: 30px;margin-left: 30px;">
+							<a href="./index.html" class="header-top-link" style="margin-right:10px;">首页</a>
+							<a href="#" class="header-top-link" style="display:none;margin-right: 30px;margin-left: 30px;">
 								商家入驻
 							</a>
-							<a href="#" class="header-top-link">
+							<a style="display:none" href="#" class="header-top-link">
 								收藏本站
 							</a>
 						</div>
