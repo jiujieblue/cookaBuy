@@ -1,7 +1,6 @@
 <template>
 <div>
-  <headerComponent pageName="detailPage"></headerComponent>
-
+  <headerComponent pageName="detailPage" @subKeyword="_subkeyword"></headerComponent>
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -486,6 +485,9 @@
           }
         }
         
+      },
+      _subkeyword(keyword){
+        window.location.href = "./search.html?q="+keyword
       },
       _r_detail (e,t) {
         window.location.href = './detail.html?' + this.showcase[t].num_iid
