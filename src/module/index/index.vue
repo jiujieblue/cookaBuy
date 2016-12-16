@@ -85,17 +85,20 @@
 										<span class="icon-gengduo"></span>
 									</a>
 								</h4>
-								<div class="index-note-body">
-									<div class="img">
+								<!-- <div class="index-note-body">
+									<div v-if="false" class="img">
 										<img src="../../assets/images/announcement.png" alt="">
 									</div>
-									<p>暂无公告</p>
-								</div>
-								<div class="index-note-items" v-if="false">
-									<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
+									<p v-if="false">暂无公告</p>
+								</div> -->
+								<div class="index-note-items">
+									<a href="./publicDteail.html" class="index-note-item">
+										[公告] 柯咔公告
+									</a>
+									<!--<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
 									</a>
-									<!--<a class="index-note-item">
+									<a class="index-note-item">
 										[公告] 我是标题我是标题我是标题我是标题我是标题
 									</a>
 									<a class="index-note-item">
@@ -150,9 +153,13 @@
 														<div class="img">
 															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a ><span class="store">{{sideproductsItem.nick}}</span></a>
-														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
-														</span>
+														<a><span class="store">{{sideproductsItem.nick}}</span></a>
+														<div class="extra">
+														{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
+														</div>
+														 <div class="time">
+														 {{_times(sideproductsItem.list_time)}}
+														 </div>
 													</div>
 												</a>
 											</li>
@@ -367,6 +374,7 @@ export default {
 	        stores:[],
 	        products:[],
 	        sideproducts:[],
+	        list_time:[],
 	        announcements:[],
 	        girls:[],
 	        boys:[],
@@ -401,9 +409,28 @@ export default {
 	         }
 	       )
 		},
+		_times (t) {
+			var date = new Date().getTime()
+			var subTime = date - t
+			subTime = subTime/1000/60
+			if (subTime < 1) {
+				return '1分钟前'
+			}
+			else if (subTime < 1 * 60) {
+				return parseInt(subTime) + '分钟前'
+			}
+			else if (subTime < 1 * 60 * 24){
+				return parseInt(subTime/60) + '小时前'
+			}
+			else if (subTime < 1 * 60 * 24 * 30){
+				return parseInt(subTime/60/24) + '天前'
+			}
+			else {
+				return parseInt(subTime/60/24/30) + '个月前'
+			}
+	    },
 		_goMore(str){
-			//window.open("./search.html?q="+ str)
-			console.log(str)
+			window.open("./search.html?q="+ str)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
@@ -489,6 +516,7 @@ export default {
         	for(var i = 0 ; i < this.sideproducts.length ; i++){
              	this.sideproducts[i].pic_url += '_80x80.jpg'
              }
+             
         },function(err){
           console.log(err)
         }

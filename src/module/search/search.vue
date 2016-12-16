@@ -249,7 +249,6 @@
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
 	  		this.isGridOrList = sessionStorage.getItem('browse')
-	  		console.log(this.isGridOrList)
 	  	}
 
 	  	// 获取搜索关键字
@@ -557,7 +556,6 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
-	  		console.log(this.isGridOrList)
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
