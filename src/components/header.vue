@@ -59,29 +59,10 @@
 
 					<ul class="header-category-lv-1">
 						<li>
-							<a href="#">一级类目 <span class="icon-xianghou"/></a>
+							<a id="daohangLVone" v-for="(daohangoneItem, daohangoneIndex) in daohangone">{{daohangoneItem.name}}{{daohangoneItem.cid}} <span class="icon-xianghou"/></a>
 							<ul class="header-category-lv-2">
 								<li>
-									<a href="#">二级类目</a>
-									<ul class="header-category-lv-3">
-										<li><a href="#">三级类目</a></li>
-										<li><a href="#">三级类目</a></li>
-									</ul>
-								</li>
-								<li>
-									<a href="#">二级类目</a>
-									<ul class="header-category-lv-3">
-										<li><a href="#">三级类目</a></li>
-										<li><a href="#">三级类目</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">一级类目 <span class="icon-xianghou"/></a>
-							<ul class="header-category-lv-2">
-								<li>
-									<a href="#">二级类目</a>
+									<a v-for="(daohangtwoItem, daohangtwoIndex) in daohangtwo">{{daohangtwoItem.name}}</a>
 									<ul class="header-category-lv-3">
 										<li><a href="#">三级类目</a></li>
 										<li><a href="#">三级类目</a></li>
@@ -106,8 +87,17 @@
 <script>
 import Vue from 'vue'
 import CkSearch from 'components/CkSearch'
-
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 export default{
+	data(){
+		return{
+			daohangone:[],
+			daohangtwo:[],
+			daohangthree:[],
+			cid:''
+		}
+	},
 	components:{
 		CkSearch
 	},
@@ -115,6 +105,7 @@ export default{
 		_subkey (val) {
 			this.$emit('subKeyword',val)
 		}
+		
 	},
 	props: {
 		keyword: {
@@ -123,6 +114,43 @@ export default{
 		pageName: {
 			default: ''
 		}
+	},
+	mounted(){
+		// this.$http.get('/api/categories')
+		// .then(
+		// 	function(res){
+		// 		this.daohangone = res.data.data
+		// 		this.cid = res.data.data.cid
+		// 		for(var i = 0 ; i < this.daohangone.length ; i++){
+		// 			this.cid = this.daohangone[i].cid
+		// 			this.$http.get('/api/categories?pid='+this.cid)
+		// 			.then(
+		// 				function(res){
+		// 					this.daohangtwo = res.data.data
+		// 					for(var i = 0 ; i < this.daohangtwo.length ; i++){
+		// 						this.cid = this.daohangtwo[i].cid
+		// 						this.$http.get('/api/categories?pid='+this.cid)
+		// 						.then(
+		// 							function(res){
+		// 								this.daohangthree = res.data.data
+		// 							},
+		// 							function(err){
+		// 								console.log(err)
+		// 							}
+		// 						)
+		// 					}
+		// 					console.log(this.daohangtwo)
+		// 				},
+		// 				function(err){
+		// 					console.log(err)
+		// 				}
+		// 			)
+		// 		}
+		// 	},
+		// 	function(err){
+		// 		console.log(err)
+		// 	}
+		// )
 	}
 }
 </script>
