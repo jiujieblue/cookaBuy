@@ -37,7 +37,7 @@
 									<div class="hotsalepage-left-womenhotsale-top">
 										<span class="hotsalepage-left-womenhotsale-top-hottwo">HOT</span>
 										<span class="hotsalepage-left-womenhotsale-top-hottwotitle">女装爆款</span>
-										<span class="hotsalepage-left-womenhotsale-top-moreicon icon-more" />
+										<span style="display: none;" class="hotsalepage-left-womenhotsale-top-moreicon icon-more" />
 									</div>
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-womenhotsale-links">
@@ -59,7 +59,7 @@
 									<div class="hotsalepage-left-manhotsale-top">
 										<span class="hotsalepage-left-manhotsale-top-hotthree">HOT</span>
 										<span class="hotsalepage-left-manhotsale-top-hotthreetitle">男装爆款</span>
-										<span class="hotsalepage-left-manhotsale-top-moreicon icon-more"></span>
+										<span style="display: none;" class="hotsalepage-left-manhotsale-top-moreicon icon-more"></span>
 									</div>
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-manhotsale-links">

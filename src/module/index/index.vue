@@ -153,6 +153,7 @@
 														<a ><span class="store">{{sideproductsItem.nick}}</span></a>
 														<span class="extra">{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
 														</span>
+														<span>{{_times(sideproductsItem.list_time)}}</span>
 													</div>
 												</a>
 											</li>
@@ -367,6 +368,7 @@ export default {
 	        stores:[],
 	        products:[],
 	        sideproducts:[],
+	        list_time:[],
 	        announcements:[],
 	        girls:[],
 	        boys:[],
@@ -401,9 +403,28 @@ export default {
 	         }
 	       )
 		},
+		_times (t) {
+			var date = new Date().getTime()
+			var subTime = date - t
+			subTime = subTime/1000/60
+			if (subTime < 1) {
+				return '1分钟前'
+			}
+			else if (subTime < 1 * 60) {
+				return parseInt(subTime) + '分钟前'
+			}
+			else if (subTime < 1 * 60 * 24){
+				return parseInt(subTime/60) + '小时前'
+			}
+			else if (subTime < 1 * 60 * 24 * 30){
+				return parseInt(subTime/60/24) + '天前'
+			}
+			else {
+				return parseInt(subTime/60/24/30) + '个月前'
+			}
+	    },
 		_goMore(str){
-			//window.open("./search.html?q="+ str)
-			console.log(str)
+			window.open("./search.html?q="+ str)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
@@ -489,6 +510,7 @@ export default {
         	for(var i = 0 ; i < this.sideproducts.length ; i++){
              	this.sideproducts[i].pic_url += '_80x80.jpg'
              }
+             
         },function(err){
           console.log(err)
         }
