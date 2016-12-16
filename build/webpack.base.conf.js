@@ -14,7 +14,8 @@ module.exports = {
     'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
     'module/detail': './src/module/detail/detail.js',
     'module/search': './src/module/search/search.js',
-    'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js'
+    'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js',
+    'module/publicDetail': './src/module/publicDetail/publicDetail.js'
   },
   output: {
     path: config.build.assetsRoot,
