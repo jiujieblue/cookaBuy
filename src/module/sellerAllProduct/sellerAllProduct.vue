@@ -414,7 +414,8 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + '&q=' + this.keyword
+		  			this.keyword && (this.keyword = '&q=' + this.keyword)
+		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
 		  		}
 	  		}
 	  	},
