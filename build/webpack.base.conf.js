@@ -17,7 +17,8 @@ module.exports = {
     'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js',
     'module/publicDetail': './src/module/publicDetail/publicDetail.js',
     'module/contactUs': './src/module/contactUs/contactUs.js',
-    'module/aboutUs': './src/module/aboutUs/aboutUs.js'
+    'module/aboutUs': './src/module/aboutUs/aboutUs.js',
+    'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js'
   },
   output: {
     path: config.build.assetsRoot,

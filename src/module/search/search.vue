@@ -61,7 +61,7 @@
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
 			    				</a>
-			    				<ul data_ul="index">
+			    				<ul :data_ul="index">
 			    					<li>
 			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
 			    						<p style="display:none">
@@ -122,13 +122,13 @@
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 		    				<img :src="hot.pic_url+'_180x180.jpg'">
 		    			</a>
-	    				<b>￥{{ _priceEtc(hot.price) }}</b>
+	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
 	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
-	    				<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hot.store.store_name }}</a>
+	    				<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
@@ -142,7 +142,7 @@
 	    <div class="row search-aginsearch">
 	   		<p>没有找到合适的商品？您可以搜索：</p>
 	   		<!-- 搜索框 -->
-	   		<CkSearch @subKeyword="_subkeyword"></CkSearch>
+	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
 	    </div>
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HTO</span><b>人气推荐</b></p>
@@ -167,9 +167,25 @@
 	        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       	</swiper>
-      	</swiper>
-        <div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
+      	<!-- <Slide>
+      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    				<img :src="hot.pic_url+'_200x200.jpg'">
+	    			</a>
+	    			<ul>
+	    				<li><b>￥{{ _priceEtc(hot.price) }}</b></li>
+	    				<li>
+	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    						{{ hot.title }}
+	    					</a>
+	    				</li>
+	    				<li>
+	    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
+	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
+	    				</li>
+	    			</ul>
+	        </div>
+      	</Slide> -->
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -184,6 +200,7 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
+	import Slide from 'components/Slide'
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	Vue.use(AwesomeSwiper)
 
@@ -281,6 +298,7 @@
 
 
 	  	var hrefUrlStr = ''
+	  	// 搜索关键字
 	  	if(this.q){
 	  		hrefUrlStr = this.q+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
@@ -301,7 +319,7 @@
 	  	}else{
 	  		this.isnosearchR = false
 	  	}
-
+	  	// 热销商品
 	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
@@ -349,6 +367,7 @@
 	  	},
 	  	// 搜索关键字高光
 	  	_titleColor (val) {
+	  		// var reg =new RegExp(this.keyword,"ig");
 	  		if(this.keyword){
 		  		return val.replace(this.keyword,"<span>"+ this.keyword +"</span>")
 	  		}else{
@@ -470,7 +489,6 @@
 		  				}
 		  			}else{
 		  				this.lHPrice_str.low_price = ''
-		  				console.log(111)
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
 		  				if(this.$refs.high_price.value == 0){
@@ -606,7 +624,8 @@
 	  	footerComponent,
 	  	CkSearch,
 	  	CkPagination,
-	  	goTop
+	  	goTop,
+	  	Slide
 	  }
 	}
 </script>

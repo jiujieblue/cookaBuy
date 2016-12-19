@@ -9,7 +9,7 @@
 							<option value="s">店铺</option>
 						</select>
 					</span>
-					<input type="search" name="query" :class="['form-control',isDisabled ? 'disabled' : '']" placeholder="搜索关键字..." ref="query" :value="key" @blur="_keywordL"/>
+					<input type="search" name="query" :class="['form-control',isDisabled ? 'disabled' : '']" placeholder="搜索关键字..." ref="query" :value="key || keyword" @blur="_keywordL"/>
 					<span class="input-group-btn">
 						<button :disabled="isDisabled" type="submit" class="btn btn-primary" @click="_sub">
 							搜索
@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	mounted () {
-		this.key = this.keyword
+		
 	},
 	methods: {
 		_sub (e) {
@@ -50,9 +50,9 @@ export default {
 			this.$emit('subKeyword',val)
 		},
 		_keywordL (e) {
-			var val =  this.key = e.target.value
+			var val = this.key = e.target.value
 			val = val.replace(/\s/g,'')
-			if(val.length >= 100){
+			if(val.length >= 5){
 				this.isDisabled = true
 			}else{
 				this.isDisabled = false

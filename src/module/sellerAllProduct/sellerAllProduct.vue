@@ -57,7 +57,7 @@
 	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
 	    	<div>
-	    		<span v-if="root_cat">{{ root_cat }}：</span>
+	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
@@ -223,7 +223,7 @@
 		    })
 	  	}else{
 		    // 搜索本店
-		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword)
+		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
@@ -301,19 +301,23 @@
 	  	},
 	  	// 获取排序的 href
 	  	_obtainSorUrl (str, hrefStr) {
-	  		var i = hrefStr.indexOf(str)
+	  		var i = hrefStr.indexOf(str),str1
 		  	if(i != -1){
 		  		this.sortingUrl = hrefStr.slice(i)
-		  		var str1,str2
 		  		if((i = this.sortingUrl.indexOf('&')) != -1){
 		  			this.sortingUrl = this.sortingUrl.slice(0,i)
 		  		}
 		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		str2 = str1.slice(0,str1.indexOf('_'))
-		  		this.sortingStan = str1 = str1.slice(str1.indexOf('_')+1)
-		  		if(str2 == 'asc'){
+		  		if(this.keyword){
+		  			str1 = str1.slice(0,str1.indexOf('_')) == 'time'? 'list' : str1.slice(0,str1.indexOf('_'))
+		  		}else{
+		  			str1 = str1.slice(str1.indexOf('_')+1)
+		  		}
+		  		console.log(str1)
+		  		if(this.sortingUrl.indexOf('asc') != -1){
 		  			this.sorting[str1].statu = true
 		  		}
+		  		this.sortingStan = str1
 		  		this.sortingUrl = '&' + this.sortingUrl
 	  		}
 	  	},
@@ -327,7 +331,7 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
+		  		this.$refs[str].value =  parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
 		  	}
 	  	},
 	  	// 商品分类过多就隐藏   鼠标事件让其显示
@@ -349,9 +353,15 @@
 	  	_sorting (e, str) {
 		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
 		  	if(this.sorting[str].statu){
-		  		this.sortingUrl = '&order=' + 'desc_' +str
+		  		if(this.keyword && str == 'list'){
+		  			str = 'time'
+		  		}
+		  		this.sortingUrl = this.keyword ? '&order=' + str +'_desc' : '&order=desc_' +str
 		  	}else{
-		  		this.sortingUrl = '&order=' + 'asc_' + str
+		  		if(this.keyword && str == 'list'){
+		  			str = 'time'
+		  		}
+		  		this.sortingUrl = this.keyword ? '&order=' +  str +'_asc' : '&order=asc_' +str
 		  	}
 		  	for(var key in this.sorting){
 		  		if(key == str){
@@ -360,11 +370,12 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + '&q=' + this.keyword
+		  	this.keyword && (this.keyword = '&q=' + this.keyword)
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
 		  },
 	  	// 关注本店
 	  	subStor () {
-	  		var favorite={
+	  		var favorite = {
 	  			'user_id': 1,
 	  			'store_id': this.store_id,
 	  			'type': 'store'
