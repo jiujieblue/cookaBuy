@@ -353,15 +353,6 @@
 	  			return val
 	  		}
 	  	},
-	  	// 分类更多鼠标进入
-	  	_moreOver (i) {
-	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
-	  		}
-	  	},
-	  	_moreOut () {
-				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
-	  	},
 	  	_isMore (val) {
 	  		this.isMore[val] = false
 	  	},
@@ -383,37 +374,23 @@
 	  			}
 	  		}
 	  	},
-	  	// 搜索关键期词
-	  	_subkeyword (keyword) {
-	  		window.location.href = './search.html?q='+ keyword +'&from=1'
-	  	},
-	  	// 输出 aggUrl中的关键字
-	  	_retAggUrl () {
-	  		var aggUrlStr = ''
-	  		for (var key in this.aggUrl) {
-	  			if(this.aggUrl[key]){
-		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
-	  			}
-		  	}
-		  	return aggUrlStr
-	  	},
-	  	// 删除相应链接关键字
-	  	_delAggUrl (k) {
-	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-	  	},
-	  	// 风格等分类的跳转  添加到链接中
-	  	_urlTarget (key, total) {
-	  		var href = window.location.href
-	  		var url = ''
-	  		if(key == 'style'){
-	  			url = '&style=' + total
-	  		}else if(key == 'sizes'){
-	  			url = '&item_size=' + total
-	  		}else{
-	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
+	  	// 获取排序的 href
+	  	_obtainSorUrl (str, hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+		  	if(i != -1){
+		  		this.sortingUrl = hrefStr.slice(i)
+		  		var str1,str2
+		  		if((i = this.sortingUrl.indexOf('&')) != -1){
+		  			this.sortingUrl = this.sortingUrl.slice(0,i)
+		  		}
+		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
+		  		str2 = str1.slice(str1.indexOf('_')+1)
+		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
+		  		if(str2 == 'asc'){
+		  			this.sorting[str1].statu = true
+		  		}
+		  		this.sortingUrl = '&' + this.sortingUrl
 	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
@@ -439,24 +416,59 @@
 		  		this.$refs[str].value = val
 		  	}
 	  	},
-	  	// 获取排序的 href
-	  	_obtainSorUrl (str, hrefStr) {
-	  		var i = hrefStr.indexOf(str)
-		  	if(i != -1){
-		  		this.sortingUrl = hrefStr.slice(i)
-		  		var str1,str2
-		  		if((i = this.sortingUrl.indexOf('&')) != -1){
-		  			this.sortingUrl = this.sortingUrl.slice(0,i)
-		  		}
-		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		str2 = str1.slice(str1.indexOf('_')+1)
-		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
-		  		if(str2 == 'asc'){
-		  			this.sorting[str1].statu = true
-		  		}
-		  		this.sortingUrl = '&' + this.sortingUrl
-	  		}
+	  	// 输出 aggUrl中的关键字
+	  	_retAggUrl () {
+	  		var aggUrlStr = ''
+	  		for (var key in this.aggUrl) {
+	  			if(this.aggUrl[key]){
+		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
+	  			}
+		  	}
+		  	return aggUrlStr
 	  	},
+	  	// 搜索关键期词
+	  	_subkeyword (keyword) {
+	  		window.location.href = './search.html?q='+ keyword +'&from=1'
+	  	},
+	  	// 删除相应链接关键字
+	  	_delAggUrl (k) {
+	  		this.aggUrl[k] = undefined
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  	},
+	  	// 风格等分类的跳转  添加到链接中
+	  	_urlTarget (key, total) {
+	  		var href = window.location.href
+	  		var url = ''
+	  		if(key == 'style'){
+	  			url = '&style=' + total
+	  		}else if(key == 'sizes'){
+	  			url = '&item_size=' + total
+	  		}else{
+	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
+	  		}
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  	},
+	  	// 分页跳转
+		  subPage (val) {
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
+	  	// 排序的切换
+		  _sorting (e, str) {
+		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	if(this.sorting[str].statu){
+		  		this.sortingUrl = '&order='+ str +'_desc'
+		  	}else{
+		  		this.sortingUrl = '&order='+ str +'_asc'
+		  	}
+		  	for(var key in this.sorting){
+		  		if(key == str){
+		  			this.sorting[key].statu = !this.sorting[key].statu
+		  		}else if(this.sorting[key].statu){
+		  			this.sorting[key].statu = false
+		  		}
+		  	}
+		  	window.location.href = './search.html?q='+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
 	  		if(n == 1){
@@ -497,7 +509,6 @@
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
-	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
@@ -583,27 +594,15 @@
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
 	  	},
-	  	// 分页跳转
-		  subPage (val) {
-		  	window.location.href = './search.html?'+ this.q +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  },
-	  	// 排序的切换
-		  _sorting (e, str) {
-		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
-		  	if(this.sorting[str].statu){
-		  		this.sortingUrl = '&order='+ str +'_desc'
-		  	}else{
-		  		this.sortingUrl = '&order='+ str +'_asc'
-		  	}
-		  	for(var key in this.sorting){
-		  		if(key == str){
-		  			this.sorting[key].statu = !this.sorting[key].statu
-		  		}else if(this.sorting[key].statu){
-		  			this.sorting[key].statu = false
-		  		}
-		  	}
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  }
+	  	// 分类更多鼠标进入
+	  	_moreOver (i) {
+	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
+					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
+	  		}
+	  	},
+	  	_moreOut () {
+				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
+	  	}
 	  },
 	  components: {
 	  	headerComponent,

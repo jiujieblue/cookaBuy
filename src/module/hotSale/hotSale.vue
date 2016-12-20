@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="hotPage"></headerComponent>
+		<headerComponent pageName="hotPage"  @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -145,6 +145,9 @@
 			gotop
 		},
 		methods:{
+			_subkeyword(keyword){
+				window.location.href = "./search.html?q="+keyword
+			},
 			_reGirlCla (i) {
 				if(i > 1){
 				console.log(i)

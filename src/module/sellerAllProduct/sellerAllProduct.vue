@@ -180,14 +180,10 @@
 				isDisabled: false
 	    }
 	  },
-	  // 组件加载完成之后
-	  updated () {
-	  	
-	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefStr = window.location.href
-
+	  	// 获取本地缓存的数据
 	  	if(sessionStorage.getItem('cats')){
 	  		this.cats = JSON.parse(sessionStorage.getItem('cats'))
 	  	}
@@ -201,13 +197,13 @@
 	  	this._calcuInfo('page', hrefStr , 5)
 	  	// 从链接中拿取 keyword
 	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
-	  	console.log(this.keyword)
 	  	// 从链接中拿取 low_price  high_price
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
+
 	  	if(!this.keyword){
 		  	// 全部商品
 		    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
@@ -244,7 +240,6 @@
 	    .then(function (res) {
 	    	me.showcases = res.data.data
 	    	me.showcases.length == 0 ? (me.showcases = me.productsAll.slice(0,4)) : (me.showcases = [])
-	    	console.log(me.showcases)
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -266,19 +261,7 @@
 	  	_claOut (e) {
 				this.isCla = false
 	  	},
-	  	_priceEtc (val) {
-	  		var i = val.indexOf('.'),str = ''
-	  		if(i != -1){
-	  			str = val.slice(i+1)
-	  			if(str.length == 1){
-	  				return val+'0'
-	  			}else if(str.length == 2){
-	  				return val
-	  			}
-	  		}else{
-	  			return val+'.00'
-	  		}
-	  	},
+	  	// 关键字高光
 	  	_titleColor (val) {
 	  		if(this.keyword && val){
 	  			return val.replace(this.keyword,'<span>'+ this.keyword +'</span>')
@@ -293,16 +276,16 @@
 	  			return pro[key]
 	  		}
 	  	},
-			// 从链接中拿取 page stroe_id keyword
+			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
 	  			str = keyword
 	  		}
 	  		if(i != -1){
-		  		this[str] = decodeURI(hrefStr.slice(i+n))
+		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
 		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = decodeURI(this[str].slice(0,parseInt(this[str].indexOf('&'))))
+		  			this[str] = decodeURIComponent(this[str].slice(0,parseInt(this[str].indexOf('&'))))
 		  		}
 		  	}
 	  	},
@@ -351,17 +334,6 @@
 		  		this.$refs[str].value = val
 		  	}
 	  	},
-	  	// 商品分类过多就隐藏   鼠标事件让其显示
-	  	moreOver : function (e) {
-				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
-	  			$(e.target.parentNode).css({maxHeight: '500px'})
-			  }
-	  	},
-	  	moreOut : function (e) {
-	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
-	  			$(e.target.parentNode).css({maxHeight: '80px'})
-	  		}
-	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
 	  		var val = this.keyword && ('&q='+this.keyword)
@@ -406,7 +378,6 @@
 	        console.log(err)
 	      })
 	  	},
-
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
 	  		if(n == 1){
@@ -440,6 +411,25 @@
 		  		}
 	  		}
 	  	},
+			// 搜索
+	  	_subkeyword (e,n) {
+	  		if(this.isDisabled){
+	  			return
+	  		}
+	  		var regH = /<[^>]*>/g
+	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var val = this.$refs.keyword.value
+	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
+	  		if(n && e.which != 13){
+	  			return
+	  		}
+	  		if(val.length >= 100){
+					return
+				}
+	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val && (val = '&q='+ val)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
+	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {
 	  		var reg = /^\d(\d|.)*$/
@@ -448,7 +438,6 @@
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
-	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
@@ -513,24 +502,16 @@
 	  			return
 	  		}
 	  	},
-			// 搜索
-	  	_subkeyword (e,n) {
-	  		if(this.isDisabled){
-	  			return
+	  	// 商品分类过多就隐藏   鼠标事件让其显示
+	  	moreOver : function (e) {
+				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
+	  			$(e.target.parentNode).css({maxHeight: '500px'})
+			  }
+	  	},
+	  	moreOut : function (e) {
+	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
+	  			$(e.target.parentNode).css({maxHeight: '80px'})
 	  		}
-	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
-	  		var val = this.$refs.keyword.value
-	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
-	  		if(n && e.which != 13){
-	  			return
-	  		}
-	  		if(val.length >= 100){
-					return
-				}
-	  		val = encodeURIComponent(this.$refs.keyword.value)
-	  		val && (val = '&q='+ val)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	}
 	  },
 	  components: {
