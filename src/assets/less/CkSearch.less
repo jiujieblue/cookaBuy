@@ -2,53 +2,74 @@
 
 .ck-search {
 	margin-top: 50px;
-	.input-group{
-		input{
-			font-size: 14px;
+	line-height: 40px;
+	.clearfix();
+	.disabled{
+		border-color: red;
+	}
+	&-select{
+		position: relative;
+		float: left;
+		width: 85%;
+		border: 1px solid #d0d0d0;
+		>span{
+			float: left;
+			width: 20%;
+			display: inline-block;
+			background: #fff;
+			text-align: center;
+			font-size: 16px;
+			padding-left: 10px;
+			>link{
+				margin-left: 5px;
+			}
+			&:after{
+				content: '';
+				display: inline-block;
+				width: 2px;
+				height: 20px;
+				background: #d0d0d0;
+				position: relative;
+				top: 4px;
+				left: 13px;
+			}
 		}
-		.btn{
-			font-size: 14px;
+		>ul{
+			position: absolute;
+			top: 40px;
+			left: -1px;
+			width: 95px;
+			padding: 0;
+			list-style: none;
+			background: #fff;
+			z-index: 100;
+			border: 1px solid #d0d0d0;
+			border-top: none;
+			text-align: center;
+			font-size: 16px;
+			>li{
+				list-style: none;
+				margin: 0;
+				&:hover{
+					background: #fcc505;
+					color: #fff;
+				}
+			}
+		}
+		>input{
+			float: left;
+			width: 80%;
+			height: 40px;
+			border: none;
+			padding: 0 15px;
+			outline: none;
 		}
 	}
-	.input-group-btn:last-child > .btn {
-		border-top-right-radius: 2px;
-		border-bottom-right-radius: 2px;
-	}
-	.btn:focus{
+	>button{
+		float: left;
+		width: 15%;
 		border: none;
-		outline: none;
+    background: #fcc505;
+    font-size: 16px;
 	}
-	option{
-		font-size: 14px;
-	}
-	select{
-		padding: 0 14px;
-		font-size: 16px;
-		letter-spacing: 6px;
-		width: 80px;
-	    appearance:none;
-	    -moz-appearance:none;
-	    -webkit-appearance:none;
-	    background: url("../images/icons/jiantoud.svg")
-	                  no-repeat
-	                  scroll
-	                  90%
-	                  center
-	                  transparent;
-	    background-size: 12px 12px;
-    }
-	&-select {
-		display: block;
-		border: none;
-		outline: 0;
-
-		&-wrap:first-child {
-			padding: 0 !important;
-			background-color: transparent;
-			border-top-left-radius: 2px;
-			border-bottom-left-radius: 2px;
-		}
-
-	}
-
 }

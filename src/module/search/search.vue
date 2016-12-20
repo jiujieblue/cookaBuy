@@ -3,7 +3,6 @@
 	@import '../../assets/css/bootstrap.css';
 	@import '../../assets/less/search.less';
 </style>
-
 <template>
 <div id='search'>
 	<headerComponent @subKeyword="_subkeyword" :keyword="keyword"></headerComponent>
@@ -19,7 +18,7 @@
 	  			</li>
 	  		</ul>
 	  		<div v-if="isnosearchR">
-	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key]">  				
+	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
 	  					<ul :ref="'aggregation'+index">
@@ -37,7 +36,7 @@
 	    	<ul>
 	    		<li v-for="(sor,index) in sorting" @click="_sorting($event, index)" :class="{active: sortingStan == index}">
 	    			{{ sor.total }}
-	    			<i :class="{ rising: !sor.statu }"></i>
+	    			<i :class="{ rising: sor.statu }"></i>
 	    		</li>
 	    	</ul>
 	    	<p>
@@ -61,7 +60,7 @@
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
 			    				</a>
-			    				<ul data_ul="index">
+			    				<ul :data_ul="index">
 			    					<li>
 			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
 			    						<p style="display:none">
@@ -69,10 +68,10 @@
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
-			    						<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>
+			    						<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
 			    						<span>{{ hit._source.market }} {{ hit._source.store_number }}</span>
 			    					</li>
 			    					<!-- <li v-if="false">图片</li> -->
@@ -90,7 +89,10 @@
 			    					<li>
 			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
-			    					<li><a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hit._source.store_name }}</a>{{ hit._source.market }} {{ hit._source.store_number }}</li>
+			    					<li>
+				    					<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
+				    					{{ hit._source.market }} {{ hit._source.store_number }}
+			    					</li>
 			    				</ul>
 			    				<ul>
 			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
@@ -119,13 +121,13 @@
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 		    				<img :src="hot.pic_url+'_180x180.jpg'">
 		    			</a>
-	    				<b>￥{{ _priceEtc(hot.price) }}</b>
+	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
-	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-a" :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
-	    				<a href="./sellerAllProduct.html?store_id=7" target="_blank">{{ hot.store.store_name }}</a>
+	    				<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
@@ -142,7 +144,7 @@
 	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
 	    </div>
 	    <div class="search-recommended search-product-left-grid">
-	    	<p><span>HTO</span><b>人气推荐</b></p>
+	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
       	<swiper :options="swiperOption">
         	<swiper-slide class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
@@ -150,9 +152,9 @@
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
-	    				<li><b>￥{{ _priceEtc(hot.price) }}</b></li>
+	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
 	    				<li>
-	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</li>
@@ -164,9 +166,6 @@
 	        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       	</swiper>
-      	</swiper>
-        <div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -181,6 +180,7 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
+	//import Slide from 'components/Slide'
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	Vue.use(AwesomeSwiper)
 
@@ -207,8 +207,6 @@
 	      // 分页
 	      page: 1,
 	      pages: 0,
-	      // 搜索关键字
-	      q: '',
 	      // 价格筛选
 	      lHPrice_isNot: {
 		      low_price: false,
@@ -230,21 +228,22 @@
 				isnosearchR: true,
 				// 搜索关键字
 				keyword: '',
+	      // 搜索关键字
+	      q: '',
 				// 轮播
-     		swiperOption: {
+				swiperOption: {
+          slidesPerView: 5,
           paginationClickable: true,
-    			slidesPerView: 5,
-          spaceBetween: 30,
-          autoplay:3000,
-          speed:500,
+          spaceBetween: 10,
+          freeMode: true,
+          autoplay: 3000,
           prevButton:'.swiper-button-prev',
-					nextButton:'.swiper-button-next',
-					loop : true,
-					loopAdditionalSlides : 1
-        }
+				  nextButton:'.swiper-button-next'
+		    }
 	    }
 	  },
 	  mounted () {
+	  	var me = this
 	  	var hrefStr = window.location.href
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
@@ -254,13 +253,12 @@
 	  	// 获取搜索关键字
 	  	var qI = hrefStr.indexOf('q=')
 	  	if(qI != -1){
-	  		this.q = hrefStr.slice(qI)
-	  		if((qI = this.q.indexOf('&')) != -1){
-	  			this.q = this.q.slice(0,qI)
+	  		this.keyword = hrefStr.slice(qI)
+	  		if((qI = this.keyword.indexOf('&')) != -1){
+	  			this.keyword = this.keyword.slice(0,qI)
 	  		}
-	  		this.keyword = decodeURI(this.q.slice(this.q.indexOf('=')+1))
+	  		this.keyword = decodeURI(this.keyword.slice(this.keyword.indexOf('=')+1))
 	  	}
-
 	  	// 修改 title
 	  	$('title').html(this.keyword + ' 柯咔搜索')
 	  	// 获取分类关键字
@@ -278,8 +276,9 @@
 
 
 	  	var hrefUrlStr = ''
-	  	if(this.q){
-	  		hrefUrlStr = this.q+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  	// 搜索关键字
+	  	if(this.keyword){
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
@@ -298,7 +297,7 @@
 	  	}else{
 	  		this.isnosearchR = false
 	  	}
-
+	  	// 热销商品
 	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
@@ -308,15 +307,16 @@
 	  	})
 
 	  },
-	  computed: {
-
-	  },
 	  // 组件加载完成之后
 	  updated () {
+	  	var me = this
 	  	for(var key in this.isMore){
 	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
 	  			this.isMore[key] = true
 	  		}
+	  	}
+	  	if(document.documentMode === 11){
+	  		$('.ie-11-a').css({display: 'block',height: '40px'})
 	  	}
 	  },
 	  // 组件加载完成之前
@@ -346,20 +346,12 @@
 	  	},
 	  	// 搜索关键字高光
 	  	_titleColor (val) {
+	  		// var reg =new RegExp(this.keyword,"ig");
 	  		if(this.keyword){
 		  		return val.replace(this.keyword,"<span>"+ this.keyword +"</span>")
 	  		}else{
 	  			return val
 	  		}
-	  	},
-	  	// 分类更多鼠标进入
-	  	_moreOver (i) {
-	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
-	  		}
-	  	},
-	  	_moreOut () {
-				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
 	  	},
 	  	_isMore (val) {
 	  		this.isMore[val] = false
@@ -382,54 +374,6 @@
 	  			}
 	  		}
 	  	},
-	  	// 搜索关键期词
-	  	_subkeyword (keyword) {
-	  		this.q = keyword
-	  		window.location.href = './search.html?q='+ this.q +'&from=1'
-	  	},
-	  	// 输出 aggUrl中的关键字
-	  	_retAggUrl () {
-	  		var aggUrlStr = ''
-	  		for (var key in this.aggUrl) {
-	  			if(this.aggUrl[key]){
-		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
-	  			}
-		  	}
-		  	return aggUrlStr
-	  	},
-	  	// 删除相应链接关键字
-	  	_delAggUrl (k) {
-	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-	  	},
-	  	// 风格等分类的跳转  添加到链接中
-	  	_urlTarget (key, total) {
-	  		var href = window.location.href
-	  		var url = ''
-	  		if(key == 'style'){
-	  			url = '&style=' + total
-	  		}else if(key == 'sizes'){
-	  			url = '&item_size=' + total
-	  		}else{
-	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
-	  		}
-	  		window.location.href = href + url
-	  	},
-	  	// 获取价格筛选 href
-	  	_obtainLHPriceUrl (str,hrefStr) {
-	  		var i = hrefStr.indexOf(str)
-	  		if(i != -1){
-	  			this.lHPrice_isNot[str] = true
-		  		this.lHPrice_str[str] = hrefStr.slice(i)
-		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
-		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
-		  		}
-		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		if(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1) != 0){
-		  			this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
-		  		}
-		  	}
-	  	},
 	  	// 获取排序的 href
 	  	_obtainSorUrl (str, hrefStr) {
 	  		var i = hrefStr.indexOf(str)
@@ -448,37 +392,112 @@
 		  		this.sortingUrl = '&' + this.sortingUrl
 	  		}
 	  	},
+	  	// 获取价格筛选 href
+	  	_obtainLHPriceUrl (str,hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+	  		if(i != -1){
+	  			this.lHPrice_isNot[str] = true
+		  		this.lHPrice_str[str] = hrefStr.slice(i)
+		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
+		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
+		  		}
+		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
+		  		var val = this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
+		  		if((i = val.indexOf('.')) != -1){
+		  			var floatStr = val.slice(i+1)
+		  			if(floatStr.length == 1){
+		  				val +='0'
+		  			}else if(floatStr.length >= 2){
+		  				val = val.slice(0,i+3)
+		  			}
+		  		}else{
+		  			val += '.00'
+		  		}
+		  		this.$refs[str].value = val
+		  	}
+	  	},
+	  	// 输出 aggUrl中的关键字
+	  	_retAggUrl () {
+	  		var aggUrlStr = ''
+	  		for (var key in this.aggUrl) {
+	  			if(this.aggUrl[key]){
+		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
+	  			}
+		  	}
+		  	return aggUrlStr
+	  	},
+	  	// 搜索关键期词
+	  	_subkeyword (keyword) {
+	  		window.location.href = './search.html?q='+ keyword +'&from=1'
+	  	},
+	  	// 删除相应链接关键字
+	  	_delAggUrl (k) {
+	  		this.aggUrl[k] = undefined
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  	},
+	  	// 风格等分类的跳转  添加到链接中
+	  	_urlTarget (key, total) {
+	  		var href = window.location.href
+	  		var url = ''
+	  		if(key == 'style'){
+	  			url = '&style=' + total
+	  		}else if(key == 'sizes'){
+	  			url = '&item_size=' + total
+	  		}else{
+	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
+	  		}
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  	},
+	  	// 分页跳转
+		  subPage (val) {
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
+	  	// 排序的切换
+		  _sorting (e, str) {
+		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	if(this.sorting[str].statu){
+		  		this.sortingUrl = '&order='+ str +'_desc'
+		  	}else{
+		  		this.sortingUrl = '&order='+ str +'_asc'
+		  	}
+		  	for(var key in this.sorting){
+		  		if(key == str){
+		  			this.sorting[key].statu = !this.sorting[key].statu
+		  		}else if(this.sorting[key].statu){
+		  			this.sorting[key].statu = false
+		  		}
+		  	}
+		  	window.location.href = './search.html?q='+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
-	  		if(n){
+	  		if(n == 1){
 	  			if(e.which == 13){
 	  				this._priceVal (e,str1,str2)
 	  			}else{
 	  				return
 	  			}
 	  		}
+
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
-		  				if(this.$refs.low_price.value == 0){
+		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
+		  					(parseInt(this.$refs.low_price.value)+'').length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
-		  			}else{
-		  				this.lHPrice_str.low_price = ''
-		  				console.log(111)
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
-		  				if(this.$refs.high_price.value == 0){
+		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
+		  					(parseInt(this.$refs.high_price.value)+'').length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
-		  			}else{
-		  				this.lHPrice_str.high_price = ''
 		  			}
-		  			window.location.href = "./search.html?"+ this.q +'&from='+ ((this.page-1)*12+1) + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
@@ -487,52 +506,71 @@
 	  		var reg = /^\d(\d|.)*$/
 	  		var val1 = +e.target.value.replace(/\s/g,'')
 	  		var val2 = +this.$refs[str2].value
-	  		if(reg.test(val1)){
-	  			if(this.lHPrice_str[str1]){
-		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
-		  				this.lHPrice_isNot[str1] = false
-		  				return
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
+	  		if(reg.test(val1)){ // 是否是数字
+	  			if(val1 == 0){
+	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
+	  					console.log(2)
+	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
-	  					if(val1 == 0){
-	  						return
-	  					}
-		  			}
-	  			}else if(val1 == 0){
-	  				e.target.value = ''
-	  				this.lHPrice_isNot[str1] = false
-	  				return
-	  			}
-	  			if(val2){
-	  				if(str1 == 'low_price'){
-	  					if(val1 < val2){
-	  						this.lHPrice_isNot[str1] = true
-	  						this.lHPrice_isNot.ifSub = true
-	  					}else{
-	  						e.target.value = ''
-	  						this.lHPrice_isNot[str1] = false
-	  						this.lHPrice_isNot.ifSub = false
-	  						return
-	  					}
+	  					return
 	  				}else{
-	  					if(val1 > val2){
-	  						this.lHPrice_isNot[str1] = true
-	  						this.lHPrice_isNot.ifSub = true
-	  					}else{
-	  						e.target.value = ''
-	  						this.lHPrice_isNot[str1] = false
-	  						this.lHPrice_isNot.ifSub = false
-	  						return
-	  					}
+	  					this.lHPrice_isNot[str1] = false
+	  					this.lHPrice_isNot.ifSub = false
+	  					return
 	  				}
 	  			}else{
-	  				this.lHPrice_isNot[str1] = true
-	  				this.lHPrice_isNot.ifSub = true
+		  			if(val2){ // 比较大小
+		  				if(str1 == 'low_price'){
+		  					if(val1 <= val2){
+		  						this.lHPrice_isNot[str1] = true
+		  						this.lHPrice_isNot.ifSub = true
+		  					}else{
+		  						e.target.value = ''
+		  						this.lHPrice_isNot[str1] = false
+		  						this.lHPrice_isNot.ifSub = false
+		  						return
+		  					}
+		  				}else{
+		  					if(val1 >= val2){
+		  						this.lHPrice_isNot[str1] = true
+		  						this.lHPrice_isNot.ifSub = true
+		  					}else{
+		  						e.target.value = ''
+		  						this.lHPrice_isNot[str1] = false
+		  						this.lHPrice_isNot.ifSub = false
+		  						return
+		  					}
+		  				}
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+		  				this.lHPrice_isNot.ifSub = true
+		  			}
+		  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
+		  				// 已搜索和现搜索是否一样
+			  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+			  				this.lHPrice_isNot[str1] = false
+			  				if(this.lHPrice_isNot[str2]){
+	  							this.lHPrice_isNot.ifSub = true
+	  							return
+	  						}else{
+	  							this.lHPrice_isNot.ifSub = false
+	  							return
+	  						}
+			  				return
+			  			}else{
+			  				this.lHPrice_isNot[str1] = true
+		  					this.lHPrice_isNot.ifSub = true
+			  			}
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+		  				this.lHPrice_isNot.ifSub = true
+		  				return
+		  			}
 	  			}
 	  		}else{
 	  			e.target.value = ''
 	  			this.lHPrice_isNot[str1] = false
+	  			this.lHPrice_isNot.ifSub = false
 	  			return
 	  		}
 	  	},
@@ -557,27 +595,15 @@
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
 	  	},
-	  	// 分页跳转
-		  subPage (val) {
-		  	window.location.href = './search.html?'+ this.q +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  },
-	  	// 排序的切换
-		  _sorting (e, str) {
-		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
-		  	if(this.sorting[str].statu){
-		  		this.sortingUrl = '&order='+ str +'_desc'
-		  	}else{
-		  		this.sortingUrl = '&order='+ str +'_asc'
-		  	}
-		  	for(var key in this.sorting){
-		  		if(key == str){
-		  			this.sorting[key].statu = !this.sorting[key].statu
-		  		}else if(this.sorting[key].statu){
-		  			this.sorting[key].statu = false
-		  		}
-		  	}
-		  	window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  }
+	  	// 分类更多鼠标进入
+	  	_moreOver (i) {
+	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
+					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
+	  		}
+	  	},
+	  	_moreOut () {
+				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
+	  	}
 	  },
 	  components: {
 	  	headerComponent,

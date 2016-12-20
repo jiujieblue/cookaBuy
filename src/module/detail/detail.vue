@@ -62,7 +62,7 @@
                 <div class="desc-color">
                   <div>颜<b class="em_5"></b>色 : </div>
                   <div>
-                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url + ')' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
+                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url +  '_40x40.jpg)' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
                 <div class="desc-size">
@@ -569,6 +569,7 @@
               }
             }
           }
+          console.log(this.colorItem)
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           props_name.splice(props_name.length-1,1)

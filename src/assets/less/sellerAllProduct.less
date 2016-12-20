@@ -107,6 +107,7 @@
 							line-height: 36px;
 							padding: 0 10px;
 							border: 1px solid #d7d7d7;
+							border-right: none;
 							font-size: 16px;
 							text-align: center;
 						}
@@ -114,7 +115,6 @@
 							width: 280px;
 							padding: 0 10px;
 							border: 1px solid #d7d7d7;
-							border-left: none;
 							outline: none;
 						}
 						button{
@@ -174,43 +174,6 @@
 					    margin-right: 10px;
 					    background: #fcc505;
 						}
-						&.keyword{
-							position: relative;
-							padding: 12px 30px 12px 0;
-							&:after{
-								content: '';
-								display: inline-block;
-								width: 8px;
-								height: 8px;
-								border-right: 1px solid #fcc505;
-								border-bottom: 1px solid #fcc505;
-								position: absolute;
-								top: 18px;
-								right: 10px;
-								transform: rotate(45deg);
-								transform-origin: 75% 75%;
-								transition: all 0.3s linear;
-							}
-							&.active{
-								&:after{
-									transform: rotate(225deg);
-								}
-							}
-						}
-					}
-				}
-				>ul{
-					position: absolute;
-			    top: 42px;
-			    left: 1px;
-			    background: #fff;
-			    width: 250px;
-			    z-index: 100;
-			    padding: 5px;
-			    box-shadow: 0 2px 8px 3px rgba(49, 49, 49, 0.18);
-					>li{
-						float: left;
-						padding: 5px;
 					}
 				}
 			}
@@ -269,6 +232,11 @@
 					li{
 						float: left;
 						margin: 0 20px 5px 0;
+						&.active{
+							a{
+								color: #fcc505;
+							}
+						}
 					}
 				}
 			}
@@ -276,7 +244,7 @@
 	}
 	&-nav{
 		background: #ececec;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 		>ul{
 			padding: 5px;
 			float: left;
@@ -286,6 +254,7 @@
 				width: 100px;
 				height: 30px;
 				line-height: 30px;
+				margin-right: 2px;
 				text-align: center;
 				border-radius: 2px;
 				cursor: pointer;
@@ -297,7 +266,7 @@
 						display: inline-block;
 						height: 10px;
 						width: 10px;
-						margin-left: 10px;
+						margin-left: 5px;
 						margin-bottom: 2px;
 						border-right: 1px solid #fcc505;
 						border-bottom: 1px solid #fcc505;
@@ -404,6 +373,7 @@
 									overflow:hidden;
 									color: #665c59;
 									span{
+										padding: 0 2px;
 										color: #e03131;
 									}
 									&:hover{
@@ -464,10 +434,11 @@
 			ul{
 				li{
 					padding: 10px;
-					margin-bottom: 15px;
+					margin-bottom: 13px;
 					background: #fff;
 					img{
-						width: 100%;
+						width: 180px;
+						height: 180px;
 						margin-bottom: 10px;
 						&:hover{
 							opacity: 0.8;
@@ -476,6 +447,7 @@
 					span{
 						display: inline-block;
 						margin: 6px 0;
+						color: red;
 					}
 				}
 			}

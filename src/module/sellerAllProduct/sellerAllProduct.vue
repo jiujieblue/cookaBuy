@@ -39,8 +39,8 @@
 				</ul>
 				<p>
 					<span>商&nbsp;&nbsp;品</span>
-					<input :value="keyword" type="text" @keyup="_subkeyword($event, 1)" placeholder="搜索关键字..." ref="keyword">
-					<button @click="_subkeyword">搜本店</button>
+					<input :value="keyword" type="text" placeholder="搜索关键字..." ref="keyword" @keyup="_subkeyword($event, 1)">
+					<button @click="_subkeyword" >搜本店</button>
 				</p>
 			</div>
 		</div>
@@ -53,19 +53,13 @@
 	    </ul>
 	    <div>
 	    	<p>
-	    		<span v-if="!keyword">商品分类</span>
-	    		<span v-if="keyword" :class="['keyword',isCla ? 'active' : '']" @mouseover="_claOver($event)" @mouseout="_claOut($event)">{{ keyword }}</span>
-	    		<ul v-show="isCla" @mouseover="_claOver($event)" @mouseout="_claOut($event)">
-		    		<li v-for="(cat,index) in cats">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
-		    		</li>
-	    		</ul>
+	    		<span>商品分类</span>
 	    		<span>共 {{ total_entries }} 件相关商品</span>
 	    	</p>
-	    	<div v-if="!keyword">
-	    		<span>{{ root_cat }}：</span>
+	    	<div>
+	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats">
+		    		<li v-for="(cat,index) in cats" :class="{active : cat.name == keyword}">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
@@ -77,7 +71,7 @@
     	<ul>
     		<li v-for="(sor,index) in sorting" @click="_sorting($event, index)" :class="{active: sortingStan == index}">
     			{{ sor.total }}
-    			<i :class="{ rising: !sor.statu }"></i>
+    			<i :class="{ rising: sor.statu }"></i>
     		</li>
     	</ul>
     	<p>
@@ -107,7 +101,7 @@
     				</a>
     				<ul>
     					<li>
-    						<b>￥{{ _priceEtc(_isKey(product,'price')) }}</b>
+    						<b>￥{{ _isKey(product,'price') }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
@@ -121,14 +115,14 @@
     			</li>
     		</ul>
     	</div>
-    	<div class="sellerAllProduct-product-right">
-    		<p v-if="showcases.length != 0"><span>HOT</span><b>推荐商品</b></p>
+    	<div class="sellerAllProduct-product-right" v-if="showcases.length != 0">
+    		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
-    				<span>￥&nbsp;{{ _priceEtc(showcase.price) }}</span>
+    				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
     		</ul>
     	</div>
@@ -182,15 +176,19 @@
 					high_price: ''
 				},
 				keyword: '',
-				isCla: false
+				isCla: false,
+				isDisabled: false
 	    }
 	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefStr = window.location.href
-
+	  	// 获取本地缓存的数据
 	  	if(sessionStorage.getItem('cats')){
-	  		this.cats = JSON.parse((sessionStorage.getItem('cats')))
+	  		this.cats = JSON.parse(sessionStorage.getItem('cats'))
+	  	}
+	  	if(sessionStorage.getItem('root_cat')){
+	  		this.root_cat = sessionStorage.getItem('root_cat')
 	  	}
 
 	  	// 从链接中拿取 store_id
@@ -198,13 +196,15 @@
 	  	// 从链接中拿取 page
 	  	this._calcuInfo('page', hrefStr , 5)
 	  	// 从链接中拿取 keyword
-	  	this._calcuInfo('&q', hrefStr , 3, 'keyword') 
+	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
+	  	console.log(this.keyword)
 	  	// 从链接中拿取 low_price  high_price
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
+
 	  	if(!this.keyword){
 		  	// 全部商品
 		    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
@@ -215,6 +215,7 @@
 		    	me.total_pages = res.data.total_pages
 		    	me.total_entries = res.data.total_entries
 		    	me.root_cat = res.data.root_cat
+			    sessionStorage.setItem('root_cat',res.data.root_cat)
 		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 		  			me.isHeiBig = true
 				  }
@@ -224,7 +225,7 @@
 		    })
 	  	}else{
 		    // 搜索本店
-		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword)
+		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
@@ -239,6 +240,8 @@
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
+	    	me.showcases.length == 0 ? (me.showcases = me.productsAll.slice(0,4)) : (me.showcases = [])
+	    	console.log(me.showcases)
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -260,19 +263,7 @@
 	  	_claOut (e) {
 				this.isCla = false
 	  	},
-	  	_priceEtc (val) {
-	  		var i = val.indexOf('.'),str = ''
-	  		if(i != -1){
-	  			str = val.slice(i+1)
-	  			if(str.length == 1){
-	  				return val+'0'
-	  			}else if(str.length == 2){
-	  				return val
-	  			}
-	  		}else{
-	  			return val+'.00'
-	  		}
-	  	},
+	  	// 关键字高光
 	  	_titleColor (val) {
 	  		if(this.keyword && val){
 	  			return val.replace(this.keyword,'<span>'+ this.keyword +'</span>')
@@ -287,7 +278,7 @@
 	  			return pro[key]
 	  		}
 	  	},
-			// 从链接中拿取 page stroe_id
+			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
@@ -302,19 +293,22 @@
 	  	},
 	  	// 获取排序的 href
 	  	_obtainSorUrl (str, hrefStr) {
-	  		var i = hrefStr.indexOf(str)
+	  		var i = hrefStr.indexOf(str),str1
 		  	if(i != -1){
 		  		this.sortingUrl = hrefStr.slice(i)
-		  		var str1,str2
 		  		if((i = this.sortingUrl.indexOf('&')) != -1){
 		  			this.sortingUrl = this.sortingUrl.slice(0,i)
 		  		}
 		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		str2 = str1.slice(0,str1.indexOf('_'))
-		  		this.sortingStan = str1 = str1.slice(str1.indexOf('_')+1)
-		  		if(str2 == 'asc'){
+		  		if(this.keyword){
+		  			str1 = str1.slice(0,str1.indexOf('_')) == 'time'? 'list' : str1.slice(0,str1.indexOf('_'))
+		  		}else{
+		  			str1 = str1.slice(str1.indexOf('_')+1)
+		  		}
+		  		if(this.sortingUrl.indexOf('asc') != -1){
 		  			this.sorting[str1].statu = true
 		  		}
+		  		this.sortingStan = str1
 		  		this.sortingUrl = '&' + this.sortingUrl
 	  		}
 	  	},
@@ -328,31 +322,39 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
+		  		var val = parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
+		  		if((i = val.indexOf('.')) != -1){
+		  			floatStr = val.slice(i+1)
+		  			if(floatStr.length == 1){
+		  				val +='0'
+		  			}else if(floatStr.length >= 2){
+		  				val = val.slice(0,i+3)
+		  			}
+		  		}else{
+		  			val += '.00'
+		  		}
+		  		this.$refs[str].value = val
 		  	}
-	  	},
-	  	// 商品分类过多就隐藏   鼠标事件让其显示
-	  	moreOver : function (e) {
-				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
-	  			$(e.target.parentNode).css({maxHeight: '500px'})
-			  }
-	  	},
-	  	moreOut : function (e) {
-	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
-	  			$(e.target.parentNode).css({maxHeight: '80px'})
-	  		}
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price
+	  		var val = this.keyword && ('&q='+this.keyword)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
 		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	var val = this.keyword
 		  	if(this.sorting[str].statu){
-		  		this.sortingUrl = '&order=' + 'desc_' +str
+		  		if(val && str == 'list'){
+		  			str = 'time'
+		  		}
+		  		this.sortingUrl = val ? '&order=' + str +'_desc' : '&order=desc_' +str
 		  	}else{
-		  		this.sortingUrl = '&order=' + 'asc_' + str
+		  		if(val && str == 'list'){
+		  			str = 'time'
+		  		}
+		  		this.sortingUrl = this.keyword ? '&order=' +  str +'_asc' : '&order=asc_' +str
 		  	}
 		  	for(var key in this.sorting){
 		  		if(key == str){
@@ -361,11 +363,12 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  	val && (val = '&q=' + val)
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val
 		  },
 	  	// 关注本店
 	  	subStor () {
-	  		var favorite={
+	  		var favorite = {
 	  			'user_id': 1,
 	  			'store_id': this.store_id,
 	  			'type': 'store'
@@ -377,7 +380,6 @@
 	        console.log(err)
 	      })
 	  	},
-
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
 	  		if(n == 1){
@@ -394,6 +396,7 @@
 		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
+		  					(parseInt(this.$refs.low_price.value)+'').length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
@@ -401,12 +404,33 @@
 		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
+		  					(parseInt(this.$refs.high_price.value)+'').length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  			this.keyword && (this.keyword = '&q=' + this.keyword)
+		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
 		  		}
 	  		}
+	  	},
+			// 搜索
+	  	_subkeyword (e,n) {
+	  		if(this.isDisabled){
+	  			return
+	  		}
+	  		var regH = /<[^>]*>/g
+	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var val = this.$refs.keyword.value
+	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
+	  		if(n && e.which != 13){
+	  			return
+	  		}
+	  		if(val.length >= 100){
+					return
+				}
+	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val && (val = '&q='+ val)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {
@@ -481,15 +505,15 @@
 	  			return
 	  		}
 	  	},
-	  	_subkeyword (e,n) {
-	  		if(n && e.which != 13){
-	  			return
-	  		}
-	  		this.keyword = this.$refs.keyword.value
-	  		if(this.keyword){
-	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
-	  		}else{
-	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"
+	  	// 商品分类过多就隐藏   鼠标事件让其显示
+	  	moreOver : function (e) {
+				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
+	  			$(e.target.parentNode).css({maxHeight: '500px'})
+			  }
+	  	},
+	  	moreOut : function (e) {
+	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
+	  			$(e.target.parentNode).css({maxHeight: '80px'})
 	  		}
 	  	}
 	  },

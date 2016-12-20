@@ -8,15 +8,18 @@ var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: entries,
-  // { 
-  //   'module/index': './src/module/index/index.js',
-  //   'module/hotSale': './src/module/hotSale/hotSale.js',
-  //   'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
-  //   'module/detail': './src/module/detail/detail.js',
-  //   'module/search': './src/module/search/search.js',
-  //   'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js'
-  // },
+  entry: { 
+    'module/index': './src/module/index/index.js',
+    'module/hotSale': './src/module/hotSale/hotSale.js',
+    'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
+    'module/detail': './src/module/detail/detail.js',
+    'module/search': './src/module/search/search.js',
+    'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js',
+    'module/publicDetail': './src/module/publicDetail/publicDetail.js',
+    'module/contactUs': './src/module/contactUs/contactUs.js',
+    'module/aboutUs': './src/module/aboutUs/aboutUs.js',
+    'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js'
+  },
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,

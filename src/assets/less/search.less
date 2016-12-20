@@ -147,8 +147,8 @@
 	}
 	&-nav{
 		background: #ececec;
-		margin-top: 35px;
-		margin-bottom: 35px;
+		margin-top: 15px;
+		margin-bottom: 20px;
 		>ul{
 			float: left;
 			border-right: 2px solid #fff;
@@ -187,16 +187,17 @@
 					background: #fff;
 					color: #fcc505;
 				}
+				&:first-child{
+					margin-right: 2px;
+				}
 			}
 		}
 		>p{
 			float: left;
 			padding: 5px 30px;
-			line-height: 26px;
 			input{
 				width: 100px;
-				padding-left: 25px;
-				padding-right: 10px;
+				padding: 4px 10px 4px 25px;
 				outline: none;
 				border: none;
 			}
@@ -314,10 +315,11 @@
 										&:first-child{
 											color: #c4bebc;
 											b{
-												font-size: 16px;
-												color: red;
 												display: block;
 												margin-bottom: 5px;
+												font-size: 18px;
+												font-weight: normal;
+												color: red;
 											}
 										}
 									}
@@ -383,8 +385,11 @@
 					img{
 						width: 100%;
 						margin-bottom: 10px;
+						&:hover{
+							opacity: 0.8;
+						}
 					}
-					b{
+					span{
 						color: red;
 					}
 					>p{
@@ -455,13 +460,11 @@
 			}
 		}
 		div.search-product-left-gridRecommended{
-			width: 19.6594%;
+			float: left;
+			width: 224px;
 			height: 350px;
 			margin-right: 5px;
 			padding: 2px;
-			&:nth-child(5n){
-				margin-right: 0;
-			}
 			>ul{
 				padding: 0 10px;
 				>li{
@@ -512,16 +515,16 @@
 		>a>img{
 			width: 100%;
 			height: 200px;
-			transition: all 0.3s  ease;
+			transition: all 0.6s  cubic-bezier(0.25, 0.46, 0.45, 0.94);
 		}
 		ul{
 			margin: 15px 0 10px;
 			li{
 				margin-bottom: 10px;
 				&:first-child{
-					b{
+					span{
 						color: red;
-						font-size: 16px;
+						font-size: 18px;
 					}
 					p{
 						float: right;
@@ -535,12 +538,17 @@
 				}
 				&:nth-child(2) a{
 					text-overflow:ellipsis;
-					display:-webkit-box; 
 					-webkit-box-orient:vertical;
 					-webkit-line-clamp:2;
+					display:-webkit-box;
 					overflow:hidden;
 					color: #665c59;
+					// &.ie-11-lunbo{
+					// 	display: block;
+					// 	height: 40px;
+					// }
 					span{
+						padding: 0 2px;
 						color: #e03131;
 					}
 					&:hover{
@@ -566,5 +574,19 @@
 	.swiper-button-prev,
 	.swiper-button-next{
 		top: 53%;
+	}
+	.slide{
+		width: 100%;
+		margin: 0 auto;
+		overflow: hidden;
+		&-box{
+			position: relative;
+			width: 5000px;
+			&:after{
+				content: '';
+				display: table;
+				clear: both;
+			}
+		}
 	}
 }
