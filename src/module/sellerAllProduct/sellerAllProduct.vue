@@ -101,7 +101,7 @@
     				</a>
     				<ul>
     					<li>
-    						<b>￥{{ _priceEtc(_isKey(product,'price')) }}</b>
+    						<b>￥{{ _isKey(product,'price') }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
@@ -122,7 +122,7 @@
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
-    				<span>￥&nbsp;{{ _priceEtc(showcase.price) }}</span>
+    				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
     		</ul>
     	</div>
@@ -200,7 +200,8 @@
 	  	// 从链接中拿取 page
 	  	this._calcuInfo('page', hrefStr , 5)
 	  	// 从链接中拿取 keyword
-	  	this._calcuInfo('&q', hrefStr , 3, 'keyword') 
+	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
+	  	console.log(this.keyword)
 	  	// 从链接中拿取 low_price  high_price
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
@@ -242,7 +243,6 @@
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
-	    	console.log(me.showcases)
 	    	me.showcases.length == 0 && (me.showcases = me.productsAll.slice(0,4))
 	    },
 	    function (res) {
@@ -292,7 +292,7 @@
 	  			return pro[key]
 	  		}
 	  	},
-			// 从链接中拿取 page stroe_id
+			// 从链接中拿取 page stroe_id keyword
 	  	_calcuInfo (str, hrefStr, n, keyword) {
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
@@ -336,7 +336,18 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		this.$refs[str].value =  parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
+		  		var val = parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
+		  		if((i = val.indexOf('.')) != -1){
+		  			floatStr = val.slice(i+1)
+		  			if(floatStr.length == 1){
+		  				val +='0'
+		  			}else if(floatStr.length >= 2){
+		  				val = val.slice(0,i+3)
+		  			}
+		  		}else{
+		  			val += '.00'
+		  		}
+		  		this.$refs[str].value = val
 		  	}
 	  	},
 	  	// 商品分类过多就隐藏   鼠标事件让其显示
@@ -352,18 +363,20 @@
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + '&q=' + this.keyword
+	  		var val = this.keyword && ('&q='+this.keyword)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
 		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	var val = this.keyword
 		  	if(this.sorting[str].statu){
-		  		if(this.keyword && str == 'list'){
+		  		if(val && str == 'list'){
 		  			str = 'time'
 		  		}
-		  		this.sortingUrl = this.keyword ? '&order=' + str +'_desc' : '&order=desc_' +str
+		  		this.sortingUrl = val ? '&order=' + str +'_desc' : '&order=desc_' +str
 		  	}else{
-		  		if(this.keyword && str == 'list'){
+		  		if(val && str == 'list'){
 		  			str = 'time'
 		  		}
 		  		this.sortingUrl = this.keyword ? '&order=' +  str +'_asc' : '&order=asc_' +str
@@ -375,8 +388,8 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	this.keyword && (this.keyword = '&q=' + this.keyword)
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
+		  	val && (val = '&q=' + val)
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val
 		  },
 	  	// 关注本店
 	  	subStor () {
@@ -409,7 +422,7 @@
 		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
-		  					this.$refs.low_price.value.length >=10 && (this.$refs.low_price.value = 999999999.00)
+		  					(parseInt(this.$refs.low_price.value)+'').length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
@@ -417,7 +430,7 @@
 		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
-		  					this.$refs.high_price.value.length >=10 && (this.$refs.high_price.value = 999999999.00)
+		  					(parseInt(this.$refs.high_price.value)+'').length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
@@ -514,12 +527,9 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		this.keyword = encodeURIComponent(this.$refs.keyword.value)
-	  		if(this.keyword){
-	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
-	  		}else{
-	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"
-	  		}
+	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val && (val = '&q='+ val)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	}
 	  },
 	  components: {

@@ -166,27 +166,6 @@
 	        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       	</swiper>
-				<!-- <div class="slide" @mouseover="_over" @mouseout="_out">
-	      	<div class="slide-box">
-	      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-	        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_200x200.jpg'">
-		    			</a>
-		    			<ul>
-		    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
-		    				<li>
-		    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    						{{ hot.title }}
-		    					</a>
-		    				</li>
-		    				<li>
-		    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
-		    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
-		    				</li>
-		    			</ul>
-		        </div>
-	      	</div>
-				</div> -->
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -228,8 +207,6 @@
 	      // 分页
 	      page: 1,
 	      pages: 0,
-	      // 搜索关键字
-	      q: '',
 	      // 价格筛选
 	      lHPrice_isNot: {
 		      low_price: false,
@@ -251,6 +228,8 @@
 				isnosearchR: true,
 				// 搜索关键字
 				keyword: '',
+	      // 搜索关键字
+	      q: '',
 				// 轮播
 				swiperOption: {
           slidesPerView: 5,
@@ -260,10 +239,7 @@
           autoplay: 3000,
           prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
-		    },
-     		// liW: 0,
-     		// isMove: true,
-     		// liLength: 0
+		    }
 	    }
 	  },
 	  mounted () {
@@ -277,13 +253,12 @@
 	  	// 获取搜索关键字
 	  	var qI = hrefStr.indexOf('q=')
 	  	if(qI != -1){
-	  		this.q = hrefStr.slice(qI)
-	  		if((qI = this.q.indexOf('&')) != -1){
-	  			this.q = this.q.slice(0,qI)
+	  		this.keyword = hrefStr.slice(qI)
+	  		if((qI = this.keyword.indexOf('&')) != -1){
+	  			this.keyword = this.keyword.slice(0,qI)
 	  		}
-	  		this.keyword = decodeURI(this.q.slice(this.q.indexOf('=')+1))
+	  		this.keyword = decodeURI(this.keyword.slice(this.keyword.indexOf('=')+1))
 	  	}
-
 	  	// 修改 title
 	  	$('title').html(this.keyword + ' 柯咔搜索')
 	  	// 获取分类关键字
@@ -302,8 +277,8 @@
 
 	  	var hrefUrlStr = ''
 	  	// 搜索关键字
-	  	if(this.q){
-	  		hrefUrlStr = this.q+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  	if(this.keyword){
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+((this.page-1)*12+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
@@ -331,21 +306,6 @@
 	  		console.log(res)
 	  	})
 
-			// window.onload = function () {
-			// 	var liW = parseInt($('.slide-box div').css('width'))
-			// 	$('.slide-box').css({width: liW*($('.slide-box div').length) + 'px'})
-			// 	console.log($('.slide-box img'))
-			// 	me.liW = liW
-			// 	me.divDomList = $('.slide-box div')
-			// 	me.divLength = $('.slide-box div').length
-			// }
-			// $('.slide-left').click(function(){
-			// 	me.move(-1)
-			// })
-			// $('.slide-right').click(function(){
-			// 	me.move(1)
-			// })
-			// this.autoMove()
 	  },
 	  // 组件加载完成之后
 	  updated () {
@@ -358,9 +318,6 @@
 	  	if(document.documentMode === 11){
 	  		$('.ie-11-a').css({display: 'block',height: '40px'})
 	  	}
-	  	// this.liW = parseFloat($('.slide-box div').css('width'))
-	  	// this.liLength = $('.slide-box >div').length
-	  	// $('.slide-box').css({width: this.liLength*this.liW+50 + 'px'})
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -428,8 +385,7 @@
 	  	},
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
-	  		this.q = keyword
-	  		window.location.href = './search.html?q='+ this.q +'&from=1'
+	  		window.location.href = './search.html?q='+ keyword +'&from=1'
 	  	},
 	  	// 输出 aggUrl中的关键字
 	  	_retAggUrl () {
@@ -457,7 +413,7 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?'+ this.q +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
@@ -469,7 +425,18 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		this.$refs[str].value =  parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
+		  		var val = this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
+		  		if((i = val.indexOf('.')) != -1){
+		  			var floatStr = val.slice(i+1)
+		  			if(floatStr.length == 1){
+		  				val +='0'
+		  			}else if(floatStr.length >= 2){
+		  				val = val.slice(0,i+3)
+		  			}
+		  		}else{
+		  			val += '.00'
+		  		}
+		  		this.$refs[str].value = val
 		  	}
 	  	},
 	  	// 获取排序的 href
@@ -506,7 +473,7 @@
 		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
-		  					this.$refs.low_price.value.length >=10 && (this.$refs.low_price.value = 999999999.00)
+		  					(parseInt(this.$refs.low_price.value)+'').length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
@@ -514,11 +481,11 @@
 		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
-		  					this.$refs.high_price.value.length >=10 && (this.$refs.high_price.value = 999999999.00)
+		  					(parseInt(this.$refs.high_price.value)+'').length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?"+ this.q +'&from='+ ((this.page-1)*12+1) + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
@@ -635,42 +602,8 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  },
-		 //  move (n) {
-			// 	var me =this
-			// 	if(this.isMove){
-			// 		this.isMove = false
-			// 		if(n<0){
-			// 			$('.slide-box').prepend($('.slide-box >div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.liW)+'px, 0px, 0px)'})
-			// 			setTimeout(function(){
-			// 				$('.slide-box').css({transitionDuration: '1000ms', transform: 'translate3d(0px, 0px, 0px)'})
-			// 				setTimeout(function(){
-			// 					me.isMove = true
-			// 				},1000)
-			// 			},10)
-			// 		}
-			// 		if(n>0){
-			// 			$('.slide-box').css({transitionDuration: '1000ms', transform: 'translate3d('+(-n*this.liW)+'px, 0px, 0px)'})
-			// 			setTimeout(function(){
-			// 				$('.slide-box').append($('.slide-box >div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-			// 				setTimeout(function(){
-			// 					me.isMove = true
-			// 				},10)
-			// 			},1010)
-			// 		}
-			// 	}
-			// },
-			// autoMove () {
-			// 	this.timer = setInterval(this.move.bind(this,1),1000)
-			// },
-			// _over (e) {
-			// 	clearInterval(this.timer)
-			// 	this.timer = null
-			// },
-			// _out (e) {
-			// 	this.autoMove()
-			// }
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  }
 	  },
 	  components: {
 	  	headerComponent,
