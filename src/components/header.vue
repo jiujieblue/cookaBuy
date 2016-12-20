@@ -59,12 +59,12 @@
 
 					<ul class="header-category-lv-1">
 						<li v-for="(daohangoneItem, daohangoneIndex) in daohangone">
-							<a @mouseover="_get_onecid(daohangoneIndex)">{{daohangoneItem.name}}{{daohangoneItem.cid}}<span class="icon-xianghou"/></a>
+							<a>{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
 							<ul class="header-category-lv-2">
-								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangtwo">
-									<a >{{daohangtwoItem.name}}{{daohangtwoItem.cid}}</a>
+								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
+									<a >{{daohangtwoItem.name}}</a>
 									<ul class="header-category-lv-3">
-										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangthree"><a href="#">{{daohangthreeItem.name}}</a></li>
+										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.children"><a href="#">{{daohangthreeItem.name}}</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -108,56 +108,6 @@ export default{
 		},
 		_subkey (val) {
 			this.$emit('subKeyword',val)
-		},
-		_get_onecid(daohangoneIndex){
-			this.daohangoneIndex = daohangoneIndex
-			//console.log(this.daohangoneIndex)
-			this.cid = this.daohangone[daohangoneIndex].cid
-			//console.log(this.cid)
-			this.$http.get('/api/categories?pid=' + this.cid)
-			.then(
-				function(res){
-					//console.log(res)
-					this.daohangtwo = res.data.data
-					for (var i = 0; i < this.daohangtwo.length; i++) {
-						// this.cid = this.daohangtwo[i].cid
-						// console.log(this.cid)
-						// this.$http.get('/api/categories?pid=' + this.cid).
-						// then(
-						// 	function(res){
-						// 		this.daohangthree = res.data.data
-						// 	},
-						// 	function(err){
-						// 		console.log(err)
-						// 	}
-						// )
-						//console.log(this.daohangtwo[i])
-						//for(var j = 0 ; j < this.daohangtwo[i].length ; j ++){
-							// $.get('/api/categories?pid='+this.daohangtwo[i].cid,function(res){
-							// 	this.daohangtwo[i][j] = res.data.data
-							// 	this.daohangthree.push(this.daohangtwo[i][j])
-							// })
-							for( var j in this.daohangtwo[i]){
-								this.$http.get('/api/categories?pid='+this.daohangtwo[i].cid)
-								.then(
-									function(res){
-										//console.log(res.data.data)
-										this.daohangthree[j] = res.data.data
-										//this.daohangthree.push(this.daohangtwo[i][j])
-										//console.log(this.daohangthree)
-									},
-									function(err){
-										console.log(err)
-									}
-								)
-							}
-						//}
-					}
-				},
-				function(err){
-					console.log(err)
-				}
-			)
 		}
 	},
 	props: {
@@ -169,7 +119,6 @@ export default{
 		}
 	},
 	mounted(){
-		
 		this.$http.get('/api/categories')
 		.then(
 			function(res){
