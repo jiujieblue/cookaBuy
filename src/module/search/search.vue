@@ -400,7 +400,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
