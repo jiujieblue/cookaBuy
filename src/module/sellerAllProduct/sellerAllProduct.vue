@@ -197,7 +197,6 @@
 	  	this._calcuInfo('page', hrefStr , 5)
 	  	// 从链接中拿取 keyword
 	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
-	  	console.log(this.keyword)
 	  	// 从链接中拿取 low_price  high_price
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
@@ -241,7 +240,6 @@
 	    .then(function (res) {
 	    	me.showcases = res.data.data
 	    	me.showcases.length == 0 ? (me.showcases = me.productsAll.slice(0,4)) : (me.showcases = [])
-	    	console.log(me.showcases)
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -285,9 +283,9 @@
 	  			str = keyword
 	  		}
 	  		if(i != -1){
-		  		this[str] = decodeURI(hrefStr.slice(i+n))
+		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
 		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = decodeURI(this[str].slice(0,parseInt(this[str].indexOf('&'))))
+		  			this[str] = decodeURIComponent(this[str].slice(0,parseInt(this[str].indexOf('&'))))
 		  		}
 		  	}
 	  	},
@@ -440,7 +438,6 @@
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
-	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
