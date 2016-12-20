@@ -400,20 +400,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-	  	},
-	  	// 风格等分类的跳转  添加到链接中
-	  	_urlTarget (key, total) {
-	  		var href = window.location.href
-	  		var url = ''
-	  		if(key == 'style'){
-	  			url = '&style=' + total
-	  		}else if(key == 'sizes'){
-	  			url = '&item_size=' + total
-	  		}else{
-	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
-	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
@@ -439,24 +426,40 @@
 		  		this.$refs[str].value = val
 		  	}
 	  	},
-	  	// 获取排序的 href
-	  	_obtainSorUrl (str, hrefStr) {
-	  		var i = hrefStr.indexOf(str)
-		  	if(i != -1){
-		  		this.sortingUrl = hrefStr.slice(i)
-		  		var str1,str2
-		  		if((i = this.sortingUrl.indexOf('&')) != -1){
-		  			this.sortingUrl = this.sortingUrl.slice(0,i)
-		  		}
-		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		str2 = str1.slice(str1.indexOf('_')+1)
-		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
-		  		if(str2 == 'asc'){
-		  			this.sorting[str1].statu = true
-		  		}
-		  		this.sortingUrl = '&' + this.sortingUrl
+	  	// 风格等分类的跳转  添加到链接中
+	  	_urlTarget (key, total) {
+	  		var href = window.location.href
+	  		var url = ''
+	  		if(key == 'style'){
+	  			url = '&style=' + total
+	  		}else if(key == 'sizes'){
+	  			url = '&item_size=' + total
+	  		}else{
+	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
 	  	},
+	  	// 分页跳转
+		  subPage (val) {
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
+	  	// 排序的切换
+		  _sorting (e, str) {
+		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
+		  	if(this.sorting[str].statu){
+		  		this.sortingUrl = '&order='+ str +'_desc'
+		  	}else{
+		  		this.sortingUrl = '&order='+ str +'_asc'
+		  	}
+		  	for(var key in this.sorting){
+		  		if(key == str){
+		  			this.sorting[key].statu = !this.sorting[key].statu
+		  		}else if(this.sorting[key].statu){
+		  			this.sorting[key].statu = false
+		  		}
+		  	}
+		  	window.location.href = './search.html?q='+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  },
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
 	  		if(n == 1){
@@ -562,6 +565,24 @@
 	  			return
 	  		}
 	  	},
+	  	// 获取排序的 href
+	  	_obtainSorUrl (str, hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+		  	if(i != -1){
+		  		this.sortingUrl = hrefStr.slice(i)
+		  		var str1,str2
+		  		if((i = this.sortingUrl.indexOf('&')) != -1){
+		  			this.sortingUrl = this.sortingUrl.slice(0,i)
+		  		}
+		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
+		  		str2 = str1.slice(str1.indexOf('_')+1)
+		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
+		  		if(str2 == 'asc'){
+		  			this.sorting[str1].statu = true
+		  		}
+		  		this.sortingUrl = '&' + this.sortingUrl
+	  		}
+	  	},
 	  	// 商品分类遍历 条件过滤
 	  	product_nav (str, n) {
 	  		var html = ''
@@ -582,28 +603,7 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
-	  	},
-	  	// 分页跳转
-		  subPage (val) {
-		  	window.location.href = './search.html?'+ this.q +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  },
-	  	// 排序的切换
-		  _sorting (e, str) {
-		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
-		  	if(this.sorting[str].statu){
-		  		this.sortingUrl = '&order='+ str +'_desc'
-		  	}else{
-		  		this.sortingUrl = '&order='+ str +'_asc'
-		  	}
-		  	for(var key in this.sorting){
-		  		if(key == str){
-		  			this.sorting[key].statu = !this.sorting[key].statu
-		  		}else if(this.sorting[key].statu){
-		  			this.sorting[key].statu = false
-		  		}
-		  	}
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  }
+	  	}
 	  },
 	  components: {
 	  	headerComponent,

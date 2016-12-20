@@ -180,14 +180,10 @@
 				isDisabled: false
 	    }
 	  },
-	  // 组件加载完成之后
-	  updated () {
-	  	
-	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefStr = window.location.href
-
+	  	// 获取本地缓存的数据
 	  	if(sessionStorage.getItem('cats')){
 	  		this.cats = JSON.parse(sessionStorage.getItem('cats'))
 	  	}
@@ -208,6 +204,7 @@
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
+
 	  	if(!this.keyword){
 		  	// 全部商品
 		    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
@@ -266,19 +263,7 @@
 	  	_claOut (e) {
 				this.isCla = false
 	  	},
-	  	_priceEtc (val) {
-	  		var i = val.indexOf('.'),str = ''
-	  		if(i != -1){
-	  			str = val.slice(i+1)
-	  			if(str.length == 1){
-	  				return val+'0'
-	  			}else if(str.length == 2){
-	  				return val
-	  			}
-	  		}else{
-	  			return val+'.00'
-	  		}
-	  	},
+	  	// 关键字高光
 	  	_titleColor (val) {
 	  		if(this.keyword && val){
 	  			return val.replace(this.keyword,'<span>'+ this.keyword +'</span>')
@@ -293,7 +278,7 @@
 	  			return pro[key]
 	  		}
 	  	},
-			// 从链接中拿取 page stroe_id keyword
+			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
@@ -351,17 +336,6 @@
 		  		this.$refs[str].value = val
 		  	}
 	  	},
-	  	// 商品分类过多就隐藏   鼠标事件让其显示
-	  	moreOver : function (e) {
-				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
-	  			$(e.target.parentNode).css({maxHeight: '500px'})
-			  }
-	  	},
-	  	moreOut : function (e) {
-	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
-	  			$(e.target.parentNode).css({maxHeight: '80px'})
-	  		}
-	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
 	  		var val = this.keyword && ('&q='+this.keyword)
@@ -406,7 +380,6 @@
 	        console.log(err)
 	      })
 	  	},
-
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
 	  		if(n == 1){
@@ -439,6 +412,25 @@
 		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
 		  		}
 	  		}
+	  	},
+			// 搜索
+	  	_subkeyword (e,n) {
+	  		if(this.isDisabled){
+	  			return
+	  		}
+	  		var regH = /<[^>]*>/g
+	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var val = this.$refs.keyword.value
+	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
+	  		if(n && e.which != 13){
+	  			return
+	  		}
+	  		if(val.length >= 100){
+					return
+				}
+	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val && (val = '&q='+ val)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {
@@ -513,24 +505,16 @@
 	  			return
 	  		}
 	  	},
-			// 搜索
-	  	_subkeyword (e,n) {
-	  		if(this.isDisabled){
-	  			return
+	  	// 商品分类过多就隐藏   鼠标事件让其显示
+	  	moreOver : function (e) {
+				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
+	  			$(e.target.parentNode).css({maxHeight: '500px'})
+			  }
+	  	},
+	  	moreOut : function (e) {
+	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
+	  			$(e.target.parentNode).css({maxHeight: '80px'})
 	  		}
-	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
-	  		var val = this.$refs.keyword.value
-	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
-	  		if(n && e.which != 13){
-	  			return
-	  		}
-	  		if(val.length >= 100){
-					return
-				}
-	  		val = encodeURIComponent(this.$refs.keyword.value)
-	  		val && (val = '&q='+ val)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	}
 	  },
 	  components: {
