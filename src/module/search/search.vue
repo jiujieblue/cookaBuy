@@ -3,7 +3,6 @@
 	@import '../../assets/css/bootstrap.css';
 	@import '../../assets/less/search.less';
 </style>
-
 <template>
 <div id='search'>
 	<headerComponent @subKeyword="_subkeyword" :keyword="keyword"></headerComponent>
@@ -37,7 +36,7 @@
 	    	<ul>
 	    		<li v-for="(sor,index) in sorting" @click="_sorting($event, index)" :class="{active: sortingStan == index}">
 	    			{{ sor.total }}
-	    			<i :class="{ rising: !sor.statu }"></i>
+	    			<i :class="{ rising: sor.statu }"></i>
 	    		</li>
 	    	</ul>
 	    	<p>
@@ -69,7 +68,7 @@
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
 			    						<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
@@ -124,7 +123,7 @@
 		    			</a>
 	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
-	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-a" :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
@@ -153,9 +152,9 @@
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
-	    				<li><b>￥{{ _priceEtc(hot.price) }}</b></li>
+	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
 	    				<li>
-	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</li>
@@ -167,25 +166,27 @@
 	        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       	</swiper>
-      	<!-- <Slide>
-      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'">
-	    			</a>
-	    			<ul>
-	    				<li><b>￥{{ _priceEtc(hot.price) }}</b></li>
-	    				<li>
-	    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    						{{ hot.title }}
-	    					</a>
-	    				</li>
-	    				<li>
-	    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
-	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
-	    				</li>
-	    			</ul>
-	        </div>
-      	</Slide> -->
+				<!-- <div class="slide" @mouseover="_over" @mouseout="_out">
+	      	<div class="slide-box">
+	      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+	        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+		    				<img :src="hot.pic_url+'_200x200.jpg'">
+		    			</a>
+		    			<ul>
+		    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
+		    				<li>
+		    					<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+		    						{{ hot.title }}
+		    					</a>
+		    				</li>
+		    				<li>
+		    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
+		    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
+		    				</li>
+		    			</ul>
+		        </div>
+	      	</div>
+				</div> -->
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -200,7 +201,7 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
-	import Slide from 'components/Slide'
+	//import Slide from 'components/Slide'
 	import AwesomeSwiper from 'vue-awesome-swiper'
 	Vue.use(AwesomeSwiper)
 
@@ -251,20 +252,22 @@
 				// 搜索关键字
 				keyword: '',
 				// 轮播
-     		swiperOption: {
+				swiperOption: {
+          slidesPerView: 5,
           paginationClickable: true,
-    			slidesPerView: 5,
-          spaceBetween: 30,
-          autoplay:3000,
-          speed:500,
+          spaceBetween: 10,
+          freeMode: true,
+          autoplay: 3000,
           prevButton:'.swiper-button-prev',
-					nextButton:'.swiper-button-next',
-					loop : true,
-					loopAdditionalSlides : 1
-        }
+				  nextButton:'.swiper-button-next'
+		    },
+     		// liW: 0,
+     		// isMove: true,
+     		// liLength: 0
 	    }
 	  },
 	  mounted () {
+	  	var me = this
 	  	var hrefStr = window.location.href
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
@@ -328,17 +331,36 @@
 	  		console.log(res)
 	  	})
 
-	  },
-	  computed: {
-
+			// window.onload = function () {
+			// 	var liW = parseInt($('.slide-box div').css('width'))
+			// 	$('.slide-box').css({width: liW*($('.slide-box div').length) + 'px'})
+			// 	console.log($('.slide-box img'))
+			// 	me.liW = liW
+			// 	me.divDomList = $('.slide-box div')
+			// 	me.divLength = $('.slide-box div').length
+			// }
+			// $('.slide-left').click(function(){
+			// 	me.move(-1)
+			// })
+			// $('.slide-right').click(function(){
+			// 	me.move(1)
+			// })
+			// this.autoMove()
 	  },
 	  // 组件加载完成之后
 	  updated () {
+	  	var me = this
 	  	for(var key in this.isMore){
 	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
 	  			this.isMore[key] = true
 	  		}
 	  	}
+	  	if(document.documentMode === 11){
+	  		$('.ie-11-a').css({display: 'block',height: '40px'})
+	  	}
+	  	// this.liW = parseFloat($('.slide-box div').css('width'))
+	  	// this.liLength = $('.slide-box >div').length
+	  	// $('.slide-box').css({width: this.liLength*this.liW+50 + 'px'})
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -435,7 +457,7 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = href + url
+	  		window.location.href = './search.html?'+ this.q +'&from=1' + this._retAggUrl() + url
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
@@ -447,9 +469,7 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		if(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1) != 0){
-		  			this.$refs[str].value =  this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
-		  		}
+		  		this.$refs[str].value =  parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
 		  	}
 	  	},
 	  	// 获取排序的 href
@@ -472,32 +492,31 @@
 	  	},
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
-	  		if(n){
+	  		if(n == 1){
 	  			if(e.which == 13){
 	  				this._priceVal (e,str1,str2)
 	  			}else{
 	  				return
 	  			}
 	  		}
+
 	  		if(this.lHPrice_isNot.ifSub){
 		  		if(this.lHPrice_isNot.low_price || this.lHPrice_isNot.high_price){
 		  			if(this.lHPrice_isNot.low_price){
-		  				if(this.$refs.low_price.value == 0){
+		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
+		  					this.$refs.low_price.value.length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
-		  			}else{
-		  				this.lHPrice_str.low_price = ''
 		  			}
 		  			if(this.lHPrice_isNot.high_price){
-		  				if(this.$refs.high_price.value == 0){
+		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
+		  					this.$refs.high_price.value.length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
-		  			}else{
-		  				this.lHPrice_str.high_price = ''
 		  			}
 		  			window.location.href = "./search.html?"+ this.q +'&from='+ ((this.page-1)*12+1) + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
@@ -617,15 +636,48 @@
 		  		}
 		  	}
 		  	window.location.href = './search.html?'+ this.q +'&from='+ this.page + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
-		  }
+		  },
+		 //  move (n) {
+			// 	var me =this
+			// 	if(this.isMove){
+			// 		this.isMove = false
+			// 		if(n<0){
+			// 			$('.slide-box').prepend($('.slide-box >div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.liW)+'px, 0px, 0px)'})
+			// 			setTimeout(function(){
+			// 				$('.slide-box').css({transitionDuration: '1000ms', transform: 'translate3d(0px, 0px, 0px)'})
+			// 				setTimeout(function(){
+			// 					me.isMove = true
+			// 				},1000)
+			// 			},10)
+			// 		}
+			// 		if(n>0){
+			// 			$('.slide-box').css({transitionDuration: '1000ms', transform: 'translate3d('+(-n*this.liW)+'px, 0px, 0px)'})
+			// 			setTimeout(function(){
+			// 				$('.slide-box').append($('.slide-box >div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+			// 				setTimeout(function(){
+			// 					me.isMove = true
+			// 				},10)
+			// 			},1010)
+			// 		}
+			// 	}
+			// },
+			// autoMove () {
+			// 	this.timer = setInterval(this.move.bind(this,1),1000)
+			// },
+			// _over (e) {
+			// 	clearInterval(this.timer)
+			// 	this.timer = null
+			// },
+			// _out (e) {
+			// 	this.autoMove()
+			// }
 	  },
 	  components: {
 	  	headerComponent,
 	  	footerComponent,
 	  	CkSearch,
 	  	CkPagination,
-	  	goTop,
-	  	Slide
+	  	goTop
 	  }
 	}
 </script>
