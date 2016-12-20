@@ -224,7 +224,7 @@
 		    })
 	  	}else{
 		    // 搜索本店
-		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=all&search_size=12&page='+ this.page +'&q=' + this.keyword + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
+		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=item&search_size=12&page='+ this.page +'&q=' + this.keyword + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 		    .then(function (res) {
 		    	me.productsAll = res.data[2].hits.hits
 		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
@@ -312,7 +312,7 @@
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
-	  		var i = hrefStr.indexOf(str)
+	  		var i = hrefStr.indexOf(str),floatStr
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
 		  		this.lHPrice_str[str] = hrefStr.slice(i)
@@ -320,7 +320,7 @@
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
 		  		this.lHPrice_str[str] = '&' + this.lHPrice_str[str]
-		  		var val = parseFloat(this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1))
+		  		var val = this.lHPrice_str[str].slice(this.lHPrice_str[str].indexOf('=')+1)
 		  		if((i = val.indexOf('.')) != -1){
 		  			floatStr = val.slice(i+1)
 		  			if(floatStr.length == 1){

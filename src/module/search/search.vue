@@ -5,7 +5,7 @@
 </style>
 <template>
 <div id='search'>
-	<headerComponent @subKeyword="_subkeyword" :keyword="keyword"></headerComponent>
+	<headerComponent @subKeyword="_subkeyword" :keyword="keyword" @subStor="_subStor"></headerComponent>
 	<div class='search container'>
 	  	<div class="row search-list">
 	  		<ul>
@@ -239,7 +239,8 @@
           autoplay: 3000,
           prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
-		    }
+		    },
+		    isStore: false
 	    }
 	  },
 	  mounted () {
@@ -262,10 +263,10 @@
 	  	// 修改 title
 	  	$('title').html(this.keyword + ' 柯咔搜索')
 	  	// 获取分类关键字
-			this._aggUrl('colors', 'color', hrefStr)
-			this._aggUrl('sizes', 'size', hrefStr)
-			this._aggUrl('markets', 'market', hrefStr)
-			this._aggUrl('style', 'style', hrefStr)
+			this._aggUrl('colors', '&color', hrefStr)
+			this._aggUrl('sizes', '&item_size', hrefStr)
+			this._aggUrl('markets', '&market', hrefStr)
+			this._aggUrl('style', '&style', hrefStr)
 	  	// 获取价格筛选
 	  	this._obtainLHPriceUrl('low_price',hrefStr)
 	  	this._obtainLHPriceUrl('high_price',hrefStr)
@@ -283,6 +284,7 @@
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations = res.data[2].aggregations
+
 		  		this.hits = res.data[2].hits
 		  		this.pages = Math.ceil(res.data[2].hits.total/20)
 		  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
@@ -321,6 +323,13 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	_subStor (n) {
+	  		if(n == 0){
+	  			this.isStore = false
+	  		}else{
+	  			this.isStore = true
+	  		}
+	  	},
 	  	_priceEtc (val) {
 	  		var i = val.indexOf('.'),str = ''
 	  		if(i != -1){
@@ -356,21 +365,26 @@
 	  	_isMore (val) {
 	  		this.isMore[val] = false
 	  	},
-	  	// 获取风格等分类 href
+	  	// 获取风格等分类 href  page
 	  	_aggUrl (str1, str2, hrefStr) {
 	  		var i = hrefStr.indexOf(str2)
 	  		if(i != -1){
-	  			var urlStr = hrefStr.slice(i)
-	  			if((i = urlStr.indexOf('&')) != -1){
-	  				urlStr = urlStr.slice(0,i)
-	  			}
 	  			if(str2 == 'from'){
+		  			var urlStr = hrefStr.slice(i)
+		  			if((i = urlStr.indexOf('&')) != -1){
+		  				urlStr = urlStr.slice(0,i)
+		  			}
 	  				this[str1] = urlStr.slice(urlStr.indexOf('=')+1)
 	  			}else{
+		  			var urlStr = hrefStr.slice(i+1)
+		  			if((i = urlStr.indexOf('&')) != -1){
+		  				urlStr = urlStr.slice(0,i)
+		  			}
 		  			i = urlStr.indexOf('=')
 		  			this.aggUrl[str1] = {}
 		  			this.aggUrl[str1].key = '&' + urlStr.slice(0,i+1)
 		  			this.aggUrl[str1].doc_count = decodeURI(urlStr.slice(i+1))
+		  			console.log(this.aggUrl)
 	  			}
 	  		}
 	  	},
@@ -428,7 +442,11 @@
 	  	},
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
-	  		window.location.href = './search.html?q='+ keyword +'&from=1'
+	  		if(this.isStore){
+	  			window.location.href = './visitingMarket.html?q='+keyword
+	  		}else{
+	  			window.location.href = './search.html?q='+ keyword +'&from=1'
+	  		}
 	  	},
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
