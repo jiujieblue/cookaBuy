@@ -104,7 +104,7 @@
 						<CKHr></CKHr>
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
-							<CKSearch></CKSearch>
+							<CKSearch @subKeyword="_subkey" :keyword="keyword"></CKSearch>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="clearfix"></div>
@@ -224,6 +224,9 @@
 			gotop
 		},
 		methods:{
+			_subkey (val) {
+				this.$emit('subKeyword',val)
+			},
 			_subkeyword(keyword){
 				window.location.href = "./search.html?q="+keyword
 			},
