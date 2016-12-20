@@ -509,7 +509,6 @@
 	  		if(reg.test(val1)){ // 是否是数字
 	  			if(val1 == 0){
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
-	  					console.log(2)
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
 	  					return
