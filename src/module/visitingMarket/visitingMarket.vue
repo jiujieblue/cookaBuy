@@ -34,7 +34,7 @@
 								</swiper>
 							</div>
 							<div class="clearfix"></div>
-							<div class="market-box">
+							<div v-if="!q" class="market-box">
 								<table>
 									<tr>
 										<td>市场</td>
@@ -71,16 +71,16 @@
 							</div>
 							<div class="storelist-box">
 								<div class="storelist-box-storeblock" v-for="(storeItem, storeIndex) in stores">
-									<div class="title">{{storeItem.store_name}}</div>
+									<div class="title">{{ _isKey(storeItem,'store_name')}}</div>
 									<div class="body">
 										<div class="img">
-											<img :src="storeItem.store_logo" alt="">
+											<img :src="_isKey(storeItem,'store_logo')" alt="">
 										</div>
-										<div>{{storeItem.market}}</div>
-										<div>主营:没有数据</div>
-										<div>{{storeItem.location}}</div>
+										<div>{{_isKey(storeItem,'market')}}</div>
+										<div>主营:{{_isKey(storeItem,'cat')}}</div>
+										<div>{{_isKey(storeItem,'location')}}</div>
 										<div>
-											<button class="btn-link">进店逛逛</button>
+											<button class="btn-link" @click="_toStore(storeIndex)">进店逛逛</button>
 										</div>
 									</div>
 								</div>
@@ -99,7 +99,7 @@
 									</div>
 								</div> -->
 							</div>
-							<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+							<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination><h1>{{pages}}</h1><h1>{{page}}</h1>
 						</div>
 						<CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -210,9 +210,10 @@
 		        floors:[],
 		        categories:[],
 		        q:'',
-		        page:2,
+		        page:1,
 		        pages:'',
 		        floor:'',
+		        cat:''
 			}
 		},
 		components:{
@@ -230,23 +231,41 @@
 			_subkeyword(keyword){
 				window.location.href = "./search.html?q="+keyword
 			},
+			_toStore(t){
+				window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+			},
 			subPage (val) {
-			  	this.q = window.location.href
-			  	console.log(this.q)
+			  	console.log(val)
+			  	var cat = this.cat ? '&cat='+this.cat : ''
+			  	var floor = this.floor ? '&floor='+this.floor : ''
+			  	this.$http.get('/api/stores?market=大西豪'+ cat + floor + '&page=' + val)
+				.then(
+					function(res){
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
+					},
+					function(err){
+						console.log(err)
+					}
+				)
 			},
 			_clickM(m){
 				console.log(m)
 			},
 			_clickF(f){
 				console.log(f)
-				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=' + this.page)
+				this.floor = f
+				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
-						this.floor = f
 						this.stores = res.data.data
 						this.categories = res.data.categories
-						this.q = './visitingMarket.html?market=大西豪' + '&floor='+ this.floor
-						window.location.href = this.q + '&page=' + this.page
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						//window.location.href = './visitingMarket.html?market=大西豪' + '&floor=' + f + '&page=1'
 					},
 					function(err){
 						console.log(err)
@@ -254,22 +273,50 @@
 				)
 			},
 			_clickC(c){
-				this.q = window.location.href
 				console.log(c)
-				this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=' + this.page)
+				this.cat = c
+				this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
 				.then(
 					function(res){
 						this.stores = res.data.data
 						this.categories = res.data.categories
-						window.location.href = this.q + '&category=' + c
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 					},
 					function(err){
 						console.log(err)
 					}
 				)
+			},
+			_isKey (pro,key) {
+		  		if(pro._source){
+		  			return pro._source[key]
+		  		}else{
+		  			return pro[key]
+		  		}
+		  	}
+		},
+		props: {
+			keyword: {
+				default: ''
+			},
+			pageName: {
+				default: ''
 			}
 		},
 		mounted(){
+			var hrefStr = window.location.href
+			var qI = hrefStr.indexOf('q=')
+		  	if(qI != -1){
+		  		this.q = hrefStr.slice(qI)
+		  		if((qI = this.q.indexOf('&')) != -1){
+		  			this.q = this.q.slice(0,qI)
+		  		}
+		  		this.q = decodeURI(this.q.slice(this.q.indexOf('=')+1))
+		  		console.log(this.q)
+		  	}
+
 			$('.swiper-container').hover(
 					function(){
 						$('.swiper-button-prev').css('left','0').fadeIn('slow')
@@ -280,30 +327,40 @@
 						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
 					}
 				)
-			this.$http.get('/api/stores?market=大西豪' + '&page=' + this.page)
-			.then(
-				function(res){
-					this.markets = res.data.markets
-					this.pages = res.data.data.total_pages
-					this.stores =  res.data.data
-					console.log(this.markets)
-					this.$http.get('/api/stores?market=大西豪' + '&page=' + this.page)
-					.then(
-						function(res){
-							this.floors = res.data.floors
-							this.categories = res.data.categories
-							console.log(this.floors)
-							console.log(this.categories)
-						},
-						function(err){
-							console.log(err)
-						}
-					)
-				},
-				function(err){
-					console.log(err)
-				}
-			)
+			if(this.q){
+				this.$http.get('/s1/searchs?type=store&q=' + this.q)
+				.then(
+					function(res){
+						console.log(res.data[2].hits.hits)
+						this.stores = res.data[2].hits.hits
+						// this.markets = res.data.markets
+						// this.page = res.data.data.page_number
+						// this.pages = res.data.total_pages
+						// this.stores =  res.data.data
+						// this.floors = res.data.floors
+						// this.categories = res.data.categories
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+
+			}else{
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.markets = res.data.markets
+						this.page = res.data.data.page_number
+						this.pages = res.data.total_pages
+						this.stores =  res.data.data
+						this.floors = res.data.floors
+						this.categories = res.data.categories
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+			}
 		}
 	}
 </script>

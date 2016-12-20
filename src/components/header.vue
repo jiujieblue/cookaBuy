@@ -59,12 +59,12 @@
 
 					<ul class="header-category-lv-1">
 						<li v-for="(daohangoneItem, daohangoneIndex) in daohangone">
-							<a>{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
+							<a @click="_goMore(daohangoneItem.name)">{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
 							<ul class="header-category-lv-2">
 								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
-									<a >{{daohangtwoItem.name}}</a>
+									<a @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
 									<ul class="header-category-lv-3">
-										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.children"><a href="#">{{daohangthreeItem.name}}</a></li>
+										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.children"><a @click="_goMore(daohangthreeItem.name)">{{daohangthreeItem.name}}</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -105,7 +105,10 @@ export default{
 	methods: {
 		_subkey (val) {
 			this.$emit('subKeyword',val)
-		}
+		},
+		_goMore(str){
+			window.open("./search.html?q="+ str)
+		},
 	},
 	props: {
 		keyword: {
