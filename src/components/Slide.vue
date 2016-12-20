@@ -1,23 +1,14 @@
 <style lang="less">
 	.slide{
-		width: 960px;
+		width: 100%;
 		margin: 0 auto;
-		border: 2px solid #ccc;
 		overflow: hidden;
-		ul{
+		&-box{
 			position: relative;
-			left: 0;
 			&:after{
 				content: '';
 				display: table;
 				clear: both;
-			}
-			li{
-				float: left;
-				width: 960px;
-				img{
-					width: 100%;
-				}
 			}
 		}
 	}
@@ -57,7 +48,8 @@ export default {
 		var me = this
 		window.onload = function () {
 			var liW = parseInt($('.slide-box div').css('width'))
-			$('.slide-box').css({width: liW*$('.slide-box div').css('width').length + 'px'})
+			$('.slide-box').css({width: liW*($('.slide-box div').length) + 'px'})
+			console.log($('.search-product-left-gridRecommended'))
 			me.liW = liW
 			me.divDomList = $('.slide-box div')
 			me.divLength = $('.slide-box div').length
@@ -98,7 +90,7 @@ export default {
 			}
 		},
 		autoMove () {
-			this.timer = setInterval(this.move.bind(this,1),this.totalTime)
+			//this.timer = setInterval(this.move.bind(this,1),this.totalTime)
 		},
 		_over (e) {
 			clearInterval(this.timer)

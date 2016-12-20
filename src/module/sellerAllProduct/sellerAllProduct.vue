@@ -39,8 +39,8 @@
 				</ul>
 				<p>
 					<span>商&nbsp;&nbsp;品</span>
-					<input :value="keyword" type="text" :class="{disabled: isDisabled}" placeholder="搜索关键字..." ref="keyword" @blur="_keywordL" @keyup="_subkeyword($event, 1)">
-					<button @click="_subkeyword" :disabled="isDisabled">搜本店</button>
+					<input :value="keyword" type="text" placeholder="搜索关键字..." ref="keyword" @keyup="_subkeyword($event, 1)">
+					<button @click="_subkeyword" >搜本店</button>
 				</p>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats">
+		    		<li v-for="(cat,index) in cats" :class="{active : cat.name == keyword}">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
@@ -71,7 +71,7 @@
     	<ul>
     		<li v-for="(sor,index) in sorting" @click="_sorting($event, index)" :class="{active: sortingStan == index}">
     			{{ sor.total }}
-    			<i :class="{ rising: !sor.statu }"></i>
+    			<i :class="{ rising: sor.statu }"></i>
     		</li>
     	</ul>
     	<p>
@@ -116,7 +116,7 @@
     		</ul>
     	</div>
     	<div class="sellerAllProduct-product-right">
-    		<p v-if="showcases.length != 0"><span>HOT</span><b>推荐商品</b></p>
+    		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in showcases">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
@@ -180,6 +180,10 @@
 				isDisabled: false
 	    }
 	  },
+	  // 组件加载完成之后
+	  updated () {
+	  	
+	  },
 	  mounted () {
 	  	var me = this
 	  	var hrefStr = window.location.href
@@ -238,6 +242,8 @@
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
+	    	console.log(me.showcases)
+	    	me.showcases.length == 0 && (me.showcases = me.productsAll.slice(0,4))
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -313,7 +319,6 @@
 		  		}else{
 		  			str1 = str1.slice(str1.indexOf('_')+1)
 		  		}
-		  		console.log(str1)
 		  		if(this.sortingUrl.indexOf('asc') != -1){
 		  			this.sorting[str1].statu = true
 		  		}
@@ -404,6 +409,7 @@
 		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
+		  					this.$refs.low_price.value.length >=10 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
@@ -411,6 +417,7 @@
 		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
+		  					this.$refs.high_price.value.length >=10 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
@@ -492,25 +499,22 @@
 	  			return
 	  		}
 	  	},
-
-			_keywordL (e) {
-				var val =  this.keyword = e.target.value
-				val = val.replace(/\s/g,'')
-				if(val.length >= 5){
-					this.isDisabled = true
-				}else{
-					this.isDisabled = false
-				}
-			},
+			// 搜索
 	  	_subkeyword (e,n) {
+	  		if(this.isDisabled){
+	  			return
+	  		}
 	  		var regH = /<[^>]*>/g
 	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
 	  		var val = this.$refs.keyword.value
-	  		val = val.replace(regH,'').replace(regStr,'')
+	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
 	  		if(n && e.which != 13){
 	  			return
 	  		}
-	  		this.keyword = this.$refs.keyword.value
+	  		if(val.length >= 100){
+					return
+				}
+	  		this.keyword = encodeURIComponent(this.$refs.keyword.value)
 	  		if(this.keyword){
 	  			window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1&q="+this.keyword
 	  		}else{

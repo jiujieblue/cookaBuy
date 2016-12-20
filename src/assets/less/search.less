@@ -457,13 +457,11 @@
 			}
 		}
 		div.search-product-left-gridRecommended{
-			width: 19.6594%;
+			float: left;
+			width: 224px;
 			height: 350px;
 			margin-right: 5px;
 			padding: 2px;
-			&:nth-child(5n){
-				margin-right: 0;
-			}
 			>ul{
 				padding: 0 10px;
 				>li{
@@ -537,11 +535,15 @@
 				}
 				&:nth-child(2) a{
 					text-overflow:ellipsis;
-					display:-webkit-box; 
 					-webkit-box-orient:vertical;
 					-webkit-line-clamp:2;
+					display:-webkit-box;
 					overflow:hidden;
 					color: #665c59;
+					// &.ie-11-lunbo{
+					// 	display: block;
+					// 	height: 40px;
+					// }
 					span{
 						color: #e03131;
 					}
@@ -568,5 +570,19 @@
 	.swiper-button-prev,
 	.swiper-button-next{
 		top: 53%;
+	}
+	.slide{
+		width: 100%;
+		margin: 0 auto;
+		overflow: hidden;
+		&-box{
+			position: relative;
+			width: 5000px;
+			&:after{
+				content: '';
+				display: table;
+				clear: both;
+			}
+		}
 	}
 }
