@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="visitPage"></headerComponent>
+		<headerComponent pageName="visitPage"  @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -40,7 +40,7 @@
 										<td>市场</td>
 										<td>
 											<div><a>全部</a></div>
-											<div v-for="(marketItem, marketIndex) in markets" @click="_clickM(marketItem.market_name)"><a>{{marketItem.market_name}}</a></div>
+											<div @click="_clickM('大西豪')"><a>大西豪</a></div>
 											<!-- <div><a>新潮都</a></div>
 											<div><a>灏丰(大西豪)</a></div>
 											<div><a>长运</a></div>
@@ -51,30 +51,14 @@
 										<td>楼层</td>
 										<td>
 											<div><a>全部</a></div>
-											<div><a>1F东侧</a></div>
-											<div><a>1F西侧</a></div>
-											<div><a>1F一街A档</a></div>
-											<div><a>1F</a></div>
-											<div><a>2F</a></div>
-											<div><a>3F</a></div>
-											<div><a>4F</a></div>
-											<div><a>5F</a></div>
-											<div><a>6F</a></div>
-											<div><a>7F</a></div>
-											<div><a>8F</a></div>
-											<div><a>三晟A区(1F)</a></div>
-											<div><a>三晟B区(2F)</a></div>
-											<div><a>三晟C区(-1F)</a></div>
+											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a>{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
-											<div><a>女装</a></div>
-											<div><a>男装</a></div>
-											<div><a>童装</a></div>
-											<div><a>孕妇装</a></div>
-											<div><a>其他</a></div>
+											<div><a>全部</a></div>
+											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name)"><a>{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
@@ -86,7 +70,21 @@
 								</ol>
 							</div>
 							<div class="storelist-box">
-								<div class="storelist-box-storeblock">
+								<div class="storelist-box-storeblock" v-for="(storeItem, storeIndex) in stores">
+									<div class="title">{{storeItem.store_name}}</div>
+									<div class="body">
+										<div class="img">
+											<img :src="storeItem.store_logo" alt="">
+										</div>
+										<div>{{storeItem.market}}</div>
+										<div>主营:没有数据</div>
+										<div>{{storeItem.location}}</div>
+										<div>
+											<button class="btn-link">进店逛逛</button>
+										</div>
+									</div>
+								</div>
+								<!-- <div class="storelist-box-storeblock">
 									<div class="title">广州市标总服饰</div>
 									<div class="body">
 										<div class="img">
@@ -99,191 +97,9 @@
 											<button class="btn-link">进店逛逛</button>
 										</div>
 									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
-								<div class="storelist-box-storeblock">
-									<div class="title">广州市标总服饰</div>
-									<div class="body">
-										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
-										</div>
-										<div>长城</div>
-										<div>主营:女装</div>
-										<div>1F&nbsp;&nbsp;522档</div>
-										<div>
-											<button class="btn-link">进店逛逛</button>
-										</div>
-									</div>
-								</div>
+								</div> -->
 							</div>
-							<CkPagination></CkPagination>
+							<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						</div>
 						<CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -390,8 +206,13 @@
 				  nextButton:'.swiper-button-next'
 		        },
 		        markets:[],
+		        stores:[],
 		        floors:[],
-		        categories:[]
+		        categories:[],
+		        q:'',
+		        page:2,
+		        pages:'',
+		        floor:'',
 			}
 		},
 		components:{
@@ -403,16 +224,44 @@
 			gotop
 		},
 		methods:{
-			_clickM(t){
-				console.log(t)
-				this.$http.get('/api/stores?market='+t)
+			_subkeyword(keyword){
+				window.location.href = "./search.html?q="+keyword
+			},
+			subPage (val) {
+			  	this.q = window.location.href
+			  	console.log(this.q)
+			},
+			_clickM(m){
+				console.log(m)
+			},
+			_clickF(f){
+				console.log(f)
+				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=' + this.page)
 				.then(
 					function(res){
-						this.floors = res.data.floors
-						console.log(this.floors)
+						this.floor = f
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						this.q = './visitingMarket.html?market=大西豪' + '&floor='+ this.floor
+						window.location.href = this.q + '&page=' + this.page
 					},
 					function(err){
-
+						console.log(err)
+					}
+				)
+			},
+			_clickC(c){
+				this.q = window.location.href
+				console.log(c)
+				this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=' + this.page)
+				.then(
+					function(res){
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						window.location.href = this.q + '&category=' + c
+					},
+					function(err){
+						console.log(err)
 					}
 				)
 			}
@@ -428,11 +277,25 @@
 						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
 					}
 				)
-			this.$http.get('/api/stores?page=2')
+			this.$http.get('/api/stores?market=大西豪' + '&page=' + this.page)
 			.then(
 				function(res){
 					this.markets = res.data.markets
+					this.pages = res.data.data.total_pages
+					this.stores =  res.data.data
 					console.log(this.markets)
+					this.$http.get('/api/stores?market=大西豪' + '&page=' + this.page)
+					.then(
+						function(res){
+							this.floors = res.data.floors
+							this.categories = res.data.categories
+							console.log(this.floors)
+							console.log(this.categories)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
 				},
 				function(err){
 					console.log(err)

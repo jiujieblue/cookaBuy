@@ -58,14 +58,13 @@
 					<a href="#"> 全部商品分类 </a><span class="icon-daohangxianghou"/>
 
 					<ul class="header-category-lv-1">
-						<li>
-							<a id="daohangLVone" v-for="(daohangoneItem, daohangoneIndex) in daohangone">{{daohangoneItem.name}}{{daohangoneItem.cid}} <span class="icon-xianghou"/></a>
+						<li v-for="(daohangoneItem, daohangoneIndex) in daohangone">
+							<a @mouseover="_get_onecid(daohangoneIndex)">{{daohangoneItem.name}}{{daohangoneItem.cid}}<span class="icon-xianghou"/></a>
 							<ul class="header-category-lv-2">
-								<li>
-									<a v-for="(daohangtwoItem, daohangtwoIndex) in daohangtwo">{{daohangtwoItem.name}}</a>
+								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangtwo">
+									<a >{{daohangtwoItem.name}}{{daohangtwoItem.cid}}</a>
 									<ul class="header-category-lv-3">
-										<li><a href="#">三级类目</a></li>
-										<li><a href="#">三级类目</a></li>
+										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangthree"><a href="#">{{daohangthreeItem.name}}</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -74,9 +73,9 @@
 				</span>
 
 				<ul class="header-nav-items">
-					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }"href="./index.html">首页</a></li>
+					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }" href="./index.html">首页</a></li>
 					<li :class="['header-nav-item', this.pageName == 'hotPage'? 'active':'']"><a href="./hotSale.html">爆款专区</a></li>
-					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html">逛市场</a></li>
+					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html?market=大西豪&page=1">逛市场</a></li>
 					<li class="header-nav-item" style="display:none"><a>我的关注</a></li>
 				</ul>
 			</div>
@@ -92,10 +91,12 @@ Vue.use(VueResource)
 export default{
 	data(){
 		return{
-			daohangone:[],
-			daohangtwo:[],
-			daohangthree:[],
-			cid:''
+			daohangone: [],
+			daohangtwo: [],
+			daohangthree: [],
+			cid: '',
+			daohangoneIndex: '',
+			daohangtwoIndex: '' 
 		}
 	},
 	components:{
@@ -104,8 +105,57 @@ export default{
 	methods: {
 		_subkey (val) {
 			this.$emit('subKeyword',val)
+		},
+		_get_onecid(daohangoneIndex){
+			this.daohangoneIndex = daohangoneIndex
+			//console.log(this.daohangoneIndex)
+			this.cid = this.daohangone[daohangoneIndex].cid
+			//console.log(this.cid)
+			this.$http.get('/api/categories?pid=' + this.cid)
+			.then(
+				function(res){
+					//console.log(res)
+					this.daohangtwo = res.data.data
+					for (var i = 0; i < this.daohangtwo.length; i++) {
+						// this.cid = this.daohangtwo[i].cid
+						// console.log(this.cid)
+						// this.$http.get('/api/categories?pid=' + this.cid).
+						// then(
+						// 	function(res){
+						// 		this.daohangthree = res.data.data
+						// 	},
+						// 	function(err){
+						// 		console.log(err)
+						// 	}
+						// )
+						//console.log(this.daohangtwo[i])
+						//for(var j = 0 ; j < this.daohangtwo[i].length ; j ++){
+							// $.get('/api/categories?pid='+this.daohangtwo[i].cid,function(res){
+							// 	this.daohangtwo[i][j] = res.data.data
+							// 	this.daohangthree.push(this.daohangtwo[i][j])
+							// })
+							for( var j in this.daohangtwo[i]){
+								this.$http.get('/api/categories?pid='+this.daohangtwo[i].cid)
+								.then(
+									function(res){
+										//console.log(res.data.data)
+										this.daohangthree[j] = res.data.data
+										//this.daohangthree.push(this.daohangtwo[i][j])
+										//console.log(this.daohangthree)
+									},
+									function(err){
+										console.log(err)
+									}
+								)
+							}
+						//}
+					}
+				},
+				function(err){
+					console.log(err)
+				}
+			)
 		}
-		
 	},
 	props: {
 		keyword: {
@@ -116,41 +166,18 @@ export default{
 		}
 	},
 	mounted(){
-		// this.$http.get('/api/categories')
-		// .then(
-		// 	function(res){
-		// 		this.daohangone = res.data.data
-		// 		this.cid = res.data.data.cid
-		// 		for(var i = 0 ; i < this.daohangone.length ; i++){
-		// 			this.cid = this.daohangone[i].cid
-		// 			this.$http.get('/api/categories?pid='+this.cid)
-		// 			.then(
-		// 				function(res){
-		// 					this.daohangtwo = res.data.data
-		// 					for(var i = 0 ; i < this.daohangtwo.length ; i++){
-		// 						this.cid = this.daohangtwo[i].cid
-		// 						this.$http.get('/api/categories?pid='+this.cid)
-		// 						.then(
-		// 							function(res){
-		// 								this.daohangthree = res.data.data
-		// 							},
-		// 							function(err){
-		// 								console.log(err)
-		// 							}
-		// 						)
-		// 					}
-		// 					console.log(this.daohangtwo)
-		// 				},
-		// 				function(err){
-		// 					console.log(err)
-		// 				}
-		// 			)
-		// 		}
-		// 	},
-		// 	function(err){
-		// 		console.log(err)
-		// 	}
-		// )
+		
+		this.$http.get('/api/categories')
+		.then(
+			function(res){
+				this.daohangone = res.data.data
+			},
+			function(err){
+				console.log(err)
+			}
+		)
+		
+
 	}
 }
 </script>

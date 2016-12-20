@@ -59,13 +59,13 @@
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div class="item active">
+										<div class="item active" @click="_goMore('男装卫')">
 											<img src="../../assets/images/indexBanner01.jpg" alt="...">
 										</div>
-										<div class="item">
+										<div class="item" @click="_goMore('男装外套')">
 											<img src="../../assets/images/indexBanner02.jpg" alt="...">
 										</div>
-										<div class="item">
+										<div class="item" @click="_goMore('女装针织毛衣')">
 											<img src="../../assets/images/indexBanner03.jpg" alt="...">
 										</div>
 									</div>
@@ -93,7 +93,7 @@
 								</div> -->
 								<div class="index-note-items">
 									<a href="./publicDetail.html" class="index-note-item">
-										[公告] 柯咔公告
+										[公告] 系统升级通知
 									</a>
 									<!--<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
@@ -182,23 +182,108 @@
 							</h4>
 
 							<div class="index-block-body">
-                <div class="index-store" v-for="(storesItem, storesIndex) in stores" @click="_toStore(storesIndex)">
-                  <div class="index-store-info">
-                    <div class="index-store-name">
-                      {{storesItem.store_name}}
-                    </div>
-                    <div class="index-store-market">
-                      {{storesItem.market}} {{storesItem.store_number}}
-                    </div>
+				                <!-- <div class="index-store" v-for="(storesItem, storesIndex) in stores">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                      {{storesItem.store_name}}
+				                    </div>
+				                    <div class="index-store-market">
+				                      {{storesItem.market}} {{storesItem.store_number}}
+				                    </div>
 
-                    <a class="index-store-link" @click="_toStore(storesIndex)">
-                      进店逛逛
-                    </a>
-                  </div>
-                  <a class="index-store-product">
-                    <img :src="storesItem.store_logo" />
-                  </a>
-                </div>
+				                    <a class="index-store-link" @click="_toStore(storesIndex)">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img :src="storesItem.store_logo" />
+				                  </a>
+				                </div> -->
+				                <div class="index-store">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                      时尚芭拉
+				                    </div>
+				                    <div class="index-store-market">
+				                      大西豪 3F-309
+				                    </div>
+
+				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2361">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img src="../../assets/images/bala_3F_309.jpg" />
+				                  </a>
+				                </div>
+				                <div class="index-store">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                     柚儿韩国站
+				                    </div>
+				                    <div class="index-store-market">
+				                      大西豪 2F-217
+				                    </div>
+
+				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2480">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
+				                  </a>
+				                </div>
+				                <div class="index-store">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                     洋气de店
+				                    </div>
+				                    <div class="index-store-market">
+				                      大西豪 3F-302
+				                    </div>
+
+				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2331">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg" />
+				                  </a>
+				                </div>
+				                <div class="index-store">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                     米莎服饰
+				                    </div>
+				                    <div class="index-store-market">
+				                      大西豪 6F-601B-1
+				                    </div>
+
+				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=1972">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
+				                  </a>
+				                </div>
+				                <div class="index-store">
+				                  <div class="index-store-info">
+				                    <div class="index-store-name">
+				                     红叶网络服饰
+				                    </div>
+				                    <div class="index-store-market">
+				                      大西豪 4F-409
+				                    </div>
+
+				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2248">
+				                      进店逛逛
+				                    </a>
+				                  </div>
+				                  <a class="index-store-product">
+				                    <img src="../../assets/images/hongye_4F_409.jpg" />
+				                  </a>
+				                </div>
 							</div>
 						</div>
 						<!-- girl -->
