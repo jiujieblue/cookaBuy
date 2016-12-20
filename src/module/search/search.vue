@@ -353,15 +353,6 @@
 	  			return val
 	  		}
 	  	},
-	  	// 分类更多鼠标进入
-	  	_moreOver (i) {
-	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
-	  		}
-	  	},
-	  	_moreOut () {
-				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
-	  	},
 	  	_isMore (val) {
 	  		this.isMore[val] = false
 	  	},
@@ -383,24 +374,23 @@
 	  			}
 	  		}
 	  	},
-	  	// 搜索关键期词
-	  	_subkeyword (keyword) {
-	  		window.location.href = './search.html?q='+ keyword +'&from=1'
-	  	},
-	  	// 输出 aggUrl中的关键字
-	  	_retAggUrl () {
-	  		var aggUrlStr = ''
-	  		for (var key in this.aggUrl) {
-	  			if(this.aggUrl[key]){
-		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
-	  			}
-		  	}
-		  	return aggUrlStr
-	  	},
-	  	// 删除相应链接关键字
-	  	_delAggUrl (k) {
-	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'
+	  	// 获取排序的 href
+	  	_obtainSorUrl (str, hrefStr) {
+	  		var i = hrefStr.indexOf(str)
+		  	if(i != -1){
+		  		this.sortingUrl = hrefStr.slice(i)
+		  		var str1,str2
+		  		if((i = this.sortingUrl.indexOf('&')) != -1){
+		  			this.sortingUrl = this.sortingUrl.slice(0,i)
+		  		}
+		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
+		  		str2 = str1.slice(str1.indexOf('_')+1)
+		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
+		  		if(str2 == 'asc'){
+		  			this.sorting[str1].statu = true
+		  		}
+		  		this.sortingUrl = '&' + this.sortingUrl
+	  		}
 	  	},
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
@@ -425,6 +415,25 @@
 		  		}
 		  		this.$refs[str].value = val
 		  	}
+	  	},
+	  	// 输出 aggUrl中的关键字
+	  	_retAggUrl () {
+	  		var aggUrlStr = ''
+	  		for (var key in this.aggUrl) {
+	  			if(this.aggUrl[key]){
+		  			aggUrlStr += this.aggUrl[key].key + this.aggUrl[key].doc_count
+	  			}
+		  	}
+		  	return aggUrlStr
+	  	},
+	  	// 搜索关键期词
+	  	_subkeyword (keyword) {
+	  		window.location.href = './search.html?q='+ keyword +'&from=1'
+	  	},
+	  	// 删除相应链接关键字
+	  	_delAggUrl (k) {
+	  		this.aggUrl[k] = undefined
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -565,24 +574,6 @@
 	  			return
 	  		}
 	  	},
-	  	// 获取排序的 href
-	  	_obtainSorUrl (str, hrefStr) {
-	  		var i = hrefStr.indexOf(str)
-		  	if(i != -1){
-		  		this.sortingUrl = hrefStr.slice(i)
-		  		var str1,str2
-		  		if((i = this.sortingUrl.indexOf('&')) != -1){
-		  			this.sortingUrl = this.sortingUrl.slice(0,i)
-		  		}
-		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		str2 = str1.slice(str1.indexOf('_')+1)
-		  		this.sortingStan = str1 = str1.slice(0,str1.indexOf('_'))
-		  		if(str2 == 'asc'){
-		  			this.sorting[str1].statu = true
-		  		}
-		  		this.sortingUrl = '&' + this.sortingUrl
-	  		}
-	  	},
 	  	// 商品分类遍历 条件过滤
 	  	product_nav (str, n) {
 	  		var html = ''
@@ -603,6 +594,15 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
+	  	},
+	  	// 分类更多鼠标进入
+	  	_moreOver (i) {
+	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
+					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
+	  		}
+	  	},
+	  	_moreOut () {
+				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
 	  	}
 	  },
 	  components: {
