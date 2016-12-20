@@ -9,9 +9,9 @@
 				<li @click="_sel">商品</li>
 				<li @click="_sel">店铺</li>
 			</ul>
-			<input type="search" name="query" :class="[isDisabled ? 'disabled' : '']" placeholder="搜索关键字..." ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
+			<input type="search" name="query" placeholder="搜索关键字..." ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
 		</div>
-		<button :disabled="isDisabled" type="submit" @click="_sub">
+		<button type="submit" @click="_sub">
 			搜索
 		</button>
 	</div>
@@ -28,7 +28,6 @@ export default {
 	},
 	data () {
 		return{
-			isDisabled: false,
 			key: '',
 			isShow: false
 		}

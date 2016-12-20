@@ -144,7 +144,7 @@
 	   		<CkSearch @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
 	    </div>
 	    <div class="search-recommended search-product-left-grid">
-	    	<p><span>HTO</span><b>人气推荐</b></p>
+	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
       	<swiper :options="swiperOption">
         	<swiper-slide class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">

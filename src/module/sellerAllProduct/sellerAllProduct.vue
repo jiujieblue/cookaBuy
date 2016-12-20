@@ -115,7 +115,7 @@
     			</li>
     		</ul>
     	</div>
-    	<div class="sellerAllProduct-product-right">
+    	<div class="sellerAllProduct-product-right" v-if="showcases.length != 0">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in showcases">
@@ -243,7 +243,8 @@
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
-	    	me.showcases.length == 0 && (me.showcases = me.productsAll.slice(0,4))
+	    	me.showcases.length == 0 ? (me.showcases = me.productsAll.slice(0,4)) : (me.showcases = [])
+	    	console.log(me.showcases)
 	    },
 	    function (res) {
 	    	console.log(res)
