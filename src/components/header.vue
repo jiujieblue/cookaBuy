@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<CkSearch @subKeyword="_subkey" :keyword="keyword"></CkSearch>
+						<CkSearch @subKeyword="_subkey" :keyword="keyword" @subStor="_subStor"></CkSearch>
 					</div>
 				</div>
 			</div>
@@ -103,6 +103,9 @@ export default{
 		CkSearch
 	},
 	methods: {
+		_subStor (n) {
+			this.$emit('subStor',n)
+		},
 		_subkey (val) {
 			this.$emit('subKeyword',val)
 		},

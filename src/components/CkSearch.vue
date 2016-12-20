@@ -6,8 +6,8 @@
 				<link rel="stylesheet" class="icon-jiantoud">
 			</span>
 			<ul v-if="isShow">
-				<li @click="_sel">商品</li>
-				<li @click="_sel">店铺</li>
+				<li @click="_sel($event, 0)">商品</li>
+				<li @click="_sel($event, 1)">店铺</li>
 			</ul>
 			<input type="search" name="query" placeholder="搜索关键字..." ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
 		</div>
@@ -46,10 +46,11 @@ export default {
 		_open () {
 			this.isShow = !this.isShow
 		},
-		_sel (e) {
+		_sel (e, n) {
 			var val = e.target.innerHTML
 			this.$refs.type.innerHTML = val
 			this.isShow = false
+			this.$emit('subStor',n)
 		},
 		_sub (e, n) {
 			e.preventDefault()
