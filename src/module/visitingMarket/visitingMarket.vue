@@ -40,7 +40,7 @@
 										<td>市场</td>
 										<td>
 											<div><a>全部</a></div>
-											<div @click="_clickM('大西豪')"><a>大西豪</a></div>
+											<div @click="_clickM('大西豪')"><a class="tagActive">大西豪</a></div>
 											<!-- <div><a>新潮都</a></div>
 											<div><a>灏丰(大西豪)</a></div>
 											<div><a>长运</a></div>
