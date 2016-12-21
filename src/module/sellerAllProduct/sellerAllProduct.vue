@@ -85,7 +85,7 @@
     </nav>
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
-    		<div class="sellerAllProduct-product-left-failure" v-if="productsAll.length == 0">
+    		<div class="sellerAllProduct-product-left-failure" v-if="!isSuccess">
     			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
     			<ul>
     				<li><p>没有相关商品哦~~</p></li>
@@ -94,31 +94,31 @@
     				</li>
     			</ul>
     		</div>
-    		<ul class="sellerAllProduct-product-left-success" v-if="productsAll.length != 0">
-    			<li v-for="(product,index) in productsAll" v-if="product != 0 && _isKey(product,'price') && _isKey(product,'pic_url')">
-    				<a :href="'./detail.html?'+_isKey(product,'num_iid')" target="_blank">
-    					<img :src="_isKey(product,'pic_url')+'_200x200.jpg'" alt="产品图片">
+    		<ul class="sellerAllProduct-product-left-success" v-if="isSuccess">
+    			<li v-for="(product,index) in productsAll" >
+    				<a :href="'./detail.html?'+product.num_iid" target="_blank">
+    					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
     				</a>
     				<ul>
     					<li>
-    						<b>￥{{ _isKey(product,'price') }}</b>
+    						<b>￥{{ product.price }}</b>
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
-    						<a target="_blank" :href="'./detail.html?'+_isKey(product,'num_iid')" v-html="_titleColor(_isKey(product,'title'))"></a>
+    						<a target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleColor(product.title)"></a>
     					</li>
     					<li>
-    						<span v-if="_isKey(product,'item_no')">#{{ _isKey(product,'item_no') }}</span>
+    						<span v-if="product.item_no">#{{ product.item_no }}</span>
     						<button v-if="false">一键上传</button>
     					</li>
     				</ul>
     			</li>
     		</ul>
     	</div>
-    	<div class="sellerAllProduct-product-right" v-if="showcases.length != 0">
+    	<div class="sellerAllProduct-product-right" v-if="isSuccess">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
-    			<li v-for="(showcase,index) in showcases">
+    			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" />
     				</a>
@@ -128,7 +128,7 @@
     	</div>
     </div>
   </div>
-  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="productsAll.length != 0"></CkPagination>
+  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isSuccess"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -142,7 +142,7 @@
 	  data () {
 	    return {
 	      isHeiBig: false, // 是否显示更多
-	      productsAll: [0],
+	      productsAll: [],
 	      cats: [],
 	      page_number: Number,
 	      total_pages: Number,
@@ -177,19 +177,20 @@
 				},
 				keyword: '',
 				isCla: false,
-				isDisabled: false
+				isDisabled: false,
+				// 请求的数据是否有商品
+				isSuccess: true
 	    }
 	  },
+	  updated () {
+	  	if(parseInt($(this.$refs.catsUl).css('height')) > 65) {
+  			this.isHeiBig = true
+		  }
+	  },
 	  mounted () {
-	  	var me = this
+	  	var me = this , urlStr = ''
 	  	var hrefStr = window.location.href
-	  	// 获取本地缓存的数据
-	  	if(sessionStorage.getItem('cats')){
-	  		this.cats = JSON.parse(sessionStorage.getItem('cats'))
-	  	}
-	  	if(sessionStorage.getItem('root_cat')){
-	  		this.root_cat = sessionStorage.getItem('root_cat')
-	  	}
+	  	
 
 	  	// 从链接中拿取 store_id
 	  	this._calcuInfo('store_id', hrefStr, 9)
@@ -204,46 +205,37 @@
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
 
-	  	if(!this.keyword){
-		  	// 全部商品
-		    this.$http.get('/api/items?store_id='+ this.store_id +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
-		    .then(function (res) {
-			    me.cats = res.data.cats
-			    sessionStorage.setItem('cats',JSON.stringify(res.data.cats))
-		    	me.productsAll = res.data.data
-		    	me.total_pages = res.data.total_pages
-		    	me.total_entries = res.data.total_entries
-		    	me.root_cat = res.data.root_cat
-			    sessionStorage.setItem('root_cat',res.data.root_cat)
-		    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
-		  			me.isHeiBig = true
-				  }
-		    },
-		    function (res) {
-		    	console.log(res)
-		    })
-	  	}else{
-		    // 搜索本店
-		    this.$http.get('/s1/searchs?store_id='+ this.store_id + '&type=item&search_size=12&page='+ this.page +'&q=' + this.keyword + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
-		    .then(function (res) {
-		    	me.productsAll = res.data[2].hits.hits
-		    	me.total_pages = Math.ceil(res.data[2].hits.total/12)
-		    	me.total_entries = res.data[2].hits.total
-		    },
-		    function (res) {
-		    	console.log(res)
-		    })
-	  	}
+  		this.keyword && (urlStr = '&q=' + this.keyword)
+	  	// 全部商品
+	    this.$http.get('/api/items?store_id='+ this.store_id + urlStr +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
+	    .then(function (res) {
+		    me.cats = res.data.cats
+	    	me.productsAll = res.data.data
+	    	me.total_pages = res.data.total_pages
+	    	me.total_entries = res.data.total_entries
+	    	me.root_cat = res.data.root_cat
+	    	console.log($(me.$refs.catsUl).css('height'))
+	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
+	  			me.isHeiBig = true
+			  }
+			  if(res.data.data.length == 0){
+			  	me.isSuccess = false
+			  }
+	    },
+	    function (res) {
+	    	console.log(res)
+	    })
+	  	
 
 	    // 推荐商品
 	    this.$http.get('/api/items?store_id='+ this.store_id +'&type=showcase&page_size=4&page=1')
 	    .then(function (res) {
 	    	me.showcases = res.data.data
-	    	me.showcases.length == 0 ? (me.showcases = me.productsAll.slice(0,4)) : (me.showcases = [])
 	    },
 	    function (res) {
 	    	console.log(res)
 	    })
+	    console.log(me.productsAll)
 	    // 商家信息
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {
@@ -269,12 +261,9 @@
 	  			return val
 	  		}
 	  	},
-	  	_isKey (pro,key) {
-	  		if(pro._source){
-	  			return pro._source[key]
-	  		}else{
-	  			return pro[key]
-	  		}
+	  	// 请求没有店铺推荐商品
+	  	_noHot () {
+	  		return this.showcases.length == 0 ? this.productsAll.slice(0,4) : this.showcases
 	  	},
 			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
@@ -510,7 +499,7 @@
 	  	},
 	  	moreOut : function (e) {
 	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
-	  			$(e.target.parentNode).css({maxHeight: '80px'})
+	  			$(e.target.parentNode).css({maxHeight: '75px'})
 	  		}
 	  	}
 	  },
