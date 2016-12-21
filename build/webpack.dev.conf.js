@@ -48,11 +48,11 @@ function getEntry(globPath) {
 var pages = getEntry('./src/module/**/*.html');
 console.log("dev pages----------------------");
 for (var pathname in pages) {
-  console.log("filename:" + pathname + '.html');
+  console.log("filename:" + pathname.slice(7,pathname.length) + '.html');
   console.log("template:" + pages[pathname]);
   // 配置生成的html文件，定义路径等
   var conf = {
-    filename: pathname + '.html',
+    filename: pathname.slice(7,pathname.length) + '.html',
     template: pages[pathname], // 模板路径
     minify: { //传递 html-minifier 选项给 minify 输出
       removeComments: true
