@@ -212,7 +212,7 @@
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
+				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2361">
 				                    <img src="../../assets/images/bala_3F_309.jpg" />
 				                  </a>
 				                </div>
@@ -229,7 +229,7 @@
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
+				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2480">
 				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
 				                  </a>
 				                </div>
@@ -246,8 +246,8 @@
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
-				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg" />
+				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2331">
+				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg"/>
 				                  </a>
 				                </div>
 				                <div class="index-store">
@@ -263,7 +263,7 @@
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
+				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=1972">
 				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
 				                  </a>
 				                </div>
@@ -280,7 +280,7 @@
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
+				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2248">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
 				                </div>

@@ -384,7 +384,6 @@
 		  			this.aggUrl[str1] = {}
 		  			this.aggUrl[str1].key = '&' + urlStr.slice(0,i+1)
 		  			this.aggUrl[str1].doc_count = decodeURI(urlStr.slice(i+1))
-		  			console.log(this.aggUrl)
 	  			}
 	  		}
 	  	},
