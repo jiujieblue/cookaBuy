@@ -59,7 +59,7 @@
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div class="item active" @click="_goMore('男装卫')">
+										<div class="item active" @click="_goMore('男装卫衣')">
 											<img src="../../assets/images/indexBanner01.jpg" alt="...">
 										</div>
 										<div class="item" @click="_goMore('男装外套')">
@@ -136,10 +136,10 @@
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toProStore(productsIndex)">
-												{{productsItem.store.store_name}}
+												{{productsItem.store&&productsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store.store_number}} {{productsItem.store.market}}
+												{{productsItem.store&&productsItem.store.store_number}} {{productsItem.store&&productsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -153,9 +153,9 @@
 														<div class="img">
 															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a><span class="store">{{sideproductsItem.store.store_name}}</span></a>
+														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
+														{{sideproductsItem.store&&sideproductsItem.store.store_number}} {{sideproductsItem.store&&sideproductsItem.store.market}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -313,10 +313,10 @@
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toGirlStore(girlsIndex)">
-												{{girlsItem.store.store_name}}
+												{{girlsItem.store&&girlsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.store.store_number}} {{girlsItem.store.market}}
+												{{girlsItem.store&&girlsItem.store.store_number}} {{girlsItem.store&&girlsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -350,10 +350,10 @@
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toBoyStore(boysIndex)">
-												{{boysItem.store.store_name}}
+												{{boysItem.store&&boysItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.store.store_number}} {{boysItem.store.market}}
+												{{boysItem.store&&boysItem.store.store_number}} {{boysItem.store&&boysItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -387,10 +387,10 @@
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toMaternitStore(maternitsIndex)">
-												{{maternitsItem.store.store_name}}
+												{{maternitsItem.store&&maternitsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.store.store_number}} {{maternitsItem.store.market}}
+												{{maternitsItem.store&&maternitsItem.store.store_number}} {{maternitsItem.store&&maternitsItem.store.market}}
 											</span>
 										</div>
 									</div>
@@ -424,10 +424,10 @@
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toChildrenStore(childrensIndex)">
-												{{childrensItem.store.store_name}}
+												{{childrensItem.store&&childrensItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.store.store_number}} {{childrensItem.store.market}}
+												{{childrensItem.store&&childrensItem.store.store_number}} {{childrensItem.store&&childrensItem.store.market}}
 											</span>
 										</div>
 									</div>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="visitPage" :keyword="q"  @subKeyword="_subkeyword" @subStor="_subStor"></headerComponent>
+		<headerComponent pageName="visitPage" stroe='stroe' :keyword="q"  @subKeyword="_subkeyword" @subStor="_subStor"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -51,14 +51,14 @@
 										<td>楼层</td>
 										<td>
 											<div><a>全部</a></div>
-											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a>{{floorItem}}</a></div>
+											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="isActiveF ? 'tagActive' : ''">{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
 											<div><a>全部</a></div>
-											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name)"><a>{{categoriesItem.name}}</a></div>
+											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name)"><a :class="isActiveC ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
@@ -81,7 +81,7 @@
 										<div>主营:{{_isKey(storeItem,'cat')}}</div>
 										<div>{{_isKey(storeItem,'location')}}</div>
 										<div>
-											<button class="btn-link" @click="_toStore(storeIndex)">进店逛逛</button>
+											<a class="btn-link" @click="_toStore(storeIndex)">进店逛逛</a>
 										</div>
 									</div>
 								</div>
@@ -101,7 +101,7 @@
 								</div> -->
 							</div>
 						</div>
-						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<CkPagination v-if="!q || !stores" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						<!-- 暂时隐藏 -->
 						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -211,13 +211,16 @@
 		        stores:[],
 		        floors:[],
 		        categories:[],
+		        store_logo:'',
 		        q:'',
 		        page:1,
 		        pages:'',
 		        total:'',
 		        floor:'',
 		        cat:'',
-		        isStore: false
+		        isStore: false,
+		        isActiveF: false,
+		        isActiveC: false
 			}
 		},
 		components:{
@@ -240,7 +243,7 @@
 		  		}
 		  	},
 			_subkeyword(keyword){
-				if(this.isStore){
+				if(this.isStore || $('.ck-search-type').html() == "店铺"){
 					window.location.href = "./visitingMarket.html?q=" + keyword
 				}else{
 					window.location.href = "./search.html?q="+keyword
@@ -274,6 +277,7 @@
 			_clickF(f){
 				console.log(f)
 				this.floor = f
+				this.isActiveF = true
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
@@ -292,19 +296,36 @@
 			_clickC(c){
 				console.log(c)
 				this.cat = c
-				this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
-				.then(
-					function(res){
-						this.stores = res.data.data
-						this.categories = res.data.categories
-						this.page = res.data.page_number
-						this.pages = res.data.total_pages
-						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
-					},
-					function(err){
-						console.log(err)
-					}
-				)
+				this.isActiveC = true
+				if(this.floor){
+					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else{
+					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
 			},
 			_isKey (pro,key) {
 		  		if(pro._source){
@@ -372,6 +393,11 @@
 						this.stores =  res.data.data
 						this.floors = res.data.floors
 						this.categories = res.data.categories
+						// for (var i = 0; i < this.stores.length; i++) {
+						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
+						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
+						// 	}
+						// }
 					},
 					function(err){
 						console.log(err)
