@@ -258,7 +258,7 @@
 	  		if((qI = this.keyword.indexOf('&')) != -1){
 	  			this.keyword = this.keyword.slice(0,qI)
 	  		}
-	  		this.keyword = decodeURI(this.keyword.slice(this.keyword.indexOf('=')+1))
+	  		this.keyword = decodeURIComponent(this.keyword.slice(this.keyword.indexOf('=')+1))
 	  	}
 	  	// 修改 title
 	  	$('title').html(this.keyword + ' 柯咔搜索')
