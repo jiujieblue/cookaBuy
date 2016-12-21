@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<CkSearch @subKeyword="_subkey" :keyword="keyword" @subStor="_subStor"></CkSearch>
+						<CkSearch :stroe="stroe" @subKeyword="_subkey" :keyword="keyword" @subStor="_subStor"></CkSearch>
 					</div>
 				</div>
 			</div>
@@ -118,6 +118,9 @@ export default{
 			default: ''
 		},
 		pageName: {
+			default: ''
+		},
+		stroe: {
 			default: ''
 		}
 	},
