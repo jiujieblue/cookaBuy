@@ -289,11 +289,7 @@
 		  			this.sortingUrl = this.sortingUrl.slice(0,i)
 		  		}
 		  		str1 = this.sortingUrl.slice(this.sortingUrl.indexOf('=')+1)
-		  		if(this.keyword){
-		  			str1 = str1.slice(0,str1.indexOf('_')) == 'time'? 'list' : str1.slice(0,str1.indexOf('_'))
-		  		}else{
-		  			str1 = str1.slice(str1.indexOf('_')+1)
-		  		}
+		  		str1 = str1.slice(str1.indexOf('_')+1)
 		  		if(this.sortingUrl.indexOf('asc') != -1){
 		  			this.sorting[str1].statu = true
 		  		}
@@ -332,18 +328,12 @@
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
+	  		var val = ''
 		  	$(e.target).addClass('active').siblings('.active').removeClass('active')
-		  	var val = this.keyword
 		  	if(this.sorting[str].statu){
-		  		if(val && str == 'list'){
-		  			str = 'time'
-		  		}
-		  		this.sortingUrl = val ? '&order=' + str +'_desc' : '&order=desc_' +str
+		  		this.sortingUrl = '&order=desc_' +str
 		  	}else{
-		  		if(val && str == 'list'){
-		  			str = 'time'
-		  		}
-		  		this.sortingUrl = this.keyword ? '&order=' +  str +'_asc' : '&order=asc_' +str
+		  		this.sortingUrl = '&order=asc_' +str
 		  	}
 		  	for(var key in this.sorting){
 		  		if(key == str){
