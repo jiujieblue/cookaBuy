@@ -589,7 +589,6 @@
           console.log(this.colorItem)
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
-          props_name.splice(props_name.length-1,1)
           if(props_name.length % 3){
             for(var i = 0; i < props_name.length % 3;i++){
               props_name.push('')
