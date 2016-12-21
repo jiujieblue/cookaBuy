@@ -1,6 +1,6 @@
 <template>
 <div>
-  <headerComponent pageName="detailPage" @subKeyword="_subkeyword"></headerComponent>
+  <headerComponent pageName="detailPage" :keyword="q"  @subKeyword="_subkeyword" @subStor="_subStor"></headerComponent>
   <div class="bg-t">
     <div class="container detail">
       <div class="row detail-shopping-box">
@@ -27,7 +27,7 @@
                 <img v-bind:src="showImg">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}" v-if="index < 5">
               </div>
             </div>
             <div class="shopping-desc">
@@ -65,7 +65,7 @@
                     <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url +  '_40x40.jpg)' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
-                <div class="desc-size">
+                <div class="desc-size" v-if="sizeItem.length">
                   <div>尺<b class="em_5"></b>码 : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
@@ -230,6 +230,8 @@
     },
     data () {
       return {
+        q: '',
+        isStore: false,
         data: {},
         item_id: '',
         store_id: '',
@@ -486,8 +488,23 @@
         }
         
       },
+      _subkey (val) {
+        this.$emit('subKeyword',val)
+      },
+      _subStor (n) {
+          if(n == 0){
+            this.isStore = false
+          }else{
+            this.isStore = true
+          }
+        },
       _subkeyword(keyword){
-        window.location.href = "./search.html?q="+keyword
+        if(this.isStore){
+          window.location.href = "./visitingMarket.html?q=" + keyword
+        }else{
+          window.location.href = "./search.html?q="+keyword
+        }
+        
       },
       _r_detail (e,t) {
         window.location.href = './detail.html?' + this.showcase[t].num_iid
