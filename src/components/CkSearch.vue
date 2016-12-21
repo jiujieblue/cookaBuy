@@ -1,9 +1,11 @@
 <template>
 	<div class="ck-search">
 		<div class="ck-search-select">
-			<span @click="_open">
+			<span>
 				<span ref="type">商品</span>
-				<link rel="stylesheet" class="icon-jiantoud">
+				<link rel="stylesheet" :class="['icon-jiantoud', isShow ? 'active' : '']">
+				<!-- 遮罩整个span -->
+				<i data_i="open" @click="_open"></i>
 			</span>
 			<ul v-if="isShow">
 				<li @click="_sel($event, 0)">商品</li>
@@ -38,8 +40,12 @@ export default {
   // 组件加载完成之后
   updated () {
   	var me = this
-  	$('document').click(function(){
-  		me.isShow = false
+  	$('body').click(function(e){
+  		if(me.isShow){
+	  		if($(e.target).attr('data_i') !== 'open'){
+	  			me.isShow = false
+	  		}
+  		}
   	})
   },
 	methods: {

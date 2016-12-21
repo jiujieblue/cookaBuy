@@ -214,7 +214,6 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
-	    	console.log($(me.$refs.catsUl).css('height'))
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
 	  			me.isHeiBig = true
 			  }
@@ -235,7 +234,6 @@
 	    function (res) {
 	    	console.log(res)
 	    })
-	    console.log(me.productsAll)
 	    // 商家信息
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {

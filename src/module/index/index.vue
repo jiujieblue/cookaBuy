@@ -153,7 +153,7 @@
 														<div class="img">
 															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a><span class="store">{{sideproductsItem.nick}}</span></a>
+														<a><span class="store">{{sideproductsItem.store.store_name}}</span></a>
 														<div class="extra">
 														{{sideproductsItem.store.store_number}} {{sideproductsItem.store.market}}
 														</div>
