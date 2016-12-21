@@ -27,7 +27,7 @@
                 <img v-bind:src="showImg">
               </div>
               <div class="img-list">
-                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}" v-if="index < 5">
+                <img v-for="(imgItem,index) in carousel" v-bind:src="imgItem.tb_url" v-on:mouseover="_showImg(index)" v-bind:class="{'active' : img_t==index}" v-if="index < 6">
               </div>
             </div>
             <div class="shopping-desc">
