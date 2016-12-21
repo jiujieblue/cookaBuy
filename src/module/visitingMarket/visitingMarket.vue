@@ -51,14 +51,14 @@
 										<td>楼层</td>
 										<td>
 											<div><a>全部</a></div>
-											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="isActiveF ? 'tagActive' : ''">{{floorItem}}</a></div>
+											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="ft == floorItem ? 'tagActive' : ''">{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
 											<div><a>全部</a></div>
-											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name)"><a :class="isActiveC ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
+											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
@@ -101,7 +101,7 @@
 								</div> -->
 							</div>
 						</div>
-						<CkPagination v-if="!q || !stores" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						<!-- 暂时隐藏 -->
 						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -218,6 +218,8 @@
 		        total:'',
 		        floor:'',
 		        cat:'',
+		        ct:-1,
+		        ft:-1,
 		        isStore: false,
 		        isActiveF: false,
 		        isActiveC: false
@@ -277,7 +279,7 @@
 			_clickF(f){
 				console.log(f)
 				this.floor = f
-				this.isActiveF = true
+				this.ft = f
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
@@ -293,10 +295,11 @@
 					}
 				)
 			},
-			_clickC(c){
+			_clickC(c,cIndex){
 				console.log(c)
+				console.log(cIndex)
 				this.cat = c
-				this.isActiveC = true
+				this.ct = cIndex
 				if(this.floor){
 					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
 					.then(
