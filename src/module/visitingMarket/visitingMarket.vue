@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="visitPage"  @subKeyword="_subkeyword"></headerComponent>
+		<headerComponent pageName="visitPage" :keyword="q"  @subKeyword="_subkeyword" @subStor="_subStor"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -104,7 +104,7 @@
 						<CKHr></CKHr>
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
-							<CKSearch @subKeyword="_subkey" :keyword="keyword"></CKSearch>
+							<CKSearch @subKeyword="_subkey" :keyword="q"></CKSearch>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="clearfix"></div>
@@ -213,7 +213,8 @@
 		        page:1,
 		        pages:'',
 		        floor:'',
-		        cat:''
+		        cat:'',
+		        isStore: false
 			}
 		},
 		components:{
@@ -228,8 +229,20 @@
 			_subkey (val) {
 				this.$emit('subKeyword',val)
 			},
+			_subStor (n) {
+		  		if(n == 0){
+		  			this.isStore = false
+		  		}else{
+		  			this.isStore = true
+		  		}
+		  	},
 			_subkeyword(keyword){
-				window.location.href = "./search.html?q="+keyword
+				if(this.isStore){
+					window.location.href = "./visitingMarket.html?q=" + keyword
+				}else{
+					window.location.href = "./search.html?q="+keyword
+				}
+				
 			},
 			_toStore(t){
 				window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
@@ -328,7 +341,7 @@
 					}
 				)
 			if(this.q){
-				this.$http.get('/s1/searchs?type=store&q=' + this.q)
+				this.$http.get('/s1/searchs?type=store&page_size=2&q=' + this.q)
 				.then(
 					function(res){
 						console.log(res.data[2].hits.hits)
