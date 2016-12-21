@@ -27,7 +27,7 @@
 	  						</li>
 	  					</ul>
 	  					{{ _isMore('aggregation'+index) }}
-	  					<span v-if="isMore['aggregation'+index]" @mouseover="_moreOver(index)" @mouseout="_moreOut(index)">更多</span>
+	  					<span v-if="isMore['aggregation'+index]" :class="{isMore : isShowMore}" @click="_moreClick($event, index)">更多</span>
 	  				</li>
 	  			</ul>
 	  		</div>
@@ -101,6 +101,9 @@
 			    			</li>
 			    		</ul>
 			    	</div>
+	    		</div>
+	    		<div class="search-product-left-loading" v-if="!hits && isnosearchR">
+	    			<img src="../../assets/images/loading.gif" alt="加载中">
 	    		</div>
 		    	<div class="search-product-left-error" v-if='!isnosearchR'>
 		    		<div>
@@ -612,13 +615,13 @@
 	  		this.isGridOrList = n
 	  	},
 	  	// 分类更多鼠标进入
-	  	_moreOver (i) {
+	  	_moreClick (e, i) {
+	  		$(e.target).toggleClass('active')
 	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
 					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
+	  		}else{
+					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
 	  		}
-	  	},
-	  	_moreOut () {
-				$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
 	  	}
 	  },
 	  components: {

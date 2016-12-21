@@ -185,32 +185,12 @@
 				>span{
 					float: left;
 					margin-right: 10px;
-					&.HeiBig{
-						cursor: pointer;
-						position: relative;
-						transition: all 0.35s linear;
-						&:after{
-							content: '';
-							display: inline-block;
-							height: 8px;
-							width: 8px;
-							border-right: 1px solid #372f2c;
-							border-bottom: 1px solid #372f2c;
-							position: absolute;
-							transform: rotate(45deg);
-							transform-origin: 75% 75%;
-							top: 4px;
-							right: 12px;
-							transition: all 0.35s linear;
-						}
-						&:hover{
-							background: #fcc505;
-							&:after{
-								transform: rotate(225deg);
-							}
-						}
+					&:hover{
+						background: #fcc505;
 					}
 					&:last-child{
+						cursor: pointer;
+						position: relative;
 						width: 8%;
 						float: right;
 						text-align: center;
@@ -223,6 +203,25 @@
 							position: absolute;
 							top: 3px;
 							left: 0;
+						}
+						&:after{
+							content: '';
+							display: inline-block;
+							height: 8px;
+							width: 8px;
+							border-right: 1px solid #372f2c;
+							border-bottom: 1px solid #372f2c;
+							position: absolute;
+							transform: rotate(45deg);
+							transform-origin: 75% 75%;
+							top: 4px;
+							right: 12px;
+							transition: all 0.2s linear;
+						}
+						&.isMore{
+							&:after{
+								transform: rotate(225deg);
+							}
 						}
 					}
 				}
@@ -391,25 +390,31 @@
 			}
 			&-failure{
 				height: 350px;
-					display: flex;
-				  align-items: center;
-				  justify-content: center;
-				  >ul{
-				  	margin-top: 60px;
-				  	margin-left: 20px;
-				  	li{
-				  		margin-top: 20px;
-					  	>p{
-					  		font-size: 16px;
-					  	}
-					  	>a{
-					  		padding: 6px 25px;
-					  		border-radius: 3px;
-					  		background: #fcc505;
-					  		color: #fff;
-					  	}
+				display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  >ul{
+			  	margin-top: 60px;
+			  	margin-left: 20px;
+			  	li{
+			  		margin-top: 20px;
+				  	>p{
+				  		font-size: 16px;
 				  	}
-				  }
+				  	>a{
+				  		padding: 6px 25px;
+				  		border-radius: 3px;
+				  		background: #fcc505;
+				  		color: #fff;
+				  	}
+			  	}
+			  }
+			}
+			&-loading{
+				height: 350px;
+				display: flex;
+			  align-items: center;
+			  justify-content: center;
 			}
 		}
 		&-right{

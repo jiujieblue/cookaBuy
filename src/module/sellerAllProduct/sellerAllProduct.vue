@@ -63,7 +63,7 @@
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
-		    	<span v-on:mouseover="moreOver" v-on:mouseout="moreOut" id="more" v-if="isHeiBig" :class="{HeiBig : isHeiBig}">更多</span>
+		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
 	    	</div>
 	    </div>
   	</div>
@@ -93,6 +93,9 @@
     					<a href="./index.html" target="_blank">去商城逛逛</a>
     				</li>
     			</ul>
+    		</div>
+    		<div class="sellerAllProduct-product-left-loading" v-if="productsAll.length == 0 && isSuccess">
+    			<img src="../../assets/images/loading.gif" alt="加载中">
     		</div>
     		<ul class="sellerAllProduct-product-left-success" v-if="isSuccess">
     			<li v-for="(product,index) in productsAll" >
@@ -179,7 +182,8 @@
 				isCla: false,
 				isDisabled: false,
 				// 请求的数据是否有商品
-				isSuccess: true
+				isSuccess: true,
+				isShowMore: false
 	    }
 	  },
 	  updated () {
@@ -490,13 +494,11 @@
 	  		}
 	  	},
 	  	// 商品分类过多就隐藏   鼠标事件让其显示
-	  	moreOver : function (e) {
-				if(parseInt($(this.$refs.catsUl).css('height')) > 50) {
-	  			$(e.target.parentNode).css({maxHeight: '500px'})
-			  }
-	  	},
-	  	moreOut : function (e) {
-	  		if(parseInt($(this.$refs.catsUl).css('height')) > 70) {
+	  	moreClick : function (e) {
+	  		this.isShowMore = !this.isShowMore
+	  		if(this.isShowMore){
+		  		$(e.target.parentNode).css({maxHeight: '500px'})
+	  		}else{
 	  			$(e.target.parentNode).css({maxHeight: '75px'})
 	  		}
 	  	}

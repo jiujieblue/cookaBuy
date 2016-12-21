@@ -183,12 +183,12 @@
             </li>
           </ul>
           <div v-if="tabList==1">
-            <div class="specif">
+            <div class="specif" v-if="item_props.length">
               <div class="sanjiao"></div>
               <div class="text">规格参数</div>
               <div class="hr"></div>
             </div>
-            <div class="specif-tab">
+            <div class="specif-tab" v-if="item_props.length">
               <div>
                 <div v-for="(item,index) in item_props">{{item}}</div>
               </div>
@@ -560,8 +560,14 @@
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
           this.tit = ret.data.title
           var tit = document.createElement('title')
-          tit.innerHTML = this.tit
+          tit.innerHTML = this.tit + ' - ' + this.store_name + ' - 柯咔服装网'
           document.getElementsByTagName('head')[0].appendChild(tit)
+
+          var meta = document.createElement('meta')
+          meta.name = 'description'
+          meta.content = this.tit
+          document.getElementsByTagName('head')[0].appendChild(meta)
+
           if(ret.data.prop_imgs){
             this.colorItem = ret.data.prop_imgs
           }
@@ -586,7 +592,6 @@
               }
             }
           }
-          console.log(this.colorItem)
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){
