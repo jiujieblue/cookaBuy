@@ -15,19 +15,19 @@
 							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
-										<img src="../../assets/images/sanye.jpg" alt="">
+										<a href="./sellerAllProduct.html?store_id=2389">
+											<img src="../../assets/images/sanye.jpg" alt="">
+										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/xiangkesinanzhuang.jpg" alt="">
+										<a href="./sellerAllProduct.html?store_id=2417">
+											<img src="../../assets/images/yirenzui.jpg" alt="">
+										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<img src="../../assets/images/xiongmaoyunfuzhuang.jpg" alt="">
-									</swiper-slide>
-									<swiper-slide>
-										<img src="../../assets/images/zunyichaonan.jpg" alt="">
-									</swiper-slide>
-									<swiper-slide>
-										<img src="../../assets/images/feiyiban.jpg" alt="">
+										<a href="./sellerAllProduct.html?store_id=1997">
+											<img src="../../assets/images/feiyiban.jpg" alt="">
+										</a>
 									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
@@ -63,10 +63,11 @@
 									</tr>
 								</table>
 							</div>
-							<div class="crumb-box">
+							<div v-if="!q" class="crumb-box">
 								<ol class="breadcrumb">
-									<li><a>长城</a></li>
-									<li><a class="active">1F</a></li>
+									<li><a>大西豪</a></li>
+									<li v-if="floor"><a class="floor ? active : ''">{{floor}}</a></li>
+									<li v-if="cat"><a class="cat ? active : ''">{{cat}}</a></li>
 								</ol>
 							</div>
 							<div class="storelist-box">
@@ -99,9 +100,10 @@
 									</div>
 								</div> -->
 							</div>
-							<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination><h1>{{pages}}</h1><h1>{{page}}</h1>
 						</div>
-						<CKHr></CKHr>
+						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<!-- 暂时隐藏 -->
+						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
 							<CKSearch @subKeyword="_subkey" :keyword="q"></CKSearch>
@@ -170,7 +172,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<gotop></gotop>
 				</div>
@@ -212,6 +214,7 @@
 		        q:'',
 		        page:1,
 		        pages:'',
+		        total:'',
 		        floor:'',
 		        cat:'',
 		        isStore: false
@@ -278,6 +281,7 @@
 						this.categories = res.data.categories
 						this.page = res.data.page_number
 						this.pages = res.data.total_pages
+						this.cat = ''
 						//window.location.href = './visitingMarket.html?market=大西豪' + '&floor=' + f + '&page=1'
 					},
 					function(err){
@@ -326,8 +330,7 @@
 		  		if((qI = this.q.indexOf('&')) != -1){
 		  			this.q = this.q.slice(0,qI)
 		  		}
-		  		this.q = decodeURI(this.q.slice(this.q.indexOf('=')+1))
-		  		console.log(this.q)
+		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
 
 			$('.swiper-container').hover(
@@ -341,11 +344,12 @@
 					}
 				)
 			if(this.q){
-				this.$http.get('/s1/searchs?type=store&page_size=2&q=' + this.q)
+				this.$http.get('/s1/searchs?type=store&q=' + this.q)
 				.then(
 					function(res){
 						console.log(res.data[2].hits.hits)
 						this.stores = res.data[2].hits.hits
+						this.total = res.data[2].hits
 						// this.markets = res.data.markets
 						// this.page = res.data.data.page_number
 						// this.pages = res.data.total_pages

@@ -75,7 +75,7 @@
 				<ul class="header-nav-items">
 					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }" href="./index.html">首页</a></li>
 					<li :class="['header-nav-item', this.pageName == 'hotPage'? 'active':'']"><a href="./hotSale.html">爆款专区</a></li>
-					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html?market=大西豪&page=1">逛市场</a></li>
+					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html">逛市场</a></li>
 					<li class="header-nav-item" style="display:none"><a>我的关注</a></li>
 				</ul>
 			</div>
