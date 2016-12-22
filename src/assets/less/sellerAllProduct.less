@@ -179,15 +179,12 @@
 			}
 			>div{
 				padding: 20px 0;
-				max-height: 75px;
+				max-height: 87px;
     		overflow: hidden;
     		border-top: 1px solid #fcc505;
 				>span{
 					float: left;
 					margin-right: 10px;
-					&:hover{
-						background: #fcc505;
-					}
 					&:last-child{
 						cursor: pointer;
 						position: relative;
@@ -195,6 +192,9 @@
 						float: right;
 						text-align: center;
 						position: relative;
+						&:hover{
+							background: #fcc505;
+						}
 						&:before{
 							content: '';
 							height: 14px;
@@ -231,6 +231,7 @@
 					li{
 						float: left;
 						margin: 0 20px 5px 0;
+						line-height: 25px;
 						&.active{
 							a{
 								color: #fcc505;

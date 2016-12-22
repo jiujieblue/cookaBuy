@@ -108,7 +108,7 @@
     						<span rel="stylesheet" class="icon-shoucang" v-if="false"></span>
     					</li>
     					<li>
-    						<a target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleColor(product.title)"></a>
+    						<a class="ie-11-a" target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleColor(product.title)"></a>
     					</li>
     					<li>
     						<span v-if="product.item_no">#{{ product.item_no }}</span>
@@ -190,6 +190,9 @@
 	  	if(parseInt($(this.$refs.catsUl).css('height')) > 65) {
   			this.isHeiBig = true
 		  }
+	  	if(document.documentMode === 11){
+	  		$('.ie-11-a').css({display: 'block',height: '40px'})
+	  	}
 	  },
 	  mounted () {
 	  	var me = this , urlStr = ''
@@ -218,7 +221,7 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
-	    	if(parseInt($(me.$refs.catsUl).css('height')) > 50) {
+	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
 			  if(res.data.data.length == 0){
@@ -342,7 +345,7 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	val && (val = '&q=' + val)
+		  	this.keyword && (val = '&q=' + this.keyword)
 		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val
 		  },
 	  	// 关注本店
@@ -375,7 +378,7 @@
 		  				if(!this.$refs.low_price.value){
 		  					this.lHPrice_str.low_price = ''
 		  				}else{
-		  					(parseInt(this.$refs.low_price.value)+'').length >=10 && (this.$refs.low_price.value = 999999999.00)
+		  					parseInt(this.$refs.low_price.value)- Math.pow(10,10) > 0 && (this.$refs.low_price.value = 999999999.00)
 		  					this.lHPrice_str.low_price = '&low_price='+this.$refs.low_price.value
 		  				}
 		  			}
@@ -383,7 +386,7 @@
 		  				if(!this.$refs.high_price.value){
 		  					this.lHPrice_str.high_price = ''
 		  				}else{
-		  					(parseInt(this.$refs.high_price.value)+'').length >=10 && (this.$refs.high_price.value = 999999999.00)
+		  					parseInt(this.$refs.high_price.value)- Math.pow(10,10) > 0 && (this.$refs.high_price.value = 999999999.00)
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
@@ -489,7 +492,7 @@
 	  		if(this.isShowMore){
 		  		$(e.target.parentNode).css({maxHeight: '500px'})
 	  		}else{
-	  			$(e.target.parentNode).css({maxHeight: '75px'})
+	  			$(e.target.parentNode).css({maxHeight: '87px'})
 	  		}
 	  	}
 	  },
