@@ -248,7 +248,7 @@
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {
 	    	me.storesInfo = res.data.data
-	    	$('title').html(res.data.data.store_name + ' 全部商品')
+	    	$('title').html(res.data.data.store_name + ' 柯咔服装网')
 	    },
 	    function (res) {
 	    	console.log(res)
