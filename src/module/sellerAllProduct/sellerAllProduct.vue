@@ -59,7 +59,7 @@
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in cats" :class="{active : cat.cid == cid}">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&page_seze=12&cid='+cat.cid">{{ cat.name }}</a>
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
 		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
@@ -329,8 +329,9 @@
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		var val = this.keyword && ('&q='+this.keyword)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
+	  		var cidUrl = this.cid && ('&cid=' + this.cid)
+	  		var val = this.keyword && ('&q=' + this.keyword)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id + cidUrl + "&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
@@ -348,8 +349,9 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
+		  	var cidUrl = this.cid && ('&cid=' + this.cid)
 		  	this.keyword && (val = '&q=' + this.keyword)
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val + cidUrl
 		  },
 	  	// 关注本店
 	  	subStor () {
@@ -393,8 +395,9 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			this.keyword && (this.keyword = '&q=' + this.keyword)
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.keyword + this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
+		  			var cidUrl = this.cid && ('&cid=' + this.cid)
+		  			var val = this.keyword && ('&q=' + this.keyword)
+		  			window.location.href = "./sellerAllProduct.html?store_id="+  this.store_id + val + cidUrl +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
 		  		}
 	  		}
 	  	},

@@ -81,7 +81,7 @@
 										<div>主营:{{_isKey(storeItem,'cat')}}</div>
 										<div>{{_isKey(storeItem,'location')}}</div>
 										<div>
-											<a class="btn-link" @click="_toStore(storeIndex)">进店逛逛</a>
+											<a class="btn-link" @click="_toStore(storeItem)">进店逛逛</a>
 										</div>
 									</div>
 								</div>
@@ -253,7 +253,8 @@
 				
 			},
 			_toStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+				var store_id = t._source ? t._source.id : t.id
+				window.open("./sellerAllProduct.html?store_id="+ store_id)
 			},
 			subPage (val) {
 			  	console.log(val)
