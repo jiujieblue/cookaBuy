@@ -183,7 +183,8 @@
 				isDisabled: false,
 				// 请求的数据是否有商品
 				isSuccess: true,
-				isShowMore: false
+				isShowMore: false,
+				cat: ''
 	    }
 	  },
 	  updated () {
