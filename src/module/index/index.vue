@@ -9,12 +9,12 @@
 							<div class="index-category">
 								<div class="index-category-block">
 									<a class="index-category-lv-1">女装</a>
-									<a class="index-category-lv-2">连衣裙</a>
-									<a class="index-category-lv-2">牛仔装</a>
 									<a class="index-category-lv-2">毛呢外套</a>
-									<a class="index-category-lv-2">短外套</a>
+									<a class="index-category-lv-2">连衣裙</a>
 									<a class="index-category-lv-2">卫衣</a>
-									<a class="index-category-lv-2">马甲</a>
+									<a class="index-category-lv-2">毛衣</a>
+									<a class="index-category-lv-2">短外套</a>
+									<a class="index-category-lv-2">牛仔裤</a>
 									<a class="index-category-lv-2">T恤</a>
 									<a class="index-category-lv-2">衬衫</a>
 								</div>
@@ -26,27 +26,26 @@
 									<a class="index-category-lv-2">毛衣</a>
 									<a class="index-category-lv-2">牛仔裤</a>
 									<a class="index-category-lv-2">马甲</a>
-									<a class="index-category-lv-2">T恤</a>
 									<a class="index-category-lv-2">衬衫</a>
+									<a class="index-category-lv-2">T恤</a>
 								</div>
 								<div class="index-category-block">
-									<a class="index-category-lv-1">家具</a>
-									<a class="index-category-lv-2">文胸</a>
-									<a class="index-category-lv-2">睡裙</a>
-									<a class="index-category-lv-2">睡袍</a>
-									<a class="index-category-lv-2">吊带</a>
-									<a class="index-category-lv-2">保暖</a>
-									<a class="index-category-lv-2">抹胸</a>
-									<a class="index-category-lv-2">内裤</a>
+									<a class="index-category-lv-1">孕妇装</a>
+									<a class="index-category-lv-2">孕妇装</a>
+									<a class="index-category-lv-2">防辐射</a>
+									<a class="index-category-lv-2">孕妇裤</a>
+									<a class="index-category-lv-2">孕妇袜</a>
+									<a class="index-category-lv-2">哺乳装</a>
+									<a class="index-category-lv-2">哺乳文胸</a>
+									<a class="index-category-lv-2">瘦身塑体衣</a>
 								</div>
 								<div class="index-category-block">
-									<a class="index-category-lv-1">女鞋</a>
-									<a class="index-category-lv-2">低帮鞋</a>
-									<a class="index-category-lv-2">高帮鞋</a>
-									<a class="index-category-lv-2">靴子</a>
-									<a class="index-category-lv-2">帆布鞋</a>
-									<a class="index-category-lv-2">拖鞋</a>
-									<a class="index-category-lv-2">凉鞋</a>
+									<a class="index-category-lv-1">童装</a>
+									<a class="index-category-lv-2">童外套</a>
+									<a class="index-category-lv-2">棉衣/棉服</a>
+									<a class="index-category-lv-2">童卫衣</a>
+									<a class="index-category-lv-2">打底裤</a>
+									<a class="index-category-lv-2">童T恤</a>
 								</div>
 							</div>
 							<div class="index-carousel" >
@@ -466,7 +465,7 @@ export default {
 	        maternits:[],
 	        childrens:[],
 	        init_page: 1,
-	        total_entries:''
+	        total_pages:''
     	}
 	},
 	components:{
@@ -485,7 +484,7 @@ export default {
 	             //console.log(res)
 	            this.products = res.data.data
 	            this.init_page ++ 
-	      		if(this.init_page > this.total_entries ){
+	      		if(this.init_page > this.total_pages){
 	      			this.init_page = 1
 	      		}
 	             console.log(this.products)
@@ -556,6 +555,13 @@ export default {
 	},
 	mounted(){
 
+		var as = $('.index-category-block a')
+		for(var i = 0; i < as.length;i++)
+			as[i].addEventListener('click',function(){
+			console.log($(this).html())
+			var str = $(this).html()
+			window.open("./search.html?q="+ str)
+		})
 		$('.index-carousel').hover(
 			function(){
 				$('.icon-xiangqian').css('left','0').fadeIn('normal')
@@ -596,7 +602,7 @@ export default {
         function(res){
           //console.log(res)
         	this.sideproducts = res.data.data
-        	this.total_entries  = res.data.total_entries
+        	this.total_pages  = res.data.total_pages
         	this.init_page++
         	for(var i = 0 ; i < this.sideproducts.length ; i++){
              	this.sideproducts[i].pic_url += '_80x80.jpg'

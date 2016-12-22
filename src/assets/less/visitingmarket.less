@@ -30,6 +30,7 @@
 				width: 40px;
 				height: 60px;
 				border-radius: 0 5px 5px 0;
+				//background-image: url('../../assets/images/icons/xiangqian.svg')
 			}
 			.swiper-button-next{
 				left: auto;
@@ -39,6 +40,7 @@
 				width: 40px;
 				height: 60px;
 				border-radius: 5px 0 0px 5px;
+				//background-image: url('../../assets/images/icons/xianghou.svg')
 			}
 		}
 		.market-box{
@@ -140,7 +142,16 @@
 							border-radius: 50%;
 						}
 					}
-					div:nth-child(2),
+					div:nth-child(2){
+						color: #665c59;
+						margin: 10px;
+						text-overflow:ellipsis;
+						display:-webkit-box;
+						-webkit-box-orient:vertical;
+						-webkit-line-clamp:1;
+						overflow:hidden;
+						font-size: 16px;
+					}
 					div:nth-child(3){
 						color: #665c59;
 						margin: 10px;
@@ -149,6 +160,7 @@
 						-webkit-box-orient:vertical;
 						-webkit-line-clamp:1;
 						overflow:hidden;
+						font-size: 14px;
 					}
 					div:nth-child(4){
 						color: #c4bebc;
@@ -167,10 +179,10 @@
 							color: #fff;
 							background-color: @ck-sub;
 							border-radius: 15px;
-							padding:2px 20px;
+							padding:5px 20px;
 							box-shadow: 1px 5px 10px #989898;
 							text-decoration: none;
-							font-size: 16px;
+							font-size: 14px;
 							&:focus{
 								border: none;
 								outline: none;

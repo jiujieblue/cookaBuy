@@ -29,12 +29,17 @@
 											<img src="../../assets/images/feiyiban.jpg" alt="">
 										</a>
 									</swiper-slide>
+									<swiper-slide>
+										<a href="./sellerAllProduct.html?store_id=81">
+											<img src="../../assets/images/yuanyuan.jpg" alt="">
+										</a>
+									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
 								</swiper>
 							</div>
 							<div class="clearfix"></div>
-							<div v-if="!q" class="market-box">
+							<div class="market-box">
 								<table>
 									<tr>
 										<td>市场</td>
@@ -50,20 +55,20 @@
 									<tr>
 										<td>楼层</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllF"><a :class="isAllF ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="ft == floorItem ? 'tagActive' : ''">{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllC"><a :class="isAllC ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div v-if="!q" class="crumb-box">
+							<div class="crumb-box">
 								<ol class="breadcrumb">
 									<li><a>大西豪</a></li>
 									<li v-if="floor"><a class="floor ? active : ''">{{floor}}</a></li>
@@ -101,7 +106,7 @@
 								</div> -->
 							</div>
 						</div>
-						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						<!-- 暂时隐藏 -->
 						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -211,6 +216,8 @@
 		        stores:[],
 		        floors:[],
 		        categories:[],
+		        isAllF:true,
+		        isAllC:true,
 		        store_logo:'',
 		        q:'',
 		        page:1,
@@ -266,7 +273,6 @@
 						this.categories = res.data.categories
 						this.page = res.data.page_number
 						this.pages = res.data.total_pages
-						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 					},
 					function(err){
 						console.log(err)
@@ -278,6 +284,7 @@
 			},
 			_clickF(f){
 				console.log(f)
+				this.isAllF = false
 				this.floor = f
 				this.ft = f
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
@@ -288,7 +295,23 @@
 						this.page = res.data.page_number
 						this.pages = res.data.total_pages
 						this.cat = ''
-						//window.location.href = './visitingMarket.html?market=大西豪' + '&floor=' + f + '&page=1'
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+			},
+			_clickAllF(){
+				this.isAllF = true
+				this.floor = ''
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						this.cat = ''
 					},
 					function(err){
 						console.log(err)
@@ -298,6 +321,7 @@
 			_clickC(c,cIndex){
 				console.log(c)
 				console.log(cIndex)
+				this.isAllC = false
 				this.cat = c
 				this.ct = cIndex
 				if(this.floor){
@@ -308,7 +332,6 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 						},
 						function(err){
 							console.log(err)
@@ -322,7 +345,39 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
+			},
+			_clickAllC(){
+				this.isAllC = true
+				console.log(this.floor)
+				if(this.floor){
+					this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else{
+					this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
 						},
 						function(err){
 							console.log(err)
@@ -374,12 +429,24 @@
 						console.log(res.data[2].hits.hits)
 						this.stores = res.data[2].hits.hits
 						this.total = res.data[2].hits
-						// this.markets = res.data.markets
-						// this.page = res.data.data.page_number
-						// this.pages = res.data.total_pages
-						// this.stores =  res.data.data
-						// this.floors = res.data.floors
-						// this.categories = res.data.categories
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.markets = res.data.markets
+						this.floors = res.data.floors
+						this.categories = res.data.categories
+						this.page = res.data.data.page_number
+						this.pages = res.data.total_pages
+						// for (var i = 0; i < this.stores.length; i++) {
+						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
+						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
+						// 	}
+						// }
 					},
 					function(err){
 						console.log(err)
