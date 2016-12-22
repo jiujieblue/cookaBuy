@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
+		<headerComponent pageName="indexPage" @subStor="_subStor" @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -466,7 +466,8 @@ export default {
 	        maternits:[],
 	        childrens:[],
 	        init_page: 1,
-	        total_entries:''
+	        total_entries:'',
+	        isStore: false
     	}
 	},
 	components:{
@@ -475,8 +476,19 @@ export default {
 		gotop
 	},
 	methods:{
+		_subStor (n) {
+  		if(n == 0){
+  			this.isStore = false
+  		}else{
+  			this.isStore = true
+  		}
+  	},
 		_subkeyword(keyword){
-			window.location.href = "./search.html?q="+keyword
+			if(this.isStore){
+  			window.location.href = './visitingMarket.html?q='+keyword
+  		}else{
+  			window.location.href = './search.html?q='+ keyword +'&from=1'
+  		}
 		},
 		_changePro(){
 			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)

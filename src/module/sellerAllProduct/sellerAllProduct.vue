@@ -10,7 +10,6 @@
 			<div class="container">
 				<ul>
 					<li>您好，欢迎光临柯咔商城！</li>
-					<li><a href="./index.html">首页</a></li>
 					<li v-if="false"><a href="">请登录</a> | <a href="">免费注册</a></li>
 					<li v-if="false"><a href="">收藏本站</a></li>
 					<li v-if="false"><a href="">商家入驻</a></li>
@@ -59,8 +58,8 @@
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats" :class="{active : cat.name == keyword}">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
+		    		<li v-for="(cat,index) in cats" :class="{active : cat.cid == cid}">
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&page_seze=12&cid='+cat.cid">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
 		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
@@ -184,7 +183,7 @@
 				// 请求的数据是否有商品
 				isSuccess: true,
 				isShowMore: false,
-				cat: ''
+				cid: ''
 	    }
 	  },
 	  updated () {
@@ -196,10 +195,12 @@
 	  	}
 	  },
 	  mounted () {
-	  	var me = this , urlStr = ''
+	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
 
+	  	// 从链接中拿取 cid
+	  	this._calcuInfo('cid', hrefStr, 4)
 	  	// 从链接中拿取 store_id
 	  	this._calcuInfo('store_id', hrefStr, 9)
 	  	// 从链接中拿取 page
@@ -213,9 +214,10 @@
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
 
-  		this.keyword && (urlStr = '&q=' + this.keyword)
+	  	this.cid && (cidUrl = '&cid=' + this.cid)
+  		this.keyword && (keywordUrl = '&q=' + this.keyword)
 	  	// 全部商品
-	    this.$http.get('/api/items?store_id='+ this.store_id + urlStr +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
+	    this.$http.get('/api/items?store_id=' + this.store_id + cidUrl + keywordUrl +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
 		    me.cats = res.data.cats
 	    	me.productsAll = res.data.data
@@ -392,7 +394,7 @@
 		  				}
 		  			}
 		  			this.keyword && (this.keyword = '&q=' + this.keyword)
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
+		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.keyword + this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
 		  		}
 	  		}
 	  	},
