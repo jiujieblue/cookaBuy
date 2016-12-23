@@ -19,7 +19,6 @@
 					</div>
 					<div class="col-md-7">
 						<div class="text-right">
-							<a href="./index.html" class="header-top-link" style="margin-right:10px;">首页</a>
 							<a href="#" class="header-top-link" style="display:none;margin-right: 30px;margin-left: 30px;">
 								商家入驻
 							</a>
