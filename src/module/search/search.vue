@@ -282,7 +282,7 @@
 	  	var hrefUrlStr = ''
 	  	// 搜索关键字
 	  	if(this.keyword){
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+((this.page-1)*20+1)+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {

@@ -58,7 +58,7 @@
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats" :class="{active : cat.cid == cid}">
+		    		<li v-for="(cat,index) in catsReal" :class="{active : cat.cid == cid}">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
@@ -146,6 +146,7 @@
 	      isHeiBig: false, // 是否显示更多
 	      productsAll: [],
 	      cats: [],
+	      catsReal: {},
 	      page_number: Number,
 	      total_pages: Number,
 	      showcases: [],
@@ -224,6 +225,21 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+
+	    	for(var i = 0;i < me.cats.length; i ++){
+	    		if(!me.catsReal[me.cats[i].name]){
+	    			me.catsReal[me.cats[i].name] = {}
+	    			me.catsReal[me.cats[i].name].name = me.cats[i].name
+	    			me.catsReal[me.cats[i].name].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].name].cid = me.cats[i].cid
+	    		}else{
+	    			me.catsReal[me.cats[i].parent] = {}
+	    			me.catsReal[me.cats[i].parent].name = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
+	    			me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
+	    		}
+	    	}
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
