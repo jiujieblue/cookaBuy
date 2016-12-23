@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
+		<headerComponent pageName="indexPage" @subStor="_subStor" @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -207,11 +207,11 @@
 				                      大西豪 3F-309
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2361">
+				                    <a class="index-store-link" @click="_toReStore(2361)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2361">
+				                  <a class="index-store-product" @click="_toReStore(2361)">
 				                    <img src="../../assets/images/bala_3F_309.jpg" />
 				                  </a>
 				                </div>
@@ -224,11 +224,11 @@
 				                      大西豪 2F-217
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2480">
+				                    <a class="index-store-link" @click="_toReStore(2480)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2480">
+				                  <a class="index-store-product" @click="_toReStore(2480)">
 				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
 				                  </a>
 				                </div>
@@ -241,11 +241,11 @@
 				                      大西豪 3F-302
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2331">
+				                    <a class="index-store-link" @click="_toReStore(2331)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2331">
+				                  <a class="index-store-product" @click="_toReStore(2331)">
 				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg"/>
 				                  </a>
 				                </div>
@@ -258,11 +258,11 @@
 				                      大西豪 6F-601B-1
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=1972">
+				                    <a class="index-store-link" @click="_toReStore(1972)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=1972">
+				                  <a class="index-store-product" @click="_toReStore(1972)">
 				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
 				                  </a>
 				                </div>
@@ -275,11 +275,11 @@
 				                      大西豪 4F-409
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2248">
+				                    <a class="index-store-link" @click="_toReStore(2248)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2248">
+				                  <a class="index-store-product" @click="_toReStore(2248)">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
 				                </div>
@@ -465,7 +465,8 @@ export default {
 	        maternits:[],
 	        childrens:[],
 	        init_page: 1,
-	        total_pages:''
+	        total_pages:'',
+	        isStore: false
     	}
 	},
 	components:{
@@ -474,8 +475,19 @@ export default {
 		gotop
 	},
 	methods:{
+		_subStor (n) {
+  		if(n == 0){
+  			this.isStore = false
+  		}else{
+  			this.isStore = true
+  		}
+  	},
 		_subkeyword(keyword){
-			window.location.href = "./search.html?q="+keyword
+			if(this.isStore){
+  			window.location.href = './visitingMarket.html?q='+keyword
+  		}else{
+  			window.location.href = './search.html?q='+ keyword +'&from=1'
+  		}
 		},
 		_changePro(){
 			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)
@@ -515,6 +527,9 @@ export default {
 	    },
 		_goMore(str){
 			window.open("./search.html?q="+ str)
+		},
+		_toReStore(sid){
+			window.open("./sellerAllProduct.html?store_id="+ sid)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
