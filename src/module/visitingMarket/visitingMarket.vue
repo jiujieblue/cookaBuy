@@ -334,8 +334,10 @@
 			_clickF(f){
 				console.log(f)
 				this.isAllF = false
+				this.isAllC = true
 				this.floor = f
 				this.ft = f
+				this.ct = -1
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
@@ -353,6 +355,8 @@
 			_clickAllF(){
 				this.isAllF = true
 				this.floor = ''
+				this.ct = -1
+				this.ft = 0
 				this.$http.get('/api/stores?market=大西豪' + '&page=1')
 				.then(
 					function(res){
@@ -371,6 +375,7 @@
 				console.log(c)
 				console.log(cIndex)
 				this.isAllC = false
+				this.isAllF = false
 				this.cat = c
 				this.ct = cIndex
 				if(this.floor){
@@ -403,6 +408,7 @@
 			},
 			_clickAllC(){
 				this.isAllC = true
+				this.ct = -1
 				console.log(this.floor)
 				if(this.floor){
 					this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=1')
