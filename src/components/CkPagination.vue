@@ -40,7 +40,7 @@
   	}
   },
   mounted () {
-  	
+
   },
   computed : {
     indexs () {
@@ -49,22 +49,31 @@
       var pages = !isNaN(parseInt(this.pages)) ? parseInt(this.pages) : 1
       var pageNum = !isNaN(parseInt(this.pageNum)) ? parseInt(this.pageNum) : 1
       var ar = []
-      if(pages <= 6){
+      if(pages <= 7){
       	left = 1
       	right = pages-1
       }else{
-      	if(pageNum <= 3){
+      	if(pageNum <= 4){
       		left = 1
       		right = 5
-      	}else if(pageNum <= 5){
-      		left = 1
-      		right = pageNum + 2
-      	}else if(pages-pageNum <= 2){
-      		left = pages-5
-      		right = pages-1
+      	}else if(pageNum <= 6){
+      		left = 4
+      		if(pages < 11){
+      			right = pages - 1
+      		}else{
+      			right = 8
+      		}
       	}else{
-      		left = pageNum-2
-      		right = pageNum+2
+    			if(pages - pageNum >= 5){
+    				left = pageNum - 2
+    				right = pageNum + 2
+    			}else if(pages - pageNum == 4){
+    				left = pageNum - 3
+    				right = pageNum + 1
+    			}else{
+    				left = pages - 4
+    				right = pages - 1
+    			}
       	}
       }
       while (left <= right){
@@ -86,13 +95,20 @@
       return true
     },
     shennueRigth: function(){
-    	if(this.pages-this.pageNum >= 4 && this.pages >6 ){
-    		return true
+    	if(this.pageNum < 5){
+	    	if(this.pages-this.pageNum >= 4 && this.pages >7){
+	    		return true
+	    	}
+	    	return false
+    	}else{
+    		if(this.pages-this.pageNum >= 4 && this.pages >10){
+    			return true
+    		}
+    		return false
     	}
-    	return false
     },
     shennueLeft: function(){
-    	if(this.pageNum > 5){
+    	if(this.pageNum >= 5 && this.pages > 7){
     		return true
     	}
     	return false

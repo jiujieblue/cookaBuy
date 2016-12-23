@@ -216,7 +216,7 @@
 	  	this._obtainSorUrl('order',hrefStr)
 
 	  	this.cid && (cidUrl = '&cid=' + this.cid)
-  		this.keyword && (keywordUrl = '&q=' + this.keyword)
+  		this.keyword && (keywordUrl = '&q=' + encodeURIComponent(this.keyword))
 	  	// 全部商品
 	    this.$http.get('/api/items?store_id=' + this.store_id + cidUrl + keywordUrl +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
@@ -423,7 +423,7 @@
 	  			return
 	  		}
 	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>/?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
 	  		var val = this.$refs.keyword.value
 	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
 	  		if(n && e.which != 13){
@@ -432,7 +432,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
