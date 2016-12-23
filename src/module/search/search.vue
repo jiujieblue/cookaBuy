@@ -532,60 +532,59 @@
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
-	  					return
 	  				}else{
 	  					this.lHPrice_isNot[str1] = false
 	  					this.lHPrice_isNot.ifSub = false
 	  					return
 	  				}
+	  			}
+	  			if(val2){ // 比较大小
+	  				if(str1 == 'low_price'){
+	  					if(val1 <= val2){
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}else{
+	  					if(val1 >= val2){
+	  						console.log(1)
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}
 	  			}else{
-		  			if(val2){ // 比较大小
-		  				if(str1 == 'low_price'){
-		  					if(val1 <= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}else{
-		  					if(val1 >= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
-		  			}
-		  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
-		  				// 已搜索和现搜索是否一样
-			  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
-			  				this.lHPrice_isNot[str1] = false
-			  				if(this.lHPrice_isNot[str2]){
-	  							this.lHPrice_isNot.ifSub = true
-	  							return
-	  						}else{
-	  							this.lHPrice_isNot.ifSub = false
-	  							return
-	  						}
-			  				return
-			  			}else{
-			  				this.lHPrice_isNot[str1] = true
-		  					this.lHPrice_isNot.ifSub = true
-			  			}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  			}
+	  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
+	  				// 已搜索和现搜索是否一样
+		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+		  				this.lHPrice_isNot[str1] = false
+		  				if(this.lHPrice_isNot[str2]){
+  							this.lHPrice_isNot.ifSub = true
+  							return
+  						}else{
+  							this.lHPrice_isNot.ifSub = false
+  							return
+  						}
 		  				return
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+	  					this.lHPrice_isNot.ifSub = true
 		  			}
+	  			}else{
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  				return
 	  			}
 	  		}else{
 	  			e.target.value = ''

@@ -65,7 +65,7 @@ export default {
   		}
 			var val = this.$refs.query.value
   		var regH = /<[^>]*>/g
-  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>/?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
+  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
   		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
   		if(val.length >= 100){
 				return
