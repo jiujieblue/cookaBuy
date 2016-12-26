@@ -412,6 +412,7 @@
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str)
+	  		str = str.slice(1)
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
 		  		this.lHPrice_str[str] = hrefStr.slice(i+1)
@@ -430,7 +431,7 @@
 		  		}else{
 		  			val += '.00'
 		  		}
-		  		this.$refs[str.slice(1)].value = val
+		  		this.$refs[str].value = val
 		  	}
 	  	},
 	  	// 输出 aggUrl中的关键字

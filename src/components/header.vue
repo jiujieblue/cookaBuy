@@ -59,7 +59,7 @@
 					<ul class="header-category-lv-1">
 						<li v-for="(daohangoneItem, daohangoneIndex) in daohangone">
 							<a @click="_goMore(daohangoneItem.name)">{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
-							<ul class="header-category-lv-2">
+							<ul id="lvtwo" class="header-category-lv-2">
 								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
 									<a @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
 									<ul class="header-category-lv-3">

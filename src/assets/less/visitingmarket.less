@@ -22,6 +22,18 @@
 		.swiper-box{
 			height: 314px;
 			margin-top: 20px;
+			.swiper-pagination{
+				display: none;
+				bottom: 10px;
+				.swiper-pagination-bullet{
+					border: 1px solid #000;
+					background: transparent;
+					&-active{
+						border: 1px solid #000;
+						background: #000;
+					}
+				}
+			}
 			.swiper-button-prev{
 				left: -40px;
 				right: auto;

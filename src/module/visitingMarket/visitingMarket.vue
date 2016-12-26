@@ -8,7 +8,7 @@
 						<div class="startstore-box">
 							<div class="top">
 								<div class="top-img">
-									<img src="../../assets/images/mingxingdianpu.svg" alt="">
+									<img src="../../assets/images/mingxingdianpu.svg" >
 								</div>
 								<span>明星店铺</span>
 							</div>
@@ -16,29 +16,30 @@
 								<swiper :options="swiperOption">
 									<swiper-slide>
 										<a @click="_toBannerStore(2389)">
-											<img src="../../assets/images/sanye.jpg" alt="">
+											<img src="../../assets/images/sanye.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
 										<a @click="_toBannerStore(2417)">
-											<img src="../../assets/images/yirenzui.jpg" alt="">
+											<img src="../../assets/images/yirenzui.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
 										<a @click="_toBannerStore(1997)">
-											<img src="../../assets/images/feiyiban.jpg" alt="">
+											<img src="../../assets/images/feiyiban.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
 										<a @click="_toBannerStore(81)">
-											<img src="../../assets/images/yuanyuan.jpg" alt="">
+											<img src="../../assets/images/yuanyuan.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
 										<a @click="_toBannerStore(2186)">
-											<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" alt="">
+											<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
 										</a>
 									</swiper-slide>
+									<div class="swiper-pagination" slot="pagination"></div>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
 								</swiper>
@@ -76,8 +77,18 @@
 							<div class="crumb-box">
 								<ol class="breadcrumb">
 									<li><a>大西豪</a></li>
-									<li v-if="floor"><a class="floor ? active : ''">{{floor}}</a></li>
-									<li v-if="cat"><a class="cat ? active : ''">{{cat}}</a></li>
+									<li v-if="isAllF">
+										<a v-if="isAllF" class="isAllF ? active : ''">全部楼层</a>
+									</li>	
+									<li v-if="floor">
+										<a class="floor ? active : ''">{{floor}}</a>
+									</li>
+									<li v-if="isAllC">
+										<a v-if="isAllC" class="isAllC ? active : ''">全部类目</a>
+									</li>	
+									<li v-if="cat">
+										<a class="cat ? active : ''">{{cat}}</a>
+									</li>
 								</ol>
 							</div>
 							<div class="storelist-box">
@@ -85,7 +96,7 @@
 									<div class="title">{{ _isKey(storeItem,'store_name')}}</div>
 									<div class="body">
 										<div class="img">
-											<img :src="_isKey(storeItem,'store_logo')" alt="">
+											<img :src="_isKey(storeItem,'store_logo')" >
 										</div>
 										<div>{{_isKey(storeItem,'market')}}</div>
 										<div>主营:{{_isKey(storeItem,'cat')}}</div>
@@ -99,7 +110,7 @@
 									<div class="title">广州市标总服饰</div>
 									<div class="body">
 										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
+											<img src="../../assets/images/dianputouxiang.png" >
 										</div>
 										<div>长城</div>
 										<div>主营:女装</div>
@@ -113,7 +124,7 @@
 
 							<div class="nostorelist-box" v-if="!stores.length">
 								<div class="body">
-										<img src="../../assets/images/nostore.png" alt="">
+										<img src="../../assets/images/nostore.png" >
 										<span>找不到店铺哟～</span>
 										<a href="./index.html">去商城首页</a>
 								</div>
@@ -138,7 +149,7 @@
 							<div class="body">
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -149,7 +160,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -160,7 +171,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -171,7 +182,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -182,7 +193,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -219,13 +230,14 @@
 		data(){
 			return{
 				swiperOption: {
-		          paginationClickable: true,
-		          spaceBetween: 10,
-		          freeMode: true,
-		          autoplay: 3000,
-		          slidesPerView: 1,
-		          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
+					pagination: '.swiper-pagination',
+		        	paginationClickable: true,
+		        	spaceBetween: 10,
+		        	freeMode: true,
+		        	autoplay: 3000,
+		        	slidesPerView: 1,
+		        	prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next'
 		        },
 		        markets:[],
 		        stores:[],
@@ -245,7 +257,9 @@
 		        ft:-1,
 		        isStore: false,
 		        isActiveF: false,
-		        isActiveC: false
+		        isActiveC: false,
+
+		        isSearch: true
 			}
 		},
 		components:{
@@ -288,18 +302,18 @@
 			  	var cat = this.cat && '&cat='+this.cat
 			  	var floor = this.floor && '&floor='+this.floor
 			  	var q = this.q && '&q=' + this.q
-			  	if(q){
-			  		this.$http.get('/api/stores?market=大西豪' + '&page=1')
-					.then(
-						function(res){
-							this.markets = res.data.markets
-							this.floors = res.data.floors
-							this.categories = res.data.categories
-						},
-						function(err){
-							console.log(err)
-						}
-					)
+			  	if(this.isSearch){
+			  // 		this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					// .then(
+					// 	function(res){
+					// 		this.markets = res.data.markets
+					// 		this.floors = res.data.floors
+					// 		this.categories = res.data.categories
+					// 	},
+					// 	function(err){
+					// 		console.log(err)
+					// 	}
+					// )
 			  		this.$http.get('/s1/searchs?type=store&search_size=10' + q + '&from=' + (val-1)*10)
 					.then(
 						function(res){
@@ -333,9 +347,11 @@
 			},
 			_clickF(f){
 				console.log(f)
+				this.isSearch = false
 				this.isAllF = false
 				this.isAllC = true
 				this.floor = f
+				console.log(this.floor)
 				this.ft = f
 				this.ct = -1
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
@@ -353,6 +369,7 @@
 				)
 			},
 			_clickAllF(){
+				this.isSearch = false
 				this.isAllF = true
 				this.floor = ''
 				this.ct = -1
@@ -374,6 +391,7 @@
 			_clickC(c,cIndex){
 				console.log(c)
 				console.log(cIndex)
+				this.isSearch = false
 				this.isAllC = false
 				this.isAllF = false
 				this.cat = c
@@ -392,6 +410,7 @@
 						}
 					)
 				}else{
+					this.isAllF = true
 					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&page=1')
 					.then(
 						function(res){
@@ -407,6 +426,7 @@
 				}
 			},
 			_clickAllC(){
+				this.isSearch = false
 				this.isAllC = true
 				this.ct = -1
 				console.log(this.floor)
@@ -469,10 +489,12 @@
 
 			$('.swiper-container').hover(
 					function(){
+						$('.swiper-pagination').fadeIn('normal')
 						$('.swiper-button-prev').css('left','0').fadeIn('slow')
 						$('.swiper-button-next').css('right','0').fadeIn('slow')
 					},
 					function(){
+						$('.swiper-pagination').fadeOut('normal')
 						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
 						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
 					}
