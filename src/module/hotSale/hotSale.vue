@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerComponent pageName="hotPage"  @subKeyword="_subkeyword"></headerComponent>
+		<headerComponent pageName="hotPage" @subStor="_subStor" @subKeyword="_subkeyword"></headerComponent>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 trim-col">
@@ -123,6 +123,7 @@
 		name:'carrousel',
 		data(){
 			return{
+	      isStore: false,
 				swiperOption: {
 		          pagination: '.swiper-pagination',
 		          slidesPerView: 4,
@@ -145,8 +146,19 @@
 			gotop
 		},
 		methods:{
+			_subStor (n) {
+	  		if(n == 0){
+	  			this.isStore = false
+	  		}else{
+	  			this.isStore = true
+	  		}
+	  	},
 			_subkeyword(keyword){
-				window.location.href = "./search.html?q="+keyword
+				if(this.isStore){
+	  			window.location.href = './visitingMarket.html?q='+keyword
+	  		}else{
+	  			window.location.href = './search.html?q='+ keyword +'&from=1'
+	  		}
 			},
 			_reGirlCla (i) {
 				if(i > 1){

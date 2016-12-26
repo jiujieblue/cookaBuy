@@ -15,18 +15,28 @@
 							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=2389">
+										<a @click="_toBannerStore(2389)">
 											<img src="../../assets/images/sanye.jpg" alt="">
 										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=2417">
+										<a @click="_toBannerStore(2417)">
 											<img src="../../assets/images/yirenzui.jpg" alt="">
 										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=1997">
+										<a @click="_toBannerStore(1997)">
 											<img src="../../assets/images/feiyiban.jpg" alt="">
+										</a>
+									</swiper-slide>
+									<swiper-slide>
+										<a @click="_toBannerStore(81)">
+											<img src="../../assets/images/yuanyuan.jpg" alt="">
+										</a>
+									</swiper-slide>
+									<swiper-slide>
+										<a @click="_toBannerStore(2186)">
+											<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" alt="">
 										</a>
 									</swiper-slide>
 									<div class="swiper-button-prev" slot="button-prev"></div>
@@ -34,7 +44,7 @@
 								</swiper>
 							</div>
 							<div class="clearfix"></div>
-							<div v-if="!q" class="market-box">
+							<div class="market-box">
 								<table>
 									<tr>
 										<td>市场</td>
@@ -50,20 +60,20 @@
 									<tr>
 										<td>楼层</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllF"><a :class="isAllF ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="ft == floorItem ? 'tagActive' : ''">{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllC"><a :class="isAllC ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div v-if="!q" class="crumb-box">
+							<div class="crumb-box">
 								<ol class="breadcrumb">
 									<li><a>大西豪</a></li>
 									<li v-if="floor"><a class="floor ? active : ''">{{floor}}</a></li>
@@ -81,7 +91,7 @@
 										<div>主营:{{_isKey(storeItem,'cat')}}</div>
 										<div>{{_isKey(storeItem,'location')}}</div>
 										<div>
-											<a class="btn-link" @click="_toStore(storeIndex)">进店逛逛</a>
+											<a class="btn-link" @click="_toStore(storeItem)">进店逛逛</a>
 										</div>
 									</div>
 								</div>
@@ -100,8 +110,18 @@
 									</div>
 								</div> -->
 							</div>
+
+							<div class="nostorelist-box" v-if="!stores.length">
+								<div class="body">
+										<img src="../../assets/images/nostore.png" alt="">
+										<span>找不到店铺哟～</span>
+										<a href="./index.html">去商城首页</a>
+								</div>
+							</div>
+
+
 						</div>
-						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<CkPagination v-if="stores.length" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						<!-- 暂时隐藏 -->
 						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -211,11 +231,14 @@
 		        stores:[],
 		        floors:[],
 		        categories:[],
+		        isAllF:true,
+		        isAllC:true,
 		        store_logo:'',
 		        q:'',
+		        q_total:'',
+		        q_pageSize:10,
 		        page:1,
 		        pages:'',
-		        total:'',
 		        floor:'',
 		        cat:'',
 		        ct:-1,
@@ -252,34 +275,69 @@
 				}
 				
 			},
+			_toBannerStore(sid){
+				window.open("./sellerAllProduct.html?store_id="+ sid)
+			},
 			_toStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+				var store_id = t._source ? t._source.id : t.id
+				window.open("./sellerAllProduct.html?store_id="+ store_id)
 			},
 			subPage (val) {
 			  	console.log(val)
-			  	var cat = this.cat ? '&cat='+this.cat : ''
-			  	var floor = this.floor ? '&floor='+this.floor : ''
-			  	this.$http.get('/api/stores?market=大西豪'+ cat + floor + '&page=' + val)
-				.then(
-					function(res){
-						this.stores = res.data.data
-						this.categories = res.data.categories
-						this.page = res.data.page_number
-						this.pages = res.data.total_pages
-						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
-					},
-					function(err){
-						console.log(err)
-					}
-				)
+			  	this.page = val
+			  	var cat = this.cat && '&cat='+this.cat
+			  	var floor = this.floor && '&floor='+this.floor
+			  	var q = this.q && '&q=' + this.q
+			  	if(q){
+			  		this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					.then(
+						function(res){
+							this.markets = res.data.markets
+							this.floors = res.data.floors
+							this.categories = res.data.categories
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+			  		this.$http.get('/s1/searchs?type=store&search_size=10' + q + '&from=' + (val-1)*10)
+					.then(
+						function(res){
+							console.log(res.data[2].hits.hits)
+							this.stores = res.data[2].hits.hits
+							this.q_total = res.data[2].hits.total
+							this.pages = Math.ceil(this.q_total/this.q_pageSize)
+							console.log(this.pages)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+			  	}else{
+				  	this.$http.get('/api/stores?market=大西豪'+ cat + floor + '&page=' + val)
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
 			},
 			_clickM(m){
 				console.log(m)
 			},
 			_clickF(f){
 				console.log(f)
+				this.isAllF = false
+				this.isAllC = true
 				this.floor = f
 				this.ft = f
+				this.ct = -1
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
@@ -288,7 +346,25 @@
 						this.page = res.data.page_number
 						this.pages = res.data.total_pages
 						this.cat = ''
-						//window.location.href = './visitingMarket.html?market=大西豪' + '&floor=' + f + '&page=1'
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+			},
+			_clickAllF(){
+				this.isAllF = true
+				this.floor = ''
+				this.ct = -1
+				this.ft = 0
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						this.cat = ''
 					},
 					function(err){
 						console.log(err)
@@ -298,6 +374,8 @@
 			_clickC(c,cIndex){
 				console.log(c)
 				console.log(cIndex)
+				this.isAllC = false
+				this.isAllF = false
 				this.cat = c
 				this.ct = cIndex
 				if(this.floor){
@@ -308,7 +386,6 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 						},
 						function(err){
 							console.log(err)
@@ -322,7 +399,40 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
+			},
+			_clickAllC(){
+				this.isAllC = true
+				this.ct = -1
+				console.log(this.floor)
+				if(this.floor){
+					this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else{
+					this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
 						},
 						function(err){
 							console.log(err)
@@ -368,18 +478,30 @@
 					}
 				)
 			if(this.q){
-				this.$http.get('/s1/searchs?type=store&q=' + this.q)
+				this.$http.get('/s1/searchs?type=store&search_size=10&from=0&q=' + this.q)
 				.then(
 					function(res){
 						console.log(res.data[2].hits.hits)
 						this.stores = res.data[2].hits.hits
-						this.total = res.data[2].hits
-						// this.markets = res.data.markets
-						// this.page = res.data.data.page_number
-						// this.pages = res.data.total_pages
-						// this.stores =  res.data.data
-						// this.floors = res.data.floors
-						// this.categories = res.data.categories
+						this.q_total = res.data[2].hits.total
+						this.pages = Math.ceil(this.q_total/this.q_pageSize)
+						console.log(this.pages)
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.markets = res.data.markets
+						this.floors = res.data.floors
+						this.categories = res.data.categories
+						// for (var i = 0; i < this.stores.length; i++) {
+						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
+						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
+						// 	}
+						// }
 					},
 					function(err){
 						console.log(err)

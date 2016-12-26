@@ -10,7 +10,6 @@
 			<div class="container">
 				<ul>
 					<li>您好，欢迎光临柯咔商城！</li>
-					<li><a href="./index.html">首页</a></li>
 					<li v-if="false"><a href="">请登录</a> | <a href="">免费注册</a></li>
 					<li v-if="false"><a href="">收藏本站</a></li>
 					<li v-if="false"><a href="">商家入驻</a></li>
@@ -59,8 +58,8 @@
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats" :class="{active : cat.name == keyword}">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&q='+cat.name">{{ cat.name }}</a>
+		    		<li v-for="(cat,index) in catsReal" :class="{active : cat.cid == cid}">
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
 		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
@@ -147,6 +146,7 @@
 	      isHeiBig: false, // 是否显示更多
 	      productsAll: [],
 	      cats: [],
+	      catsReal: {},
 	      page_number: Number,
 	      total_pages: Number,
 	      showcases: [],
@@ -183,7 +183,8 @@
 				isDisabled: false,
 				// 请求的数据是否有商品
 				isSuccess: true,
-				isShowMore: false
+				isShowMore: false,
+				cid: ''
 	    }
 	  },
 	  updated () {
@@ -195,10 +196,12 @@
 	  	}
 	  },
 	  mounted () {
-	  	var me = this , urlStr = ''
+	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
 
+	  	// 从链接中拿取 cid
+	  	this._calcuInfo('cid', hrefStr, 4)
 	  	// 从链接中拿取 store_id
 	  	this._calcuInfo('store_id', hrefStr, 9)
 	  	// 从链接中拿取 page
@@ -212,15 +215,31 @@
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
 
-  		this.keyword && (urlStr = '&q=' + this.keyword)
+	  	this.cid && (cidUrl = '&cid=' + this.cid)
+  		this.keyword && (keywordUrl = '&q=' + encodeURIComponent(this.keyword))
 	  	// 全部商品
-	    this.$http.get('/api/items?store_id='+ this.store_id + urlStr +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
+	    this.$http.get('/api/items?store_id=' + this.store_id + cidUrl + keywordUrl +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
 		    me.cats = res.data.cats
 	    	me.productsAll = res.data.data
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+
+	    	for(var i = 0;i < me.cats.length; i ++){
+	    		if(!me.catsReal[me.cats[i].name]){
+	    			me.catsReal[me.cats[i].name] = {}
+	    			me.catsReal[me.cats[i].name].name = me.cats[i].name
+	    			me.catsReal[me.cats[i].name].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].name].cid = me.cats[i].cid
+	    		}else{
+	    			me.catsReal[me.cats[i].parent] = {}
+	    			me.catsReal[me.cats[i].parent].name = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
+	    			me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
+	    		}
+	    	}
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
@@ -245,7 +264,7 @@
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {
 	    	me.storesInfo = res.data.data
-	    	$('title').html(res.data.data.store_name + ' 全部商品')
+	    	$('title').html(res.data.data.store_name + ' 柯咔服装网')
 	    },
 	    function (res) {
 	    	console.log(res)
@@ -326,8 +345,9 @@
 	  	},
 	  	// 分页的跳转
 	  	subPage (n) {
-	  		var val = this.keyword && ('&q='+this.keyword)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
+	  		var cidUrl = this.cid && ('&cid=' + this.cid)
+	  		var val = this.keyword && ('&q=' + this.keyword)
+	  		window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id + cidUrl + "&page="+ n + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price + val
 	  	},
 	  	// 排序的跳转
 	  	_sorting (e, str) {
@@ -345,8 +365,9 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
+		  	var cidUrl = this.cid && ('&cid=' + this.cid)
 		  	this.keyword && (val = '&q=' + this.keyword)
-		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val
+		  	window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + val + cidUrl
 		  },
 	  	// 关注本店
 	  	subStor () {
@@ -390,8 +411,9 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			this.keyword && (this.keyword = '&q=' + this.keyword)
-		  			window.location.href = "./sellerAllProduct.html?store_id="+ this.store_id +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price + this.keyword
+		  			var cidUrl = this.cid && ('&cid=' + this.cid)
+		  			var val = this.keyword && ('&q=' + this.keyword)
+		  			window.location.href = "./sellerAllProduct.html?store_id="+  this.store_id + val + cidUrl +"&page=1" + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price
 		  		}
 	  		}
 	  	},
@@ -401,7 +423,7 @@
 	  			return
 	  		}
 	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
 	  		var val = this.$refs.keyword.value
 	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
 	  		if(n && e.which != 13){
@@ -410,7 +432,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
@@ -424,60 +446,58 @@
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
-	  					return
 	  				}else{
 	  					this.lHPrice_isNot[str1] = false
 	  					this.lHPrice_isNot.ifSub = false
 	  					return
 	  				}
+	  			}
+	  			if(val2){ // 比较大小
+	  				if(str1 == 'low_price'){
+	  					if(val1 <= val2){
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}else{
+	  					if(val1 >= val2){
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}
 	  			}else{
-		  			if(val2){ // 比较大小
-		  				if(str1 == 'low_price'){
-		  					if(val1 <= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}else{
-		  					if(val1 >= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
-		  			}
-		  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
-		  				// 已搜索和现搜索是否一样
-			  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
-			  				this.lHPrice_isNot[str1] = false
-			  				if(this.lHPrice_isNot[str2]){
-	  							this.lHPrice_isNot.ifSub = true
-	  							return
-	  						}else{
-	  							this.lHPrice_isNot.ifSub = false
-	  							return
-	  						}
-			  				return
-			  			}else{
-			  				this.lHPrice_isNot[str1] = true
-		  					this.lHPrice_isNot.ifSub = true
-			  			}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  			}
+	  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
+	  				// 已搜索和现搜索是否一样
+		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+		  				this.lHPrice_isNot[str1] = false
+		  				if(this.lHPrice_isNot[str2]){
+  							this.lHPrice_isNot.ifSub = true
+  							return
+  						}else{
+  							this.lHPrice_isNot.ifSub = false
+  							return
+  						}
 		  				return
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+	  					this.lHPrice_isNot.ifSub = true
 		  			}
+	  			}else{
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  				return
 	  			}
 	  		}else{
 	  			e.target.value = ''
