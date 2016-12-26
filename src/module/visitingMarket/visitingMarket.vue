@@ -236,6 +236,7 @@
 		        	freeMode: true,
 		        	autoplay: 3000,
 		        	slidesPerView: 1,
+		        	loop: true,
 		        	prevButton:'.swiper-button-prev',
 					nextButton:'.swiper-button-next'
 		        },
@@ -287,7 +288,6 @@
 				}else{
 					window.location.href = "./search.html?q="+keyword
 				}
-				
 			},
 			_toBannerStore(sid){
 				window.open("./sellerAllProduct.html?store_id="+ sid)
@@ -303,17 +303,6 @@
 			  	var floor = this.floor && '&floor='+this.floor
 			  	var q = this.q && '&q=' + this.q
 			  	if(this.isSearch){
-			  // 		this.$http.get('/api/stores?market=大西豪' + '&page=1')
-					// .then(
-					// 	function(res){
-					// 		this.markets = res.data.markets
-					// 		this.floors = res.data.floors
-					// 		this.categories = res.data.categories
-					// 	},
-					// 	function(err){
-					// 		console.log(err)
-					// 	}
-					// )
 			  		this.$http.get('/s1/searchs?type=store&search_size=10' + q + '&from=' + (val-1)*10)
 					.then(
 						function(res){
@@ -367,6 +356,7 @@
 						console.log(err)
 					}
 				)
+				//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + f
 			},
 			_clickAllF(){
 				this.isSearch = false
@@ -387,6 +377,7 @@
 						console.log(err)
 					}
 				)
+				window.location.href = './visitingMarket.html?matket=大西豪'
 			},
 			_clickC(c,cIndex){
 				console.log(c)
@@ -409,6 +400,7 @@
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor + '&cat=' + c 
 				}else{
 					this.isAllF = true
 					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&page=1')
@@ -423,6 +415,7 @@
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + '&cat=' + c 
 				}
 			},
 			_clickAllC(){
@@ -444,6 +437,7 @@
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor
 				}else{
 					this.$http.get('/api/stores?market=大西豪' + '&page=1')
 					.then(
@@ -458,6 +452,7 @@
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪'
 				}
 			},
 			_isKey (pro,key) {
