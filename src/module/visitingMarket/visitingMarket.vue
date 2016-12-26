@@ -84,7 +84,7 @@
 										<a class="floor ? active : ''">{{floor}}</a>
 									</li>
 									<li v-if="isAllC">
-										<a v-if="isAllC" class="isAllC ? active : ''">全部类目</a>
+										<a v-if="isAllC" class="isAllC ? active : ''">全部主营</a>
 									</li>	
 									<li v-if="cat">
 										<a class="cat ? active : ''">{{cat}}</a>
@@ -328,7 +328,7 @@
 						}
 					)
 			  	}else{
-				  	this.$http.get('/api/stores?market=大西豪'+ cat + floor + '&page=' + val)
+				  	this.$http.get('/api/stores?market=大西豪'+ cat + floor +'&from=' + '&page=' + val)
 					.then(
 						function(res){
 							this.stores = res.data.data
@@ -486,7 +486,10 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
-
+		  	
+			!this.q && (this.isSearch = false)
+			console.log(this.q)
+			console.log(this.isSearch)
 			$('.swiper-container').hover(
 					function(){
 						$('.swiper-pagination').fadeIn('normal')

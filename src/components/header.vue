@@ -57,13 +57,13 @@
 					<a href="#"> 全部商品分类 </a><span class="icon-daohangxianghou"/>
 
 					<ul class="header-category-lv-1">
-						<li v-for="(daohangoneItem, daohangoneIndex) in daohangone">
-							<a @click="_goMore(daohangoneItem.name)">{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
-							<ul id="lvtwo" class="header-category-lv-2">
-								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
-									<a @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
-									<ul class="header-category-lv-3">
-										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.children"><a @click="_goMore(daohangthreeItem.name)">{{daohangthreeItem.name}}</a></li>
+						<li @mouseover="_liover" :class="'li'+daohangoneIndex" v-for="(daohangoneItem, daohangoneIndex) in daohangone">
+							<a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangoneItem.name)">{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
+							<ul :data_li="'li'+daohangoneIndex" class="header-category-lv-2">
+								<li :data_li="'li'+daohangoneIndex" v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
+									<a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
+									<ul :data_li="'li'+daohangoneIndex" class="header-category-lv-3">
+										<li :data_li="'li'+daohangoneIndex" v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.children"><a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangthreeItem.name)">{{daohangthreeItem.name}}</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -102,6 +102,10 @@ export default{
 		CkSearch
 	},
 	methods: {
+		_liover (e) {
+			console.log(e.target.getAttribute('data_li'))
+			$('.'+e.target.getAttribute('data_li')).addClass('active').siblings('.active').removeClass('active')
+		},
 		_subStor (n) {
 			this.$emit('subStor',n)
 		},
