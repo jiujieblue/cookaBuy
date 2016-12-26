@@ -412,6 +412,7 @@
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str)
+	  		str = str.slice(1)
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
 		  		this.lHPrice_str[str] = hrefStr.slice(i+1)

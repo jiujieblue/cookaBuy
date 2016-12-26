@@ -201,16 +201,16 @@
 	  	
 
 	  	// 从链接中拿取 cid
-	  	this._calcuInfo('cid', hrefStr, 4)
+	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
-	  	this._calcuInfo('store_id', hrefStr, 9)
+	  	this._calcuInfo('?store_id', hrefStr, 10)
 	  	// 从链接中拿取 page
-	  	this._calcuInfo('page', hrefStr , 5)
+	  	this._calcuInfo('&page', hrefStr , 6)
 	  	// 从链接中拿取 keyword
 	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
 	  	// 从链接中拿取 low_price  high_price
-	  	this._obtainLHPriceUrl('low_price',hrefStr)
-	  	this._obtainLHPriceUrl('high_price',hrefStr)
+	  	this._obtainLHPriceUrl('&low_price',hrefStr)
+	  	this._obtainLHPriceUrl('&high_price',hrefStr)
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
@@ -294,6 +294,8 @@
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
 	  			str = keyword
+	  		}else{
+	  			str = str.slice(1)
 	  		}
 	  		if(i != -1){
 		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
@@ -322,9 +324,10 @@
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str),floatStr
+	  		str = str.slice(1)
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
-		  		this.lHPrice_str[str] = hrefStr.slice(i)
+		  		this.lHPrice_str[str] = hrefStr.slice(i+1)
 		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
