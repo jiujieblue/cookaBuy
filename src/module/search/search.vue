@@ -430,7 +430,7 @@
 		  		}else{
 		  			val += '.00'
 		  		}
-		  		this.$refs[str].value = val
+		  		this.$refs[str.slice(1)].value = val
 		  	}
 	  	},
 	  	// 输出 aggUrl中的关键字
