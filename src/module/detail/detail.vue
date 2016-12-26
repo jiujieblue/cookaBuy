@@ -543,6 +543,10 @@
       var p = window.location.href.split('?')[1];
       this.$http.get('/api/items/' + p)
         .then(function (ret) {
+          if(ret.data.error){
+            window.location.href = './uf.html'
+            return
+          }
           this.data = ret.data
           this.productNum = ret.data.count
           this.logoUrl = ret.data.store.store_logo
