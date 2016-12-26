@@ -495,6 +495,7 @@ export default {
 	           function(res){
 	             //console.log(res)
 	            this.products = res.data.data
+	            this.total_pages = res.data.total_pages
 	            this.init_page ++ 
 	      		if(this.init_page > this.total_pages){
 	      			this.init_page = 1
