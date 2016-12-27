@@ -20,7 +20,6 @@
 			<div class="container">
 				<p>
 					<img :src="storesInfo && storesInfo.store_logo" alt="店铺头像" v-if="storesInfo">
-					<img src="../../assets/images/userImg.jpg" alt="店铺头像" v-else>
 				</p>
 				<ul>
 					<li>
@@ -84,7 +83,7 @@
     </nav>
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
-    		<div class="sellerAllProduct-product-left-failure" v-if="!isSuccess">
+    		<div class="sellerAllProduct-product-left-failure" v-if="!isRequestYes && !isRequestReady">
     			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
     			<ul>
     				<li><p>没有相关商品哦~~</p></li>
@@ -93,10 +92,10 @@
     				</li>
     			</ul>
     		</div>
-    		<div class="sellerAllProduct-product-left-loading" v-if="productsAll.length == 0 && isSuccess">
+    		<div class="sellerAllProduct-product-left-loading" v-if="isRequestReady">
     			<img src="../../assets/images/loading.gif" alt="加载中">
     		</div>
-    		<ul class="sellerAllProduct-product-left-success" v-if="isSuccess">
+    		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
     					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
@@ -116,8 +115,10 @@
     				</ul>
     			</li>
     		</ul>
+ 				<CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
     	</div>
-    	<div class="sellerAllProduct-product-right" v-if="isSuccess">
+
+    	<div class="sellerAllProduct-product-right" v-if="isRequestYes">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
@@ -130,7 +131,6 @@
     	</div>
     </div>
   </div>
-  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isSuccess"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -182,7 +182,8 @@
 				isCla: false,
 				isDisabled: false,
 				// 请求的数据是否有商品
-				isSuccess: true,
+				isRequestReady: true,
+				isRequestYes: false,
 				isShowMore: false,
 				cid: ''
 	    }
@@ -225,7 +226,13 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+	    	if(sessionStorage.getItem('total_entries')){
+	    		me.total_entries = sessionStorage.getItem('total_entries')
+	    	}else{
+	    		sessionStorage.setItem('total_entries', res.data.total_entries)
+	    	}
 
+	    	this.isRequestReady = false
 	    	for(var i = 0;i < me.cats.length; i ++){
 	    		if(!me.catsReal[me.cats[i].name]){
 	    			me.catsReal[me.cats[i].name] = {}
@@ -244,7 +251,9 @@
 	  			me.isHeiBig = true
 			  }
 			  if(res.data.data.length == 0){
-			  	me.isSuccess = false
+			  	me.isRequestYes = false
+			  }else{
+			  	me.isRequestYes = true
 			  }
 	    },
 	    function (res) {
@@ -291,16 +300,21 @@
 	  	},
 			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
-	  		var i = parseInt(hrefStr.indexOf(str))
+	  		var i = parseInt(hrefStr.indexOf(str)),val
 	  		if(keyword){
 	  			str = keyword
 	  		}else{
 	  			str = str.slice(1)
 	  		}
 	  		if(i != -1){
-		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
-		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = decodeURIComponent(this[str].slice(0,parseInt(this[str].indexOf('&'))))
+		  		val = hrefStr.slice(i+n)
+		  		if(parseInt(val.indexOf('&')) != -1){
+		  			val = val.slice(0,parseInt(val.indexOf('&')))
+		  		}
+		  		if(val != '%'){
+						this[str] = decodeURIComponent(val)
+		  		}else{
+		  			this[str] = val
 		  		}
 		  	}
 	  	},
@@ -435,7 +449,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(val)
+				val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},

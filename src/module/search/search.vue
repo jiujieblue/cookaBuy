@@ -17,7 +17,7 @@
 	  				</span>
 	  			</li>
 	  		</ul>
-	  		<div v-if="isnosearchR">
+	  		<div v-if="isRequestYes">
 	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
@@ -53,7 +53,7 @@
 	    </nav>
 	    <div class="row search-product">
 	    	<div class="search-product-left">
-	    		<div class="search-product-left-succee" v-if="isnosearchR">
+	    		<div class="search-product-left-succee" v-if="isRequestYes">
 			    	<div class="search-product-left-succee-grid" v-if='isGridOrList == 0'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
@@ -102,10 +102,10 @@
 			    		</ul>
 			    	</div>
 	    		</div>
-	    		<div class="search-product-left-loading" v-if="!hits && isnosearchR">
+	    		<div class="search-product-left-loading" v-if="isRequestReady">
 	    			<img src="../../assets/images/loading.gif" alt="加载中">
 	    		</div>
-		    	<div class="search-product-left-error" v-if='!isnosearchR'>
+		    	<div class="search-product-left-error" v-if='!isRequestYes && !isRequestReady'>
 		    		<div>
 		    			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
 		    			<ul>
@@ -116,6 +116,7 @@
 		    			</ul>
 		    		</div>
 		    	</div>
+		    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
 	    	</div>
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
@@ -137,7 +138,7 @@
 	    </div>
 	    <div class="row">
 	    	<!-- 分页 -->
-	    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isnosearchR"></CkPagination>
+	    	
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
@@ -150,9 +151,9 @@
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
-      	<swiper :options="swiperOption">
-        	<swiper-slide class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
-        		<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+      	<Slide :slideData="slideData">
+      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+      			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'">
 	    			</a>
 	    			<ul>
@@ -167,9 +168,8 @@
 	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
 	    				</li>
 	    			</ul>
-	        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      	</swiper>
+      		</div>
+      	</Slide>
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -184,10 +184,7 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
-	//import Slide from 'components/Slide'
-	import AwesomeSwiper from 'vue-awesome-swiper'
-	Vue.use(AwesomeSwiper)
-
+	import Slide from 'components/Slide'
 	
 
 	export default {
@@ -229,7 +226,8 @@
 
 				isMore: {},
 				renqi: 5,
-				isnosearchR: true,
+				isRequestReady: true,
+				isRequestYes: false,
 				// 搜索关键字
 				keyword: '',
 	      // 搜索关键字
@@ -244,7 +242,14 @@
           prevButton:'.swiper-button-prev',
 				  nextButton:'.swiper-button-next'
 		    },
-		    isStore: false
+		    isStore: false,
+
+		    slideData: {
+  				oneTime: '400ms',
+  				num: 1,
+  				moveTime: 2000,
+  				totalMar: 50
+		  	}
 	    }
 	  },
 	  mounted () {
@@ -256,13 +261,18 @@
 	  	}
 
 	  	// 获取搜索关键字
-	  	var qI = hrefStr.indexOf('q=')
+	  	var qI = hrefStr.indexOf('q='),keyStr = ''
 	  	if(qI != -1){
-	  		this.keyword = hrefStr.slice(qI)
-	  		if((qI = this.keyword.indexOf('&')) != -1){
-	  			this.keyword = this.keyword.slice(0,qI)
+	  		keyStr = hrefStr.slice(qI)
+	  		if((qI = keyStr.indexOf('&')) != -1){
+	  			keyStr = keyStr.slice(0,qI)
 	  		}
-	  		this.keyword = decodeURIComponent(this.keyword.slice(this.keyword.indexOf('=')+1))
+	  		keyStr = keyStr.slice(keyStr.indexOf('=')+1)
+	  		if(keyStr != '%'){
+	  			this.keyword = decodeURIComponent(keyStr)
+	  		}else{
+	  			this.keyword = keyStr
+	  		}
 	  	}
 	  	// 修改 title
 	  	$('title').html(this.keyword + ' 柯咔搜索')
@@ -279,7 +289,6 @@
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
-
 	  	var hrefUrlStr = ''
 	  	// 搜索关键字
 	  	if(this.keyword){
@@ -291,17 +300,18 @@
 
 		  		this.hits = res.data[2].hits
 		  		this.pages = Math.ceil(res.data[2].hits.total/20)
+	  			this.isRequestReady = false
 		  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
-		  			this.isnosearchR = true
+		  			this.isRequestYes = true
 		  		}else{
-		  			this.isnosearchR = false
+		  			this.isRequestYes = false
 		  		}
 		  	},
 		  	function (res) {
 		  		console.log(res)
 		  	})
 	  	}else{
-	  		this.isnosearchR = false
+	  		this.isRequestYes = false
 	  	}
 	  	// 热销商品
 	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
@@ -321,9 +331,9 @@
 	  			this.isMore[key] = true
 	  		}
 	  	}
-	  	if(document.documentMode === 11){
-	  		$('.ie-11-a').css({display: 'block',height: '40px'})
-	  	}
+	  	// if(document.documentMode === 11){
+	  	// 	$('.ie-11-a').css({display: 'block',height: '40px'})
+	  	// }
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -387,7 +397,7 @@
 		  			i = urlStr.indexOf('=')
 		  			this.aggUrl[str1] = {}
 		  			this.aggUrl[str1].key = '&' + urlStr.slice(0,i+1)
-		  			this.aggUrl[str1].doc_count = decodeURI(urlStr.slice(i+1))
+		  			this.aggUrl[str1].doc_count = decodeURIComponent(urlStr.slice(i+1))
 	  			}
 	  		}
 	  	},
@@ -446,6 +456,7 @@
 	  	},
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
+	  		console.log(keyword)
 	  		if(this.isStore){
 	  			window.location.href = './visitingMarket.html?q='+keyword
 	  		}else{
@@ -455,7 +466,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1'+this._retAggUrl()
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -468,11 +479,11 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1' + this._retAggUrl() + url
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -489,7 +500,7 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = './search.html?q='+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  },
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
@@ -519,7 +530,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ encodeURIComponent(this.keyword) +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
@@ -630,7 +641,8 @@
 	  	footerComponent,
 	  	CkSearch,
 	  	CkPagination,
-	  	goTop
+	  	goTop,
+	  	Slide
 	  }
 	}
 </script>
