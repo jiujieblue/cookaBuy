@@ -9,12 +9,12 @@
 							<div class="index-category">
 								<div class="index-category-block">
 									<a class="index-category-lv-1">女装</a>
-									<a class="index-category-lv-2">连衣裙</a>
-									<a class="index-category-lv-2">牛仔装</a>
 									<a class="index-category-lv-2">毛呢外套</a>
-									<a class="index-category-lv-2">短外套</a>
+									<a class="index-category-lv-2">连衣裙</a>
 									<a class="index-category-lv-2">卫衣</a>
-									<a class="index-category-lv-2">马甲</a>
+									<a class="index-category-lv-2">毛衣</a>
+									<a class="index-category-lv-2">短外套</a>
+									<a class="index-category-lv-2">牛仔裤</a>
 									<a class="index-category-lv-2">T恤</a>
 									<a class="index-category-lv-2">衬衫</a>
 								</div>
@@ -26,27 +26,26 @@
 									<a class="index-category-lv-2">毛衣</a>
 									<a class="index-category-lv-2">牛仔裤</a>
 									<a class="index-category-lv-2">马甲</a>
-									<a class="index-category-lv-2">T恤</a>
 									<a class="index-category-lv-2">衬衫</a>
+									<a class="index-category-lv-2">T恤</a>
 								</div>
 								<div class="index-category-block">
-									<a class="index-category-lv-1">家具</a>
-									<a class="index-category-lv-2">文胸</a>
-									<a class="index-category-lv-2">睡裙</a>
-									<a class="index-category-lv-2">睡袍</a>
-									<a class="index-category-lv-2">吊带</a>
-									<a class="index-category-lv-2">保暖</a>
-									<a class="index-category-lv-2">抹胸</a>
-									<a class="index-category-lv-2">内裤</a>
+									<a class="index-category-lv-1">孕妇装</a>
+									<a class="index-category-lv-2">孕妇装</a>
+									<a class="index-category-lv-2">防辐射</a>
+									<a class="index-category-lv-2">孕妇裤</a>
+									<a class="index-category-lv-2">孕妇袜</a>
+									<a class="index-category-lv-2">哺乳装</a>
+									<a class="index-category-lv-2">哺乳文胸</a>
+									<a class="index-category-lv-2">瘦身塑体衣</a>
 								</div>
 								<div class="index-category-block">
-									<a class="index-category-lv-1">女鞋</a>
-									<a class="index-category-lv-2">低帮鞋</a>
-									<a class="index-category-lv-2">高帮鞋</a>
-									<a class="index-category-lv-2">靴子</a>
-									<a class="index-category-lv-2">帆布鞋</a>
-									<a class="index-category-lv-2">拖鞋</a>
-									<a class="index-category-lv-2">凉鞋</a>
+									<a class="index-category-lv-1">童装</a>
+									<a class="index-category-lv-2">童外套</a>
+									<a class="index-category-lv-2">棉衣/棉服</a>
+									<a class="index-category-lv-2">童卫衣</a>
+									<a class="index-category-lv-2">打底裤</a>
+									<a class="index-category-lv-2">童T恤</a>
 								</div>
 							</div>
 							<div class="index-carousel" >
@@ -208,11 +207,11 @@
 				                      大西豪 3F-309
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2361">
+				                    <a class="index-store-link" @click="_toReStore(2361)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2361">
+				                  <a class="index-store-product" @click="_toReStore(2361)">
 				                    <img src="../../assets/images/bala_3F_309.jpg" />
 				                  </a>
 				                </div>
@@ -225,11 +224,11 @@
 				                      大西豪 2F-217
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2480">
+				                    <a class="index-store-link" @click="_toReStore(2480)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2480">
+				                  <a class="index-store-product" @click="_toReStore(2480)">
 				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
 				                  </a>
 				                </div>
@@ -242,11 +241,11 @@
 				                      大西豪 3F-302
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2331">
+				                    <a class="index-store-link" @click="_toReStore(2331)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2331">
+				                  <a class="index-store-product" @click="_toReStore(2331)">
 				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg"/>
 				                  </a>
 				                </div>
@@ -259,11 +258,11 @@
 				                      大西豪 6F-601B-1
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=1972">
+				                    <a class="index-store-link" @click="_toReStore(1972)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=1972">
+				                  <a class="index-store-product" @click="_toReStore(1972)">
 				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
 				                  </a>
 				                </div>
@@ -276,11 +275,11 @@
 				                      大西豪 4F-409
 				                    </div>
 
-				                    <a class="index-store-link" href="./sellerAllProduct.html?store_id=2248">
+				                    <a class="index-store-link" @click="_toReStore(2248)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" href="./sellerAllProduct.html?store_id=2248">
+				                  <a class="index-store-product" @click="_toReStore(2248)">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
 				                </div>
@@ -466,7 +465,7 @@ export default {
 	        maternits:[],
 	        childrens:[],
 	        init_page: 1,
-	        total_entries:'',
+	        total_pages:'',
 	        isStore: false
     	}
 	},
@@ -496,8 +495,9 @@ export default {
 	           function(res){
 	             //console.log(res)
 	            this.products = res.data.data
+	            this.total_pages = res.data.total_pages
 	            this.init_page ++ 
-	      		if(this.init_page > this.total_entries ){
+	      		if(this.init_page > this.total_pages){
 	      			this.init_page = 1
 	      		}
 	             console.log(this.products)
@@ -528,6 +528,9 @@ export default {
 	    },
 		_goMore(str){
 			window.open("./search.html?q="+ str)
+		},
+		_toReStore(sid){
+			window.open("./sellerAllProduct.html?store_id="+ sid)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
@@ -568,6 +571,13 @@ export default {
 	},
 	mounted(){
 
+		var as = $('.index-category-block a')
+		for(var i = 0; i < as.length;i++)
+			as[i].addEventListener('click',function(){
+			console.log($(this).html())
+			var str = $(this).html()
+			window.open("./search.html?q="+ str)
+		})
 		$('.index-carousel').hover(
 			function(){
 				$('.icon-xiangqian').css('left','0').fadeIn('normal')
@@ -608,7 +618,7 @@ export default {
         function(res){
           //console.log(res)
         	this.sideproducts = res.data.data
-        	this.total_entries  = res.data.total_entries
+        	this.total_pages  = res.data.total_pages
         	this.init_page++
         	for(var i = 0 ; i < this.sideproducts.length ; i++){
              	this.sideproducts[i].pic_url += '_80x80.jpg'

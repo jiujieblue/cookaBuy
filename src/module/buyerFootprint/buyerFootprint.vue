@@ -6,6 +6,10 @@
 
 <template>
 <div>
+	<input type="text" v-model="pages">
+	<button @click="pageNum--">--</button>
+	<button @click="pageNum++">+++</button>
+	<CkPagination :pageNum="pageNum" :pages="pages"></CkPagination>
 	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container buyerFootprint'>
 		<div class="row">
@@ -125,6 +129,7 @@
 	import footerComponent from 'components/footer.vue'
 	import BuyerCenterSideBar from 'components/BuyerCenterSideBar.vue'
 	import goTop from 'components/goTop'
+	import CkPagination from 'components/CkPagination'
 
 	
 	export default {
@@ -132,7 +137,8 @@
 	  	BuyerCenterHeader,
 	  	footerComponent,
 	  	BuyerCenterSideBar,
-	  	goTop
+	  	goTop,
+	  	CkPagination
 	  },
 	  data () {
 	    return {
@@ -148,7 +154,9 @@
 	    	batch: false,
 	    	showModal: false,
 	    	isFailure: false,
-	    	isSel: false
+	    	isSel: false,
+	    	pageNum: 6,
+	    	pages: 8
 	    	
 	    }
 	  },

@@ -8,33 +8,44 @@
 						<div class="startstore-box">
 							<div class="top">
 								<div class="top-img">
-									<img src="../../assets/images/mingxingdianpu.svg" alt="">
+									<img src="../../assets/images/mingxingdianpu.svg" >
 								</div>
 								<span>明星店铺</span>
 							</div>
 							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=2389">
-											<img src="../../assets/images/sanye.jpg" alt="">
+										<a @click="_toBannerStore(2389)">
+											<img src="../../assets/images/sanye.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=2417">
-											<img src="../../assets/images/yirenzui.jpg" alt="">
+										<a @click="_toBannerStore(2417)">
+											<img src="../../assets/images/yirenzui.jpg" >
 										</a>
 									</swiper-slide>
 									<swiper-slide>
-										<a href="./sellerAllProduct.html?store_id=1997">
-											<img src="../../assets/images/feiyiban.jpg" alt="">
+										<a @click="_toBannerStore(1997)">
+											<img src="../../assets/images/feiyiban.jpg" >
 										</a>
 									</swiper-slide>
+									<swiper-slide>
+										<a @click="_toBannerStore(81)">
+											<img src="../../assets/images/yuanyuan.jpg" >
+										</a>
+									</swiper-slide>
+									<swiper-slide>
+										<a @click="_toBannerStore(2186)">
+											<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
+										</a>
+									</swiper-slide>
+									<div class="swiper-pagination" slot="pagination"></div>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
 								</swiper>
 							</div>
 							<div class="clearfix"></div>
-							<div v-if="!q" class="market-box">
+							<div class="market-box">
 								<table>
 									<tr>
 										<td>市场</td>
@@ -50,24 +61,34 @@
 									<tr>
 										<td>楼层</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllF"><a :class="isAllF ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="ft == floorItem ? 'tagActive' : ''">{{floorItem}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
-											<div><a>全部</a></div>
+											<div @click="_clickAllC"><a :class="isAllC ? 'tagActive' : ''">全部</a></div>
 											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
 										</td>
 									</tr>
 								</table>
 							</div>
-							<div v-if="!q" class="crumb-box">
+							<div class="crumb-box">
 								<ol class="breadcrumb">
 									<li><a>大西豪</a></li>
-									<li v-if="floor"><a class="floor ? active : ''">{{floor}}</a></li>
-									<li v-if="cat"><a class="cat ? active : ''">{{cat}}</a></li>
+									<li v-if="isAllF">
+										<a v-if="isAllF" class="isAllF ? active : ''">全部楼层</a>
+									</li>	
+									<li v-if="floor">
+										<a class="floor ? active : ''">{{floor}}</a>
+									</li>
+									<li v-if="isAllC">
+										<a v-if="isAllC" class="isAllC ? active : ''">全部主营</a>
+									</li>	
+									<li v-if="cat">
+										<a class="cat ? active : ''">{{cat}}</a>
+									</li>
 								</ol>
 							</div>
 							<div class="storelist-box">
@@ -75,7 +96,7 @@
 									<div class="title">{{ _isKey(storeItem,'store_name')}}</div>
 									<div class="body">
 										<div class="img">
-											<img :src="_isKey(storeItem,'store_logo')" alt="">
+											<img :src="_isKey(storeItem,'store_logo')" >
 										</div>
 										<div>{{_isKey(storeItem,'market')}}</div>
 										<div>主营:{{_isKey(storeItem,'cat')}}</div>
@@ -89,7 +110,7 @@
 									<div class="title">广州市标总服饰</div>
 									<div class="body">
 										<div class="img">
-											<img src="../../assets/images/dianputouxiang.png" alt="">
+											<img src="../../assets/images/dianputouxiang.png" >
 										</div>
 										<div>长城</div>
 										<div>主营:女装</div>
@@ -100,8 +121,18 @@
 									</div>
 								</div> -->
 							</div>
+
+							<div class="nostorelist-box" v-if="!stores.length">
+								<div class="body">
+										<img src="../../assets/images/nostore.png" >
+										<span>找不到店铺哟～</span>
+										<a href="./index.html">去商城首页</a>
+								</div>
+							</div>
+
+
 						</div>
-						<CkPagination v-if="!q" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
+						<CkPagination v-if="stores.length" :pages="pages" :pageNum="page" @submitPage="subPage"></CkPagination>
 						<!-- 暂时隐藏 -->
 						<!-- <CKHr></CKHr>
 						<div class="col-md-2"></div>
@@ -118,7 +149,7 @@
 							<div class="body">
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -129,7 +160,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -140,7 +171,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -151,7 +182,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -162,7 +193,7 @@
 								</div>
 								<div class="stroeblock">
 									<div class="img">
-										<img src="../../assets/images/test_img.jpg" alt="">
+										<img src="../../assets/images/test_img.jpg" >
 									</div>
 									<div>¥&nbsp;500</div>
 									<div><a>战地吉普男士牛仔卫裤2016春秋装新款</a></div>
@@ -199,30 +230,37 @@
 		data(){
 			return{
 				swiperOption: {
-		          paginationClickable: true,
-		          spaceBetween: 10,
-		          freeMode: true,
-		          autoplay: 3000,
-		          slidesPerView: 1,
-		          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
+					pagination: '.swiper-pagination',
+		        	paginationClickable: true,
+		        	spaceBetween: 10,
+		        	freeMode: true,
+		        	autoplay: 3000,
+		        	slidesPerView: 1,
+		        	loop: true,
+		        	prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next'
 		        },
 		        markets:[],
 		        stores:[],
 		        floors:[],
 		        categories:[],
+		        isAllF:true,
+		        isAllC:true,
 		        store_logo:'',
 		        q:'',
+		        q_total:'',
+		        q_pageSize:10,
 		        page:1,
 		        pages:'',
-		        total:'',
 		        floor:'',
 		        cat:'',
 		        ct:-1,
 		        ft:-1,
 		        isStore: false,
 		        isActiveF: false,
-		        isActiveC: false
+		        isActiveC: false,
+
+		        isSearch: true
 			}
 		},
 		components:{
@@ -250,7 +288,9 @@
 				}else{
 					window.location.href = "./search.html?q="+keyword
 				}
-				
+			},
+			_toBannerStore(sid){
+				window.open("./sellerAllProduct.html?store_id="+ sid)
 			},
 			_toStore(t){
 				var store_id = t._source ? t._source.id : t.id
@@ -258,29 +298,51 @@
 			},
 			subPage (val) {
 			  	console.log(val)
-			  	var cat = this.cat ? '&cat='+this.cat : ''
-			  	var floor = this.floor ? '&floor='+this.floor : ''
-			  	this.$http.get('/api/stores?market=大西豪'+ cat + floor + '&page=' + val)
-				.then(
-					function(res){
-						this.stores = res.data.data
-						this.categories = res.data.categories
-						this.page = res.data.page_number
-						this.pages = res.data.total_pages
-						//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
-					},
-					function(err){
-						console.log(err)
-					}
-				)
+			  	this.page = val
+			  	var cat = this.cat && '&cat='+this.cat
+			  	var floor = this.floor && '&floor='+this.floor
+			  	var q = this.q && '&q=' + this.q
+			  	if(this.isSearch){
+			  		this.$http.get('/s1/searchs?type=store&search_size=10' + q + '&from=' + (val-1)*10)
+					.then(
+						function(res){
+							console.log(res.data[2].hits.hits)
+							this.stores = res.data[2].hits.hits
+							this.q_total = res.data[2].hits.total
+							this.pages = Math.ceil(this.q_total/this.q_pageSize)
+							console.log(this.pages)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+			  	}else{
+				  	this.$http.get('/api/stores?market=大西豪'+ cat + floor +'&from=' + '&page=' + val)
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
 			},
 			_clickM(m){
 				console.log(m)
 			},
 			_clickF(f){
 				console.log(f)
+				this.isSearch = false
+				this.isAllF = false
+				this.isAllC = true
 				this.floor = f
+				console.log(this.floor)
 				this.ft = f
+				this.ct = -1
 				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
@@ -289,16 +351,40 @@
 						this.page = res.data.page_number
 						this.pages = res.data.total_pages
 						this.cat = ''
-						//window.location.href = './visitingMarket.html?market=大西豪' + '&floor=' + f + '&page=1'
 					},
 					function(err){
 						console.log(err)
 					}
 				)
+				//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + f
+			},
+			_clickAllF(){
+				this.isSearch = false
+				this.isAllF = true
+				this.floor = ''
+				this.ct = -1
+				this.ft = 0
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.stores = res.data.data
+						this.categories = res.data.categories
+						this.page = res.data.page_number
+						this.pages = res.data.total_pages
+						this.cat = ''
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				window.location.href = './visitingMarket.html?matket=大西豪'
 			},
 			_clickC(c,cIndex){
 				console.log(c)
 				console.log(cIndex)
+				this.isSearch = false
+				this.isAllC = false
+				this.isAllF = false
 				this.cat = c
 				this.ct = cIndex
 				if(this.floor){
@@ -309,13 +395,14 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 						},
 						function(err){
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor + '&cat=' + c 
 				}else{
+					this.isAllF = true
 					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&page=1')
 					.then(
 						function(res){
@@ -323,12 +410,49 @@
 							this.categories = res.data.categories
 							this.page = res.data.page_number
 							this.pages = res.data.total_pages
-							//window.location.href = './visitingMarket.html?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=' + this.page
 						},
 						function(err){
 							console.log(err)
 						}
 					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + '&cat=' + c 
+				}
+			},
+			_clickAllC(){
+				this.isSearch = false
+				this.isAllC = true
+				this.ct = -1
+				console.log(this.floor)
+				if(this.floor){
+					this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor
+				}else{
+					this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					.then(
+						function(res){
+							this.stores = res.data.data
+							this.categories = res.data.categories
+							this.page = res.data.page_number
+							this.pages = res.data.total_pages
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+					//window.location.href = './visitingMarket.html?matket=大西豪'
 				}
 			},
 			_isKey (pro,key) {
@@ -357,30 +481,47 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
-
+		  	
+			!this.q && (this.isSearch = false)
+			console.log(this.q)
+			console.log(this.isSearch)
 			$('.swiper-container').hover(
 					function(){
+						$('.swiper-pagination').fadeIn('normal')
 						$('.swiper-button-prev').css('left','0').fadeIn('slow')
 						$('.swiper-button-next').css('right','0').fadeIn('slow')
 					},
 					function(){
+						$('.swiper-pagination').fadeOut('normal')
 						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
 						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
 					}
 				)
 			if(this.q){
-				this.$http.get('/s1/searchs?type=store&q=' + this.q)
+				this.$http.get('/s1/searchs?type=store&search_size=10&from=0&q=' + this.q)
 				.then(
 					function(res){
 						console.log(res.data[2].hits.hits)
 						this.stores = res.data[2].hits.hits
-						this.total = res.data[2].hits
-						// this.markets = res.data.markets
-						// this.page = res.data.data.page_number
-						// this.pages = res.data.total_pages
-						// this.stores =  res.data.data
-						// this.floors = res.data.floors
-						// this.categories = res.data.categories
+						this.q_total = res.data[2].hits.total
+						this.pages = Math.ceil(this.q_total/this.q_pageSize)
+						console.log(this.pages)
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				.then(
+					function(res){
+						this.markets = res.data.markets
+						this.floors = res.data.floors
+						this.categories = res.data.categories
+						// for (var i = 0; i < this.stores.length; i++) {
+						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
+						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
+						// 	}
+						// }
 					},
 					function(err){
 						console.log(err)

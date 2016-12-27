@@ -58,7 +58,7 @@
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
-		    		<li v-for="(cat,index) in cats" :class="{active : cat.cid == cid}">
+		    		<li v-for="(cat,index) in catsReal" :class="{active : cat.cid == cid}">
 		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
 		    		</li>
 		    	</ul>
@@ -146,6 +146,7 @@
 	      isHeiBig: false, // 是否显示更多
 	      productsAll: [],
 	      cats: [],
+	      catsReal: {},
 	      page_number: Number,
 	      total_pages: Number,
 	      showcases: [],
@@ -200,22 +201,22 @@
 	  	
 
 	  	// 从链接中拿取 cid
-	  	this._calcuInfo('cid', hrefStr, 4)
+	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
-	  	this._calcuInfo('store_id', hrefStr, 9)
+	  	this._calcuInfo('?store_id', hrefStr, 10)
 	  	// 从链接中拿取 page
-	  	this._calcuInfo('page', hrefStr , 5)
+	  	this._calcuInfo('&page', hrefStr , 6)
 	  	// 从链接中拿取 keyword
 	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
 	  	// 从链接中拿取 low_price  high_price
-	  	this._obtainLHPriceUrl('low_price',hrefStr)
-	  	this._obtainLHPriceUrl('high_price',hrefStr)
+	  	this._obtainLHPriceUrl('&low_price',hrefStr)
+	  	this._obtainLHPriceUrl('&high_price',hrefStr)
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
 
 	  	this.cid && (cidUrl = '&cid=' + this.cid)
-  		this.keyword && (keywordUrl = '&q=' + this.keyword)
+  		this.keyword && (keywordUrl = '&q=' + encodeURIComponent(this.keyword))
 	  	// 全部商品
 	    this.$http.get('/api/items?store_id=' + this.store_id + cidUrl + keywordUrl +'&type=all&page='+ this.page +'&page_size=12' + this.sortingUrl +this.lHPrice_str.low_price+this.lHPrice_str.high_price)
 	    .then(function (res) {
@@ -224,6 +225,21 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+
+	    	for(var i = 0;i < me.cats.length; i ++){
+	    		if(!me.catsReal[me.cats[i].name]){
+	    			me.catsReal[me.cats[i].name] = {}
+	    			me.catsReal[me.cats[i].name].name = me.cats[i].name
+	    			me.catsReal[me.cats[i].name].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].name].cid = me.cats[i].cid
+	    		}else{
+	    			me.catsReal[me.cats[i].parent] = {}
+	    			me.catsReal[me.cats[i].parent].name = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
+	    			me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
+	    			me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
+	    		}
+	    	}
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
@@ -278,6 +294,8 @@
 	  		var i = parseInt(hrefStr.indexOf(str))
 	  		if(keyword){
 	  			str = keyword
+	  		}else{
+	  			str = str.slice(1)
 	  		}
 	  		if(i != -1){
 		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
@@ -306,9 +324,10 @@
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str),floatStr
+	  		str = str.slice(1)
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
-		  		this.lHPrice_str[str] = hrefStr.slice(i)
+		  		this.lHPrice_str[str] = hrefStr.slice(i+1)
 		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
@@ -407,7 +426,7 @@
 	  			return
 	  		}
 	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@#$^&*()=|{}':;,\\[\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%+_"]*/ig
+	  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
 	  		var val = this.$refs.keyword.value
 	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
 	  		if(n && e.which != 13){
@@ -416,7 +435,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(this.$refs.keyword.value)
+	  		val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
@@ -430,60 +449,58 @@
 	  				if((this.lHPrice_str[str1] && this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1) != 0) || (!this.lHPrice_str[str2] && !this.lHPrice_str[str1])){
 	  					this.lHPrice_isNot[str1] = true
 	  					this.lHPrice_isNot.ifSub = true
-	  					return
 	  				}else{
 	  					this.lHPrice_isNot[str1] = false
 	  					this.lHPrice_isNot.ifSub = false
 	  					return
 	  				}
+	  			}
+	  			if(val2){ // 比较大小
+	  				if(str1 == 'low_price'){
+	  					if(val1 <= val2){
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}else{
+	  					if(val1 >= val2){
+	  						this.lHPrice_isNot[str1] = true
+	  						this.lHPrice_isNot.ifSub = true
+	  					}else{
+	  						e.target.value = ''
+	  						this.lHPrice_isNot[str1] = false
+	  						this.lHPrice_isNot.ifSub = false
+	  						return
+	  					}
+	  				}
 	  			}else{
-		  			if(val2){ // 比较大小
-		  				if(str1 == 'low_price'){
-		  					if(val1 <= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}else{
-		  					if(val1 >= val2){
-		  						this.lHPrice_isNot[str1] = true
-		  						this.lHPrice_isNot.ifSub = true
-		  					}else{
-		  						e.target.value = ''
-		  						this.lHPrice_isNot[str1] = false
-		  						this.lHPrice_isNot.ifSub = false
-		  						return
-		  					}
-		  				}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
-		  			}
-		  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
-		  				// 已搜索和现搜索是否一样
-			  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
-			  				this.lHPrice_isNot[str1] = false
-			  				if(this.lHPrice_isNot[str2]){
-	  							this.lHPrice_isNot.ifSub = true
-	  							return
-	  						}else{
-	  							this.lHPrice_isNot.ifSub = false
-	  							return
-	  						}
-			  				return
-			  			}else{
-			  				this.lHPrice_isNot[str1] = true
-		  					this.lHPrice_isNot.ifSub = true
-			  			}
-		  			}else{
-		  				this.lHPrice_isNot[str1] = true
-		  				this.lHPrice_isNot.ifSub = true
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  			}
+	  			if(this.lHPrice_str[str1]){  // 是否存在已搜索
+	  				// 已搜索和现搜索是否一样
+		  			if(val1 == +this.lHPrice_str[str1].slice(this.lHPrice_str[str1].indexOf('=')+1)){
+		  				this.lHPrice_isNot[str1] = false
+		  				if(this.lHPrice_isNot[str2]){
+  							this.lHPrice_isNot.ifSub = true
+  							return
+  						}else{
+  							this.lHPrice_isNot.ifSub = false
+  							return
+  						}
 		  				return
+		  			}else{
+		  				this.lHPrice_isNot[str1] = true
+	  					this.lHPrice_isNot.ifSub = true
 		  			}
+	  			}else{
+	  				this.lHPrice_isNot[str1] = true
+	  				this.lHPrice_isNot.ifSub = true
+	  				return
 	  			}
 	  		}else{
 	  			e.target.value = ''

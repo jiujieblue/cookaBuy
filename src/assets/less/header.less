@@ -59,6 +59,11 @@ a{
 			padding: 0;
 			float: left;
 			margin-left: 50px;
+			.active{
+				>a{
+					color: #fff;
+				}
+			}
 		}
 
 		&-item {
@@ -81,11 +86,7 @@ a{
 				}
 			}
 		}
-		.active{
-			a{
-				color: #fff;
-			}
-		}
+		
 	}
 
 	&-category {
@@ -156,6 +157,7 @@ a{
 			font-size: 14px;
 			width: 100%;
 			min-height: 236px;
+			height: 382px;
 			top: 100%;
 			left: 0;
 			z-index: 99;
@@ -189,7 +191,12 @@ a{
 						margin-top: 3px;
 					}
 				}
-
+				&.active{
+					>a{
+						background: #fff;
+						color: #fcc505;
+					}
+				}
 				&:hover {
 					.header-category-lv-2 {
 						display: block;
@@ -207,11 +214,11 @@ a{
 			left: 100%;
 			top: 0;
 			min-height: 236px;
-			width: 682px;
+			height: 382px;
+			width: 940px;
 			background-color: #fff;
 			padding: 15px 30px;
 			padding-bottom: 0;
-			height: 360px;
 			overflow: auto;
 			box-shadow: 5px 5px 10px rgba(190,190,190,0.1);
 			> li {
