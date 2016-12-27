@@ -226,6 +226,11 @@
 	    	me.total_pages = res.data.total_pages
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+	    	if(sessionStorage.getItem('total_entries')){
+	    		me.total_entries = sessionStorage.getItem('total_entries')
+	    	}else{
+	    		sessionStorage.setItem('total_entries', res.data.total_entries)
+	    	}
 
 	    	this.isRequestReady = false
 	    	for(var i = 0;i < me.cats.length; i ++){
