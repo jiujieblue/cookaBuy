@@ -20,7 +20,6 @@
 			<div class="container">
 				<p>
 					<img :src="storesInfo && storesInfo.store_logo" alt="店铺头像" v-if="storesInfo">
-					<img src="../../assets/images/userImg.jpg" alt="店铺头像" v-else>
 				</p>
 				<ul>
 					<li>
@@ -116,7 +115,9 @@
     				</ul>
     			</li>
     		</ul>
+ 				<CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
     	</div>
+
     	<div class="sellerAllProduct-product-right" v-if="isRequestYes">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
@@ -130,7 +131,6 @@
     	</div>
     </div>
   </div>
-  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>

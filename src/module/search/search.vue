@@ -116,6 +116,7 @@
 		    			</ul>
 		    		</div>
 		    	</div>
+		    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
 	    	</div>
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
@@ -137,7 +138,7 @@
 	    </div>
 	    <div class="row">
 	    	<!-- 分页 -->
-	    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
+	    	
 	    </div>
 	    <div class="row search-cookabuy">
 	    	<hr/><p>cookabuy.com</p><hr/>
