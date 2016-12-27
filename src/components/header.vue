@@ -103,7 +103,7 @@ export default{
 	},
 	methods: {
 		_liover (e) {
-			console.log(e.target.getAttribute('data_li'))
+			//console.log(e.target.getAttribute('data_li'))
 			$('.'+e.target.getAttribute('data_li')).addClass('active').siblings('.active').removeClass('active')
 		},
 		_subStor (n) {
@@ -134,7 +134,7 @@ export default{
 				this.daohangone = res.data.data
 			},
 			function(err){
-				console.log(err)
+				//console.log(err)
 			}
 		)
 		
