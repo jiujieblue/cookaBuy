@@ -291,16 +291,21 @@
 	  	},
 			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
-	  		var i = parseInt(hrefStr.indexOf(str))
+	  		var i = parseInt(hrefStr.indexOf(str)),val
 	  		if(keyword){
 	  			str = keyword
 	  		}else{
 	  			str = str.slice(1)
 	  		}
 	  		if(i != -1){
-		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
-		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = decodeURIComponent(this[str].slice(0,parseInt(this[str].indexOf('&'))))
+		  		val = hrefStr.slice(i+n)
+		  		if(parseInt(val.indexOf('&')) != -1){
+		  			val = val.slice(0,parseInt(val.indexOf('&')))
+		  		}
+		  		if(val != '%'){
+						this[str] = decodeURIComponent(val)
+		  		}else{
+		  			this[str] = val
 		  		}
 		  	}
 	  	},
@@ -435,7 +440,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(val)
+				// val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
