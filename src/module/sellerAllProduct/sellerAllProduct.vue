@@ -52,7 +52,7 @@
 	    <div>
 	    	<p>
 	    		<span>商品分类</span>
-	    		<span>共 {{ total_entries }} 件相关商品</span>
+	    		<span><span v-if="total_entries">相关商品 {{total_entries}} 件 / </span>共 {{ &nbsp;total_count&nbsp; }} 件商品</span>
 	    	</p>
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
@@ -109,7 +109,7 @@
     						<a class="ie-11-a" target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleColor(product.title)"></a>
     					</li>
     					<li>
-    						<span v-if="product.item_no">#{{ product.item_no }}</span>
+    						<span v-if="product.item_no">{{ _item_symbol(product.item_no) }}</span>
     						<button v-if="false">一键上传</button>
     					</li>
     				</ul>
@@ -152,6 +152,7 @@
 	      showcases: [],
 	      storesInfo: null,
 	      total_entries: '',
+	      total_count: '',
 	      root_cat: '',
 	      // 排序
 	      sorting:{
@@ -224,13 +225,10 @@
 		    me.cats = res.data.cats
 	    	me.productsAll = res.data.data
 	    	me.total_pages = res.data.total_pages
+	    	me.total_count = res.data.total_count
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
-	    	if(sessionStorage.getItem('total_entries')){
-	    		me.total_entries = sessionStorage.getItem('total_entries')
-	    	}else{
-	    		sessionStorage.setItem('total_entries', res.data.total_entries)
-	    	}
+	    	
 
 	    	this.isRequestReady = false
 	    	for(var i = 0;i < me.cats.length; i ++){
@@ -280,6 +278,13 @@
 	    })
 	  },
 	  methods : {
+	  	_item_symbol (val) {
+	  		if(val.indexOf('#') == -1){
+	  			return val + '#'
+	  		}else{
+	  			return val
+	  		}
+	  	},
 	  	_claOver (e) {
 	  		this.isCla = true
 	  	},

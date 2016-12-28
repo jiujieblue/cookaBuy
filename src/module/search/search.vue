@@ -233,22 +233,13 @@
 	      // 搜索关键字
 	      q: '',
 				// 轮播
-				swiperOption: {
-          slidesPerView: 5,
-          paginationClickable: true,
-          spaceBetween: 10,
-          freeMode: true,
-          autoplay: 3000,
-          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
-		    },
 		    isStore: false,
 
 		    slideData: {
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 2000,
-  				totalMar: 50
+  				marginR: 5
 		  	}
 	    }
 	  },
@@ -291,6 +282,11 @@
 
 	  	var hrefUrlStr = ''
 	  	// 搜索关键字
+
+	  	if(!this.keyword){
+	  		this.isRequestYes = false
+	  		this.isRequestReady = false
+	  	}
 	  	if(this.keyword){
 	  		hrefUrlStr = 'q='+encodeURIComponent(this.keyword)+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
@@ -331,9 +327,6 @@
 	  			this.isMore[key] = true
 	  		}
 	  	}
-	  	// if(document.documentMode === 11){
-	  	// 	$('.ie-11-a').css({display: 'block',height: '40px'})
-	  	// }
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -456,9 +449,9 @@
 	  	},
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
-	  		console.log(keyword)
+	  		var keyStr = keyword && "?q=" + keyword
 	  		if(this.isStore){
-	  			window.location.href = './visitingMarket.html?q='+keyword
+	  			window.location.href = './visitingMarket.html'+keyStr
 	  		}else{
 	  			window.location.href = './search.html?q='+ keyword +'&from=1'
 	  		}

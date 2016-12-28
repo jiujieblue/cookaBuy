@@ -64,17 +64,18 @@ export default {
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 1000,
-  				totalMar: 0
+  				marginR: 0
   			}
   		}
   	}
   },
   updated () {
   	this.liW = parseInt($($('.search-product-left-gridRecommended')[0]).css('width'))
-  	
-  	var val = this.liW
+
+  	var wid = this.liW
 		this.liLength = $('.slide-box div').length
-		$('.slide-box').css({width: (val*($('.slide-box div').length)) + 'px'})
+		$('.slide-box div').css({marginRight: this.slideData.marginR + 'px'})
+		$('.slide-box').css({width: ((wid + this.slideData.marginR)*$('.slide-box div').length) + 'px'})
   },
 	mounted () {
 		var me = this
