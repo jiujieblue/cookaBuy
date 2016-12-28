@@ -64,7 +64,7 @@ export default {
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 1000,
-  				totalMar: 0
+  				marginR: 0
   			}
   		}
   	}
@@ -72,9 +72,10 @@ export default {
   updated () {
   	this.liW = parseInt($($('.search-product-left-gridRecommended')[0]).css('width'))
   	
-  	var val = this.liW
+  	var wid = this.liW
 		this.liLength = $('.slide-box div').length
-		$('.slide-box').css({width: (val*($('.slide-box div').length)) + 'px'})
+		$('.slide-box div').css({marginRight: this.slideData.marginR + 'px'})
+		$('.slide-box').css({width: ((wid + this.slideData.marginR)*$('.slide-box div').length) + 'px'})
   },
 	mounted () {
 		var me = this
@@ -95,7 +96,7 @@ export default {
 			if(this.isMove){
 				//this.isMove = false
 				if(n < 0){
-					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.liW)+'px, 0px, 0px)'})
+					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*(this.liW + this.slideData.marginR))+'px, 0px, 0px)'})
 
 					setTimeout(function(){
 						$('.slide-box').css({transitionDuration: '300ms', transform: 'translate3d(0px, 0px, 0px)'})
@@ -105,7 +106,7 @@ export default {
 					},10)
 				}
 				if(n > 0){
-					$('.slide-box').css({transitionDuration:  '300ms', transform: 'translate3d('+(-n*this.liW)+'px, 0px, 0px)'})
+					$('.slide-box').css({transitionDuration:  '300ms', transform: 'translate3d('+(-n*(this.liW + this.slideData.marginR))+'px, 0px, 0px)'})
 					setTimeout(function(){
 						$('.slide-box').css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
 						

@@ -248,7 +248,7 @@
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 2000,
-  				totalMar: 50
+  				marginR: 5
 		  	}
 	    }
 	  },
