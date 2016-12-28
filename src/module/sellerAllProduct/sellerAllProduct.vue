@@ -279,7 +279,7 @@
 	  },
 	  methods : {
 	  	_item_symbol (val) {
-	  		if(val.indexOf('#')){
+	  		if(val.indexOf('#') == -1){
 	  			return val + '#'
 	  		}else{
 	  			return val
