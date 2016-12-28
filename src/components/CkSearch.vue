@@ -49,17 +49,6 @@ export default {
 	  	})
 		})
 	},
-  // 组件加载完成之后
-  updated () {
-  	// var me = this
-  	// $('body').click(function(e){
-  	// 	if(me.isShow){
-	  // 		if($(e.target).attr('data_i') !== 'open'){
-	  // 			me.isShow = false
-	  // 		}
-  	// 	}
-  	// })
-  },
 	methods: {
 		_open () {
 			this.isShow = !this.isShow
