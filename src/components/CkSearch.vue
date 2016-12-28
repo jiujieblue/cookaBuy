@@ -2,7 +2,7 @@
 	<div class="ck-search">
 		<div class="ck-search-select">
 			<span>
-				<span class="ck-search-type" ref="type">{{stroe == 'stroe' ? '店铺' :'商品'}}</span>
+				<span class="ck-search-type" ref="type">{{ isStroe ? '店铺' :'商品'}}</span>
 				<link rel="stylesheet" :class="['icon-jiantoud', isShow ? 'active' : '']">
 				<!-- 遮罩整个span -->
 				<i data_i="open" @click="_open"></i>
@@ -11,7 +11,7 @@
 				<li @click="_sel($event, 0)">商品</li>
 				<li @click="_sel($event, 1)">店铺</li>
 			</ul>
-			<input type="search" name="query" placeholder="搜索关键字..." ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
+			<input type="search" name="query" :placeholder=" isStroe ? '搜索店铺名称...' : '搜索商品名称...'" ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
 		</div>
 		<button type="submit" @click="_sub">
 			搜索
@@ -31,11 +31,14 @@ export default {
 	data () {
 		return{
 			key: '',
-			isShow: false
+			isShow: false,
+			isStroe: false
 		}
 	},
 	mounted () {
-		
+		if(this.stroe){
+			this.isStroe = true
+		}
 	},
   // 组件加载完成之后
   updated () {
@@ -55,6 +58,7 @@ export default {
 		_sel (e, n) {
 			var val = e.target.innerHTML
 			this.$refs.type.innerHTML = val
+			n == 0 ? (this.isStroe = false) : (this.isStroe = true)
 			this.isShow = false
 			this.$emit('subStor',n)
 		},

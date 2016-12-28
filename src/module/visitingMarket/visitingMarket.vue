@@ -62,14 +62,14 @@
 										<td>楼层</td>
 										<td>
 											<div @click="_clickAllF"><a :class="isAllF ? 'tagActive' : ''">全部</a></div>
-											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem)"><a :class="ft == floorItem ? 'tagActive' : ''">{{floorItem}}</a></div>
+											<div v-for="(floorItem, floorIndex) in floors" @click="_clickF(floorItem.key)"><a :class="ft == floorItem.key ? 'tagActive' : ''">{{floorItem.key}}</a></div>
 										</td>
 									</tr>
 									<tr>
 										<td>主营</td>
 										<td>
 											<div @click="_clickAllC"><a :class="isAllC ? 'tagActive' : ''">全部</a></div>
-											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.name,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.name}}</a></div>
+											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.key,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.key}}</a></div>
 										</td>
 									</tr>
 								</table>
@@ -250,6 +250,8 @@
 		        q:'',
 		        q_total:'',
 		        q_pageSize:10,
+		        total:'',
+		        pageSize:10,
 		        page:1,
 		        pages:'',
 		        floor:'',
@@ -317,13 +319,13 @@
 						}
 					)
 			  	}else{
-				  	this.$http.get('/api/stores?market=大西豪'+ cat + floor +'&from=' + '&page=' + val)
+				  	this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10'+ cat + floor + '&from=' + (val-1)*10)
 					.then(
 						function(res){
-							this.stores = res.data.data
-							this.categories = res.data.categories
-							this.page = res.data.page_number
-							this.pages = res.data.total_pages
+							this.stores = res.data[2].hits.hits
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
 						},
 						function(err){
 							console.log(err)
@@ -340,23 +342,22 @@
 				this.isAllF = false
 				this.isAllC = true
 				this.floor = f
-				console.log(this.floor)
 				this.ft = f
 				this.ct = -1
-				this.$http.get('/api/stores?market=大西豪' + '&floor=' + f + '&page=1')
+				this.page = 1
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&page=1')
 				.then(
 					function(res){
-						this.stores = res.data.data
-						this.categories = res.data.categories
-						this.page = res.data.page_number
-						this.pages = res.data.total_pages
-						this.cat = ''
+						console.log(this.categories)
+						this.categories = res.data[2].aggregations.cates.buckets
+						this.stores = res.data[2].hits.hits
+						this.total = res.data[2].hits.total
+						this.pages = Math.ceil(this.total/this.pageSize)
 					},
 					function(err){
 						console.log(err)
 					}
 				)
-				//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + f
 			},
 			_clickAllF(){
 				this.isSearch = false
@@ -364,20 +365,20 @@
 				this.floor = ''
 				this.ct = -1
 				this.ft = 0
-				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
 				.then(
 					function(res){
-						this.stores = res.data.data
-						this.categories = res.data.categories
-						this.page = res.data.page_number
-						this.pages = res.data.total_pages
+						this.stores = res.data[2].hits.hits
+						this.categories = res.data[2].aggregations.cates.buckets
+						this.total = res.data[2].hits.total
+						this.pages = Math.ceil(this.total/this.pageSize)
 						this.cat = ''
 					},
 					function(err){
 						console.log(err)
 					}
 				)
-				window.location.href = './visitingMarket.html?matket=大西豪'
+				window.location.href = './visitingMarket.html?matket=大西豪&search_size=10' + '&page=1'
 			},
 			_clickC(c,cIndex){
 				console.log(c)
@@ -386,15 +387,16 @@
 				this.isAllC = false
 				this.isAllF = false
 				this.cat = c
+				this.page = 1
+				console.log(this.page)
 				this.ct = cIndex
 				if(this.floor){
-					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10'+ '&cat=' + c + '&floor=' + this.floor + '&page=1')
 					.then(
 						function(res){
-							this.stores = res.data.data
-							this.categories = res.data.categories
-							this.page = res.data.page_number
-							this.pages = res.data.total_pages
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
 						},
 						function(err){
 							console.log(err)
@@ -403,13 +405,12 @@
 					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor + '&cat=' + c 
 				}else{
 					this.isAllF = true
-					this.$http.get('/api/stores?market=大西豪'+ '&cat=' + c + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10'+ '&cat=' + c + '&page=1')
 					.then(
 						function(res){
-							this.stores = res.data.data
-							this.categories = res.data.categories
-							this.page = res.data.page_number
-							this.pages = res.data.total_pages
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
 						},
 						function(err){
 							console.log(err)
@@ -424,13 +425,13 @@
 				this.ct = -1
 				console.log(this.floor)
 				if(this.floor){
-					this.$http.get('/api/stores?market=大西豪' + '&floor=' + this.floor + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&page=1')
 					.then(
 						function(res){
-							this.stores = res.data.data
-							this.categories = res.data.categories
-							this.page = res.data.page_number
-							this.pages = res.data.total_pages
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
 							this.cat = ''
 						},
 						function(err){
@@ -439,13 +440,13 @@
 					)
 					//window.location.href = './visitingMarket.html?matket=大西豪&floor=' + this.floor
 				}else{
-					this.$http.get('/api/stores?market=大西豪' + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
 					.then(
 						function(res){
-							this.stores = res.data.data
-							this.categories = res.data.categories
-							this.page = res.data.page_number
-							this.pages = res.data.total_pages
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
 							this.cat = ''
 						},
 						function(err){
@@ -483,16 +484,12 @@
 		  	}
 		  	
 			!this.q && (this.isSearch = false)
-			console.log(this.q)
-			console.log(this.isSearch)
 			$('.swiper-container').hover(
 					function(){
-						$('.swiper-pagination').fadeIn('normal')
 						$('.swiper-button-prev').css('left','0').fadeIn('slow')
 						$('.swiper-button-next').css('right','0').fadeIn('slow')
 					},
 					function(){
-						$('.swiper-pagination').fadeOut('normal')
 						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
 						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
 					}
@@ -501,9 +498,8 @@
 				this.$http.get('/s1/searchs?type=store&search_size=10&from=0&q=' + this.q)
 				.then(
 					function(res){
-						console.log(res.data[2].hits.hits)
-						this.stores = res.data[2].hits.hits
-						this.q_total = res.data[2].hits.total
+						this.stores = res.data[2]&&res.data[2].hits&&res.data[2].hits.hits
+						this.q_total = res.data[2]&&res.data[2].hits&&res.data[2].hits.total
 						this.pages = Math.ceil(this.q_total/this.q_pageSize)
 						console.log(this.pages)
 					},
@@ -511,17 +507,12 @@
 						console.log(err)
 					}
 				)
-				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
 				.then(
 					function(res){
-						this.markets = res.data.markets
-						this.floors = res.data.floors
-						this.categories = res.data.categories
-						// for (var i = 0; i < this.stores.length; i++) {
-						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
-						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
-						// 	}
-						// }
+						this.markets = res.data[2].aggregations.markets.buckets
+						this.floors = res.data[2].aggregations.floors.buckets
+						this.categories = res.data[2].aggregations.cates.buckets
 					},
 					function(err){
 						console.log(err)
@@ -529,20 +520,15 @@
 				)
 
 			}else{
-				this.$http.get('/api/stores?market=大西豪' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
 				.then(
 					function(res){
-						this.markets = res.data.markets
-						this.page = res.data.data.page_number
-						this.pages = res.data.total_pages
-						this.stores =  res.data.data
-						this.floors = res.data.floors
-						this.categories = res.data.categories
-						// for (var i = 0; i < this.stores.length; i++) {
-						// 	if((this.stores[i].store_logo).match('http://static17.17zwd.com') != null){
-						// 		this.stores[i].store_logo = '../../assets/images/default_avatar.png'
-						// 	}
-						// }
+						this.markets = res.data[2].aggregations.markets.buckets
+						this.floors = res.data[2].aggregations.floors.buckets
+						this.categories = res.data[2].aggregations.cates.buckets
+						this.stores = res.data[2].hits.hits
+						this.total = res.data[2].hits.total
+						this.pages = Math.ceil(this.total/this.pageSize)
 					},
 					function(err){
 						console.log(err)
