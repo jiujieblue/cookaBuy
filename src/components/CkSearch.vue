@@ -11,7 +11,7 @@
 				<li @click="_sel($event, 0)">商品</li>
 				<li @click="_sel($event, 1)">店铺</li>
 			</ul>
-			<input type="search" name="query" :placeholder=" isStroe ? '搜索店铺名称...' : '搜索商品名称...'" ref="query" @keyup="_sub($event, 1)" :value="key || keyword"/>
+			<input type="search" name="query" :placeholder=" isStroe ? '搜索店铺名称...' : '搜索商品名称...'" ref="query" @keyup="_sub($event, 1)" v-model="keyword"/>
 		</div>
 		<button type="submit" @click="_sub">
 			搜索
@@ -30,7 +30,6 @@ export default {
 	},
 	data () {
 		return{
-			key: '',
 			isShow: false,
 			isStroe: false
 		}
@@ -56,8 +55,8 @@ export default {
 			this.isShow = !this.isShow
 		},
 		_sel (e, n) {
-			var val = e.target.innerHTML
-			this.$refs.type.innerHTML = val
+			var val = e.target.textContent
+			this.$refs.type.textContent = val
 			n == 0 ? (this.isStroe = false) : (this.isStroe = true)
 			this.isShow = false
 			this.$emit('subStor',n)

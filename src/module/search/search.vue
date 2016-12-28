@@ -291,6 +291,11 @@
 
 	  	var hrefUrlStr = ''
 	  	// 搜索关键字
+
+	  	if(!this.keyword){
+	  		this.isRequestYes = false
+	  		this.isRequestReady = false
+	  	}
 	  	if(this.keyword){
 	  		hrefUrlStr = 'q='+encodeURIComponent(this.keyword)+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 			
@@ -456,9 +461,9 @@
 	  	},
 	  	// 搜索关键期词
 	  	_subkeyword (keyword) {
-	  		console.log(keyword)
+	  		var keyStr = keyword && "?q=" + keyword
 	  		if(this.isStore){
-	  			window.location.href = './visitingMarket.html?q='+keyword
+	  			window.location.href = './visitingMarket.html'+keyStr
 	  		}else{
 	  			window.location.href = './search.html?q='+ keyword +'&from=1'
 	  		}

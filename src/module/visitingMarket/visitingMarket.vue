@@ -285,10 +285,11 @@
 		  		}
 		  	},
 			_subkeyword(keyword){
+				var keyStr = keyword && "?q=" + keyword
 				if(this.isStore || $('.ck-search-type').html() == "店铺"){
-					window.location.href = "./visitingMarket.html?q=" + keyword
+					window.location.href = "./visitingMarket.html" + keyStr
 				}else{
-					window.location.href = "./search.html?q="+keyword
+					window.location.href = "./search.html"+keyStr
 				}
 			},
 			_toBannerStore(sid){
