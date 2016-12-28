@@ -233,15 +233,6 @@
 	      // 搜索关键字
 	      q: '',
 				// 轮播
-				swiperOption: {
-          slidesPerView: 5,
-          paginationClickable: true,
-          spaceBetween: 10,
-          freeMode: true,
-          autoplay: 3000,
-          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
-		    },
 		    isStore: false,
 
 		    slideData: {
@@ -336,9 +327,6 @@
 	  			this.isMore[key] = true
 	  		}
 	  	}
-	  	// if(document.documentMode === 11){
-	  	// 	$('.ie-11-a').css({display: 'block',height: '40px'})
-	  	// }
 	  },
 	  // 组件加载完成之前
 	  methods: {

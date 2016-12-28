@@ -12,7 +12,7 @@
 								</div>
 								<span>明星店铺</span>
 							</div>
-							<!-- <div class="swiper-box">
+							<div class="swiper-box">
 								<swiper :options="swiperOption">
 									<swiper-slide>
 										<a @click="_toBannerStore(2389)">
@@ -43,7 +43,7 @@
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
 								</swiper>
-							</div> -->
+							</div>
 							<div class="clearfix"></div>
 							<div class="market-box">
 								<table>
