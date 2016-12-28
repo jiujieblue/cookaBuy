@@ -35,20 +35,30 @@ export default {
 		}
 	},
 	mounted () {
+		var me = this
 		if(this.stroe){
 			this.isStroe = true
 		}
+		$(function(){
+			$('body').click(function(e){
+	  		if(me.isShow){
+		  		if($(e.target).attr('data_i') !== 'open'){
+		  			me.isShow = false
+		  		}
+	  		}
+	  	})
+		})
 	},
   // 组件加载完成之后
   updated () {
-  	var me = this
-  	$('body').click(function(e){
-  		if(me.isShow){
-	  		if($(e.target).attr('data_i') !== 'open'){
-	  			me.isShow = false
-	  		}
-  		}
-  	})
+  	// var me = this
+  	// $('body').click(function(e){
+  	// 	if(me.isShow){
+	  // 		if($(e.target).attr('data_i') !== 'open'){
+	  // 			me.isShow = false
+	  // 		}
+  	// 	}
+  	// })
   },
 	methods: {
 		_open () {
