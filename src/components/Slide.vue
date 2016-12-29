@@ -1,7 +1,21 @@
 <style lang="less">
+	@keyframes leftfirst
+	{
+		0% {left: -40px;}
+		50% {left: 0;}
+		100% {opacity: 1;}
+	}
+	@keyframes rightfirst
+	{
+		0% {right: -40px;}
+		50% {right: 0;}
+		100% {opacity: 1;}
+	}
 	.slide{
+		width: 100%;
 		margin: 0 auto;
 		overflow: hidden;
+		position: relative;
 		&-box{
 			>div{
 				float: left;
@@ -25,12 +39,6 @@
 			
 		</slot>
   </div>
-  <slot name="left">
-  	<button class="slide-left">shang</button>
-  </slot>
-  <slot name="right">
-		<button class="slide-right">下</button>
-  </slot>
 </div>
 </template>
 
@@ -41,11 +49,9 @@
 export default {
 	data () {
 		return {
-			moveTime: 1000,
-  				liW: 0,
-  				oneTime: '400ms',
-  				num: 1,
-					liLength: 0,
+			liW: 0,
+			oneTime: '400ms',
+			liLength: 0,
 			isMove: true,
 			timer: null
 		}
@@ -55,17 +61,23 @@ export default {
   		type: Object,
   		default: function(){
   			return {
-  				liW: 0,
   				oneTime: '400ms',
   				num: 1,
-					liLength: 0,
-  				moveTime: 1000
+  				moveTime: 1000,
+  				marginR: 0
   			}
   		}
   	}
   },
+  updated () {
+  	this.liW = parseInt($($('.search-product-left-gridRecommended')[0]).css('width'))
+
+  	var wid = this.liW
+		this.liLength = $('.slide-box div').length
+		$('.slide-box div').css({marginRight: this.slideData.marginR + 'px'})
+		$('.slide-box').css({width: ((wid + this.slideData.marginR)*$('.slide-box div').length) + 'px'})
+  },
 	mounted () {
-		console.log(this.slideData)
 		var me = this
 		window.onload = function () {
 			$('.slide-left').click(function(){
@@ -74,52 +86,46 @@ export default {
 			$('.slide-right').click(function(){
 				me.move(1)
 			})
-
-			me.slideData.liW = parseInt($('.slide-box div').css('width'))
-			$('.slide, .slide-box div').css({width: me.slideData.liW + 'px'})
-			me.liLength = $('.slide-box div').length
-			$('.slide-box').css({width: me.slideData.liW*($('.slide-box div').length) + 'px'})
+			
 		}
-		$('.slide-left').click(function(){
-			me.move(-1)
-		})
-		$('.slide-right').click(function(){
-			me.move(1)
-		})
 		this.autoMove()
 	},
 	methods: {
 		move (n) {
 			var me =this
 			if(this.isMove){
-				this.isMove = false
-				if(n<0){
-					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.slideData.liW*this.slideData.num)+'px, 0px, 0px)'})
+				//this.isMove = false
+				if(n < 0){
+					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.liW)+'px, 0px, 0px)'})
 
 					setTimeout(function(){
-						$('.slide-box').css({transitionDuration: '400ms', transform: 'translate3d(0px, 0px, 0px)'})
+						$('.slide-box').css({transitionDuration: '300ms', transform: 'translate3d(0px, 0px, 0px)'})
 						setTimeout(function(){
 							me.isMove = true
 						},300)
-					},0)
+					},10)
 				}
-				if(n>0){
-					$('.slide-box').css({transitionDuration:  '400ms', transform: 'translate3d('+(-n*this.slideData.liW*this.slideData.num)+'px, 0px, 0px)'})
-
+				if(n > 0){
+					$('.slide-box').css({transitionDuration:  '300ms', transform: 'translate3d('+(-n*this.liW)+'px, 0px, 0px)'})
 					setTimeout(function(){
-						$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-						// for(var i = ){
-
-						// }
+						$('.slide-box').css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+						
+						if(n > 1){
+							for(var i = 1; i <= n; i++){
+								$('.slide-box').append($('.slide-box div:eq(0)'))
+							}
+						}else{
+							$('.slide-box').append($('.slide-box div:eq(0)'))
+						}
 						setTimeout(function(){
 							me.isMove = true
 						},10)
-					},400)
+					},300)
 				}
 			}
 		},
 		autoMove () {
-			this.timer = setInterval(this.move.bind(this,1),5000)
+			this.timer = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
 		},
 		_over (e) {
 			clearInterval(this.timer)
