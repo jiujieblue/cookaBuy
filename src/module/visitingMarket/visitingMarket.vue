@@ -13,7 +13,7 @@
 								<span>明星店铺</span>
 							</div>
 							<div class="swiper-box">
-								<swiper :options="swiperOption">
+								<!-- <swiper :options="swiperOption">
 									<swiper-slide>
 										<a @click="_toBannerStore(2389)">
 											<img src="../../assets/images/sanye.jpg" >
@@ -42,7 +42,44 @@
 									<div class="swiper-pagination" slot="pagination"></div>
 									<div class="swiper-button-prev" slot="button-prev"></div>
 									<div class="swiper-button-next" slot="button-next"></div>
-								</swiper>
+								</swiper> -->
+								<div class="swiper-box-carousel" >
+									<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
+											<!-- Indicators -->
+										<ol class="carousel-indicators">
+											<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+											<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+											<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+											<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+											<li data-target="#carousel-example-generic" data-slide-to="4"></li>
+										</ol>
+										<!-- Wrapper for slides -->
+										<div class="carousel-inner" role="listbox">
+											<div class="item active" @click="_toBannerStore(2389)">
+												<img src="../../assets/images/sanye.jpg" >
+											</div>
+											<div class="item" @click="_toBannerStore(2417)">
+												<img src="../../assets/images/yirenzui.jpg" >
+											</div>
+											<div class="item" @click="_toBannerStore(1997)">
+												<img src="../../assets/images/feiyiban.jpg" >
+											</div>
+											<div class="item" @click="_toBannerStore(81)">
+												<img src="../../assets/images/yuanyuan.jpg" >
+											</div>
+											<div class="item" @click="_toBannerStore(2186)">
+												<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
+											</div>
+										</div>
+										<!-- Controls -->
+										<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+											<span class="icon-xiangqian"></span>
+										</a>
+										<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+											<span class="icon-xianghou"></span>
+										</a>
+									</div>
+								</div>
 							</div>
 							<div class="clearfix"></div>
 							<div class="market-box">
@@ -230,31 +267,32 @@
 
 <script>
 	import Vue from 'vue'
-	import AwesomeSwiper from 'vue-awesome-swiper'
+//	import AwesomeSwiper from 'vue-awesome-swiper'
 	import VueResource from 'vue-resource'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
+	import 'bootstrap/dist/js/bootstrap.js'
 	import gotop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
 	Vue.use(VueResource)
-	Vue.use(AwesomeSwiper)
+//	Vue.use(AwesomeSwiper)
 	export default{
-		name:'carrousel',
+		//name:'carrousel',
 		data(){
 			return{
-				swiperOption: {
-					pagination: '.swiper-pagination',
-		        	paginationClickable: true,
-		        	spaceBetween: 10,
-		        	freeMode: true,
-		        	autoplay: 3000,
-		        	slidesPerView: 1,
-		        	loop: true,
-		        	prevButton:'.swiper-button-prev',
-					nextButton:'.swiper-button-next'
-		        },
+				// swiperOption: {
+				// 	pagination: '.swiper-pagination',
+		  //       	paginationClickable: true,
+		  //       	spaceBetween: 10,
+		  //       	freeMode: true,
+		  //       	autoplay: 3000,
+		  //       	slidesPerView: 1,
+		  //       	loop: true,
+		  //       	prevButton:'.swiper-button-prev',
+				// 	nextButton:'.swiper-button-next'
+		  //       },
 		        markets:[],
 		        stores:[],
 		        floors:[],
@@ -588,18 +626,30 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
-		  	
+			
+			// $('.swiper-container').hover(
+			// 		function(){
+			// 			$('.swiper-button-prev').css('left','0').fadeIn('slow')
+			// 			$('.swiper-button-next').css('right','0').fadeIn('slow')
+			// 		},
+			// 		function(){
+			// 			$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
+			// 			$('.swiper-button-next').css('right','-40px').fadeOut('slow')
+			// 		}
+			// 	)
+
+			$('.swiper-box-carousel').hover(
+				function(){
+					$('.icon-xiangqian').css('left','0').fadeIn('normal')
+					$('.icon-xianghou').css('right','0').fadeIn('normal')
+				},
+				function(){
+					$('.icon-xiangqian').css('left','-50px').fadeOut('normal')
+					$('.icon-xianghou').css('right','-50px').fadeOut('normal')
+				}
+			)
+
 			!this.q && (this.isSearch = false)
-			$('.swiper-container').hover(
-					function(){
-						$('.swiper-button-prev').css('left','0').fadeIn('slow')
-						$('.swiper-button-next').css('right','0').fadeIn('slow')
-					},
-					function(){
-						$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
-						$('.swiper-button-next').css('right','-40px').fadeOut('slow')
-					}
-				)
 			if(this.q){
 				this.$http.get('/s1/searchs?type=store&search_size=10&from=0&q=' + this.q)
 				.then(

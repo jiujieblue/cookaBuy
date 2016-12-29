@@ -55,10 +55,14 @@
 										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div class="item active" @click="_goMore('男装卫衣')">
+										<div class="item active" @click="_goMore('女外套')">
+											<img src="../../assets/images/nvwaitao.jpg" alt="...">
+										</div>
+										<div class="item" @click="_goMore('男装卫衣')">
 											<img src="../../assets/images/indexBanner01.jpg" alt="...">
 										</div>
 										<div class="item" @click="_goMore('男装外套')">
@@ -92,7 +96,7 @@
 								</div> -->
 								<div class="index-note-items">
 									<a href="./publicDetail.html" class="index-note-item">
-										[公告] 系统升级通知
+										[公告] 柯咔商城系统升级通知及活动优惠政策预告
 									</a>
 									<!--<a class="index-note-item" v-for="(announcementsItem, announcementsIndex) in announcements">
 										[公告] {{announcementsItem.title}}
