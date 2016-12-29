@@ -321,37 +321,22 @@
 			subPage (val) {
 			  	console.log(val)
 			  	this.page = val
-			  	var cat = this.cat && '&cat='+this.cat
+			  	var zhuying = this.zhuying && '&main_cat='+this.zhuying
 			  	var floor = this.floor && '&floor='+this.floor
 			  	var q = this.q && '&q=' + this.q
-			  	if(this.isSearch){
-			  		this.$http.get('/s1/searchs?type=store&search_size=10' + q + '&from=' + (val-1)*10)
-					.then(
-						function(res){
-							console.log(res.data[2].hits.hits)
-							this.stores = res.data[2].hits.hits
-							this.q_total = res.data[2].hits.total
-							this.pages = Math.ceil(this.q_total/this.q_pageSize)
-							console.log(this.pages)
-						},
-						function(err){
-							console.log(err)
-						}
-					)
-			  	}else{
-				  	this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10'+ cat + floor + '&from=' + (val-1)*10)
-					.then(
-						function(res){
-							this.stores = res.data[2].hits.hits
-							this.categories = res.data[2].aggregations.cates.buckets
-							this.total = res.data[2].hits.total
-							this.pages = Math.ceil(this.total/this.pageSize)
-						},
-						function(err){
-							console.log(err)
-						}
-					)
-				}
+		  		this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + zhuying + floor + q + '&from=' + (val-1)*10)
+				.then(
+					function(res){
+						console.log(res.data[2].hits.hits)
+						this.stores = res.data[2].hits.hits
+						this.q_total = res.data[2].hits.total
+						this.pages = Math.ceil(this.q_total/10)
+						console.log(this.pages)
+					},
+					function(err){
+						console.log(err)
+					}
+				)
 			},
 			_clickM(m){
 				console.log(m)
@@ -369,7 +354,7 @@
 				this.page = 1
 				this.zhuying = ''
 				this.cat = ''
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&from=0')
 				.then(
 					function(res){
 						console.log(this.categories)
@@ -389,7 +374,7 @@
 				this.floor = ''
 				this.ct = -1
 				this.ft = 0
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.stores = res.data[2].hits.hits
@@ -402,7 +387,7 @@
 						console.log(err)
 					}
 				)
-				window.location.href = './visitingMarket.html?matket=大西豪&search_size=10' + '&page=1'
+				window.location.href = './visitingMarket.html?matket=大西豪&search_size=10' + '&from=0'
 			},
 			_clickZ(z,zIndex){
 				console.log(z)
@@ -416,21 +401,22 @@
 				this.page = 1
 				if(!this.floor){
 					this.isAllF = true
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&from=0')
 					.then(
 						function(res){
 							console.log(this.categories)
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
-							this.pages = Math.ceil(this.total/this.pageSize)
+							this.pages = Math.ceil(this.total/10)
+							console.log(this.pages)
 						},
 						function(err){
 							console.log(err)
 						}
 					)
 				}else{
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&main_cat=' + this.zhuying + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&main_cat=' + this.zhuying + '&from=0')
 					.then(
 						function(res){
 							console.log(this.categories)
@@ -450,8 +436,9 @@
 				this.zt = -1
 				this.ct = -1
 				this.zhuying = ''
+				this.page = 1
 				if(this.floor){
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&from=0')
 					.then(
 						function(res){
 							this.categories = res.data[2].aggregations.cates.buckets
@@ -465,7 +452,7 @@
 						}
 					)
 				}else{
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
+					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
 					.then(
 						function(res){
 							this.floors = res.data[2].aggregations.floors.buckets
@@ -626,7 +613,7 @@
 						console.log(err)
 					}
 				)
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.markets = res.data[2].aggregations.markets.buckets
@@ -640,7 +627,7 @@
 				)
 
 			}else{
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&page=1')
+				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.markets = res.data[2].aggregations.markets.buckets
