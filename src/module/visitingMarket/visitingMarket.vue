@@ -73,10 +73,10 @@
 										</div>
 										<!-- Controls -->
 										<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-											<span class="icon-xiangqian"></span>
+											<span class="icon-navqian"></span>
 										</a>
 										<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-											<span class="icon-xianghou"></span>
+											<span class="icon-navhou"></span>
 										</a>
 									</div>
 								</div>
@@ -641,12 +641,12 @@
 
 			$('.swiper-box-carousel').hover(
 				function(){
-					$('.icon-xiangqian').css('left','0').fadeIn('normal')
-					$('.icon-xianghou').css('right','0').fadeIn('normal')
+					$('.icon-navqian').css('left','0').fadeIn('normal')
+					$('.icon-navhou').css('right','0').fadeIn('normal')
 				},
 				function(){
-					$('.icon-xiangqian').css('left','-50px').fadeOut('normal')
-					$('.icon-xianghou').css('right','-50px').fadeOut('normal')
+					$('.icon-navqian').css('left','-50px').fadeOut('normal')
+					$('.icon-navhou').css('right','-50px').fadeOut('normal')
 				}
 			)
 
