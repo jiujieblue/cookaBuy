@@ -669,6 +669,22 @@
 					function(res){
 						this.markets = res.data[2].aggregations.markets.buckets
 						this.floors = res.data[2].aggregations.floors.buckets
+						this.sortF.push(this.floors[0])
+						for( var i = 1 ; i < this.floors.length ; i ++){
+							var fStr = this.floors[i].key
+							for(var n = 0; n < this.sortF.length; n++){
+								if(fStr.slice(0,1) < this.sortF[n].key.slice(0,1) || 
+									fStr.slice(0,1) == this.sortF[n].key.slice(0,1)){
+									var arr = this.sortF.splice(n,this.sortF.length - n)
+									this.sortF.push(this.floors[i])
+									this.sortF = this.sortF.concat(arr)
+									break
+								}
+							}
+							if(n == this.sortF.length){
+								this.sortF.push(this.floors[i])
+							}
+						}
 						this.cats = res.data[2].aggregations.cats.buckets
 						this.categories = res.data[2].aggregations.cates.buckets
 					},
@@ -684,16 +700,12 @@
 						this.markets = res.data[2].aggregations.markets.buckets
 						this.floors = res.data[2].aggregations.floors.buckets
 						this.sortF.push(this.floors[0])
-						console.log(this.floors)
 						for( var i = 1 ; i < this.floors.length ; i ++){
 							var fStr = this.floors[i].key
-							console.log(fStr.slice(0,1))
 							for(var n = 0; n < this.sortF.length; n++){
 								if(fStr.slice(0,1) < this.sortF[n].key.slice(0,1) || 
 									fStr.slice(0,1) == this.sortF[n].key.slice(0,1)){
 									var arr = this.sortF.splice(n,this.sortF.length - n)
-									console.log(arr)
-
 									this.sortF.push(this.floors[i])
 									this.sortF = this.sortF.concat(arr)
 									break
@@ -703,8 +715,6 @@
 								this.sortF.push(this.floors[i])
 							}
 						}
-
-						console.log(this.sortF)
 						this.cats = res.data[2].aggregations.cats.buckets
 						this.categories = res.data[2].aggregations.cates.buckets
 						this.stores = res.data[2].hits.hits
