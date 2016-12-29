@@ -52,7 +52,7 @@
 	    <div>
 	    	<p>
 	    		<span>商品分类</span>
-	    		<span><span v-if="total_entries">相关商品 {{total_entries}} 件 / </span>共 {{ &nbsp;total_count&nbsp; }} 件商品</span>
+	    		<span><span v-if="cid || keyword">相关商品 {{total_entries}} 件 / </span>共 {{ &nbsp;total_count&nbsp; }} 件商品</span>
 	    	</p>
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
