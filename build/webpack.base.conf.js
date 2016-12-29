@@ -19,6 +19,7 @@ module.exports = {
     'module/contactUs': './src/module/contactUs/contactUs.js',
     'module/aboutUs': './src/module/aboutUs/aboutUs.js',
     'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js',
+    'module/buyerWalletWdrlRecord': './src/module/buyerWalletWdrlRecord/buyerWalletWdrlRecord.js',
     'module/uf': './src/module/uf/uf.js'
   },
   output: {

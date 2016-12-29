@@ -188,7 +188,7 @@ export default {
               }
           } else {
             // 未设置时间
-              if(this.sep=="")this.sep = "/"
+              if(this.sep == "")this.sep = "/"
 
               this.year = now.getFullYear()
               this.month = now.getMonth()
@@ -222,7 +222,7 @@ export default {
 
           var i, line = 0,temp = []
           for (i = 1; i <= lastDateOfMonth; i++) {
-              var dow = new Date(y, m, i).getDay()  // 对应号数的周几
+              var dow = new Date(y, m, i).getDay()  // 号数对应的周几
 
               var options = {
               	day: '',
