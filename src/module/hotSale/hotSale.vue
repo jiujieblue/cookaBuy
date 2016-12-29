@@ -20,7 +20,7 @@
 												<a @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url"></a>
 												<div>
 													<p>¥{{sliderItem.price}}</p>
-													<p @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</p>
+													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</a></p>
 												</div>
 												<!-- <div>
 													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>

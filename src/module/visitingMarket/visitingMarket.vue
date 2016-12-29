@@ -390,9 +390,9 @@
 				this.ft = f
 				this.ct = -1
 				this.zt = -1
-				this.page = 1
 				this.zhuying = ''
 				this.cat = ''
+				this.q = ''
 				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&from=0')
 				.then(
 					function(res){
@@ -410,6 +410,7 @@
 			_clickAllF(){
 				this.isSearch = false
 				this.isAllF = true
+				this.q = ''
 				this.floor = ''
 				this.ct = -1
 				this.ft = 0
@@ -438,6 +439,7 @@
 				this.zhuying = z
 				this.zt = zIndex
 				this.page = 1
+				this.q = ''
 				if(!this.floor){
 					this.isAllF = true
 					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&from=0')
@@ -462,7 +464,7 @@
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
-							this.pages = Math.ceil(this.total/this.pageSize)
+							this.pages = Math.ceil(this.total/10)
 						},
 						function(err){
 							console.log(err)
@@ -475,6 +477,7 @@
 				this.zt = -1
 				this.ct = -1
 				this.zhuying = ''
+				this.q =''
 				this.page = 1
 				if(this.floor){
 					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&from=0')
@@ -483,7 +486,7 @@
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
-							this.pages = Math.ceil(this.total/this.pageSize)
+							this.pages = Math.ceil(this.total/10)
 							this.cat = ''
 						},
 						function(err){
@@ -498,7 +501,7 @@
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
-							this.pages = Math.ceil(this.total/this.pageSize)
+							this.pages = Math.ceil(this.total/10)
 						},
 						function(err){
 							console.log(err)
@@ -657,7 +660,7 @@
 					function(res){
 						this.stores = res.data[2]&&res.data[2].hits&&res.data[2].hits.hits
 						this.q_total = res.data[2]&&res.data[2].hits&&res.data[2].hits.total
-						this.pages = Math.ceil(this.q_total/this.q_pageSize)
+						this.pages = Math.ceil(this.q_total/10)
 						console.log(this.pages)
 					},
 					function(err){
