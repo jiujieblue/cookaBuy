@@ -278,6 +278,7 @@
 	import CKSearch from 'components/CkSearch'
 	Vue.use(VueResource)
 //	Vue.use(AwesomeSwiper)
+
 	export default{
 		//name:'carrousel',
 		data(){
@@ -358,7 +359,6 @@
 				window.open("./sellerAllProduct.html?store_id="+ store_id)
 			},
 			subPage (val) {
-			  	console.log(val)
 			  	this.page = val
 			  	var zhuying = this.zhuying && '&main_cat='+this.zhuying
 			  	var floor = this.floor && '&floor='+this.floor
@@ -366,11 +366,9 @@
 		  		this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + zhuying + floor + q + '&from=' + (val-1)*10)
 				.then(
 					function(res){
-						console.log(res.data[2].hits.hits)
 						this.stores = res.data[2].hits.hits
 						this.q_total = res.data[2].hits.total
 						this.pages = Math.ceil(this.q_total/10)
-						console.log(this.pages)
 					},
 					function(err){
 						console.log(err)
@@ -658,6 +656,7 @@
 					$('.icon-navhou').css('right','-50px').fadeOut('normal')
 				}
 			)
+
 
 			!this.q && (this.isSearch = false)
 			if(this.q){
