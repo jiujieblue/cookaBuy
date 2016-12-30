@@ -151,7 +151,7 @@
 											<img :src="storeItem._source.store_logo" >
 										</div>
 										<div>{{storeItem._source.market}}</div>
-										<div>主营：<span v-for="(catItem, catIndex) in storeItem._source.cat">{{ catItem }}</span></div>
+										<div>主营：{{storeItem._source.cat.toString()}}</div>
 										<div>{{storeItem._source.location}}</div>
 										<div>
 											<a class="btn-link" @click="_toStore(storeItem)">进店逛逛</a>
@@ -393,6 +393,7 @@
 				this.zhuying = ''
 				this.cat = ''
 				this.q = ''
+				this.page = 1
 				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&from=0')
 				.then(
 					function(res){
@@ -406,6 +407,7 @@
 						console.log(err)
 					}
 				)
+				$('.ck-pagination-input input').val('')
 			},
 			_clickAllF(){
 				this.isSearch = false
@@ -414,6 +416,7 @@
 				this.floor = ''
 				this.ct = -1
 				this.ft = 0
+				this.page = 1
 				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
 				.then(
 					function(res){
@@ -428,6 +431,7 @@
 					}
 				)
 				window.location.href = './visitingMarket.html?matket=大西豪&search_size=10' + '&from=0'
+				$('.ck-pagination-input input').val('')
 			},
 			_clickZ(z,zIndex){
 				console.log(z)
@@ -438,8 +442,8 @@
 				this.isAllZ = false
 				this.zhuying = z
 				this.zt = zIndex
-				this.page = 1
 				this.q = ''
+				this.page = 1
 				if(!this.floor){
 					this.isAllF = true
 					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&from=0')
@@ -471,6 +475,7 @@
 						}
 					)
 				}
+				$('.ck-pagination-input input').val('')
 			},
 			_clickAllZ(){
 				this.isAllZ = true
@@ -508,6 +513,7 @@
 						}
 					)
 				}
+				$('.ck-pagination-input input').val('')
 			},
 			// _clickC(c,cIndex){
 			// 	this.isSearch = false
