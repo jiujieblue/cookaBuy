@@ -139,7 +139,7 @@
 
   	validation (e) {
   		var val = parseInt(e.target.value.replace(/\s*/g,''))
-  		if(!/^\d*$/.test(val) || parseInt(val)>this.pages || !val){
+  		if(!/^\d*$/.test(val) || parseInt(val) >= this.pages || !val){
   			e.target.value = ''
   		}
   	}

@@ -82,7 +82,8 @@ export default {
 			oneTime: '400ms',
 			liLength: 0,
 			isMove: true,
-			timer: null,
+			timer1: null,
+			timer2: null,
 			activeNum: 0
 		}
 	},
@@ -141,34 +142,63 @@ export default {
 					},10)
 				}
 				if(n > 0){
-					$('.slide-box').css({transitionDuration:  '300ms', transform: 'translate3d('+(-n*(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
-					setTimeout(function(){
-						$('.slide-box').css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-						me.activeNum ++
-						if(me.activeNum >= me.liLength){
-							me.activeNum = 0
-						}
-						
-						if(n > 1){
-							for(var i = 1; i <= n; i++){
-								$('.slide-box').append($('.slide-box div:eq(0)'))
-							}
-						}else{
-							$('.slide-box').append($('.slide-box div:eq(0)'))
-						}
-						setTimeout(function(){
-							me.isMove = true
-						},10)
-					},300)
+						// $('.slide-box').css({transitionDuration:  300 + 'ms', transform: 'translate3d('+(-(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
+						// setTimeout(function(){
+						// 	$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+						// 	me.activeNum ++
+						// 	if(me.activeNum >= me.liLength){
+						// 		me.activeNum = 0
+						// 	}
+							
+						// 	if(n > 1){
+						// 		for(var i = 1; i <= n; i++){
+						// 			$('.slide-box').append($('.slide-box div:eq(0)'))
+						// 		}
+						// 	}else{
+						// 		$('.slide-box').append($('.slide-box div:eq(0)'))
+						// 	}
+						// 	setTimeout(function(){
+						// 		me.isMove = true
+						// 	},10)
+						// },300)
+						var num = 1
+						this.timer2 = setInterval(function(){
+							$('.slide-box').css({transitionDuration:  300/n + 'ms', transform: 'translate3d('+(-(me.liW+me.slideData.marginR))+'px, 0px, 0px)'})
+
+								if(num == n){
+									clearInterval(me.timer2)
+									me.timer2 = null
+									me.activeNum += n
+									if(me.activeNum >= me.liLength){
+										me.activeNum = 0
+									}
+								}
+								num++
+								setTimeout(function(){
+								$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+								
+								// if(n > 1){
+								// 	for(var i = 1; i <= n; i++){
+								// 		$('.slide-box').append($('.slide-box div:eq(0)'))
+								// 	}
+								// }else{
+								// 	$('.slide-box').append($('.slide-box div:eq(0)'))
+								// }
+								setTimeout(function(){
+									me.isMove = true
+								},5)
+							},300/n+7)
+						},300/n+10)
+					
 				}
 			}
 		},
 		autoMove () {
-			this.timer = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
+			this.timer1 = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
 		},
 		_over (e) {
-			clearInterval(this.timer)
-			this.timer = null
+			clearInterval(this.timer1)
+			this.timer1 = null
 		},
 		_out (e) {
 			this.autoMove()
