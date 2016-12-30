@@ -118,7 +118,7 @@
  				<CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
     	</div>
 
-    	<div class="sellerAllProduct-product-right" v-if="isRequestYes">
+    	<div class="sellerAllProduct-product-right" v-if="!showcases.length == 0 || !productsAll.length == 0">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
