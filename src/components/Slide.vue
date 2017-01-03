@@ -1,14 +1,57 @@
 <style lang="less">
+	@keyframes leftfirst
+	{
+		0% {left: -40px;}
+		50% {left: 0;}
+		100% {opacity: 1;}
+	}
+	@keyframes rightfirst
+	{
+		0% {right: -40px;}
+		50% {right: 0;}
+		100% {opacity: 1;}
+	}
 	.slide{
 		width: 100%;
 		margin: 0 auto;
 		overflow: hidden;
+		position: relative;
 		&-box{
+			>div{
+				float: left;
+				>img{
+					width: 100%;
+				}
+			}
 			position: relative;
 			&:after{
 				content: '';
 				display: table;
 				clear: both;
+			}
+		}
+		&-sub{
+			position: absolute;
+			left: 50%;
+			bottom: 10px;
+			&-slideSub0{
+				>li{
+					float: left;
+					margin-right: 10px;
+					width: 15px;
+					height: 15px;
+					border: 1px solid #c6c6c6;
+					border-radius: 50%;
+					background: #fff;
+					&.active{
+						background: #000;
+					}
+				}
+				&:after{
+					content: '';
+					display: table;
+					clear: both;
+				}
 			}
 		}
 	}
@@ -20,12 +63,11 @@
 			
 		</slot>
   </div>
-  <slot name="left">
-  	<button @click="move(-1)" class="slide-left">shang</button>
-  </slot>
-  <slot name="right">
-		<button @click="move(1)" class="slide-right">下</button>
-  </slot>
+  <!-- <div class="slide-sub">
+  	<ul class="slide-sub-slideSub0">
+  		<li :data_li="index" v-for="(liNum, index) in liLength" :class="{active: index == activeNum}" @click="_slideSub0($event, index)"></li>
+  	</ul>
+  </div> -->
 </div>
 </template>
 
@@ -36,72 +78,131 @@
 export default {
 	data () {
 		return {
-			liW: 0, // 总移动长度
-			totalTime: 1000,
-			oneTime: 400,
-			isMove: true,
+			liW: 0,
+			oneTime: '400ms',
 			liLength: 0,
-			timer: null
+			isMove: true,
+			timer1: null,
+			timer2: null,
+			activeNum: 0
 		}
 	},
+  props: {
+  	slideData: {
+  		type: Object,
+  		default: function(){
+  			return {
+  				oneTime: '400ms',
+  				num: 1,
+  				moveTime: 1000,
+  				marginR: 0,
+  				slideSub: 0
+  			}
+  		}
+  	}
+  },
+  updated () {
+  	this.liW = parseInt($($('.slide-box >div')[0]).css('width'))
+		$('.slide-sub').css({marginLeft: '-'+parseInt($('.slide-sub').css('width'))/2+'px'})
+
+  	var wid = this.liW
+		this.liLength = $('.slide-box >div').length
+		$('.slide-box >div').css({marginRight: this.slideData.marginR + 'px'})
+		$('.slide-box').css({width: ((wid + this.slideData.marginR)*$('.slide-box div').length) + 'px'})
+  },
 	mounted () {
 		var me = this
 		window.onload = function () {
-			var liW = parseInt($('.slide-box div').css('width'))
-			$('.slide-box').css({width: liW*($('.slide-box div').length) + 'px'})
-			console.log($('.search-product-left-gridRecommended'))
-			me.liW = liW
-			me.divDomList = $('.slide-box div')
-			me.divLength = $('.slide-box div').length
+			$('.slide-left').click(function(){
+				me.move(-1)
+			})
+			$('.slide-right').click(function(){
+				me.move(1)
+			})
 		}
-		$('.slide-left').click(function(){
-			me.move(-1)
-		})
-		$('.slide-right').click(function(){
-			me.move(1)
-		})
 		this.autoMove()
 	},
 	methods: {
+		_slideSub0 (e, i) {
+			var n = i - $(e.target).siblings('.active').attr('data_li')
+			this.move(n)
+		},
 		move (n) {
 			var me =this
 			if(this.isMove){
-				this.isMove = false
-				if(n<0){
-					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*this.liW)+'px, 0px, 0px)'})
+				//this.isMove = false
+				if(n < 0){
+					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
 
 					setTimeout(function(){
-						$('.slide-box').css({transitionDuration: '400ms', transform: 'translate3d(0px, 0px, 0px)'})
+						$('.slide-box').css({transitionDuration: '300ms', transform: 'translate3d(0px, 0px, 0px)'})
 						setTimeout(function(){
 							me.isMove = true
 						},300)
 					},10)
 				}
-				if(n>0){
-					$('.slide-box').css({transitionDuration: '400ms', transform: 'translate3d('+(-n*this.liW)+'px, 0px, 0px)'})
+				if(n > 0){
+						// $('.slide-box').css({transitionDuration:  300 + 'ms', transform: 'translate3d('+(-(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
+						// setTimeout(function(){
+						// 	$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+						// 	me.activeNum ++
+						// 	if(me.activeNum >= me.liLength){
+						// 		me.activeNum = 0
+						// 	}
+							
+						// 	if(n > 1){
+						// 		for(var i = 1; i <= n; i++){
+						// 			$('.slide-box').append($('.slide-box div:eq(0)'))
+						// 		}
+						// 	}else{
+						// 		$('.slide-box').append($('.slide-box div:eq(0)'))
+						// 	}
+						// 	setTimeout(function(){
+						// 		me.isMove = true
+						// 	},10)
+						// },300)
+						var num = 1
+						this.timer2 = setInterval(function(){
+							$('.slide-box').css({transitionDuration:  300/n + 'ms', transform: 'translate3d('+(-(me.liW+me.slideData.marginR))+'px, 0px, 0px)'})
 
-					setTimeout(function(){
-						$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-						setTimeout(function(){
-							me.isMove = true
-						},10)
-					},300)
+								if(num == n){
+									clearInterval(me.timer2)
+									me.timer2 = null
+									me.activeNum += n
+									if(me.activeNum >= me.liLength){
+										me.activeNum = 0
+									}
+								}
+								num++
+								setTimeout(function(){
+								$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+								
+								// if(n > 1){
+								// 	for(var i = 1; i <= n; i++){
+								// 		$('.slide-box').append($('.slide-box div:eq(0)'))
+								// 	}
+								// }else{
+								// 	$('.slide-box').append($('.slide-box div:eq(0)'))
+								// }
+								setTimeout(function(){
+									me.isMove = true
+								},5)
+							},300/n+7)
+						},300/n+10)
+					
 				}
 			}
 		},
 		autoMove () {
-			//this.timer = setInterval(this.move.bind(this,1),this.totalTime)
+			this.timer1 = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
 		},
 		_over (e) {
-			clearInterval(this.timer)
-			this.timer = null
+			clearInterval(this.timer1)
+			this.timer1 = null
 		},
 		_out (e) {
 			this.autoMove()
 		}
-	},
-  props: {
-  	
-  }
+	}
 }
 </script>

@@ -20,7 +20,6 @@
 			<div class="container">
 				<p>
 					<img :src="storesInfo && storesInfo.store_logo" alt="店铺头像" v-if="storesInfo">
-					<img src="../../assets/images/userImg.jpg" alt="店铺头像" v-else>
 				</p>
 				<ul>
 					<li>
@@ -53,7 +52,7 @@
 	    <div>
 	    	<p>
 	    		<span>商品分类</span>
-	    		<span>共 {{ total_entries }} 件相关商品</span>
+	    		<span><span v-if="cid || keyword">相关商品 {{total_entries}} 件 / </span>共 {{ &nbsp;total_count&nbsp; }} 件商品</span>
 	    	</p>
 	    	<div>
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
@@ -84,7 +83,7 @@
     </nav>
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
-    		<div class="sellerAllProduct-product-left-failure" v-if="!isSuccess">
+    		<div class="sellerAllProduct-product-left-failure" v-if="!isRequestYes && !isRequestReady">
     			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
     			<ul>
     				<li><p>没有相关商品哦~~</p></li>
@@ -93,10 +92,10 @@
     				</li>
     			</ul>
     		</div>
-    		<div class="sellerAllProduct-product-left-loading" v-if="productsAll.length == 0 && isSuccess">
+    		<div class="sellerAllProduct-product-left-loading" v-if="isRequestReady">
     			<img src="../../assets/images/loading.gif" alt="加载中">
     		</div>
-    		<ul class="sellerAllProduct-product-left-success" v-if="isSuccess">
+    		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
     					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
@@ -110,14 +109,16 @@
     						<a class="ie-11-a" target="_blank" :href="'./detail.html?'+product.num_iid" v-html="_titleColor(product.title)"></a>
     					</li>
     					<li>
-    						<span v-if="product.item_no">#{{ product.item_no }}</span>
+    						<span v-if="product.item_no">{{ _item_symbol(product.item_no) }}</span>
     						<button v-if="false">一键上传</button>
     					</li>
     				</ul>
     			</li>
     		</ul>
+ 				<CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
     	</div>
-    	<div class="sellerAllProduct-product-right" v-if="isSuccess">
+
+    	<div class="sellerAllProduct-product-right" v-if="!showcases.length == 0 || !productsAll.length == 0">
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
@@ -130,7 +131,6 @@
     	</div>
     </div>
   </div>
-  <CkPagination :pages="total_pages" :pageNum="page" @submitPage="subPage" v-if="isSuccess"></CkPagination>
  	<footerComponent></footerComponent>
  </div>
 </template>
@@ -152,6 +152,7 @@
 	      showcases: [],
 	      storesInfo: null,
 	      total_entries: '',
+	      total_count: '',
 	      root_cat: '',
 	      // 排序
 	      sorting:{
@@ -182,7 +183,8 @@
 				isCla: false,
 				isDisabled: false,
 				// 请求的数据是否有商品
-				isSuccess: true,
+				isRequestReady: true,
+				isRequestYes: false,
 				isShowMore: false,
 				cid: ''
 	    }
@@ -199,18 +201,17 @@
 	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
-
 	  	// 从链接中拿取 cid
-	  	this._calcuInfo('cid', hrefStr, 4)
+	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
-	  	this._calcuInfo('store_id', hrefStr, 9)
+	  	this._calcuInfo('?store_id', hrefStr, 10)
 	  	// 从链接中拿取 page
-	  	this._calcuInfo('page', hrefStr , 5)
+	  	this._calcuInfo('&page', hrefStr , 6)
 	  	// 从链接中拿取 keyword
 	  	this._calcuInfo('&q', hrefStr , 3, 'keyword')
 	  	// 从链接中拿取 low_price  high_price
-	  	this._obtainLHPriceUrl('low_price',hrefStr)
-	  	this._obtainLHPriceUrl('high_price',hrefStr)
+	  	this._obtainLHPriceUrl('&low_price',hrefStr)
+	  	this._obtainLHPriceUrl('&high_price',hrefStr)
 
 	  	// 从链接中拿取 排序规则
 	  	this._obtainSorUrl('order',hrefStr)
@@ -223,9 +224,12 @@
 		    me.cats = res.data.cats
 	    	me.productsAll = res.data.data
 	    	me.total_pages = res.data.total_pages
+	    	me.total_count = res.data.total_count
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
+	    	
 
+	    	this.isRequestReady = false
 	    	for(var i = 0;i < me.cats.length; i ++){
 	    		if(!me.catsReal[me.cats[i].name]){
 	    			me.catsReal[me.cats[i].name] = {}
@@ -244,7 +248,9 @@
 	  			me.isHeiBig = true
 			  }
 			  if(res.data.data.length == 0){
-			  	me.isSuccess = false
+			  	me.isRequestYes = false
+			  }else{
+			  	me.isRequestYes = true
 			  }
 	    },
 	    function (res) {
@@ -271,6 +277,13 @@
 	    })
 	  },
 	  methods : {
+	  	_item_symbol (val) {
+	  		if(val.indexOf('#') == -1){
+	  			return val + '#'
+	  		}else{
+	  			return val
+	  		}
+	  	},
 	  	_claOver (e) {
 	  		this.isCla = true
 	  	},
@@ -291,14 +304,21 @@
 	  	},
 			// 获取 page stroe_id keyword 的href
 	  	_calcuInfo (str, hrefStr, n, keyword) {
-	  		var i = parseInt(hrefStr.indexOf(str))
+	  		var i = parseInt(hrefStr.indexOf(str)),val
 	  		if(keyword){
 	  			str = keyword
+	  		}else{
+	  			str = str.slice(1)
 	  		}
 	  		if(i != -1){
-		  		this[str] = decodeURIComponent(hrefStr.slice(i+n))
-		  		if(parseInt(this[str].indexOf('&')) != -1){
-		  			this[str] = decodeURIComponent(this[str].slice(0,parseInt(this[str].indexOf('&'))))
+		  		val = hrefStr.slice(i+n)
+		  		if(parseInt(val.indexOf('&')) != -1){
+		  			val = val.slice(0,parseInt(val.indexOf('&')))
+		  		}
+		  		if(val != '%'){
+						this[str] = decodeURIComponent(val)
+		  		}else{
+		  			this[str] = val
 		  		}
 		  	}
 	  	},
@@ -322,9 +342,10 @@
 	  	// 获取价格筛选 href
 	  	_obtainLHPriceUrl (str,hrefStr) {
 	  		var i = hrefStr.indexOf(str),floatStr
+	  		str = str.slice(1)
 	  		if(i != -1){
 	  			this.lHPrice_isNot[str] = true
-		  		this.lHPrice_str[str] = hrefStr.slice(i)
+		  		this.lHPrice_str[str] = hrefStr.slice(i+1)
 		  		if((i = this.lHPrice_str[str].indexOf('&')) != -1){
 		  			this.lHPrice_str[str] = this.lHPrice_str[str].slice(0,i)
 		  		}
@@ -432,7 +453,7 @@
 	  		if(val.length >= 100){
 					return
 				}
-	  		val = encodeURIComponent(val)
+				val = encodeURIComponent(val)
 	  		val && (val = '&q='+ val)
 	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
