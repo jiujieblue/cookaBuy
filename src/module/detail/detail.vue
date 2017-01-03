@@ -575,11 +575,16 @@
           if(ret.data.prop_imgs){
             this.colorItem = ret.data.prop_imgs
           }
-          if(ret.data.sku_props[1]){
-            this.colorName = ret.data.sku_props[1].prop_name
-          }
-          if(ret.data.sku_props[0]){
-            this.sizeName = ret.data.sku_props[0].prop_name
+          for(var i = 0; i < ret.data.sku_props.length; i++){
+            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
+              this.colorName = '颜色'
+            }
+            if(ret.data.sku_props[i].prop_name == '尺码'){
+              this.sizeName = '尺码'
+            }
+            else{
+              this.colorName = ret.data.sku_props[i].prop_name
+            }
           }
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
