@@ -17,6 +17,8 @@
               <p>
                 <span class="icon-dianhua"></span>
                 <span>{{phone}}</span>
+                <span class="em_5"></span>
+                <span>{{phone2}}</span>
               </p>
               <p>{{addr}}</p>
             </div>
@@ -239,6 +241,7 @@
         store_name: '',
         productNum: '',
         phone: '',
+        phone2: '',
         price: '',
         addr: '',
         showImg: '',
@@ -562,6 +565,7 @@
           }
           this.store_name = ret.data.store.store_name
           this.phone = ret.data.store.mobile
+          this.phone2 = ret.data.store.mobile2
           this.price = ret.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
           this.tit = ret.data.title
