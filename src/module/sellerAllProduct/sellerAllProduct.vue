@@ -201,7 +201,6 @@
 	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
-	  	this.subPage(5)
 	  	// 从链接中拿取 cid
 	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
