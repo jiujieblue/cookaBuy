@@ -355,7 +355,7 @@
 				window.open("./sellerAllProduct.html?store_id="+ sid)
 			},
 			_toStore(t){
-				var store_id = t._source ? t._source.id : t.id
+				var store_id = t._source ? t._source.id : t._id
 				window.open("./sellerAllProduct.html?store_id="+ store_id)
 			},
 			subPage (val) {

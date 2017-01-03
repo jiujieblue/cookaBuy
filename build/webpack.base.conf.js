@@ -20,7 +20,8 @@ module.exports = {
     'module/aboutUs': './src/module/aboutUs/aboutUs.js',
     'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js',
     'module/buyerWalletWdrlRecord': './src/module/buyerWalletWdrlRecord/buyerWalletWdrlRecord.js',
-    'module/uf': './src/module/uf/uf.js'
+    'module/uf': './src/module/uf/uf.js',
+    'module/orderConfirm': './src/module/orderConfirm/orderConfirm.js'
   },
   output: {
     path: config.build.assetsRoot,
