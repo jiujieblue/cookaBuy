@@ -58,7 +58,7 @@
                   <option>上门自提</option>
                 </select>
               </div>
-              <div v-bind:class="isSku ? 'sku-active' : 'sku'">
+              <div v-bind:class="isSku ? 'sku-active' : 'sku'" v-if="colorItem.length">
                 <div class="desc-color">
                   <div>颜<b class="em_5"></b>色 : </div>
                   <div>
