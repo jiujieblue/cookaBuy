@@ -579,7 +579,7 @@
             if(ret.data.sku_props[i].prop_name == '尺码'){
               this.sizeName = '尺码'
             }
-            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
+            else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
               this.colorName = '颜色'
             }
             else{
