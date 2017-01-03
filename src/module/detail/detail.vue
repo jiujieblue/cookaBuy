@@ -572,11 +572,11 @@
           meta.name = 'description'
           meta.content = this.tit
           document.getElementsByTagName('head')[0].appendChild(meta)
-          if(ret.data.prop_imgs){
+          if(ret.data.prop_imgs.length){
             this.colorItem = ret.data.prop_imgs
           }
           for(var i = 0; i < ret.data.sku_props.length; i++){
-            if(ret.data.sku_props[i].prop_name == '尺码'){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               this.sizeName = '尺码'
             }
             else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
@@ -589,24 +589,26 @@
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
             if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
-              for(var j = 0 ;j < diff.length;j++){
-                for(var k = 0;k < this.colorItem.length; k++){
-                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
-                    this.colorItem[k].tit = diff[j].name
-                    break;
-                  }
-                }                
-                if(k == this.colorItem.length){
-                  this.colorItem.push({'tit':diff[j].name})
-                }               
-              }
+                for(var j = 0 ;j < diff.length;j++){
+                  for(var k = 0;k < this.colorItem.length; k++){
+                    if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                      this.colorItem[k].tit = diff[j].name
+                      break;
+                    }
+                  }                
+                  if(k == this.colorItem.length){
+                    this.colorItem.push({'tit':diff[j].name})
+                  }               
+                }
+              
             }
-            if(ret.data.sku_props[i].prop_name == this.sizeName){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
             }
           }
+          console.log(this.colorItem)
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){
