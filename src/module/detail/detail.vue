@@ -612,7 +612,6 @@
               }
             }
           }
-          console.log(this.colorItem)
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){
