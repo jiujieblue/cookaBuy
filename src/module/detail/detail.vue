@@ -17,6 +17,8 @@
               <p>
                 <span class="icon-dianhua"></span>
                 <span>{{phone}}</span>
+                <span class="em_5"></span>
+                <span>{{phone2}}</span>
               </p>
               <p>{{addr}}</p>
             </div>
@@ -59,14 +61,14 @@
                 </select>
               </div>
               <div v-bind:class="isSku ? 'sku-active' : 'sku'">
-                <div class="desc-color">
-                  <div>颜<b class="em_5"></b>色 : </div>
+                <div class="desc-color" v-if="colorItem.length">
+                  <div>{{colorName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url +  '_40x40.jpg)' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
                 <div class="desc-size" v-if="sizeItem.length">
-                  <div>尺<b class="em_5"></b>码 : </div>
+                  <div>{{sizeName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
                     </div>
@@ -239,13 +241,16 @@
         store_name: '',
         productNum: '',
         phone: '',
+        phone2: '',
         price: '',
         addr: '',
         showImg: '',
         carousel: [],
         tit: '',
         skus: [],
+        colorName: '',
         colorItem: [],
+        sizeName: '',
         sizeItem: [],
         totalAmount: '',
         img_t: 0,
@@ -279,13 +284,13 @@
       },
       chooseColor (t) {
         this.color_t = t
-        if (this.size_t !== -1) {
+        if (this.size_t != -1) {
           this._pub();
         }
       },
       chooseSize (t) {
         this.size_t = t
-        if (this.color_t !== -1) {
+        if (this.color_t != -1) {
           this._pub();
         }
       },
@@ -560,35 +565,46 @@
           }
           this.store_name = ret.data.store.store_name
           this.phone = ret.data.store.mobile
+          this.phone2 = ret.data.store.mobile2
           this.price = ret.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
           this.tit = ret.data.title
           var tit = document.createElement('title')
           tit.innerHTML = this.tit + ' - ' + this.store_name + ' - 柯咔服装网'
           document.getElementsByTagName('head')[0].appendChild(tit)
-
           var meta = document.createElement('meta')
           meta.name = 'description'
           meta.content = this.tit
           document.getElementsByTagName('head')[0].appendChild(meta)
-
-          if(ret.data.prop_imgs){
+          if(ret.data.prop_imgs.length){
             this.colorItem = ret.data.prop_imgs
+          }
+          for(var i = 0; i < ret.data.sku_props.length; i++){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
+              this.sizeName = '尺码'
+            }
+            else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
+              this.colorName = '颜色'
+            }
+            else{
+              this.colorName = ret.data.sku_props[i].prop_name
+            }
           }
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
-            if(ret.data.sku_props[i].prop_name == '颜色分类' || ret.data.sku_props[i].prop_name == '颜色' || ret.data.sku_props[i].prop_name == '主要颜色'){
-              for(var j = 0 ;j < diff.length;j++){
-                for(var k = 0;k < this.colorItem.length; k++){
-                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
-                    this.colorItem[k].tit = diff[j].name
-                    break;
-                  }
-                }                
-                if(k == this.colorItem.length){
-                  this.colorItem.push({'tit':diff[j].name})
-                }               
-              }
+            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色" || ret.data.sku_props[i].prop_name == this.colorName){
+                for(var j = 0 ;j < diff.length;j++){
+                  for(var k = 0;k < this.colorItem.length; k++){
+                    if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                      this.colorItem[k].tit = diff[j].name
+                      break;
+                    }
+                  }                
+                  if(k == this.colorItem.length){
+                    this.colorItem.push({'tit':diff[j].name})
+                  }               
+                }
+              
             }
             if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){
