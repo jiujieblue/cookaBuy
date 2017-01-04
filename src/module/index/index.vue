@@ -110,7 +110,6 @@
 								</div>
 							</div>
 						</div>
-						<hr />
 						<!-- new -->
 						<div class="index-block index-block-new">
 							<h4 class="index-block-title">

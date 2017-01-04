@@ -65,7 +65,7 @@
 												<img src="../../assets/images/feiyiban.jpg" >
 											</div>
 											<div class="item" @click="_toBannerStore(81)">
-												<img src="../../assets/images/yuanyuan.jpg" >
+												<img src="../../assets/images/yuanyuanfushi02.jpg" >
 											</div>
 											<div class="item" @click="_toBannerStore(2186)">
 												<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
