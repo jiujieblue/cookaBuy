@@ -137,7 +137,7 @@
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
               <a v-on:click="_r_detail($event,index)">
-                <img v-bind:src="item.pic_url">
+                <img v-bind:src="item.pic_url" v-bind:title="item.title">
                 <div class="price"></div>
                 <p>&yen; {{item.price}}</p>
               </a>
@@ -163,7 +163,7 @@
             <div class="news-list">
               <div class="news-img" v-for="(item,index) in newList">
                 <a class="img-tit" v-on:click="_n_detail(index)">
-                  <img v-bind:src="item.pic_url">
+                  <img v-bind:src="item.pic_url" v-bind:title="item.title">
                 </a>
                 <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
                 <div class="img-info">
@@ -192,7 +192,7 @@
             </div>
             <div class="specif-tab" v-if="item_props.length">
               <div>
-                <div v-for="(item,index) in item_props">{{item}}</div>
+                <div v-for="(item,index) in item_props" v-bind:title="item">{{item}}</div>
               </div>
             </div>
             <div class="detail-desc">
