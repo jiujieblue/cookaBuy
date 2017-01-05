@@ -162,13 +162,11 @@
 			},
 			_reGirlCla (i) {
 				if(i > 1){
-				console.log(i)
 					return "girlLineTwo"
 				}
 			},
 			_reBoyCla (i) {
 				if(i > 1){
-				console.log(i)
 					return "boyLineTwo"
 				}
 			},
@@ -203,7 +201,6 @@
 		        function(res){
 		          //console.log(res)
 		          this.sliderData = res.data.data
-		          console.log(this.sliderData)
 		          for(var i = 0 ; i < this.sliderData.length ; i++){
 	             	this.sliderData[i].pic_url += '_250x250.jpg'
 	              }
@@ -216,7 +213,6 @@
 		        function(res){
 		          //console.log(res)
 		          this.rightData = res.data.data
-		          console.log(this.rightData)
 		          for(var i = 0 ; i < this.rightData.length ; i++){
 	             	this.rightData[i].pic_url += '_180x180.jpg'
 	              }
@@ -229,7 +225,6 @@
 		        function(res){
 		          //console.log(res)
 		          this.girlData = res.data.data
-		          console.log(this.girlData)
 		          for(var i = 0 ; i < this.girlData.length ; i++){
 	             	this.girlData[i].pic_url += '_220x220.jpg'
 	              }
@@ -242,7 +237,6 @@
 		        function(res){
 		          //console.log(res)
 		          this.boyData = res.data.data
-		          console.log(this.boyData)
 		          for(var i = 0 ; i < this.boyData.length ; i++){
 	             	this.boyData[i].pic_url += '_220x220.jpg'
 	              }
