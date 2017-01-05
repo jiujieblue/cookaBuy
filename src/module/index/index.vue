@@ -110,7 +110,6 @@
 								</div>
 							</div>
 						</div>
-						<hr />
 						<!-- new -->
 						<div class="index-block index-block-new">
 							<h4 class="index-block-title">
@@ -641,7 +640,7 @@ export default {
 				$('#side').fadeIn(500)
 			})
 	    },4000)
-    	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=8')
+    	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=10')
     	.then(
 	        function(res){
 	          //console.log(res)
@@ -654,7 +653,7 @@ export default {
 	          console.log(err)
 	        }
 	    )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=8')
+    	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=10')
     	.then(
         function(res){
           //console.log(res)
@@ -667,7 +666,7 @@ export default {
           console.log(err)
         }
       )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=maternit&page_size=8')
+    	this.$http.get('/api/recommends'+'?page_name=index&location=maternit&page_size=10')
     	.then(
         function(res){
           //console.log(res)
@@ -680,7 +679,7 @@ export default {
           console.log(err)
         }
       )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=children&page_size=8')
+    	this.$http.get('/api/recommends'+'?page_name=index&location=children&page_size=10')
     	.then(
         function(res){
           //console.log(res)

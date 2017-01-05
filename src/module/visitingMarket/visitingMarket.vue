@@ -65,7 +65,7 @@
 												<img src="../../assets/images/feiyiban.jpg" >
 											</div>
 											<div class="item" @click="_toBannerStore(81)">
-												<img src="../../assets/images/yuanyuan.jpg" >
+												<img src="../../assets/images/yuanyuanfushi02.jpg" >
 											</div>
 											<div class="item" @click="_toBannerStore(2186)">
 												<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
@@ -376,10 +376,10 @@
 				)
 			},
 			_clickM(m){
-				console.log(m)
+				//console.log(m)
 			},
 			_clickF(f){
-				console.log(f)
+				//console.log(f)
 				this.isSearch = false
 				this.isAllF = false
 				this.isAllZ = true
@@ -395,7 +395,7 @@
 				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&from=0')
 				.then(
 					function(res){
-						console.log(this.categories)
+						//console.log(this.categories)
 						this.cats = res.data[2].aggregations.cats.buckets
 						this.stores = res.data[2].hits.hits
 						this.total = res.data[2].hits.total
@@ -432,8 +432,8 @@
 				$('.ck-pagination-input input').val('')
 			},
 			_clickZ(z,zIndex){
-				console.log(z)
-				console.log(this.floor)
+				//console.log(z)
+				//console.log(this.floor)
 				this.isSearch = false
 				this.isAllF = false
 				this.isAllC = true
@@ -447,12 +447,12 @@
 					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&from=0')
 					.then(
 						function(res){
-							console.log(this.categories)
+							//console.log(this.categories)
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
 							this.pages = Math.ceil(this.total/10)
-							console.log(this.pages)
+							//console.log(this.pages)
 						},
 						function(err){
 							console.log(err)
@@ -462,7 +462,7 @@
 					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&main_cat=' + this.zhuying + '&from=0')
 					.then(
 						function(res){
-							console.log(this.categories)
+							//console.log(this.categories)
 							this.categories = res.data[2].aggregations.cates.buckets
 							this.stores = res.data[2].hits.hits
 							this.total = res.data[2].hits.total
@@ -666,7 +666,7 @@
 						this.stores = res.data[2]&&res.data[2].hits&&res.data[2].hits.hits
 						this.q_total = res.data[2]&&res.data[2].hits&&res.data[2].hits.total
 						this.pages = Math.ceil(this.q_total/10)
-						console.log(this.pages)
+						//console.log(this.pages)
 					},
 					function(err){
 						console.log(err)
