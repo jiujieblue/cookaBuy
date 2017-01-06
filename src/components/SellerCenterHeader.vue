@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="seller-header-mid">
+		<div class="seller-header-mid" v-if="isMid">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -33,8 +33,17 @@
 							<div>
 								<a><span class="icon-cooka"></span></a>								
 							</div>
-							<div>用户中心</div>
-							<div>我是商家</div>
+							<div v-if="sellerInfo != 'claim'">
+								<div>用户中心</div>
+								<div>我是商家</div>
+							</div>
+							<div v-if="sellerInfo == 'claim'" class="claim">
+								店铺认领
+							</div>
+							<div v-if="sellerInfo == 'claim'" class="feedback">
+								<a href="#">公告信息</a>
+								<a href="#">意见反馈</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -58,6 +67,15 @@
 
 		},
 		components:{
+		},
+		props: {
+			sellerInfo: {
+				default: ''
+			},
+			isMid: {
+				type: Boolean,
+				default: true
+			}
 		}
 	}
 </script>

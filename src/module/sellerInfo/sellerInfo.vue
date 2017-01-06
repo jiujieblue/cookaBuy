@@ -54,7 +54,7 @@
 									</li>
 									<li>
 										<span>档口号：</span>
-										<input type="text" value="155323">
+										<input type="text" value="155323" class="dankou">
 									</li>
 									<li>
 										<span>主营类目：</span>
@@ -84,7 +84,7 @@
 									</li>
 									<li>
 										<span></span>
-										<button>保<span class="em"></span>存</button>
+										<button @click="_sub">保<span class="em"></span>存</button>
 									</li>
 								</ul>
 							</div>
@@ -142,12 +142,15 @@
 	export default {
 	  data () {
 	    return {
-	      showModal: true,
+	      showModal: false,
 	      image: '',
 	      imageUrl: ''
 	    }
 	  },
 	  methods: {
+	  	_sub () {
+	  		console.log('sub')
+	  	},
 	  	openModal () {
 	  		this.showModal = true
 	  	},
