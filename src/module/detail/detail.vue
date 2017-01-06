@@ -583,11 +583,9 @@
           for(var i = 0; i < ret.data.sku_props.length; i++){
             if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               this.sizeName = '尺码'
-              break
             }
             else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
               this.colorName = '颜色'
-              break
             }
             else{
               this.othName = ret.data.sku_props[i].prop_name
