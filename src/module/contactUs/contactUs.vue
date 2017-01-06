@@ -6,7 +6,7 @@
 				<div class="col-md-12 trim-col">
 					<div class="contactus">
 						<div class="contactus-title">
-							联系我们
+							联系我们 - 柯咔服装网
 						</div>
 						<div class="contactus-content">
 							<div class="contactus-content-text">
