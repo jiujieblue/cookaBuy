@@ -249,6 +249,7 @@
         tit: '',
         skus: [],
         colorName: '',
+        othName: '',
         colorItem: [],
         sizeName: '',
         sizeItem: [],
@@ -582,17 +583,19 @@
           for(var i = 0; i < ret.data.sku_props.length; i++){
             if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               this.sizeName = '尺码'
+              break
             }
             else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
               this.colorName = '颜色'
+              break
             }
             else{
-              this.colorName = ret.data.sku_props[i].prop_name
+              this.othName = ret.data.sku_props[i].prop_name
             }
           }
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
-            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色" || ret.data.sku_props[i].prop_name == this.colorName){
+            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
                 for(var j = 0 ;j < diff.length;j++){
                   for(var k = 0;k < this.colorItem.length; k++){
                     if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
