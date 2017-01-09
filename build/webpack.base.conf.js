@@ -65,7 +65,7 @@ module.exports = {
         loader: 'file'
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
         loader: 'file',
         query: {
           limit: 10000,
