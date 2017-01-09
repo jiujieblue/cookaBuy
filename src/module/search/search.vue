@@ -58,7 +58,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" alt="搜索商品图">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
@@ -83,7 +83,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" alt="搜索商品图">
 			    				</a>
 			    				<ul>
 			    					<li>
@@ -103,11 +103,11 @@
 			    	</div>
 	    		</div>
 	    		<div class="search-product-left-loading" v-if="isRequestReady">
-	    			<img src="../../assets/images/loading.gif" alt="加载中">
+	    			<img src="../../assets/images/loading.gif"  alt="加载动画">
 	    		</div>
 		    	<div class="search-product-left-error" v-if='!isRequestYes && !isRequestReady'>
 		    		<div>
-		    			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
+		    			<img src="../../assets/images/nosearchR.png" alt="没有搜索数据显示该图片">
 		    			<ul>
 		    				<li><p>没有相关商品哦~~</p></li>
 		    				<li>
@@ -123,7 +123,7 @@
 	    		<ul>
 	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_180x180.jpg'">
+		    				<img :src="hot.pic_url+'_180x180.jpg'" alt="热销商品图片">
 		    			</a>
 	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
@@ -154,7 +154,7 @@
       	<Slide :slideData="slideData">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
       			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'">
+	    				<img :src="hot.pic_url+'_200x200.jpg'" alt="人气推荐图片">
 	    			</a>
 	    			<ul>
 	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
@@ -310,7 +310,7 @@
 	  		this.isRequestYes = false
 	  	}
 	  	// 热销商品
-	  	this.$http.get('/api/recommends?page_name=search&location=hot&page_size=10&page=1')
+	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
 	  	},

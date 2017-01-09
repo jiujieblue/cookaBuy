@@ -106,7 +106,7 @@
 										<td>主营</td>
 										<td>
 											<div @click="_clickAllZ"><a :class="isAllZ ? 'tagActive' : ''">全部</a></div>
-											<div  v-for="(catsItem, catsIndex) in cats" @click="_clickZ(catsItem.key,catsIndex)"><a :class="zt == catsIndex ? 'tagActive' : ''">{{catsItem.key}}</a></div>
+											<div v-for="(catsItem, catsIndex) in cats" @click="_clickZ(catsItem.key,catsIndex)"><a :class="zt == catsIndex ? 'tagActive' : ''">{{catsItem.key}}</a></div>
 										</td>
 									</tr>
 									<tr v-if="false">

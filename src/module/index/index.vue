@@ -141,7 +141,7 @@
 												{{productsItem.store&&productsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store&&productsItem.store.store_number}} {{productsItem.store&&productsItem.store.market}}
+												{{productsItem.store&&productsItem.store.market}} {{productsItem.store&&productsItem.store.store_number}}
 											</span>
 										</div>
 									</div>
@@ -157,7 +157,7 @@
 														</div>
 														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store&&sideproductsItem.store.store_number}} {{sideproductsItem.store&&sideproductsItem.store.market}}
+														{{sideproductsItem.store&&sideproductsItem.store.market}} {{sideproductsItem.store&&sideproductsItem.store.store_number}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -318,7 +318,7 @@
 												{{girlsItem.store&&girlsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.store&&girlsItem.store.store_number}} {{girlsItem.store&&girlsItem.store.market}}
+												{{girlsItem.store&&girlsItem.store.market}} {{girlsItem.store&&girlsItem.store.store_number}}
 											</span>
 										</div>
 									</div>
@@ -355,7 +355,7 @@
 												{{boysItem.store&&boysItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.store&&boysItem.store.store_number}} {{boysItem.store&&boysItem.store.market}}
+												{{boysItem.store&&boysItem.store.market}} {{boysItem.store&&boysItem.store.store_number}}
 											</span>
 										</div>
 									</div>
@@ -392,7 +392,8 @@
 												{{maternitsItem.store&&maternitsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.store&&maternitsItem.store.store_number}} {{maternitsItem.store&&maternitsItem.store.market}}
+												{{maternitsItem.store&&maternitsItem.store.market}} 
+												{{maternitsItem.store&&maternitsItem.store.store_number}}
 											</span>
 										</div>
 									</div>
@@ -429,7 +430,8 @@
 												{{childrensItem.store&&childrensItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.store&&childrensItem.store.store_number}} {{childrensItem.store&&childrensItem.store.market}}
+												{{childrensItem.store&&childrensItem.store.market}} 
+												{{childrensItem.store&&childrensItem.store.store_number}}
 											</span>
 										</div>
 									</div>
