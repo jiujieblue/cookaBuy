@@ -79,6 +79,9 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
+    }),
+    new HtmlWebpackPlugin({
+      favicon: './src/favicon.ico',
     })
   ]
 })
