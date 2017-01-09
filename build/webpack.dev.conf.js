@@ -25,10 +25,10 @@ module.exports = merge(baseWebpackConfig, {
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new HtmlWebpackPlugin({
-      favicon: './src/favicon.ico',
-    })
+    new webpack.NoErrorsPlugin()
+    // new HtmlWebpackPlugin({
+    //   favicon: './src/favicon.ico',
+    // })
     // https://github.com/ampedandwired/html-webpack-plugin
   ]
 })
@@ -55,6 +55,7 @@ for (var pathname in pages) {
   console.log("template:" + pages[pathname]);
   // 配置生成的html文件，定义路径等
   var conf = {
+    favicon: './src/favicon.ico',
     filename: pathname.slice(7,pathname.length) + '.html',
     template: pages[pathname], // 模板路径
     minify: { //传递 html-minifier 选项给 minify 输出
