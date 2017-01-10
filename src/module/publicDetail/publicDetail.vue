@@ -34,7 +34,7 @@
           </div>
           <div class="public-detail-tit">              
             <div>
-              <h3>柯咔公告</h3>
+              <h3>柯咔商城系统升级通知及活动优惠政策预告</h3>
             </div>
           </div>
           <div class="public-detail-time">
