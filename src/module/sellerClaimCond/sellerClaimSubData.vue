@@ -154,13 +154,31 @@
 						.clearfix();
 						line-height: 25px;
 						margin-bottom: 20px;
-						>span,>div{
+						>div{
 							float: left;
+							position: relative;
+							input{
+								&:first-child{
+									position: absolute;
+									width: 15px;
+									height: 16px;
+									margin-top: 7px;
+									z-index: 10;
+									opacity: 0;
+								}
+							}
+							link{
+								margin-top: -2px;
+								&.icon-xuanze{
+									color: #fcc505;
+								}
+							}
 						}
 						label{
 							font-weight: normal;
 						}
 						>span{
+							float: left;
 							&:first-child{
 								display: inline-block;
 								width: 20px;
@@ -170,7 +188,7 @@
 							}
 							&:nth-child(2){
 								display: inline-block;
-								width: 120px;
+								width: 100px;
 							}
 						}
 					}
@@ -201,7 +219,7 @@
 									    transform-origin: 75% 75%;
 									    transition: transform 0.3s linear;
 										}
-										&.active{
+										&.active:after{
 											transform: rotate(225deg);
 										}
 									}
@@ -240,16 +258,22 @@
 									>div{
 										margin-bottom: 20px;
 										>label{
-											padding: 0 5px;
+											padding-right: 5px;
 										}
 										>input[type='text']{
 											width: 240px;
 											padding: 0 10px;
 											margin: 0 10px;
 										}
-										span{
-											font-size: 14px;
-											color: #979797;
+										>span{
+											.path2{
+												position: relative;
+												right: 8px;
+											}
+											&:last-child{
+												font-size: 14px;
+												color: #979797;
+											}
 										}
 									}
 								}
@@ -540,11 +564,11 @@
 						<span>*</span>
 						<span>主营类目：</span>
 						<div>
-							<span>精品女装</span>
+							<span data_open="category" @click="_openCategory" ref="category" :class="{active: chooseClothing}">精品女装</span>
 							<ul v-if="chooseClothing">
-								<li>连衣裙</li>
-								<li>T恤</li>
-								<li>毛衣</li>
+								<li @click="_openCategory($event, 1)">连衣裙</li>
+								<li @click="_openCategory($event, 1)">T恤</li>
+								<li @click="_openCategory($event, 1)">毛衣</li>
 							</ul>
 						</div>
 					</li>
@@ -552,7 +576,8 @@
 						<span></span>
 						<span>配送服务</span>
 						<div>
-							<input id="service" type="checkbox">
+							<input id="service" type="checkbox" v-model="Checkbed.service">
+							<link rel="stylesheet" :class="[ Checkbed.service ? 'icon-xuanze' : 'icon-weixuan']">
 							<label for="service">商家发货</label>
 							<span>平台默认提供代发服务，商家可自愿选择提供商家发货。</span>
 						</div>
@@ -562,13 +587,21 @@
 						<span>折扣</span>
 						<div>
 							<div>
-								<input type="radio" id="amount">
+								<input type="radio" id="amount" name="fixed" v-model="Checkbed.amOrDis" value="amount">
+								<span rel="stylesheet" :class="[Checkbed.amOrDis == 'amount' ? 'icon-buzou1' : 'icon-buzou2']">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</span>
 								<label for="amount">固定金额</label>
 								<input type="text" placeholder="请输入大于5的整数">
 								<span>其他平台上的标价100.0的商品。如果固定折扣金额10元，会在搜款网上按90.0标价</span>
 							</div>
 							<div>
-								<input type="radio" id="discount">
+								<input type="radio" id="discount" name="fixed" v-model="Checkbed.amOrDis" value="discount">
+								<span rel="stylesheet" :class="[Checkbed.amOrDis == 'discount' ? 'icon-buzou1' : 'icon-buzou2']">
+									<span class="path1"></span>
+									<span class="path2"></span>
+								</span>
 								<label for="discount">固定折扣</label>
 								<input type="text" placeholder="请输入0.00~10.00之间的数值">
 								<span>其他平台上的标价100.0的商品。如果固定折扣比例8折，会在搜款网上按80.0标价</span>
@@ -579,6 +612,7 @@
 						<span></span>
 						<span>租赁有效期</span>
 						<div>
+							<i></i>
 							<input type="text" placeholder="开始时间">
 							<span>--</span>
 							<input type="text" placeholder="时间">
@@ -689,6 +723,11 @@
 	export default {
 	  data () {
 	    return {
+	    	Checkbed: {
+	    		service: false,
+	    		amOrDis: ''
+	    	},
+	    	service: false,
 	    	showModal: {
 	    		addModal: false,
 	    		plusModal: false,
@@ -715,7 +754,24 @@
 	    	}
 	    }
 	  },
+	  mounted () {
+	  	var _this = this
+	  	$(function(){
+	  		$("body").click(function(e){
+	  			if(!$(e.target).attr("data_open")){
+	  				_this.chooseClothing = false
+	  			}
+	  		})
+	  	})
+	  },
 	  methods: {
+	  	_openCategory (e, n) {
+	  		if(n){
+	  			var val = e.target.textContent
+	  			this.$refs.category.textContent = val
+	  		}
+	  		this.chooseClothing = !this.chooseClothing
+	  	},
 	  	_del () {
 	  		this.img[this.img.img] = ''
 	  		this.imgURL[this.imgURL.img] = ''

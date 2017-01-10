@@ -271,6 +271,8 @@
 	    .then(function (res) {
 	    	me.storesInfo = res.data.data
 	    	$('title').html(res.data.data.store_name + ' - 柯咔服装网')
+		  	$('meta[name="keyword"]').attr('content', res.data.data.store_name +',' + '柯咔服装网')
+		  	$('meta[name="description"]').attr('content',  res.data.data.store_name + ',提供'+ res.data.data.store_name +'各类正品商品的报价、促销、评论、导购、图片等信息，欢迎您再次光顾'+ res.data.data.store_name)
 	    },
 	    function (res) {
 	    	console.log(res)
