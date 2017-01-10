@@ -123,6 +123,7 @@ for (var pathname in pages) {
   console.log("template:"+pages[pathname]);
   // 配置生成的html文件，定义路径等
   var conf = {
+    favicon: './src/favicon.ico',
     filename: pathname.slice(7,pathname.length) + '.html',
     template: pages[pathname], // 模板路径
     minify:{                   //

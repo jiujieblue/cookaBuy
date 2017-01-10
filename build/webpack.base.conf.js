@@ -8,7 +8,7 @@ var entries = getEntry('./src/module/**/*.js'); // 获得入口js文件
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: { 
+  entry: {
     'module/index': './src/module/index/index.js',
     'module/hotSale': './src/module/hotSale/hotSale.js',
     'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',
@@ -20,7 +20,7 @@ module.exports = {
     'module/aboutUs': './src/module/aboutUs/aboutUs.js',
     'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js',
     'module/buyerWalletWdrlRecord': './src/module/buyerWalletWdrlRecord/buyerWalletWdrlRecord.js',
-    'module/sellerInfo': './src/module/sellerInfo/sellerInfo.js',
+    // 'module/sellerClaimCond': './src/module/sellerClaimCond/sellerClaimCond.js',
     'module/uf': './src/module/uf/uf.js'
   },
   output: {
@@ -65,7 +65,7 @@ module.exports = {
         loader: 'file'
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif|svg|ico)(\?.*)?$/,
         loader: 'file',
         query: {
           limit: 10000,

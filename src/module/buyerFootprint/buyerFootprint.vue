@@ -6,10 +6,6 @@
 
 <template>
 <div>
-	<input type="text" v-model="pages">
-	<button @click="pageNum--">--</button>
-	<button @click="pageNum++">+++</button>
-	<CkPagination :pageNum="pageNum" :pages="pages"></CkPagination>
 	<BuyerCenterHeader></BuyerCenterHeader>
 	<div class='container buyerFootprint'>
 		<div class="row">
@@ -109,9 +105,9 @@
 
 	        <div class="modal-footer">
 	          <slot name="footer">
-	          	<button @click="showModal = false" class="cancel">取消</button>
-	          	<button @click="delMultiple(0)" v-if="isFailure" class="determine">确定</button>
-	          	<button @click="delMultiple(1)" v-if="!isFailure" class="determine">确定</button>
+	          	<button @click="showModal = false" class="cancel">取<span class="em"></span>消</button>
+	          	<button @click="delMultiple(0)" v-if="isFailure" class="determine">确<span class="em"></span>定</button>
+	          	<button @click="delMultiple(1)" v-if="!isFailure" class="determine">确<span class="em"></span>定</button>
 	          </slot>
 	        </div>
 	      </div>
