@@ -12,8 +12,8 @@
 				<p>欢迎来到店铺认领！</p>
 				<p>认领成功之后，立即成为柯咔商家</p>
 				<div>
-					<button>我要认领</button>
-					<button>认领情况</button>
+					<button onclick="window.open('./sellerClaimCond.html#/chooseStore')">我要认领</button>
+					<button onclick="window.open('./sellerClaimCond.html#/results')">认领情况</button>
 				</div>
 			</div>
 		</div>

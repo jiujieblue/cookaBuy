@@ -4,6 +4,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
+						<a style="display: none" href="./sellerClaim.html" target="_blank" class="sellerclaim">店铺认领</a>
 						<ul>
 							<li>
 								您好，<a href="#">12345612345</a>
@@ -31,7 +32,9 @@
 					<div class="col-md-12">
 						<div class="seller-header-mid-box">
 							<div>
-								<a><span class="icon-cooka"></span></a>								
+								<a>
+									<img src="../assets/images/logo.svg" width="150" alt="">
+								</a>								
 							</div>
 							<div v-if="sellerInfo != 'claim'">
 								<div>用户中心</div>
