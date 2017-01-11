@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-md-2 trim-left">
 						<div class="header-logo">
-							<a href="index.html"><img src="../assets/images/logo.svg" width="150"/></a>
+							<a title="柯咔服装网" href="./index.html"><img src="../assets/images/logo.svg" width="150" alt="柯咔服装网"/></a>
 						</div>
 					</div>
 					<div class="col-md-1"></div>

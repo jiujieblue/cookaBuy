@@ -59,17 +59,26 @@
 			button{
 				width: 120px;
 				height: 35px;
-				border: 1px solid #aaa;
 				border-radius: 3px;
+				font-size: 16px;
+				outline: none;
 				&.cancel{
 					float: left;
+					border: 1px solid #aaa;
 					background: #fff;
 					color: #1a1a1a;
+					&:hover{
+						background: #dedede;
+					}
 				}
 				&.determine{
 					float: right;
+					border: none;
 					background: #fcc505;
 					color: #372f2c;
+					&:hover{
+						background: #ffd131;
+					}
 				}
 			}
 		}

@@ -19,6 +19,10 @@
 	&-top{
 		background:#eee;
 		overflow:hidden;
+		a.sellerclaim{
+			display: inline-block;
+			padding:5px 10px;
+		}
 		ul{
 			float:right;
 			li{
@@ -31,11 +35,10 @@
 	&-mid{
 		background:#fff;
 		margin-bottom: 20px;
-		padding:0 0 25px 0;
 		&-box{
-			overflow:hidden;
-			padding: 20px;
-			>div{
+			.clearfix();
+			padding: 20px 0;
+			div{
 				float:left;
 			}
 			>div:first-child{
@@ -44,21 +47,36 @@
 					font-size: 40px;
 					margin-top: 12px;
 				}
-			} 
+			}
 			>div:nth-child(2){
-				padding:0 20px;
-				margin-top: 20px;
-				color:#a0a0a0;
-				border-right: 1px solid #a0a0a0;
-				font-size:24px;
+				>div{
+					padding:0 20px;
+					margin-top: 20px;
+					font-size:24px;
+				}
+				>div:first-child{
+					color:#a0a0a0;
+					border-right: 1px solid #a0a0a0;
+				}
+				>div:nth-child(2){
+					color:#1a1a1a;
+				}
 			}
-			>div:nth-child(3){
+			>div.claim{
 				padding:0 20px;
 				margin-top: 20px;
+				font-size:24px;
 				color:#1a1a1a;
-				font-size:24px;
 			}
-
+			>div.feedback{
+				float: right;
+				margin-top: 30px;
+				>a{
+					&:first-child{
+						margin-right: 50px;
+					}
+				}
+			}
 		}
 	}
 }

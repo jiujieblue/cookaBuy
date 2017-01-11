@@ -17,6 +17,8 @@
               <p>
                 <span class="icon-dianhua"></span>
                 <span>{{phone}}</span>
+                <span class="em_5"></span>
+                <span>{{phone2}}</span>
               </p>
               <p>{{addr}}</p>
             </div>
@@ -59,14 +61,14 @@
                 </select>
               </div>
               <div v-bind:class="isSku ? 'sku-active' : 'sku'">
-                <div class="desc-color">
-                  <div>颜<b class="em_5"></b>色 : </div>
+                <div class="desc-color" v-if="colorItem.length">
+                  <div>{{colorName}} : </div>
                   <div>
-                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url +  '_40x40.jpg)' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor(index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
+                    <div v-for="(imgItem,index) in colorItem" v-bind:style="{background: imgItem.tb_url ? 'url(' + imgItem.tb_url +  '_40x40.jpg)' : ''}" v-bind:title="imgItem.tit" v-on:click="chooseColor($event,index)" v-bind:class="{'active':color_t == index,'b-img' : imgItem.tb_url}">{{imgItem.tb_url ? '' : imgItem.tit}}</div>
                   </div>
                 </div>
                 <div class="desc-size" v-if="sizeItem.length">
-                  <div>尺<b class="em_5"></b>码 : </div>
+                  <div>{{sizeName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
                     </div>
@@ -135,7 +137,7 @@
           <div class="recommend-list">
             <div class="list-side" v-for="(item,index) in showcase">
               <a v-on:click="_r_detail($event,index)">
-                <img v-bind:src="item.pic_url">
+                <img v-bind:src="item.pic_url" v-bind:title="item.title">
                 <div class="price"></div>
                 <p>&yen; {{item.price}}</p>
               </a>
@@ -161,7 +163,7 @@
             <div class="news-list">
               <div class="news-img" v-for="(item,index) in newList">
                 <a class="img-tit" v-on:click="_n_detail(index)">
-                  <img v-bind:src="item.pic_url">
+                  <img v-bind:src="item.pic_url" v-bind:title="item.title">
                 </a>
                 <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
                 <div class="img-info">
@@ -190,7 +192,7 @@
             </div>
             <div class="specif-tab" v-if="item_props.length">
               <div>
-                <div v-for="(item,index) in item_props">{{item}}</div>
+                <div v-for="(item,index) in item_props" v-bind:title="item">{{item}}</div>
               </div>
             </div>
             <div class="detail-desc">
@@ -239,13 +241,17 @@
         store_name: '',
         productNum: '',
         phone: '',
+        phone2: '',
         price: '',
         addr: '',
         showImg: '',
         carousel: [],
         tit: '',
         skus: [],
+        colorName: '',
+        othName: '',
         colorItem: [],
+        sizeName: '',
         sizeItem: [],
         totalAmount: '',
         img_t: 0,
@@ -277,15 +283,19 @@
         var s = this.carousel[t].tb_url
         this.showImg = s.slice(0,s.length-10)
       },
-      chooseColor (t) {
+      chooseColor (e,t) {
         this.color_t = t
-        if (this.size_t !== -1) {
+        if(this.colorItem[t].tb_url){
+          this.showImg = this.colorItem[t].tb_url + '_480x480.jpg'
+        }
+        
+        if (this.size_t != -1) {
           this._pub();
         }
       },
       chooseSize (t) {
         this.size_t = t
-        if (this.color_t !== -1) {
+        if (this.color_t != -1) {
           this._pub();
         }
       },
@@ -560,35 +570,46 @@
           }
           this.store_name = ret.data.store.store_name
           this.phone = ret.data.store.mobile
+          this.phone2 = ret.data.store.mobile2
           this.price = ret.data.price
           this.addr = /*ret.data.data.store.origin_area + '-' + */ ret.data.store.location
           this.tit = ret.data.title
           var tit = document.createElement('title')
           tit.innerHTML = this.tit + ' - ' + this.store_name + ' - 柯咔服装网'
           document.getElementsByTagName('head')[0].appendChild(tit)
-
           var meta = document.createElement('meta')
           meta.name = 'description'
           meta.content = this.tit
           document.getElementsByTagName('head')[0].appendChild(meta)
-
-          if(ret.data.prop_imgs){
+          if(ret.data.prop_imgs.length){
             this.colorItem = ret.data.prop_imgs
+          }
+          for(var i = 0; i < ret.data.sku_props.length; i++){
+            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
+              this.sizeName = '尺码'
+            }
+            else if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
+              this.colorName = '颜色'
+            }
+            else{
+              this.othName = ret.data.sku_props[i].prop_name
+            }
           }
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
-            if(ret.data.sku_props[i].prop_name == '颜色分类' || ret.data.sku_props[i].prop_name == '颜色' || ret.data.sku_props[i].prop_name == '主要颜色'){
-              for(var j = 0 ;j < diff.length;j++){
-                for(var k = 0;k < this.colorItem.length; k++){
-                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
-                    this.colorItem[k].tit = diff[j].name
-                    break;
-                  }
-                }                
-                if(k == this.colorItem.length){
-                  this.colorItem.push({'tit':diff[j].name})
-                }               
-              }
+            if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
+                for(var j = 0 ;j < diff.length;j++){
+                  for(var k = 0;k < this.colorItem.length; k++){
+                    if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                      this.colorItem[k].tit = diff[j].name
+                      break;
+                    }
+                  }                
+                  if(k == this.colorItem.length){
+                    this.colorItem.push({'tit':diff[j].name})
+                  }               
+                }
+              
             }
             if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
               for(var j = 0 ;j < diff.length;j++){

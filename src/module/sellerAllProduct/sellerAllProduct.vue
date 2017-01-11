@@ -98,7 +98,7 @@
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
-    					<img :src="product.pic_url+'_200x200.jpg'" alt="产品图片">
+    					<img :src="product.pic_url+'_200x200.jpg'" alt="店铺产品图片">
     				</a>
     				<ul>
     					<li>
@@ -123,7 +123,7 @@
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url+'_180x180.jpg'" />
+    					<img :src="showcase.pic_url+'_180x180.jpg'" alt="推荐商品图片"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
@@ -270,7 +270,9 @@
 	    this.$http.get('/api/stores/'+this.store_id)
 	    .then(function (res) {
 	    	me.storesInfo = res.data.data
-	    	$('title').html(res.data.data.store_name + ' 柯咔服装网')
+	    	$('title').html(res.data.data.store_name + ' - 柯咔服装网')
+		  	$('meta[name="keywords"]').attr('content', res.data.data.store_name +',' + '柯咔服装网')
+		  	$('meta[name="description"]').attr('content',  res.data.data.store_name + ',提供'+ res.data.data.store_name +'各类正品商品的报价、促销、评论、导购、图片等信息，欢迎您再次光顾'+ res.data.data.store_name)
 	    },
 	    function (res) {
 	    	console.log(res)
