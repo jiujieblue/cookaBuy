@@ -3,6 +3,9 @@
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
 	.sellerClaimChooseStore{
+		button{
+			outline: none;
+		}
 		.em{
 			display: inline-block;
 			width: 1em;
@@ -124,7 +127,6 @@
 		&-main{
 			>p{
 				margin-bottom: 10px;
-				font-size: 16px;
 				color: #a2a2a2;
 				span:last-child{
 					color: #372f2c;
@@ -137,6 +139,8 @@
 					>li{
 						float: left;
 						width: 20%;
+						margin-bottom: 20px;
+						border: 1px solid #f7f7f7;
 						background: #fff;
 						>p{
 							width: 100%;
@@ -152,6 +156,7 @@
 							padding: 10px 10px 30px;
 							text-align: center;
 							>span{
+								display: inline-block;
 								padding: 2px 10px;
 								margin: 10px 0;
 								border-radius: 2px;
@@ -168,14 +173,18 @@
 									}
 								}
 							}
-							>a{
+							>button{
 								display: inline-block;
 								padding: 5px 20px;
 								margin-top: 20px;
+								border: none;
 								border-radius: 3px;
 								background: #372f2c;
-								font-size: 18px;
+								font-size: 16px;
 								color: #fff;
+								&:hover{
+									background: #554d49;
+								}
 							}
 						}
 					}
@@ -230,7 +239,7 @@
 								</li>
 								<li>1F 522档</li>
 							</ul>
-							<a href="#">我要认领</a>
+							<button >我要认领</button>
 						</div>
 					</li>
 				</ul>

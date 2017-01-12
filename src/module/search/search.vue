@@ -267,7 +267,7 @@
 	  	}
 	  	// 修改  name="keyword"   title
 	  	var years = (new Date()).getFullYear()
-	  	$('meta[name="keyword"]').attr('content', this.keyword + ',新款' + this.keyword + ',' + this.keyword + '厂家,' + this.keyword + '进货')
+	  	$('meta[name="keywords"]').attr('content', this.keyword + ',新款' + this.keyword + ',' + this.keyword + '厂家,' + this.keyword + '进货')
 	  	$('meta[name="description"]').attr('content', '柯咔服装网搜罗全国' + this.keyword + '厂家货源，提供2017各式新款'+ this.keyword +'，'+ this.keyword +'品牌热销，厂家直销，一件代发，'+ this.keyword +'批发市场货源充足，低价拿货首选柯咔~！')
 	  	$('title').html( years + '新款'+ this.keyword +',厂家货源批发,'+ this.keyword +'进货首选 - 柯咔服装网')
 	  	// 获取分类关键字

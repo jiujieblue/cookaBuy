@@ -3,6 +3,9 @@
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
 	.sellerClaimSubData{
+		button{
+			outline: none;
+		}
 		.em{
 			display: inline-block;
 			width: 1em;
@@ -390,8 +393,8 @@
 				font-size: 16px;
 				color: #232323;
 				>button{
-					width: 120px;
-					height: 42px;
+					width: 110px;
+					height: 40px;
 					margin-left: 20px;
 					border: none;
 					border-radius: 3px;
@@ -407,13 +410,16 @@
 			margin-top: 50px;
 			text-align: center;
 			button{
-				width: 230px;
-				height: 50px;
+				width: 150px;
+				height: 45px;
 				border: none;
 				border-radius: 3px;
-				background: #09a6e7;
-				font-size: 24px;
+				background: #30c2ff;
+				font-size: 20px;
 				color: #fff;
+				&:hover{
+					background: #09a6e7;
+				}
 			}
 		}
 		&-plusModal{
@@ -481,6 +487,67 @@
 				}
 			}
 		}
+		&-validaModal{
+			.modal-container{
+				max-width: 1140px;
+			}
+			.modal-header{
+				color: #c1c1c1;
+				span{
+					font-size: 20px;
+				}
+			}
+			.modal-body{
+				padding: 30px 70px;
+				text-align: inherit;
+				>div{
+					>ul{
+						.clearfix();
+						color: #303030;
+						>li{
+							float: left;
+							margin-right: 50px;
+							>span{
+								display: block;
+								height: 40px;
+							}
+							>input{
+								width: 250px;
+								height: 30px;
+								padding: 0 5px;
+								border: 1px solid #c6c6c6;
+							}
+							>button{
+								margin: 0;
+								width: 120px;
+								height: 35px;
+								background: #30c2ff;
+								color: #fff;
+								&:hover{
+									background: #09a6e7;
+								}
+							}
+						}
+					}
+					>p{
+						margin: 50px 0 15px 25px;
+						color: #c1c1c1;
+						span{
+							color: #303030;
+						}
+					}
+					>div{
+						height: 400px;
+						padding: 15px 20px;
+						border: 1px solid #e6e6e6;
+						overflow: overlay;
+						img{
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
 	}
 </style>
 
@@ -513,10 +580,10 @@
 							<li>
 								<div>
 									<img v-if="img.idCardPo" :src="img.idCardPo" alt="用户上传-身份证正面">
-									<link @click="_openImg('idCardPo', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
+									<link @click="_openModal('idCardPo', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
 									<div v-if="img.idCardPo" data_img="idCardPo">
-										<link rel="stylesheet" class="icon-amplification" @click="_openImg('idCardPo', 'plusModal')">
-										<link rel="stylesheet" class="icon-shanchu" @click="_openImg('idCardPo', 'delModal')">
+										<link rel="stylesheet" class="icon-amplification" @click="_openModal('idCardPo', 'plusModal')">
+										<link rel="stylesheet" class="icon-shanchu" @click="_openModal('idCardPo', 'delModal')">
 									</div>
 								</div>
 								<span>正面照片</span>
@@ -524,10 +591,10 @@
 							<li>
 								<div>
 									<img v-if="img.idCardRe" :src="img.idCardRe" alt="用户上传-身份证反面">
-									<link @click="_openImg('idCardRe', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
+									<link @click="_openModal('idCardRe', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
 									<div v-if="img.idCardRe" data_img="idCardRe">
-										<link rel="stylesheet" class="icon-amplification" @click="_openImg('idCardRe', 'plusModal')">
-										<link rel="stylesheet" class="icon-shanchu" @click="_openImg('idCardRe', 'delModal')">
+										<link rel="stylesheet" class="icon-amplification" @click="_openModal('idCardRe', 'plusModal')">
+										<link rel="stylesheet" class="icon-shanchu" @click="_openModal('idCardRe', 'delModal')">
 									</div>
 								</div>
 								<span>反面照片</span>
@@ -613,9 +680,26 @@
 						<span>租赁有效期</span>
 						<div>
 							<i></i>
-							<input type="text" placeholder="开始时间">
+							<input class="calendar-input" size="50" type="text" @click.stop="open($event,'picker1')" :value="calendar.items.picker1.value" placeholder="开始时间">
 							<span>--</span>
-							<input type="text" placeholder="时间">
+							<input class="calendar-input" size="50" type="text" @click.stop="open($event,'picker2')" :value="calendar.items.picker2.value" placeholder="结束时间">
+							<!-- 日历插件 -->
+					    <calendar
+					      :show.sync="calendar.show"
+					      :type="calendar.type"
+					      :value.sync="calendar.value"
+					      :x="calendar.x"
+					      :y="calendar.y"
+					      :begin.sync="calendar.begin"
+					      :end.sync="calendar.end"
+					      :range.sync="calendar.range"
+					      :weeks="calendar.weeks"
+					      :months="calendar.months"
+					      :sep="calendar.sep"
+					      @setShow="set_show"
+					      @setValue="set_value">
+
+					    </calendar>
 						</div>
 					</li>
 				</ul>
@@ -627,18 +711,18 @@
 						<ul class="imginfo-upload">
 							<li>
 								<img v-if="img.contract1" :src="img.contract1" alt="用户上传-合同照片1">
-								<link @click="_openImg('contract1', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
+								<link @click="_openModal('contract1', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
 								<div v-if="img.contract1" data_img="contract1">
-									<link rel="stylesheet" class="icon-amplification" @click="_openImg('contract1', 'plusModal')">
-									<link rel="stylesheet" class="icon-shanchu" @click="_openImg('contract1', 'delModal')">
+									<link rel="stylesheet" class="icon-amplification" @click="_openModal('contract1', 'plusModal')">
+									<link rel="stylesheet" class="icon-shanchu" @click="_openModal('contract1', 'delModal')">
 								</div>
 							</li>
 							<li>
 								<img v-if="img.contract2" :src="img.contract2" alt="用户上传-合同照片2">
-								<link @click="_openImg('contract2', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
+								<link @click="_openModal('contract2', 'addModal')" v-else rel="stylesheet" class="icon-plusDashed">
 								<div v-if="img.contract2" data_img="contract2">
-									<link rel="stylesheet" class="icon-amplification" @click="_openImg('contract2', 'plusModal')">
-									<link rel="stylesheet" class="icon-shanchu" @click="_openImg('contract2', 'delModal')">
+									<link rel="stylesheet" class="icon-amplification" @click="_openModal('contract2', 'plusModal')">
+									<link rel="stylesheet" class="icon-shanchu" @click="_openModal('contract2', 'delModal')">
 								</div>
 							</li>
 						</ul>
@@ -682,7 +766,7 @@
 			<p>验证淘宝店铺</p>
 			<div>
 				<span>验证成功之后才可以认领店铺，只有验证淘宝店铺，我们才能放心的把店铺交到您的手上。</span>
-				<button>去验证>></button>
+				<button @click="_openModal('', 'valiModal')">去验证>></button>
 			</div>
 		</div>
 		<div class="sellerClaimSubData-sub">
@@ -707,7 +791,35 @@
 				<div slot="body">确定要删除选中的图片吗？</div>
 				<div slot="footer">
 					<button @click="_closeModal" class="cancel">取<span class="em"></span>消</button>
-	        <button @click="_del" class="determine">确<span class="em"></span>定</button>
+	        <button @click="_closeModal('del')" class="determine">确<span class="em"></span>定</button>
+				</div>
+			</modal>
+		</div>
+		<div class="sellerClaimSubData-validaModal">
+			<modal v-show="showModal.valiModal">
+				<div slot="header">
+					<span>验证淘宝店铺</span>
+					<link rel="stylesheet" class="icon-cha" @click="_closeModal">
+				</div>
+				<div slot="body">
+					<ul>
+						<li>
+							<span>旺旺号</span>
+							<input type="text">
+						</li>
+						<li>
+							<span>淘宝链接</span>
+							<input type="text">
+						</li>
+						<li>
+							<span></span>
+							<button>立即验证</button>
+						</li>
+					</ul>
+					<p>请浏览下方教程，完成淘宝店验证 <span>验证码 652222</span></p>
+					<div>
+						<img src="../../assets/images/taobaovalidation.jpg" alt="淘宝验证示例">
+					</div>
 				</div>
 			</modal>
 		</div>
@@ -719,10 +831,38 @@
 
 	import Vue from 'vue'
 	import sellerClaimStatus from './sellerClaimStatus'
+	import Calendar from 'components/Calendar'
 	import modal from './modal'
 	export default {
 	  data () {
 	    return {
+	    	calendar:{
+	        show: false,
+	        x: 0,
+	        y: 0,
+	        picker: "",
+	        type: "date",
+	        value: "",
+	        begin: "",
+	        end: "",
+	        range: false,
+	        items: {
+	          // 单选模式
+	          picker1:{
+	            type: "date",
+	            begin: "",
+	            end: "",
+	            value: (new Date()).toLocaleDateString()
+	          },
+	          picker2:{
+	            type: "date",
+	            begin: "",
+	            end: "",
+	            value: (new Date()).toLocaleDateString()
+	          }
+	        }
+	      },
+
 	    	Checkbed: {
 	    		service: false,
 	    		amOrDis: ''
@@ -732,6 +872,7 @@
 	    		addModal: false,
 	    		plusModal: false,
 	    		delModal: false,
+	    		valiModal: false,
 	    		modal: ''
 	    	},
 	    	plusImg: '',
@@ -765,6 +906,7 @@
 	  	})
 	  },
 	  methods: {
+
 	  	_openCategory (e, n) {
 	  		if(n){
 	  			var val = e.target.textContent
@@ -772,29 +914,36 @@
 	  		}
 	  		this.chooseClothing = !this.chooseClothing
 	  	},
-	  	_del () {
-	  		this.img[this.img.img] = ''
-	  		this.imgURL[this.imgURL.img] = ''
-	  		this.showModal[this.showModal.modal] = false
-	  	},
 	  	_changeImg (val) {
 	  		this.img[this.img.img] = val.img
 	  		this.imgURL[this.imgURL.img] = val.imgURL
 	  	},
-	  	_closeModal () {
+	  	_closeModal (str) {
+	  		$('body').css({overflow: 'auto'})
 	  		this.showModal[this.showModal.modal] = false
+	  		if(str == 'del'){
+		  		this.img[this.img.img] = ''
+		  		this.imgURL[this.imgURL.img] = ''
+		  		this.showModal[this.showModal.modal] = false
+	  		}
 	  	},
-	  	_openImg (imgkey, showkey) {
-	  		// $('body').css({overflow: 'hidden'})
+	  	_openModal (imgkey, showkey) {
+	  		$('body').css({overflow: 'hidden'})
 	  		this.showModal.modal = showkey
 	  		this.showModal[showkey] = true
+	  		if(!imgkey){
+	  			return
+	  		}
 	  		if(showkey == 'addModal'){
 		  		this.img.img = imgkey
 		  		this.imgURL.img = imgkey
 	  		}else if(showkey == 'plusModal'){
 	  			this.plusImg = this.img[imgkey]
-	  		}else{
+	  		}else if(showkey == 'delModal'){
+	  			this.img.img = imgkey
+		  		this.imgURL.img = imgkey
 	  			this.delImg = this.img[imgkey]
+	  			console.log(4)
 	  		}
 	  	},
 	  	_phoneYZ (e) {
@@ -804,11 +953,36 @@
 	  		}else{
 	  			this.errorPhone = true
 	  		}
-	  	}
+	  	},
+
+			// 日历函数
+	  	open(e,type) {
+      	// 设置类型
+	      this.calendar.picker = type
+	      this.calendar.type = this.calendar.items[type].type
+	      this.calendar.range = this.calendar.items[type].range
+	      this.calendar.value = this.calendar.items[type].value
+	      this.calendar.show = true
+	      // 日历动画
+	      this.calendar.x = e.target.offsetLeft
+	      this.calendar.y = e.target.offsetTop+e.target.offsetHeight+8
+	    },
+	    set_show () {
+	      this.calendar.show = false
+	    },
+	    set_value (val) {
+	    	if(this.calendar.picker == 'picker1' && new Date(val) <= new Date(this.calendar.items.picker2.value) || 
+	    		this.calendar.picker == 'picker2' && new Date(val) >= new Date(this.calendar.items.picker1.value) ||
+	    		this.calendar.picker == 'picker1' && !this.calendar.items.picker2.value ||
+	    		this.calendar.picker == 'picker2' && !this.calendar.items.picker1.value){
+	      	this.calendar.items[this.calendar.picker].value = val
+	    	}
+	    }
 	  },
 	 	components: {
 	 		sellerClaimStatus,
-	 		modal
+	 		modal,
+	 		Calendar
 	 	}
 	}
 </script>
