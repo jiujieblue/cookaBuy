@@ -281,7 +281,7 @@
       _showImg (t) {
         this.img_t = t
         var s = this.carousel[t].tb_url
-        this.showImg = s.slice(0,s.length-10)
+        this.showImg = s.slice(0,s.length-10) + '_480x480.jpg'
       },
       chooseColor (e,t) {
         this.color_t = t
@@ -563,7 +563,7 @@
           this.skus = ret.data.skus
           this.item_id = ret.data.num_iid
           this.store_id = ret.data.store.id
-          this.showImg = ret.data.item_imgs[0].tb_url
+          this.showImg = ret.data.item_imgs[0].tb_url + '_480x480.jpg'
           this.carousel = ret.data.item_imgs
           for(var i = 0;i < this.carousel.length;i++){
             this.carousel[i].tb_url += '_70x70.jpg' 
