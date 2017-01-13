@@ -72,7 +72,10 @@ export default {
   		if(val.length >= 100){
 				return
 			}
-			val = encodeURIComponent(val)
+			//val = encodeURIComponent(val)
+			if(val.indexOf('%') != -1 || val.indexOf('#') != -1){
+				val = encodeURIComponent(val)
+			}
 			this.$emit('subKeyword',val)
 		}
 	},

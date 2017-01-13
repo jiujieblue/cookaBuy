@@ -58,7 +58,7 @@
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in catsReal" :class="{active : cat.cid == cid}">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}({{ cat.count }})</a>
 		    		</li>
 		    	</ul>
 		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
@@ -227,23 +227,24 @@
 	    	me.total_count = res.data.total_count
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
-	    	
+	    	this.catsReal = res.data.cats
 
 	    	this.isRequestReady = false
-	    	for(var i = 0;i < me.cats.length; i ++){
-	    		if(!me.catsReal[me.cats[i].name]){
-	    			me.catsReal[me.cats[i].name] = {}
-	    			me.catsReal[me.cats[i].name].name = me.cats[i].name
-	    			me.catsReal[me.cats[i].name].parent = me.cats[i].parent
-	    			me.catsReal[me.cats[i].name].cid = me.cats[i].cid
-	    		}else{
-	    			me.catsReal[me.cats[i].parent] = {}
-	    			me.catsReal[me.cats[i].parent].name = me.cats[i].parent
-	    			me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
-	    			me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
-	    			me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
-	    		}
-	    	}
+
+	    	// for(var i = 0;i < me.cats.length; i ++){
+	    	// 	if(!me.catsReal[me.cats[i].name]){
+	    	// 		me.catsReal[me.cats[i].name] = {}
+	    	// 		me.catsReal[me.cats[i].name].name = me.cats[i].name
+	    	// 		me.catsReal[me.cats[i].name].parent = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].name].cid = me.cats[i].cid
+	    	// 	}else{
+	    	// 		me.catsReal[me.cats[i].parent] = {}
+	    	// 		me.catsReal[me.cats[i].parent].name = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
+	    	// 		me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
+	    	// 	}
+	    	// }
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
