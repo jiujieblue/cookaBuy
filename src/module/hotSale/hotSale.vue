@@ -208,7 +208,7 @@
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=hot&location=right&page_size=5')
+	    	this.$http.get('/api/recommends'+'?page_name=public&location=right&page_size=5')
 	    	.then(
 		        function(res){
 		          //console.log(res)
