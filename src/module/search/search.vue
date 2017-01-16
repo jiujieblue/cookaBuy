@@ -152,7 +152,7 @@
 	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
       	<Slide :slideData="slideData">
-      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
       			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'" alt="人气推荐图片">
 	    			</a>
@@ -196,6 +196,7 @@
 	      aggregations: '',
 	      hits: '',
 	      hotData: '',
+	      sentimentData: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -278,7 +279,6 @@
 				if(keyStr.length >= 1800){
 					window.location.href = "./uf.html"
 				}
-				console.log(this.keyword)
 
 	  	}
 	  	// 修改  name="keyword"   title
@@ -332,6 +332,14 @@
 	  	this.$http.get('/api/recommends?page_name=public&location=right&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
+	  	// 人气推荐商品
+	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
+	  	.then(function (res) {
+	  		this.sentimentData = res.data
 	  		this.slideData.parentReque = true
 	  		if(res.data.data.length <= 5){
 	  			this.slideData.isPropsMove = false

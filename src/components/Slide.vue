@@ -63,11 +63,7 @@
 			
 		</slot>
   </div>
-  <!-- <div class="slide-sub">
-  	<ul class="slide-sub-slideSub0">
-  		<li :data_li="index" v-for="(liNum, index) in liLength" :class="{active: index == activeNum}" @click="_slideSub0($event, index)"></li>
-  	</ul>
-  </div> -->
+  
 </div>
 </template>
 
@@ -107,7 +103,7 @@ export default {
   updated () {
   	this.liW = parseInt($($('.slide-box >div')[0]).css('width'))
 		$('.slide-sub').css({marginLeft: '-'+parseInt($('.slide-sub').css('width'))/2+'px'})
-
+		$('.slide').css({height: parseInt($($('.slide-box >div')[0]).css('height')) + 'px'})
   	var wid = this.liW
 		this.liLength = $('.slide-box >div').length
 		$('.slide-box >div').css({marginRight: this.slideData.marginR + 'px'})
@@ -123,17 +119,13 @@ export default {
 				me.move(1)
 			})
 		}
+
 		var timer = setInterval(function(){
 			if(me.slideData.parentReque){
-				if(me.slideData.isPropsMove){
-					me.autoMove()
-				}else{
-					clearInterval(timer)
-					timer = null
-				}
+				clearInterval(timer)
+				me.autoMove()
 			}
-		})
-
+		}, 500)
 	},
 	methods: {
 		_slideSub0 (e, i) {
