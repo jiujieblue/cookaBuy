@@ -58,7 +58,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" alt="搜索商品图">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
@@ -83,7 +83,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" alt="搜索商品图">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul>
 			    					<li>
@@ -103,11 +103,11 @@
 			    	</div>
 	    		</div>
 	    		<div class="search-product-left-loading" v-if="isRequestReady">
-	    			<img src="../../assets/images/loading.gif"  alt="加载动画">
+	    			<img src="../../assets/images/loading.gif" alt="加载动画~~" title="加载动画~~">
 	    		</div>
 		    	<div class="search-product-left-error" v-if='!isRequestYes && !isRequestReady'>
 		    		<div>
-		    			<img src="../../assets/images/nosearchR.png" alt="没有搜索数据显示该图片">
+		    			<img src="../../assets/images/nosearchR.png" title="没有相关商品哦~~" alt="没有相关商品哦~~">
 		    			<ul>
 		    				<li><p>没有相关商品哦~~</p></li>
 		    				<li>
@@ -123,7 +123,7 @@
 	    		<ul>
 	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_180x180.jpg'" alt="热销商品图片">
+		    				<img :src="hot.pic_url+'_180x180.jpg'" :alt="hot.title" :title="hot.title">
 		    			</a>
 	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
@@ -154,7 +154,7 @@
       	<Slide :slideData="slideData">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
       			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'" alt="人气推荐图片">
+	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
 	    			</a>
 	    			<ul>
 	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>

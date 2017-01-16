@@ -906,7 +906,6 @@
 	  	})
 	  },
 	  methods: {
-
 	  	_openCategory (e, n) {
 	  		if(n){
 	  			var val = e.target.textContent
