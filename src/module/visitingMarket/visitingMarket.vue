@@ -13,36 +13,6 @@
 								<span>明星店铺</span>
 							</div>
 							<div class="swiper-box">
-								<!-- <swiper :options="swiperOption">
-									<swiper-slide>
-										<a @click="_toBannerStore(2389)">
-											<img src="../../assets/images/sanye.jpg" >
-										</a>
-									</swiper-slide>
-									<swiper-slide>
-										<a @click="_toBannerStore(2417)">
-											<img src="../../assets/images/yirenzui.jpg" >
-										</a>
-									</swiper-slide>
-									<swiper-slide>
-										<a @click="_toBannerStore(1997)">
-											<img src="../../assets/images/feiyiban.jpg" >
-										</a>
-									</swiper-slide>
-									<swiper-slide>
-										<a @click="_toBannerStore(81)">
-											<img src="../../assets/images/yuanyuan.jpg" >
-										</a>
-									</swiper-slide>
-									<swiper-slide>
-										<a @click="_toBannerStore(2186)">
-											<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
-										</a>
-									</swiper-slide>
-									<div class="swiper-pagination" slot="pagination"></div>
-									<div class="swiper-button-prev" slot="button-prev"></div>
-									<div class="swiper-button-next" slot="button-next"></div>
-								</swiper> -->
 								<div class="swiper-box-carousel" >
 									<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
 											<!-- Indicators -->
@@ -87,9 +57,11 @@
 									<tr>
 										<td>市场</td>
 										<td>
-											<div><a>全部</a></div>
-											<div @click="_clickM('大西豪')"><a class="tagActive">大西豪</a></div>
-											<!-- <div><a>新潮都</a></div>
+											<div @click="_clickAllM"><a :class="isAllM ? 'tagActive' : ''">全部</a></div>
+											<!-- <div><a>全部</a></div> -->
+											<div v-for="(marketItem, marketIndex) in markets" @click="_clickM(marketItem.key,marketIndex)"><a :class="mt == marketIndex ? 'tagActive' : ''">{{marketItem.key}}</a></div>
+											<!-- <div @click="_clickM('大西豪')"><a class="tagActive">大西豪</a></div>
+											<div><a>新潮都</a></div>
 											<div><a>灏丰(大西豪)</a></div>
 											<div><a>长运</a></div>
 											<div><a>长城</a></div> -->
@@ -120,7 +92,13 @@
 							</div>
 							<div class="crumb-box">
 								<ol class="breadcrumb">
-									<li><a>大西豪</a></li>
+									<!-- <li><a>大西豪</a></li> -->
+									<li v-if="isAllM">
+										<a v-if="isAllM" class="isAllM ? active : ''">全部市场</a>
+									</li>
+									<li v-if="market">
+										<a class="market ? active : ''">{{market}}</a>
+									</li>
 									<li v-if="isAllF">
 										<a v-if="isAllF" class="isAllF ? active : ''">全部楼层</a>
 									</li>	
@@ -267,7 +245,6 @@
 
 <script>
 	import Vue from 'vue'
-//	import AwesomeSwiper from 'vue-awesome-swiper'
 	import VueResource from 'vue-resource'
 	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
@@ -277,29 +254,17 @@
 	import CKHr from 'components/CKHr'
 	import CKSearch from 'components/CkSearch'
 	Vue.use(VueResource)
-//	Vue.use(AwesomeSwiper)
 
 	export default{
-		//name:'carrousel',
 		data(){
 			return{
-				// swiperOption: {
-				// 	pagination: '.swiper-pagination',
-		  //       	paginationClickable: true,
-		  //       	spaceBetween: 10,
-		  //       	freeMode: true,
-		  //       	autoplay: 3000,
-		  //       	slidesPerView: 1,
-		  //       	loop: true,
-		  //       	prevButton:'.swiper-button-prev',
-				// 	nextButton:'.swiper-button-next'
-		  //       },
 		        markets:[],
 		        stores:[],
 		        floors:[],
 		        sortF:[],
 		        cats:[],
 		        categories:[],
+		        isAllM:true,
 		        isAllF:true,
 		        isAllZ:true,
 		        isAllC:true,
@@ -311,13 +276,16 @@
 		        pageSize:10,
 		        page:1,
 		        pages:'',
+		        market:'',
 		        floor:'',
 		        zhuying:'',
 		        cat:'',
+		        mt:-1,
 		        ct:-1,
 		        zt:-1,
 		        ft:-1,
 		        isStore: false,
+		        isActiveM:false,
 		        isActiveF: false,
 		        isActiveZ: false,
 		        isActiveC: false,
@@ -360,10 +328,11 @@
 			},
 			subPage (val) {
 			  	this.page = val
+			  	var market = this.market && '&market=' + this.market
 			  	var zhuying = this.zhuying && '&main_cat='+this.zhuying
 			  	var floor = this.floor && '&floor='+this.floor
 			  	var q = this.q && '&q=' + this.q
-		  		this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + zhuying + floor + q + '&from=' + (val-1)*10)
+		  		this.$http.get('/s1/searchs?type=store' + market + zhuying + floor + q +'&search_size=10&from=' + (val-1)*10)
 				.then(
 					function(res){
 						this.stores = res.data[2].hits.hits
@@ -375,8 +344,77 @@
 					}
 				)
 			},
-			_clickM(m){
+			_clickM(m, mIndex){
 				//console.log(m)
+				this.isSearch = false
+				this.isAllM = false
+				this.isAllF = true
+				this.isAllZ = true
+				this.isAllC = true
+				this.market = m
+				this.mt = mIndex
+				this.floor = ''
+				this.zhuying = ''
+				this.cat = ''
+				this.q = ''
+				this.ft = -1
+				this.zt = -1
+				this.page = 1
+				this.$http.get('/s1/searchs?type=store' + '&market=' + m + '&search_size=10&from=0').then(
+					function(res){
+						this.floors = res.data[2].aggregations.floors.buckets
+						this.sortF = []
+						this.sortF[0] = this.floors[0]
+						for( var i = 1 ; i < this.floors.length ; i ++){
+							var fStr = this.floors[i].key
+							for(var n = 0; n < this.sortF.length; n++){
+								if(fStr.slice(0,1) <= this.sortF[n].key.slice(0,1)){
+									var arr = this.sortF.splice(n,this.sortF.length - n)
+									this.sortF.push(this.floors[i])
+									this.sortF = this.sortF.concat(arr)
+									break
+								}
+
+							}
+							if(n == this.sortF.length){
+								this.sortF.push(this.floors[i])
+							}
+							console.log(i)
+							console.log(this.sortF)
+						}
+						this.cats = res.data[2].aggregations.cats.buckets
+						this.stores = res.data[2].hits.hits
+						this.total = res.data[2].hits.total
+						this.pages = Math.ceil(this.total/this.pageSize)
+					},function(err){
+						console.log(err)
+					}
+				)
+			},
+			_clickAllM(){
+				this.isSearch = false
+				this.isAllM = true
+				this.q = ''
+				this.market = ''
+				this.floor = ''
+				this.ct = -1
+				this.ft = 0
+				this.page = 1
+				this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&search_size=10' + '&from=0')
+				.then(
+					function(res){
+						this.stores = res.data[2].hits.hits
+						this.categories = res.data[2].aggregations.cates.buckets
+						this.total = res.data[2].hits.total
+						this.pages = Math.ceil(this.total/this.pageSize)
+						this.cat = ''
+					},
+					function(err){
+						console.log(err)
+					}
+				)
+				window.location.href = './visitingMarket.html?' + 'market=' + this.market + '&search_size=10' + '&from=0'
+				$('.ck-pagination-input input').val('')
 			},
 			_clickF(f){
 				//console.log(f)
@@ -392,20 +430,37 @@
 				this.cat = ''
 				this.q = ''
 				this.page = 1
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + f + '&from=0')
-				.then(
-					function(res){
-						//console.log(this.categories)
-						this.cats = res.data[2].aggregations.cats.buckets
-						this.stores = res.data[2].hits.hits
-						this.total = res.data[2].hits.total
-						this.pages = Math.ceil(this.total/this.pageSize)
-					},
-					function(err){
-						console.log(err)
-					}
-				)
-				$('.ck-pagination-input input').val('')
+				if(this.market){
+					this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&search_size=10' + '&floor=' + f + '&from=0')
+					.then(
+						function(res){
+							//console.log(this.categories)
+							this.cats = res.data[2].aggregations.cats.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+					$('.ck-pagination-input input').val('')
+				}else{
+					this.$http.get('/s1/searchs?type=store&search_size=10' + '&floor=' + f + '&from=0')
+					.then(
+						function(res){
+							//console.log(this.categories)
+							this.cats = res.data[2].aggregations.cats.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+					$('.ck-pagination-input input').val('')
+				}
 			},
 			_clickAllF(){
 				this.isSearch = false
@@ -415,7 +470,7 @@
 				this.ct = -1
 				this.ft = 0
 				this.page = 1
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
+				this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.stores = res.data[2].hits.hits
@@ -428,23 +483,51 @@
 						console.log(err)
 					}
 				)
-				window.location.href = './visitingMarket.html?matket=大西豪&search_size=10' + '&from=0'
+				window.location.href = './visitingMarket.html?' + 'market=' + this.market + '&search_size=10' + '&from=0'
 				$('.ck-pagination-input input').val('')
 			},
 			_clickZ(z,zIndex){
 				//console.log(z)
 				//console.log(this.floor)
 				this.isSearch = false
-				this.isAllF = false
 				this.isAllC = true
 				this.isAllZ = false
 				this.zhuying = z
 				this.zt = zIndex
 				this.q = ''
 				this.page = 1
-				if(!this.floor){
-					this.isAllF = true
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&main_cat=' + this.zhuying + '&from=0')
+				if(this.market && this.floor){
+					this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&floor=' + this.floor + '&main_cat=' + this.zhuying + '&search_size=10&from=0')
+					.then(
+						function(res){
+							//console.log(this.categories)
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/10)
+							//console.log(this.pages)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else if(this.market && !this.floor){
+					this.$http.get('/s1/searchs?type=store' + '&market=' + this.market +  '&main_cat=' + this.zhuying + '&search_size=10&from=0')
+					.then(
+						function(res){
+							//console.log(this.categories)
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/10)
+							//console.log(this.pages)
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else if(!this.market && this.floor){
+					this.$http.get('/s1/searchs?type=store' + '&floor=' + this.floor+ '&main_cat=' + this.zhuying + '&search_size=10&from=0')
 					.then(
 						function(res){
 							//console.log(this.categories)
@@ -459,7 +542,7 @@
 						}
 					)
 				}else{
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&main_cat=' + this.zhuying + '&from=0')
+					this.$http.get('/s1/searchs?type=store' + '&main_cat=' + this.zhuying + '&search_size=10&from=0')
 					.then(
 						function(res){
 							//console.log(this.categories)
@@ -482,8 +565,36 @@
 				this.zhuying = ''
 				this.q =''
 				this.page = 1
-				if(this.floor){
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&floor=' + this.floor + '&from=0')
+				if(this.market && this.floor){
+					this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&floor=' + this.floor + '&search_size=10&from=0')
+					.then(
+						function(res){
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/10)
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else if(this.market && !this.floor){
+					this.$http.get('/s1/searchs?type=store&search_size=10' + '&market=' + this.market + '&from=0')
+					.then(
+						function(res){
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.stores = res.data[2].hits.hits
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/10)
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}else if(!this.market && this.floor){
+					this.$http.get('/s1/searchs?type=store&search_size=10' + '&floor=' + this.floor + '&from=0')
 					.then(
 						function(res){
 							this.categories = res.data[2].aggregations.cates.buckets
@@ -497,7 +608,7 @@
 						}
 					)
 				}else{
-					this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
+					this.$http.get('/s1/searchs?type=store&search_size=10' + '&from=0')
 					.then(
 						function(res){
 							this.floors = res.data[2].aggregations.floors.buckets
@@ -672,7 +783,7 @@
 						console.log(err)
 					}
 				)
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
+				this.$http.get('/s1/searchs?type=store&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.markets = res.data[2].aggregations.markets.buckets
@@ -702,7 +813,7 @@
 				)
 
 			}else{
-				this.$http.get('/s1/searchs?type=store&market=大西豪&search_size=10' + '&from=0')
+				this.$http.get('/s1/searchs?type=store&search_size=10' + '&from=0')
 				.then(
 					function(res){
 						this.markets = res.data[2].aggregations.markets.buckets
