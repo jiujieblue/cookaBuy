@@ -63,11 +63,7 @@
 			
 		</slot>
   </div>
-  <!-- <div class="slide-sub">
-  	<ul class="slide-sub-slideSub0">
-  		<li :data_li="index" v-for="(liNum, index) in liLength" :class="{active: index == activeNum}" @click="_slideSub0($event, index)"></li>
-  	</ul>
-  </div> -->
+  
 </div>
 </template>
 
@@ -96,7 +92,10 @@ export default {
   				num: 1,
   				moveTime: 1000,
   				marginR: 0,
-  				slideSub: 0
+  				slideSub: 0,
+  				isPropsMove: false,
+
+  				parentReque: false
   			}
   		}
   	}
@@ -104,7 +103,7 @@ export default {
   updated () {
   	this.liW = parseInt($($('.slide-box >div')[0]).css('width'))
 		$('.slide-sub').css({marginLeft: '-'+parseInt($('.slide-sub').css('width'))/2+'px'})
-
+		$('.slide').css({height: parseInt($($('.slide-box >div')[0]).css('height')) + 'px'})
   	var wid = this.liW
 		this.liLength = $('.slide-box >div').length
 		$('.slide-box >div').css({marginRight: this.slideData.marginR + 'px'})
@@ -120,7 +119,13 @@ export default {
 				me.move(1)
 			})
 		}
-		this.autoMove()
+
+		var timer = setInterval(function(){
+			if(me.slideData.parentReque){
+				clearInterval(timer)
+				me.autoMove()
+			}
+		}, 500)
 	},
 	methods: {
 		_slideSub0 (e, i) {
@@ -130,66 +135,32 @@ export default {
 		move (n) {
 			var me =this
 			if(this.isMove){
-				//this.isMove = false
+				this.isMove = false
 				if(n < 0){
-					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')')).css({transitionDuration: '0ms', transform: 'translate3d('+(n*(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
+					$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')').clone(true)).css({transitionDuration: '0ms', transform: 'translate3d('+(n*(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
 
 					setTimeout(function(){
 						$('.slide-box').css({transitionDuration: '300ms', transform: 'translate3d(0px, 0px, 0px)'})
+						$('.slide-box div:eq('+(this.liLength-1)+')').remove()
 						setTimeout(function(){
 							me.isMove = true
 						},300)
 					},10)
 				}
 				if(n > 0){
-						// $('.slide-box').css({transitionDuration:  300 + 'ms', transform: 'translate3d('+(-(this.liW+this.slideData.marginR))+'px, 0px, 0px)'})
-						// setTimeout(function(){
-						// 	$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-						// 	me.activeNum ++
-						// 	if(me.activeNum >= me.liLength){
-						// 		me.activeNum = 0
-						// 	}
-							
-						// 	if(n > 1){
-						// 		for(var i = 1; i <= n; i++){
-						// 			$('.slide-box').append($('.slide-box div:eq(0)'))
-						// 		}
-						// 	}else{
-						// 		$('.slide-box').append($('.slide-box div:eq(0)'))
-						// 	}
-						// 	setTimeout(function(){
-						// 		me.isMove = true
-						// 	},10)
-						// },300)
-						var num = 1
-						this.timer2 = setInterval(function(){
-							$('.slide-box').css({transitionDuration:  300/n + 'ms', transform: 'translate3d('+(-(me.liW+me.slideData.marginR))+'px, 0px, 0px)'})
-
-								if(num == n){
-									clearInterval(me.timer2)
-									me.timer2 = null
-									me.activeNum += n
-									if(me.activeNum >= me.liLength){
-										me.activeNum = 0
-									}
-								}
-								num++
-								setTimeout(function(){
-								$('.slide-box').append($('.slide-box div:eq(0)')).css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
-								
-								// if(n > 1){
-								// 	for(var i = 1; i <= n; i++){
-								// 		$('.slide-box').append($('.slide-box div:eq(0)'))
-								// 	}
-								// }else{
-								// 	$('.slide-box').append($('.slide-box div:eq(0)'))
-								// }
-								setTimeout(function(){
-									me.isMove = true
-								},5)
-							},300/n+7)
-						},300/n+10)
-					
+					$('.slide-box').css({width: (this.liW + this.slideData.marginR)*($('.slide-box div').length+n) + 'px'})
+					setTimeout(function(){
+						$('.slide-box').append($('.slide-box div:lt('+ n +')').clone(true))
+						$('.slide-box').css({transitionDuration:  300 + 'ms', transform: 'translate3d('+(-(me.liW+me.slideData.marginR))+'px, 0px, 0px)'})
+					},1)
+					setTimeout(function(){
+						$('.slide-box div:lt('+ n +')').remove()
+						$('.slide-box').css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+						
+						setTimeout(function(){
+							me.isMove = true
+						},10)
+					},301)
 				}
 			}
 		},
@@ -197,11 +168,15 @@ export default {
 			this.timer1 = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
 		},
 		_over (e) {
-			clearInterval(this.timer1)
-			this.timer1 = null
+			if(this.slideData.isPropsMove){
+				clearInterval(this.timer1)
+				this.timer1 = null
+			}
 		},
 		_out (e) {
-			this.autoMove()
+			if(this.slideData.isPropsMove){
+				this.autoMove()
+			}
 		}
 	}
 }

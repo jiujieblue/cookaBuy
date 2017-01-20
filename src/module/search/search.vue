@@ -5,7 +5,7 @@
 </style>
 <template>
 <div id='search'>
-	<headerComponent @subKeyword="_subkeyword" :keyword="keyword" @subStor="_subStor"></headerComponent>
+	<headerComponent @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)" @subStor="_subStor"></headerComponent>
 	<div class='search container'>
 	  	<div class="row search-list">
 	  		<ul>
@@ -58,7 +58,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" alt="搜索商品图">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
@@ -83,7 +83,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
 			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" alt="搜索商品图">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul>
 			    					<li>
@@ -103,11 +103,11 @@
 			    	</div>
 	    		</div>
 	    		<div class="search-product-left-loading" v-if="isRequestReady">
-	    			<img src="../../assets/images/loading.gif"  alt="加载动画">
+	    			<img src="../../assets/images/loading.gif" alt="加载动画~~" title="加载动画~~">
 	    		</div>
 		    	<div class="search-product-left-error" v-if='!isRequestYes && !isRequestReady'>
 		    		<div>
-		    			<img src="../../assets/images/nosearchR.png" alt="没有搜索数据显示该图片">
+		    			<img src="../../assets/images/nosearchR.png" title="没有相关商品哦~~" alt="没有相关商品哦~~">
 		    			<ul>
 		    				<li><p>没有相关商品哦~~</p></li>
 		    				<li>
@@ -123,7 +123,7 @@
 	    		<ul>
 	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
 	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_180x180.jpg'" alt="热销商品图片">
+		    				<img :src="hot.pic_url+'_180x180.jpg'" :alt="hot.title" :title="hot.title">
 		    			</a>
 	    				<span>￥{{ _priceEtc(hot.price) }}</span>
 	    				<p>
@@ -146,15 +146,15 @@
 	    <div class="row search-aginsearch">
 	   		<p>没有找到合适的商品？您可以搜索：</p>
 	   		<!-- 搜索框 -->
-	   		<CkSearch @subStor="_subStor" @subKeyword="_subkeyword" :keyword="keyword"></CkSearch>
+	   		<CkSearch @subStor="_subStor" @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)"></CkSearch>
 	    </div>
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
       	<Slide :slideData="slideData">
-      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in hotData.data">
+      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
       			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'" alt="人气推荐图片">
+	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
 	    			</a>
 	    			<ul>
 	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
@@ -196,6 +196,7 @@
 	      aggregations: '',
 	      hits: '',
 	      hotData: '',
+	      sentimentData: '',
 	      // 排序
 	      sorting:{
 	      	//comprehensive: {statu: false, total: '综合排序'},
@@ -239,8 +240,11 @@
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 2000,
-  				marginR: 5
-		  	}
+  				marginR: 5,
+		  		isPropsMove: true,
+
+  				parentReque: false
+		  	},
 	    }
 	  },
 	  mounted () {
@@ -259,17 +263,30 @@
 	  			keyStr = keyStr.slice(0,qI)
 	  		}
 	  		keyStr = keyStr.slice(keyStr.indexOf('=')+1)
-	  		if(keyStr != '%'){
-	  			this.keyword = decodeURIComponent(keyStr)
-	  		}else{
-	  			this.keyword = keyStr
-	  		}
+
+	  		
+	  		try
+				{
+				  //在此运行代码
+				  decodeURIComponent(keyStr)
+				}
+				catch(err)
+				{
+				  //在此处理错误
+				  keyStr = encodeURIComponent(keyStr)
+				}
+				this.keyword = keyStr
+				if(keyStr.length >= 1800){
+					window.location.href = "./uf.html"
+				}
+
 	  	}
 	  	// 修改  name="keyword"   title
 	  	var years = (new Date()).getFullYear()
-	  	$('meta[name="keywords"]').attr('content', this.keyword + ',新款' + this.keyword + ',' + this.keyword + '厂家,' + this.keyword + '进货')
-	  	$('meta[name="description"]').attr('content', '柯咔服装网搜罗全国' + this.keyword + '厂家货源，提供2017各式新款'+ this.keyword +'，'+ this.keyword +'品牌热销，厂家直销，一件代发，'+ this.keyword +'批发市场货源充足，低价拿货首选柯咔~！')
-	  	$('title').html( years + '新款'+ this.keyword +',厂家货源批发,'+ this.keyword +'进货首选 - 柯咔服装网')
+	  	keyStr = decodeURIComponent(keyStr)
+	  	$('meta[name="keywords"]').attr('content', keyStr + ',新款' + keyStr + ',' + keyStr + '厂家,' + keyStr + '进货')
+	  	$('meta[name="description"]').attr('content', '柯咔服装网搜罗全国' + keyStr + '厂家货源，提供2017各式新款'+ keyStr +'，'+ keyStr +'品牌热销，厂家直销，一件代发，'+ keyStr +'批发市场货源充足，低价拿货首选柯咔~！')
+	  	$('title').html( years + '新款'+ keyStr +',厂家货源批发,'+ keyStr +'进货首选 - 柯咔服装网')
 	  	// 获取分类关键字
 			this._aggUrl('colors', '&color', hrefStr)
 			this._aggUrl('sizes', '&item_size', hrefStr)
@@ -291,8 +308,7 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		hrefUrlStr = 'q='+encodeURIComponent(this.keyword)+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
-			
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations = res.data[2].aggregations
@@ -313,9 +329,21 @@
 	  		this.isRequestYes = false
 	  	}
 	  	// 热销商品
-	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
+	  	this.$http.get('/api/recommends?page_name=public&location=right&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
+	  	// 人气推荐商品
+	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
+	  	.then(function (res) {
+	  		this.sentimentData = res.data
+	  		this.slideData.parentReque = true
+	  		if(res.data.data.length <= 5){
+	  			this.slideData.isPropsMove = false
+	  		}
 	  	},
 	  	function (res) {
 	  		console.log(res)
@@ -341,13 +369,15 @@
 	  		}
 	  	},
 	  	_priceEtc (val) {
+	  		console.log(val)
 	  		var i = val.indexOf('.'),str = ''
 	  		if(i != -1){
 	  			str = val.slice(i+1)
+	  				console.log(str)
 	  			if(str.length == 1){
 	  				return val+'0'
-	  			}else if(str.length == 2){
-	  				return val
+	  			}else if(str.length >= 2){
+	  				return val.slice(0,i+3)
 	  			}
 	  		}else{
 	  			return val+'.00'
@@ -462,7 +492,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1'+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -475,11 +505,11 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -496,7 +526,7 @@
 		  			this.sorting[key].statu = false
 		  		}
 		  	}
-		  	window.location.href = './search.html?q='+ encodeURIComponent(this.keyword) +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  },
 	  	// 提交筛选价格区间
 	  	_subLowHigh (e, n,str1,str2) {
@@ -526,7 +556,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?q="+ encodeURIComponent(this.keyword) +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
 		  		}
 	  		}
 	  	},
