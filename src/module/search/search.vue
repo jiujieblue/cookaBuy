@@ -227,7 +227,10 @@
 
 				// 分类链接 url 关键字
 				aggUrl: {
-					// colors: {key: '',doc_count: ''},
+	      	markets: undefined,
+	      	style: undefined,
+	      	colors: undefined,
+	      	sizes: undefined
 				},
 
 				isMore: {},
