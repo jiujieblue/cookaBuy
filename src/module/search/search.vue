@@ -369,13 +369,15 @@
 	  		}
 	  	},
 	  	_priceEtc (val) {
+	  		console.log(val)
 	  		var i = val.indexOf('.'),str = ''
 	  		if(i != -1){
 	  			str = val.slice(i+1)
+	  				console.log(str)
 	  			if(str.length == 1){
 	  				return val+'0'
-	  			}else if(str.length == 2){
-	  				return val
+	  			}else if(str.length >= 2){
+	  				return val.slice(0,i+3)
 	  			}
 	  		}else{
 	  			return val+'.00'
