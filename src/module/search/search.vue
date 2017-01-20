@@ -22,7 +22,7 @@
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
 	  					<ul :ref="'aggregation'+index">
-	  						<li v-for="(bucket, index) in aggregation.buckets">
+	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets">
 	  							<span @click="_urlTarget(key, bucket.key)">{{ bucket.key }}</span>
 	  						</li>
 	  					</ul>
@@ -193,7 +193,12 @@
 	    	// 浏览方式切换
 	      isGridOrList: 0,
 	    	// 请求数据
-	      aggregations: '',
+	      aggregations: {
+	      	markets: {},
+	      	style: {},
+	      	colors: {},
+	      	sizes: {}
+	      },
 	      hits: '',
 	      hotData: '',
 	      sentimentData: '',
@@ -311,10 +316,20 @@
 	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
-		  		this.aggregations = res.data[2].aggregations
+		  		this.aggregations.markets = res.data[2].aggregations.markets
+		  		this.aggregations.style = res.data[2].aggregations.style
+		  		this.aggregations.colors = res.data[2].aggregations.colors
+		  		this.aggregations.sizes = res.data[2].aggregations.sizes
+		  		// for(var i in res.data[2].aggregations){
+		  		// 	if(i != 'sizes'){
+		  		// 		this.aggregations[i] = res.data[2].aggregations[i]
+		  		// 	}
+		  		// }
+
+		  		// this.aggregationSize = res.data[2].aggregations.sizes
 
 		  		this.hits = res.data[2].hits
-		  		this.pages = Math.ceil(res.data[2].hits.total/20)
+		  		this.pages = Math.ceil(res.data[2].hits.total/20) >= 500 ? 500 : Math.ceil(res.data[2].hits.total/20)
 	  			this.isRequestReady = false
 		  		if(res.data[0] == 'ok' && res.data[2].hits.hits.length != 0){
 		  			this.isRequestYes = true
@@ -361,6 +376,7 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
+
 	  	_subStor (n) {
 	  		if(n == 0){
 	  			this.isStore = false
@@ -369,11 +385,9 @@
 	  		}
 	  	},
 	  	_priceEtc (val) {
-	  		console.log(val)
 	  		var i = val.indexOf('.'),str = ''
 	  		if(i != -1){
 	  			str = val.slice(i+1)
-	  				console.log(str)
 	  			if(str.length == 1){
 	  				return val+'0'
 	  			}else if(str.length >= 2){
