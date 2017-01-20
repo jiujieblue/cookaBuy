@@ -25,19 +25,19 @@
 										</ol>
 										<!-- Wrapper for slides -->
 										<div class="carousel-inner" role="listbox">
-											<div class="item active" @click="_toBannerStore(2389)">
+											<div class="item active" @click="_toBannerStore(735)">
 												<img src="../../assets/images/sanye.jpg" >
 											</div>
-											<div class="item" @click="_toBannerStore(2417)">
+											<div class="item" @click="_toBannerStore(233)">
 												<img src="../../assets/images/yirenzui.jpg" >
 											</div>
-											<div class="item" @click="_toBannerStore(1997)">
+											<div class="item" @click="_toBannerStore(556)">
 												<img src="../../assets/images/feiyiban.jpg" >
 											</div>
-											<div class="item" @click="_toBannerStore(81)">
+											<div class="item" @click="_toBannerStore(94)">
 												<img src="../../assets/images/yuanyuanfushi02.jpg" >
 											</div>
-											<div class="item" @click="_toBannerStore(2186)">
+											<div class="item" @click="_toBannerStore(639)">
 												<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
 											</div>
 										</div>
@@ -413,7 +413,7 @@
 						console.log(err)
 					}
 				)
-				window.location.href = './visitingMarket.html?' + 'market=' + this.market + '&search_size=10' + '&from=0'
+				window.location.href = './visitingMarket.html?' + '&search_size=10' + '&from=0'
 				$('.ck-pagination-input input').val('')
 			},
 			_clickF(f){
