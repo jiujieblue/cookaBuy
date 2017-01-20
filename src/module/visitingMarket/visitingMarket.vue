@@ -379,8 +379,6 @@
 							if(n == this.sortF.length){
 								this.sortF.push(this.floors[i])
 							}
-							console.log(i)
-							console.log(this.sortF)
 						}
 						this.cats = res.data[2].aggregations.cats.buckets
 						this.stores = res.data[2].hits.hits
@@ -413,7 +411,7 @@
 						console.log(err)
 					}
 				)
-				window.location.href = './visitingMarket.html?' + '&search_size=10' + '&from=0'
+				window.location.href = './visitingMarket.html'
 				$('.ck-pagination-input input').val('')
 			},
 			_clickF(f){
@@ -470,20 +468,36 @@
 				this.ct = -1
 				this.ft = 0
 				this.page = 1
-				this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&search_size=10' + '&from=0')
-				.then(
-					function(res){
-						this.stores = res.data[2].hits.hits
-						this.categories = res.data[2].aggregations.cates.buckets
-						this.total = res.data[2].hits.total
-						this.pages = Math.ceil(this.total/this.pageSize)
-						this.cat = ''
-					},
-					function(err){
-						console.log(err)
-					}
-				)
-				window.location.href = './visitingMarket.html?' + 'market=' + this.market + '&search_size=10' + '&from=0'
+				if(this.market){
+					this.$http.get('/s1/searchs?type=store' + '&market=' + this.market + '&search_size=10' + '&from=0')
+					.then(
+						function(res){
+							this.stores = res.data[2].hits.hits
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+					//window.location.href = './visitingMarket.html?' + 'market=' + this.market + '&search_size=10' + '&from=0'
+				}else if(!this.market){
+					this.$http.get('/s1/searchs?type=store&search_size=10' + '&from=0')
+					.then(
+						function(res){
+							this.stores = res.data[2].hits.hits
+							this.categories = res.data[2].aggregations.cates.buckets
+							this.total = res.data[2].hits.total
+							this.pages = Math.ceil(this.total/this.pageSize)
+							this.cat = ''
+						},
+						function(err){
+							console.log(err)
+						}
+					)
+				}
 				$('.ck-pagination-input input').val('')
 			},
 			_clickZ(z,zIndex){
