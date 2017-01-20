@@ -22,8 +22,8 @@
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
 	  					<ul :ref="'aggregation'+index">
-	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets">
-	  							<span @click="_urlTarget(key, bucket.key)">{{ bucket.key }}</span>
+	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets" v-if="_setKey(bucket.key)">
+	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}</span>
 	  						</li>
 	  					</ul>
 	  					{{ _isMore('aggregation'+index) }}
@@ -379,7 +379,14 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
-
+	  	_setKey (key) {
+	  		var reg = /[#&]/ig
+	  		if(!reg.test(key)){
+	  			return key
+	  		}else{
+	  			return false
+	  		}
+	  	},
 	  	_subStor (n) {
 	  		if(n == 0){
 	  			this.isStore = false
