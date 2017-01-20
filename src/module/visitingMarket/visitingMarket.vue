@@ -368,13 +368,12 @@
 						for( var i = 1 ; i < this.floors.length ; i ++){
 							var fStr = this.floors[i].key
 							for(var n = 0; n < this.sortF.length; n++){
-								if(fStr.slice(0,1) <= this.sortF[n].key.slice(0,1)){
+								if( parseInt(fStr) <= parseInt(this.sortF[n].key)){
 									var arr = this.sortF.splice(n,this.sortF.length - n)
 									this.sortF.push(this.floors[i])
 									this.sortF = this.sortF.concat(arr)
 									break
 								}
-
 							}
 							if(n == this.sortF.length){
 								this.sortF.push(this.floors[i])
@@ -444,7 +443,7 @@
 					)
 					$('.ck-pagination-input input').val('')
 				}else{
-					this.$http.get('/s1/searchs?type=store&search_size=10' + '&floor=' + f + '&from=0')
+					this.$http.get('/s1/searchs?type=store' + '&floor=' + f +'&search_size=10&from=0')
 					.then(
 						function(res){
 							//console.log(this.categories)
@@ -474,6 +473,7 @@
 						function(res){
 							this.stores = res.data[2].hits.hits
 							this.categories = res.data[2].aggregations.cates.buckets
+							this.cats = res.data[2].aggregations.cats.buckets
 							this.total = res.data[2].hits.total
 							this.pages = Math.ceil(this.total/this.pageSize)
 							this.cat = ''
@@ -489,6 +489,7 @@
 						function(res){
 							this.stores = res.data[2].hits.hits
 							this.categories = res.data[2].aggregations.cates.buckets
+							this.cats = res.data[2].aggregations.cats.buckets
 							this.total = res.data[2].hits.total
 							this.pages = Math.ceil(this.total/this.pageSize)
 							this.cat = ''
@@ -806,8 +807,7 @@
 						for( var i = 1 ; i < this.floors.length ; i ++){
 							var fStr = this.floors[i].key
 							for(var n = 0; n < this.sortF.length; n++){
-								if(fStr.slice(0,1) < this.sortF[n].key.slice(0,1) || 
-									fStr.slice(0,1) == this.sortF[n].key.slice(0,1)){
+								if( parseInt(fStr) <= parseInt(this.sortF[n].key)){
 									var arr = this.sortF.splice(n,this.sortF.length - n)
 									this.sortF.push(this.floors[i])
 									this.sortF = this.sortF.concat(arr)
@@ -836,8 +836,7 @@
 						for( var i = 1 ; i < this.floors.length ; i ++){
 							var fStr = this.floors[i].key
 							for(var n = 0; n < this.sortF.length; n++){
-								if(fStr.slice(0,1) < this.sortF[n].key.slice(0,1) || 
-									fStr.slice(0,1) == this.sortF[n].key.slice(0,1)){
+								if( parseInt(fStr) <= parseInt(this.sortF[n].key)){
 									var arr = this.sortF.splice(n,this.sortF.length - n)
 									this.sortF.push(this.floors[i])
 									this.sortF = this.sortF.concat(arr)
