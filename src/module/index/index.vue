@@ -221,7 +221,7 @@
 				                <div class="index-store">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
-				                     柚儿韩国站
+				                     柚儿韩国站2店
 				                    </div>
 				                    <div class="index-store-market">
 				                      大西豪 2F-217
@@ -278,11 +278,11 @@
 				                      大西豪 4F-409
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(626)">
+				                    <a class="index-store-link" @click="_toReStore(653)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(626)">
+				                  <a class="index-store-product" @click="_toReStore(653)">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
 				                </div>
