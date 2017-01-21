@@ -462,9 +462,11 @@
 			_clickAllF(){
 				this.isSearch = false
 				this.isAllF = true
+				this.isAllZ = true
 				this.q = ''
 				this.floor = ''
-				this.ct = -1
+				this.zhuying = ''
+				this.zt = -1
 				this.ft = 0
 				this.page = 1
 				if(this.market){
