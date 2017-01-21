@@ -227,10 +227,10 @@
 
 				// 分类链接 url 关键字
 				aggUrl: {
-	      	markets: undefined,
-	      	style: undefined,
-	      	colors: undefined,
-	      	sizes: undefined
+			      	markets: undefined,
+			      	style: undefined,
+			      	colors: undefined,
+			      	sizes: undefined
 				},
 
 				isMore: {},
@@ -380,7 +380,7 @@
 	  // 组件加载完成之前
 	  methods: {
 	  	_setKey (key) {
-	  		var reg = /[#&]/ig
+	  		var reg = /[#&%]/ig
 	  		if(!reg.test(key)){
 	  			return key
 	  		}else{
