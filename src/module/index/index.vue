@@ -593,19 +593,20 @@ export default {
 				$('.icon-xianghou').css('right','-50px').fadeOut('normal')
 			}
 		)
-		this.$http.get('/api/recommend_stores')
-		.then(
-			function(res){
-				//console.log(res.data.data)
-				this.recommend_data = res.data.data
-	        	for (var i = 0 ; i < 5 ; i ++){
-	          		this.stores.push(this.recommend_data[i].store)
-	        	}
-			},
-			function(err){
-				console.log(err)
-			}
-		)
+		// this.$http.get('/api/recommend_stores')
+		// .then(
+		// 	function(res){
+		// 		//console.log(res.data.data)
+		// 		this.recommend_data = res.data.data
+		// 		console.log(res.data.data)
+	 //        	for (var i = 0 ; i < 5 ; i ++){
+	 //          		this.stores.push(this.recommend_data[i].store)
+	 //        	}
+		// 	},
+		// 	function(err){
+		// 		console.log(err)
+		// 	}
+		// )
     	this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page=1')
     	.then(
            function(res){
