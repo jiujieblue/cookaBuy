@@ -505,7 +505,7 @@ export default {
 	      		if(this.init_page > this.total_pages){
 	      			this.init_page = 1
 	      		}
-	             console.log(this.products)
+	            //console.log(this.products)
 	           },function(err){
 	               console.log(err)
 	         }
