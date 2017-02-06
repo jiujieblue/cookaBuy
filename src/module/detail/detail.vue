@@ -611,7 +611,7 @@
                 }
               
             }
-            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
+            else{
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
