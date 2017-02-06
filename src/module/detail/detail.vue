@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="desc-size" v-if="sizeItem.length">
-                  <div>{{sizeName}} : </div>
+                  <div>{{sizeName || othName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
                     </div>
@@ -611,7 +611,7 @@
                 }
               
             }
-            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
+            else{
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
