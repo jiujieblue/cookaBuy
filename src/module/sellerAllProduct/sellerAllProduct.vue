@@ -19,7 +19,7 @@
 		<div class="sellerAllProduct-header-info">
 			<div class="container">
 				<p>
-					<img :src="storesInfo && storesInfo.store_logo" alt="店铺头像" v-if="storesInfo">
+					<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
 				</p>
 				<ul>
 					<li>
@@ -58,7 +58,7 @@
 	    		<span v-if="root_cat !== undefined">{{ root_cat }}：</span>
 		    	<ul ref="catsUl">
 		    		<li v-for="(cat,index) in catsReal" :class="{active : cat.cid == cid}">
-		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}</a>
+		    			<a :href="'./sellerAllProduct.html?store_id='+store_id+'&page=1&cid='+cat.cid">{{ cat.name }}({{ cat.count }})</a>
 		    		</li>
 		    	</ul>
 		    	<span @click="moreClick" v-if="isHeiBig" :class="{isMore : isShowMore}">更多</span>
@@ -84,7 +84,7 @@
     <div class="row sellerAllProduct-product">
     	<div class="sellerAllProduct-product-left">
     		<div class="sellerAllProduct-product-left-failure" v-if="!isRequestYes && !isRequestReady">
-    			<img src="../../assets/images/nosearchR.png" alt="请求不到数据显示该图片">
+    			<img src="../../assets/images/nosearchR.png" title="没有相关商品哦~~" alt="没有相关商品哦~~">
     			<ul>
     				<li><p>没有相关商品哦~~</p></li>
     				<li>
@@ -93,12 +93,12 @@
     			</ul>
     		</div>
     		<div class="sellerAllProduct-product-left-loading" v-if="isRequestReady">
-    			<img src="../../assets/images/loading.gif" alt="加载中">
+    			<img src="../../assets/images/loading.gif" alt="加载中~~" title="加载中~~">
     		</div>
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.num_iid" target="_blank">
-    					<img :src="product.pic_url+'_200x200.jpg'" alt="店铺产品图片">
+    					<img :src="product.pic_url+'_200x200.jpg'" :alt="product.title" :title="product.title">
     				</a>
     				<ul>
     					<li>
@@ -123,7 +123,7 @@
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
-    					<img :src="showcase.pic_url+'_180x180.jpg'" alt="推荐商品图片"/>
+    					<img :src="showcase.pic_url+'_180x180.jpg'" :alt="showcase.title" :title="showcase.title"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
@@ -227,23 +227,24 @@
 	    	me.total_count = res.data.total_count
 	    	me.total_entries = res.data.total_entries
 	    	me.root_cat = res.data.root_cat
-	    	
+	    	this.catsReal = res.data.cats
 
 	    	this.isRequestReady = false
-	    	for(var i = 0;i < me.cats.length; i ++){
-	    		if(!me.catsReal[me.cats[i].name]){
-	    			me.catsReal[me.cats[i].name] = {}
-	    			me.catsReal[me.cats[i].name].name = me.cats[i].name
-	    			me.catsReal[me.cats[i].name].parent = me.cats[i].parent
-	    			me.catsReal[me.cats[i].name].cid = me.cats[i].cid
-	    		}else{
-	    			me.catsReal[me.cats[i].parent] = {}
-	    			me.catsReal[me.cats[i].parent].name = me.cats[i].parent
-	    			me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
-	    			me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
-	    			me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
-	    		}
-	    	}
+
+	    	// for(var i = 0;i < me.cats.length; i ++){
+	    	// 	if(!me.catsReal[me.cats[i].name]){
+	    	// 		me.catsReal[me.cats[i].name] = {}
+	    	// 		me.catsReal[me.cats[i].name].name = me.cats[i].name
+	    	// 		me.catsReal[me.cats[i].name].parent = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].name].cid = me.cats[i].cid
+	    	// 	}else{
+	    	// 		me.catsReal[me.cats[i].parent] = {}
+	    	// 		me.catsReal[me.cats[i].parent].name = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
+	    	// 		me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
+	    	// 		me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
+	    	// 	}
+	    	// }
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }

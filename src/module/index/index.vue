@@ -210,28 +210,28 @@
 				                      大西豪 3F-309
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(2361)">
+				                    <a class="index-store-link" @click="_toReStore(691)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(2361)">
+				                  <a class="index-store-product" @click="_toReStore(691)">
 				                    <img src="../../assets/images/bala_3F_309.jpg" />
 				                  </a>
 				                </div>
 				                <div class="index-store">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
-				                     柚儿韩国站
+				                     柚儿韩国站2店
 				                    </div>
 				                    <div class="index-store-market">
 				                      大西豪 2F-217
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(2480)">
+				                    <a class="index-store-link" @click="_toReStore(254)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(2480)">
+				                  <a class="index-store-product" @click="_toReStore(254)">
 				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
 				                  </a>
 				                </div>
@@ -244,11 +244,11 @@
 				                      大西豪 3F-302
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(2331)">
+				                    <a class="index-store-link" @click="_toReStore(386)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(2331)">
+				                  <a class="index-store-product" @click="_toReStore(386)">
 				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg"/>
 				                  </a>
 				                </div>
@@ -261,11 +261,11 @@
 				                      大西豪 6F-601B-1
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(1972)">
+				                    <a class="index-store-link" @click="_toReStore(533)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(1972)">
+				                  <a class="index-store-product" @click="_toReStore(533)">
 				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
 				                  </a>
 				                </div>
@@ -278,11 +278,11 @@
 				                      大西豪 4F-409
 				                    </div>
 
-				                    <a class="index-store-link" @click="_toReStore(2248)">
+				                    <a class="index-store-link" @click="_toReStore(653)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(2248)">
+				                  <a class="index-store-product" @click="_toReStore(653)">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
 				                </div>
@@ -593,19 +593,20 @@ export default {
 				$('.icon-xianghou').css('right','-50px').fadeOut('normal')
 			}
 		)
-		this.$http.get('/api/recommend_stores')
-		.then(
-			function(res){
-				//console.log(res.data.data)
-				this.recommend_data = res.data.data
-	        	for (var i = 0 ; i < 5 ; i ++){
-	          		this.stores.push(this.recommend_data[i].store)
-	        	}
-			},
-			function(err){
-				console.log(err)
-			}
-		)
+		// this.$http.get('/api/recommend_stores')
+		// .then(
+		// 	function(res){
+		// 		//console.log(res.data.data)
+		// 		this.recommend_data = res.data.data
+		// 		console.log(res.data.data)
+	 //        	for (var i = 0 ; i < 5 ; i ++){
+	 //          		this.stores.push(this.recommend_data[i].store)
+	 //        	}
+		// 	},
+		// 	function(err){
+		// 		console.log(err)
+		// 	}
+		// )
     	this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page=1')
     	.then(
            function(res){
