@@ -617,6 +617,17 @@
               }
             }
           }
+          console.log(this.$nextTick(function(){
+            var w = 0
+            var descWidth = parseFloat($('.desc-color').css('width'))
+            var colorWidth = parseFloat($('.desc-color>div:first-child').css('width'))
+            var sizeWidth = parseFloat($('.desc-size>div:first-child').css('width'))
+            colorWidth > sizeWidth ? w = colorWidth : w = sizeWidth
+            $('.desc-color>div:first-child').css('width', w + 'px')
+            $('.desc-color>div:last-child').css('width', descWidth - w -20 + 'px')
+            $('.desc-size>div:first-child').css('width', w + 'px')
+            $('.desc-size>div:last-child').css('width', descWidth - w -20 + 'px')
+          }))
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){
@@ -652,6 +663,9 @@
         function (err) {
           console.log(err)
         })
+    },
+    computed: {
+
     }
   }
 </script>
