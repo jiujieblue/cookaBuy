@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="desc-size" v-if="sizeItem.length">
-                  <div>{{sizeName}} : </div>
+                  <div>{{sizeName || othName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
                     </div>
