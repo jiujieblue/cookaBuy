@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="desc-size" v-if="sizeItem.length">
-                  <div>{{sizeName}} : </div>
+                  <div>{{sizeName || othName}} : </div>
                   <div>
                     <div v-for="(imgItem,index) in sizeItem" v-on:click="chooseSize(index)" v-bind:class="{'active':size_t == index}">{{imgItem}}
                     </div>
@@ -611,12 +611,23 @@
                 }
               
             }
-            if(ret.data.sku_props[i].prop_name == '尺码' || ret.data.sku_props[i].prop_name == '尺寸'){
+            else{
               for(var j = 0 ;j < diff.length;j++){
                 this.sizeItem.push(diff[j].name)
               }
             }
           }
+          console.log(this.$nextTick(function(){
+            var w = 0
+            var descWidth = parseFloat($('.desc-color').css('width'))
+            var colorWidth = parseFloat($('.desc-color>div:first-child').css('width'))
+            var sizeWidth = parseFloat($('.desc-size>div:first-child').css('width'))
+            colorWidth > sizeWidth ? w = colorWidth : w = sizeWidth
+            $('.desc-color>div:first-child').css('width', w + 'px')
+            $('.desc-color>div:last-child').css('width', descWidth - w -20 + 'px')
+            $('.desc-size>div:first-child').css('width', w + 'px')
+            $('.desc-size>div:last-child').css('width', descWidth - w -20 + 'px')
+          }))
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){
@@ -652,6 +663,9 @@
         function (err) {
           console.log(err)
         })
+    },
+    computed: {
+
     }
   }
 </script>
