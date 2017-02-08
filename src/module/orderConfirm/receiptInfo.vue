@@ -241,7 +241,7 @@
 						</div>
 						<div>
 							<button type="submit">保存</button>
-							<button>取消</button>
+							<button @click="_closeNewAddrDiv($event)">取消</button>
 						</div>
 					</form>
 				</div>
@@ -287,6 +287,10 @@
 
 		},
 		methods:{
+			_closeNewAddrDiv(e){
+				e.preventDefault()
+				this.newaddr = false
+			},
       _newAddrDef(){
         this.newaddr_default = !this.newaddr_default
       },
@@ -486,7 +490,6 @@
             function(res){
               console.log(res)
               this.states = res.data.data
-              console.log(this.states)
               this.default_stateId = this.states[0].state_id
               this.$http.get('/api/cities?state_id='+this.default_stateId)
                 .then(
@@ -562,7 +565,6 @@
           function(res){
             this.data = res.data.data
             this.default_addr = this.data.default
-            console.log(this.data)
           },function(err){
             console.log(err)
           })
