@@ -22,7 +22,9 @@ module.exports = {
     'module/buyerWalletWdrlRecord': './src/module/buyerWalletWdrlRecord/buyerWalletWdrlRecord.js',
     'module/sellerClaim': './src/module/sellerClaim/sellerClaim.js',
     'module/sellerClaimCond': './src/module/sellerClaimCond/sellerClaimCond.js',
-    'module/uf': './src/module/uf/uf.js'
+    'module/uf': './src/module/uf/uf.js',
+    'module/orderConfirm': './src/module/orderConfirm/orderConfirm.js',
+    'module/cart': './src/module/cart/cart.js'
   },
   output: {
     path: config.build.assetsRoot,
