@@ -148,16 +148,16 @@
 <script>
 	import Vue from 'vue'
 
-  const VueResource = require('vue-resource')
-  Vue.use(VueResource)
+  	const VueResource = require('vue-resource')
+  	Vue.use(VueResource)
 
 	export default{
 		data(){
 			return{
-        list:[],
-        part:'',
-        daifaList: [],
-        fahuoList: []
+				list:[],
+				part:'',
+				daifaList: [],
+				fahuoList: []
 			}
 		},
 		components:{
@@ -167,16 +167,15 @@
 
 		},
 		mounted(){
-      this.list = JSON.parse(localStorage.getItem('list'))
-      for(var i = 0 ; i < this.list.length ; i ++){
-        if(this.list[i].send==2) {
-          this.part = '商家发货'
-          this.fahuoList.push(this.list[i])
-        }
-        else{
-          this.daifaList.push(this.list[i])
-        }
-      }
+			this.list = JSON.parse(localStorage.getItem('list'))
+			for(var i = 0 ; i < this.list.length ; i ++){
+				if(this.list[i].send==2) {
+				this.part = '商家发货'
+				this.fahuoList.push(this.list[i])
+				}else{
+					this.daifaList.push(this.list[i])
+				}
+			}
 		}
 	}
 </script>
