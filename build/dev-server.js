@@ -16,14 +16,14 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = {
   // detail
   '/api/items/': {
-    target: 'http://localhost:4000',
+    target: 'http://localhost:5000',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items/': '/api/items/'
     }
   },
   '/api/items': {
-    target: 'http://localhost:4000',
+    target: 'http://localhost:5000',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items': '/api/items'
