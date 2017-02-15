@@ -517,7 +517,7 @@
         
       },
       _r_detail (e,t) {
-        window.location.href = './detail.html?' + this.showcase[t].num_iid
+        window.location.href = './detail.html?' + this.showcase[t].id
       },
       _n_times (t) {
         var date = new Date().getTime()
@@ -540,7 +540,7 @@
         }
       },
       _n_detail (t) {
-        window.open('./detail.html?' + this.newList[t].num_iid)
+        window.open('./detail.html?' + this.newList[t].id)
       },
       _more () {
         window.open('./sellerAllProduct.html?store_id=' + this.store_id)
