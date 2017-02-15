@@ -556,22 +556,22 @@ export default {
 			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].store.id)
 		},
 		_toRecommendDetail(t){
-			window.open("./detail.html?"+this.products[t].num_iid)
+			window.open("./detail.html?"+this.products[t].id)
 		},
 		_toSideProductDetail(t){
-			window.open("./detail.html?"+this.sideproducts[t].num_iid)
+			window.open("./detail.html?"+this.sideproducts[t].id)
 		},
 		_toGirlDetail(t){
-			window.open("./detail.html?"+this.girls[t].num_iid)
+			window.open("./detail.html?"+this.girls[t].id)
 		},
 		_toBoyDetail(t){
-			window.open("./detail.html?"+this.boys[t].num_iid)
+			window.open("./detail.html?"+this.boys[t].id)
 		},
 		_toMaternitDetail(t){
-			window.open("./detail.html?"+this.maternits[t].num_iid)
+			window.open("./detail.html?"+this.maternits[t].id)
 		},
 		_toChildrenDetail(t){
-			window.open("./detail.html?"+this.childrens[t].num_iid)
+			window.open("./detail.html?"+this.childrens[t].id)
 		}
 	},
 	mounted(){
