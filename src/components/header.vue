@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-md-2 trim-left">
 						<div class="header-logo">
-							<a title="柯咔服装网" href="www.cookabuy.com"><img src="../assets/images/logo.svg" width="150" alt="柯咔服装网"/></a>
+							<a title="柯咔服装网" href="./index.html"><img src="../assets/images/logo.svg" width="150" alt="柯咔服装网"/></a>
 						</div>
 					</div>
 					<div class="col-md-1"></div>
@@ -72,7 +72,7 @@
 				</span>
 
 				<ul class="header-nav-items">
-					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }" href="www.cookabuy.com">首页</a></li>
+					<li class="header-nav-item"><a :style="{color: this.pageName == 'indexPage'? '#fff':'' }" href="./index.html">首页</a></li>
 					<li :class="['header-nav-item', this.pageName == 'hotPage'? 'active':'']"><a href="./hotSale.html">爆款专区</a></li>
 					<li :class="['header-nav-item', this.pageName == 'visitPage'? 'active':'']"><a href="./visitingMarket.html">逛市场</a></li>
 					<li class="header-nav-item" style="display:none"><a>我的关注</a></li>
