@@ -24,7 +24,7 @@
               </div>
               <div class="register-head-menu">
                 <span>已有账号?</span>
-                <span><a href="#">立即登录</a></span>
+                <span><a href="./login.html">立即登录</a></span>
               </div>
             </div>
             <form v-on:submit="_submit">
