@@ -97,7 +97,7 @@
     		</div>
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
-    				<a :href="'./detail.html?'+product.num_iid" target="_blank">
+    				<a :href="'./detail.html?'+product.id" target="_blank">
     					<img :src="product.pic_url+'_200x200.jpg'" :alt="product.title" :title="product.title">
     				</a>
     				<ul>
@@ -122,7 +122,7 @@
     		<p><span>HOT</span><b>推荐商品</b></p>
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
-    				<a :href="'./detail.html?'+showcase.num_iid" target="_blank">
+    				<a :href="'./detail.html?'+showcase.id" target="_blank">
     					<img :src="showcase.pic_url+'_180x180.jpg'" :alt="showcase.title" :title="showcase.title"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
