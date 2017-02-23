@@ -132,6 +132,16 @@ export default{
 		.then(
 			function(res){
 				this.daohangone = res.data.data
+				
+				/*for(var i = 0; i < this.daohangone.length; i++){
+					console.log(this.daohangone[i].name)
+					for(var j = 0; j < this.daohangone[i].children.length;j++){
+						console.log('  ' + this.daohangone[i].children[j].name)
+						for(var k = 0; k < this.daohangone[i].children[j].children.length;k++){
+							console.log('    '+this.daohangone[i].children[j].children[k].name)
+						}
+					}
+				}*/
 			},
 			function(err){
 				//console.log(err)
