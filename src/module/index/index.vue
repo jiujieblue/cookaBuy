@@ -188,7 +188,7 @@
 							</h4>
 
 							<div class="index-block-body">
-				                <div class="index-store" v-for="(storesItem, storesIndex) in stores">
+				                <div class="index-store" v-for="(storesItem, storesIndex) in stores" v-if="storesIndex < 5">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
 				                      {{storesItem.store_name}}
@@ -530,7 +530,7 @@ export default {
 		// 	window.open("./sellerAllProduct.html?store_id="+ sid)
 		// },
 		_toStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
 		},
 		_toProStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.products[t].store.id)
@@ -602,10 +602,9 @@ export default {
 		this.$http.get('/api/index')
 		.then(
 			function(res){
-				console.table(res.data.left)
 
 				//this.ads = res.data.ads
-				if(res.data.left){
+				if(res.data.ads){
 					this.ads = res.data.ads // 广告
 				}
 
@@ -628,9 +627,6 @@ export default {
 				//this.recommend_data = res.data.stores
 				if(res.data.stores){
 					this.stores = res.data.stores // 推荐店铺
-					// for (var i = 0 ; i < 5 ; i ++){
-					// 	this.stores.push(this.recommend_data[i])
-					// }
 				}
 
 				//this.girls = res.data.girl 
@@ -678,21 +674,6 @@ export default {
 				$('#side').fadeIn(500)
 			})
 	    },4000)
-	 // 	this.$http.get('/api/recommends'+'?page_name=index&location=right')
-		// .then(
-  //       function(res){
-  //         //console.log(res)
-  //       	this.sideproducts = res.data.data
-  //       	this.total_pages  = res.data.total_pages
-  //       	this.init_page++
-  //       	for(var i = 0 ; i < this.sideproducts.length ; i++){
-		// 		this.sideproducts[i].pic_url += '_80x80.jpg'
-		// 	}
-             
-  //       },function(err){
-  //         console.log(err)
-  //       }
-  //     )
     	
     	// this.$http.get('/api/bulletins'+'?type=0')
     	// .then(
