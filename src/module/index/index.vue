@@ -462,8 +462,9 @@ Vue.use(VueResource)
 
 export default {
 	data () {
-    	return {
-    		ads:[],
+		return {
+			leftnav:[],
+			ads:[],
 	        recommend_data:[],
 	        stores:[],
 	        products:[],
@@ -602,6 +603,8 @@ export default {
 		this.$http.get('/api/index')
 		.then(
 			function(res){
+				//console.table(res.data.cats)
+				//this.leftnav = res.data.cats // 左边导航
 
 				//this.ads = res.data.ads
 				if(res.data.ads){
