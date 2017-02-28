@@ -16,25 +16,11 @@
 				</ul>
 			</div>
 		</div>
-		<div class="sellerAllProduct-header-info">
+		<div class="sellerAllProduct-header-search">
 			<div class="container">
-				<p>
-					<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
-				</p>
-				<ul>
-					<li>
-						<a :href="'./sellerAllProduct.html?store_id='+store_id">{{ storesInfo && storesInfo.store_name }}</a>
-						<button @click="subStor" v-if="false">+关注本店</button>
-						<span v-if="false">已<span class="em_5"></span>关<span class="em_5"></span>注</span>
-					</li>
-					<li v-if="false">
-						<link rel="stylesheet" class="icon-shimingyanzheng">实名验证
-						<link rel="stylesheet" class="icon-strenzheng">实体认证
-					</li>
-					<li>
-						<link rel="stylesheet" class="icon-dizhi">{{ storesInfo && storesInfo.location }}
-					</li>
-				</ul>
+				<a href="./index.html" title="柯咔服装网">
+					<img src="../../assets/images/logo.svg" alt="柯咔服装网" width="150">
+				</a>
 				<p>
 					<span>商&nbsp;&nbsp;品</span>
 					<input :value="keyword" type="text" placeholder="搜索关键字..." ref="keyword" @keyup="_subkeyword($event, 1)">
@@ -42,6 +28,22 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	<div class="container sellerAllProduct-sellerInfo">
+		<ul>
+			<li>
+				<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
+			</li>
+			<li>
+				<a :href="'./sellerAllProduct.html?store_id='+store_id">{{ storesInfo && storesInfo.store_name }}</a>
+			</li>
+			<li>
+				<button @click="subStor">+关注本店</button>
+			</li>
+			<li>
+				<link rel="stylesheet" class="icon-dizhi">{{ storesInfo && storesInfo.location }}
+			</li>
+		</ul>
 	</div>
 	<div class="container sellerAllProduct">
   	<div class="row sellerAllProduct-list">

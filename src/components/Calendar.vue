@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div @click.stop=""  class="calendar" v-show="show" :style="{'left':x+'px','top':y+'px'}" transition="calendar" transition-mode="out-in">
+  <div @click.stop="" id="calendar" class="calendar" v-show="show" :style="{'left':x+'px','top':y+'px'}" transition="calendar" transition-mode="out-in">
     <div  v-if="type!='time'">
       <div class="calendar-tools">
         <span class="icon-xiangqian calendar-prev" @click="prev"></span>
@@ -128,9 +128,9 @@ export default {
   },
   // 测试用
   watch: {
-      // year(val, old) {
-      //     console.log("new %s old %s time:%s", val, old, +new Date)
-      // },
+      year(val, old) {
+          console.log("new %s old %s time:%s", val, old, +new Date)
+      },
       show(){
           this.init()
       },

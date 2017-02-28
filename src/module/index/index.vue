@@ -52,14 +52,18 @@
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
 										<!-- Indicators -->
 									<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
+										<!-- <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+										<li data-target="#carousel-example-generic" data-slide-to="3"></li> -->
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div class="item active" @click="_goMore('女外套')">
+										<div :class="adsIndex? 'item':'item active'" @click="_goMore('#')" v-for="(adsItem, adsIndex) in ads">
+											<img :src="adsItem.pic_url" alt="adsItem.tip">
+										</div>
+										<!-- <div class="item active" @click="_goMore('女外套')">
 											<img src="../../assets/images/nvwaitao.jpg" alt="...">
 										</div>
 										<div class="item" @click="_goMore('男装卫衣')">
@@ -70,7 +74,7 @@
 										</div>
 										<div class="item" @click="_goMore('女装针织毛衣')">
 											<img src="../../assets/images/indexBanner03.jpg" alt="...">
-										</div>
+										</div> -->
 									</div>
 									<!-- Controls -->
 									<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -126,7 +130,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(productsItem, productsIndex) in products">
+									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
 											<img :title="productsItem.title" :src="productsItem.pic_url" />
 										</a>
@@ -184,24 +188,24 @@
 							</h4>
 
 							<div class="index-block-body">
-				                <!-- <div class="index-store" v-for="(storesItem, storesIndex) in stores">
+				                <div class="index-store" v-for="(storesItem, storesIndex) in stores" v-if="storesIndex < 5">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
 				                      {{storesItem.store_name}}
 				                    </div>
 				                    <div class="index-store-market">
-				                      {{storesItem.market}} {{storesItem.store_number}}
+				                      {{storesItem.market}} {{storesItem.location}}
 				                    </div>
 
 				                    <a class="index-store-link" @click="_toStore(storesIndex)">
 				                      进店逛逛
 				                    </a>
 				                  </div>
-				                  <a class="index-store-product">
-				                    <img :src="storesItem.store_logo" />
+				                  <a class="index-store-product" @click="_toStore(storesIndex)">
+				                    <img :src="storesItem.pic_url" />
 				                  </a>
-				                </div> -->
-				                <div class="index-store">
+				                </div>
+				                <!-- <div class="index-store">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
 				                      时尚芭拉
@@ -268,7 +272,7 @@
 				                  <a class="index-store-product" @click="_toReStore(533)">
 				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
 				                  </a>
-				                </div>
+				                </div> 
 				                <div class="index-store">
 				                  <div class="index-store-info">
 				                    <div class="index-store-name">
@@ -285,7 +289,7 @@
 				                  <a class="index-store-product" @click="_toReStore(653)">
 				                    <img src="../../assets/images/hongye_4F_409.jpg" />
 				                  </a>
-				                </div>
+				                </div>-->
 							</div>
 						</div>
 						<!-- girl -->
@@ -458,7 +462,9 @@ Vue.use(VueResource)
 
 export default {
 	data () {
-    	return {
+		return {
+			leftnav:[],
+			ads:[],
 	        recommend_data:[],
 	        stores:[],
 	        products:[],
@@ -481,12 +487,12 @@ export default {
 	},
 	methods:{
 		_subStor (n) {
-  		if(n == 0){
-  			this.isStore = false
-  		}else{
-  			this.isStore = true
-  		}
-  	},
+	  		if(n == 0){
+	  			this.isStore = false
+	  		}else{
+	  			this.isStore = true
+	  		}
+	  	},
 		_subkeyword(keyword){
 			if(this.isStore){
   			window.location.href = './visitingMarket.html?q='+keyword
@@ -495,21 +501,8 @@ export default {
   		}
 		},
 		_changePro(){
-			this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page='+this.init_page)
-	    	.then(
-	           function(res){
-	             //console.log(res)
-	            this.products = res.data.data
-	            this.total_pages = res.data.total_pages
-	            this.init_page ++ 
-	      		if(this.init_page > this.total_pages){
-	      			this.init_page = 1
-	      		}
-	            //console.log(this.products)
-	           },function(err){
-	               console.log(err)
-	         }
-	       )
+			var p = this.products.splice(0,8)
+			this.products = this.products.concat(p)
 		},
 		_times (t) {
 			var date = new Date().getTime()
@@ -534,11 +527,11 @@ export default {
 		_goMore(str){
 			window.open("./search.html?q="+ str)
 		},
-		_toReStore(sid){
-			window.open("./sellerAllProduct.html?store_id="+ sid)
-		},
+		// _toReStore(sid){
+		// 	window.open("./sellerAllProduct.html?store_id="+ sid)
+		// },
 		_toStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.stores[t].id)
+			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
 		},
 		_toProStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.products[t].store.id)
@@ -607,34 +600,75 @@ export default {
 		// 		console.log(err)
 		// 	}
 		// )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=left&page_size=8&page=1')
-    	.then(
-           function(res){
-             //console.log(res)
-             this.products = res.data.data
-             for(var i = 0 ; i < this.products.length ; i++){
-             	this.products[i].pic_url += '_210x210.jpg'
-             }
-           },function(err){
-               console.log(err)
-         }
-       )
-	 	this.$http.get('/api/recommends'+'?page_name=index&location=right')
+		this.$http.get('/api/index')
 		.then(
-        function(res){
-          //console.log(res)
-        	this.sideproducts = res.data.data
-        	this.total_pages  = res.data.total_pages
-        	this.init_page++
-        	for(var i = 0 ; i < this.sideproducts.length ; i++){
-             	this.sideproducts[i].pic_url += '_80x80.jpg'
-             }
-             
-        },function(err){
-          console.log(err)
-        }
-      )
+			function(res){
+				//console.table(res.data.cats)
+				//this.leftnav = res.data.cats // 左边导航
 
+				//this.ads = res.data.ads
+				if(res.data.ads){
+					this.ads = res.data.ads // 广告
+				}
+
+				//this.products = res.data.left 
+				if(res.data.left){
+					this.products = res.data.left // 左边
+					for(var i = 0 ; i < this.products.length ; i++){
+						this.products[i].pic_url += '_210x210.jpg'
+					}
+				}
+
+				//this.sideproducts = res.data.right
+				if(res.data.right){	
+					this.sideproducts = res.data.right // 右边
+					for(var i = 0 ; i < this.sideproducts.length ; i++){
+						this.sideproducts[i].pic_url += '_80x80.jpg'
+					}
+				}
+
+				//this.recommend_data = res.data.stores
+				if(res.data.stores){
+					this.stores = res.data.stores // 推荐店铺
+				}
+
+				//this.girls = res.data.girl 
+				if(res.data.girl){
+					this.girls = res.data.girl // 女装
+					for(var i = 0 ; i < this.girls.length ; i++){
+						this.girls[i].pic_url += '_270x270.jpg'
+					}
+				}
+
+				//this.boys = res.data.boy
+				if(res.data.boy){
+					this.boys = res.data.boy //男装
+					for(var i = 0 ; i < this.boys.length ; i++){
+						this.boys[i].pic_url += '_270x270.jpg'
+					}
+				}
+
+				//this.maternits = res.data.maternit
+				if(res.data.maternit){
+					this.maternits = res.data.maternit //孕妇装
+					for(var i = 0 ; i < this.maternits.length ; i++){
+						this.maternits[i].pic_url += '_270x270.jpg'
+					}
+				}
+
+				//this.childrens = res.data.children
+				if(res.data.children){
+					this.childrens = res.data.children //童装
+					for(var i = 0 ; i < this.childrens.length ; i++){
+						this.childrens[i].pic_url += '_270x270.jpg'
+					}
+				}
+			},function(err){
+				console.log(err)
+			}
+		)
+
+		//右边栏图片切换效果
 		var me = this
 		var timer = setInterval(function(){
 			$('#side').fadeOut('swing',function(){
@@ -643,58 +677,7 @@ export default {
 				$('#side').fadeIn(500)
 			})
 	    },4000)
-    	this.$http.get('/api/recommends'+'?page_name=index&location=girl&page_size=10')
-    	.then(
-	        function(res){
-	          //console.log(res)
-	          this.girls = res.data.data
-	          //console.log(this.girls)
-	          for(var i = 0 ; i < this.girls.length ; i++){
-             	this.girls[i].pic_url += '_270x270.jpg'
-              }
-	        },function(err){
-	          console.log(err)
-	        }
-	    )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=boy&page_size=10')
-    	.then(
-        function(res){
-          //console.log(res)
-          this.boys = res.data.data
-      	  for(var i = 0 ; i < this.boys.length ; i++){
-         	this.boys[i].pic_url += '_270x270.jpg'
-          }
-          //console.log(this.boys)
-        },function(err){
-          console.log(err)
-        }
-      )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=maternit&page_size=10')
-    	.then(
-        function(res){
-          //console.log(res)
-          this.maternits = res.data.data
-          //console.log(this.maternits)
-          for(var i = 0 ; i < this.maternits.length ; i++){
-             	this.maternits[i].pic_url += '_270x270.jpg'
-           }
-        },function(err){
-          console.log(err)
-        }
-      )
-    	this.$http.get('/api/recommends'+'?page_name=index&location=children&page_size=10')
-    	.then(
-        function(res){
-          //console.log(res)
-          this.childrens = res.data.data
-          for(var i = 0 ; i < this.childrens.length ; i++){
-         	this.childrens[i].pic_url += '_270x270.jpg'
-          }
-          //console.log(this.childrens)
-        },function(err){
-          console.log(err)
-        }
-      )
+    	
     	// this.$http.get('/api/bulletins'+'?type=0')
     	// .then(
      //    function(res){
