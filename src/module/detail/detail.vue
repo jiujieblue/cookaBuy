@@ -154,25 +154,25 @@
   <div class="container-b-box">
     <div class="container bg-b">
       <div class="row">
-          <div class="detail-news">
-            <div class="news-tit">
-              <span>NEW</span>
-              <p>最新上架</p>
-              <a v-on:click="_more"><span class="icon-more"></span></a>
-            </div>
-            <div class="news-list">
-              <div class="news-img" v-for="(item,index) in newList">
-                <a class="img-tit" v-on:click="_n_detail(index)">
-                  <img v-bind:src="item.pic_url" v-bind:title="item.title">
-                </a>
-                <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
-                <div class="img-info">
-                  <p>&yen; {{item.price}}</p>
-                  <p>{{_n_times(item.list_time)}}</p>
-                </div>
+        <div class="detail-news">
+          <div class="news-tit">
+            <span>NEW</span>
+            <p>最新上架</p>
+            <a v-on:click="_more"><span class="icon-more"></span></a>
+          </div>
+          <div class="news-list">
+            <div class="news-img" v-for="(item,index) in newList">
+              <a class="img-tit" v-on:click="_n_detail(index)">
+                <img v-bind:src="item.pic_url" v-bind:title="item.title">
+              </a>
+              <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
+              <div class="img-info">
+                <p>&yen; {{item.price}}</p>
+                <p>{{_n_times(item.list_time)}}</p>
               </div>
             </div>
           </div>
+        </div>
       </div>
       <div class="oth">
         <div class="row detail-det">
