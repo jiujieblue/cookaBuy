@@ -5,7 +5,7 @@
 </style>
 <template>
 <div id='sellerAllProduct'>
-	<div class="sellerAllProduct-header">
+	<!-- <div class="sellerAllProduct-header">
 		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
@@ -28,7 +28,8 @@
 				</p>
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
 	<div class="container sellerAllProduct-sellerInfo">
 		<ul>
 			<li>
@@ -139,6 +140,7 @@
 
 <script>
 	import Vue from 'vue'
+	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
 	import CkPagination from 'components/CkPagination'
 	
@@ -544,6 +546,7 @@
 	  },
 	  components: {
 	  	CkPagination,
+	  	headerComponent,
 	  	footerComponent
 	  }
 	}
