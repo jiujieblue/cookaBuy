@@ -190,20 +190,6 @@ var proxyTable = {
       '^/api/regions':'/api/regions'
       }
     },
-  '/api/recommend_stores':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/recommend_stores':'/api/recommend_stores'
-      }
-    },
-  '/api/recommends':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/recommends':'/api/recommends'
-      }
-    },
   '/api/bulletins':{
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -247,6 +233,27 @@ var proxyTable = {
     changeOrigin: true,
     pathRewrite:{
       '^/api/categories':'/api/categories'
+    }
+  },
+  '/api/cats':{
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/cats':'/api/cats'
+    }
+  },
+  'api/index':{
+    target: 'http://119.29.224.238',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/index':'/api/index'
+    }
+  },
+  'api/recommends':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/recommends':'/api/recommends'
     }
   }
 }

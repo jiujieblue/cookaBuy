@@ -52,7 +52,7 @@
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
 										<!-- Indicators -->
 									<ol class="carousel-indicators">
-										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
+										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" :data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
 										<!-- <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
@@ -60,8 +60,8 @@
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div :class="adsIndex? 'item':'item active'" @click="_goMore('#')" v-for="(adsItem, adsIndex) in ads">
-											<img :src="adsItem.pic_url" alt="adsItem.tip">
+										<div :class="adsIndex? 'item':'item active'" @click="_goMore(adsItem.tip)" v-for="(adsItem, adsIndex) in ads">
+											<img :src="adsItem.pic_url" :title="adsItem.tip" alt="adsItem.tip">
 										</div>
 										<!-- <div class="item active" @click="_goMore('女外套')">
 											<img src="../../assets/images/nvwaitao.jpg" alt="...">
@@ -145,7 +145,7 @@
 												{{productsItem.store&&productsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store&&productsItem.store.market}} {{productsItem.store&&productsItem.store.store_number}}
+												{{productsItem.store&&productsItem.store.location}}
 											</span>
 										</div>
 									</div>
@@ -161,7 +161,7 @@
 														</div>
 														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store&&sideproductsItem.store.market}} {{sideproductsItem.store&&sideproductsItem.store.store_number}}
+														{{sideproductsItem.store&&sideproductsItem.store.location}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -194,7 +194,7 @@
 				                      {{storesItem.store_name}}
 				                    </div>
 				                    <div class="index-store-market">
-				                      {{storesItem.market}} {{storesItem.location}}
+				                      {{storesItem.location}}
 				                    </div>
 
 				                    <a class="index-store-link" @click="_toStore(storesIndex)">
@@ -322,7 +322,7 @@
 												{{girlsItem.store&&girlsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.store&&girlsItem.store.market}} {{girlsItem.store&&girlsItem.store.store_number}}
+												{{girlsItem.store&&girlsItem.store.location}}
 											</span>
 										</div>
 									</div>
@@ -359,7 +359,7 @@
 												{{boysItem.store&&boysItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.store&&boysItem.store.market}} {{boysItem.store&&boysItem.store.store_number}}
+												{{boysItem.store&&boysItem.store.location}}
 											</span>
 										</div>
 									</div>
@@ -396,8 +396,7 @@
 												{{maternitsItem.store&&maternitsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.store&&maternitsItem.store.market}} 
-												{{maternitsItem.store&&maternitsItem.store.store_number}}
+												{{maternitsItem.store&&maternitsItem.store.location}}
 											</span>
 										</div>
 									</div>
@@ -434,8 +433,7 @@
 												{{childrensItem.store&&childrensItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.store&&childrensItem.store.market}} 
-												{{childrensItem.store&&childrensItem.store.store_number}}
+												{{childrensItem.store&&childrensItem.store.location}}
 											</span>
 										</div>
 									</div>
@@ -462,8 +460,9 @@ Vue.use(VueResource)
 
 export default {
 	data () {
-    	return {
-    		ads:[],
+		return {
+			leftnav:[],
+			ads:[],
 	        recommend_data:[],
 	        stores:[],
 	        products:[],
@@ -602,6 +601,8 @@ export default {
 		this.$http.get('/api/index')
 		.then(
 			function(res){
+				//console.table(res.data.cats)
+				//this.leftnav = res.data.cats // 左边导航
 
 				//this.ads = res.data.ads
 				if(res.data.ads){
