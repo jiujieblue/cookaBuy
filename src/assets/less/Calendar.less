@@ -1,5 +1,5 @@
 @import "./C.less";
-.calendar {
+#calendar{
   width: 300px;
   padding: 10px;
   background: #fff;
@@ -34,6 +34,62 @@
     line-height: 150%;
     color:#aaa;
 	}
+	table {
+    clear: both;
+    width: 100%;
+    margin:10px 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+		td {
+	    margin:2px !important;
+	    padding:0px 0;
+	    width: 14.28571429%;
+	    height:34px;
+	    text-align: center;
+	    vertical-align: middle;
+	    font-size:14px;
+	    line-height: 125%;
+	    cursor: pointer;
+	    &.disabled {
+		    color: #c0c0c0;
+		    pointer-events:none !important;
+		    cursor: default !important;
+			}
+			&.lastmonth {
+			  color: #c0c0c0;
+			}
+			&.selected{
+				span{
+			    background-color: #5e7a88;
+			    color: #fff;
+			    &:hover{
+				    background-color: #3b6073;
+				    color: #fff;
+					}
+				}
+				.lunar{
+		    	color:#fff;
+				}
+			}
+			span{
+		    display:block;
+		    height:30px;
+		    line-height:30px;
+		    margin:2px;
+		    border-radius:2px;
+		    &:hover{
+			  	background:#f3f8fa;
+				}
+			}
+		}
+		th{
+			text-align: center;
+			text-transform: uppercase;
+	    pointer-events:none !important;
+	    cursor: default !important;
+		}
+	}
+.calendar {
   &-enter,&-leave{
 	  opacity: 0;
 	  transform: translate3d(0,-10px, 0);
@@ -98,59 +154,5 @@
 	&-next{
     float:right;
 	}
-	table {
-    clear: both;
-    width: 100%;
-    margin:10px 0;
-    border-collapse: collapse;
-    border-spacing: 0;
-		td {
-	    margin:2px !important;
-	    padding:0px 0;
-	    width: 14.28571429%;
-	    height:34px;
-	    text-align: center;
-	    vertical-align: middle;
-	    font-size:14px;
-	    line-height: 125%;
-	    cursor: pointer;
-	    &.disabled {
-		    color: #c0c0c0;
-		    pointer-events:none !important;
-		    cursor: default !important;
-			}
-			&.lastmonth {
-			  color: #c0c0c0;
-			}
-			&.selected{
-				span{
-			    background-color: #5e7a88;
-			    color: #fff;
-			    &:hover{
-				    background-color: #3b6073;
-				    color: #fff;
-					}
-				}
-				.lunar{
-		    	color:#fff;
-				}
-			}
-			span{
-		    display:block;
-		    height:30px;
-		    line-height:30px;
-		    margin:2px;
-		    border-radius:2px;
-		    &:hover{
-			  	background:#f3f8fa;
-				}
-			}
-		}
-		th{
-			text-align: center;
-			text-transform: uppercase;
-	    pointer-events:none !important;
-	    cursor: default !important;
-		}
-	}
+}
 }

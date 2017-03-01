@@ -23,6 +23,6 @@ const router = new VueRouter({
 /* eslint-disable no-new */
 new Vue({
 	//el: '#sellerClaimCond',
-	router: router,
+	router,
   render: h => h(sellerClaimCond)
 }).$mount('#sellerClaimCond')

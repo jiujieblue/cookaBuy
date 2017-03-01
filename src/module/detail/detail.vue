@@ -154,25 +154,25 @@
   <div class="container-b-box">
     <div class="container bg-b">
       <div class="row">
-          <div class="detail-news">
-            <div class="news-tit">
-              <span>NEW</span>
-              <p>最新上架</p>
-              <a v-on:click="_more"><span class="icon-more"></span></a>
-            </div>
-            <div class="news-list">
-              <div class="news-img" v-for="(item,index) in newList">
-                <a class="img-tit" v-on:click="_n_detail(index)">
-                  <img v-bind:src="item.pic_url" v-bind:title="item.title">
-                </a>
-                <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
-                <div class="img-info">
-                  <p>&yen; {{item.price}}</p>
-                  <p>{{_n_times(item.list_time)}}</p>
-                </div>
+        <div class="detail-news">
+          <div class="news-tit">
+            <span>NEW</span>
+            <p>最新上架</p>
+            <a v-on:click="_more"><span class="icon-more"></span></a>
+          </div>
+          <div class="news-list">
+            <div class="news-img" v-for="(item,index) in newList">
+              <a class="img-tit" v-on:click="_n_detail(index)">
+                <img v-bind:src="item.pic_url" v-bind:title="item.title">
+              </a>
+              <div class="tit-link" v-on:click="_n_detail(index)">{{item.title}}</div>
+              <div class="img-info">
+                <p>&yen; {{item.price}}</p>
+                <p>{{_n_times(item.list_time)}}</p>
               </div>
             </div>
           </div>
+        </div>
       </div>
       <div class="oth">
         <div class="row detail-det">
@@ -496,7 +496,6 @@
               })          
           }
         }
-        
       },
       _subkey (val) {
         this.$emit('subKeyword',val)
@@ -517,7 +516,7 @@
         
       },
       _r_detail (e,t) {
-        window.location.href = './detail.html?' + this.showcase[t].num_iid
+        window.location.href = './detail.html?' + this.showcase[t].id
       },
       _n_times (t) {
         var date = new Date().getTime()
@@ -540,7 +539,7 @@
         }
       },
       _n_detail (t) {
-        window.open('./detail.html?' + this.newList[t].num_iid)
+        window.open('./detail.html?' + this.newList[t].id)
       },
       _more () {
         window.open('./sellerAllProduct.html?store_id=' + this.store_id)
@@ -598,18 +597,17 @@
           for(var i = 0;i < ret.data.sku_props.length;i++){
             var diff = ret.data.sku_props[i].sku_prop_vals;
             if(ret.data.sku_props[i].prop_name == "颜色" || ret.data.sku_props[i].prop_name == "颜色分类" || ret.data.sku_props[i].prop_name == "主要颜色"){
-                for(var j = 0 ;j < diff.length;j++){
-                  for(var k = 0;k < this.colorItem.length; k++){
-                    if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
-                      this.colorItem[k].tit = diff[j].name
-                      break;
-                    }
-                  }                
-                  if(k == this.colorItem.length){
-                    this.colorItem.push({'tit':diff[j].name})
-                  }               
-                }
-              
+              for(var j = 0 ;j < diff.length;j++){
+                for(var k = 0;k < this.colorItem.length; k++){
+                  if(this.colorItem[k].properties && this.colorItem[k].properties.split(':')[1] == diff[j].value_id){
+                    this.colorItem[k].tit = diff[j].name
+                    break;
+                  }
+                }                
+                if(k == this.colorItem.length){
+                  this.colorItem.push({'tit':diff[j].name})
+                }               
+              }
             }
             else{
               for(var j = 0 ;j < diff.length;j++){
@@ -617,7 +615,7 @@
               }
             }
           }
-          console.log(this.$nextTick(function(){
+          this.$nextTick(function(){
             var w = 0
             var descWidth = parseFloat($('.desc-color').css('width'))
             var colorWidth = parseFloat($('.desc-color>div:first-child').css('width'))
@@ -627,7 +625,7 @@
             $('.desc-color>div:last-child').css('width', descWidth - w -20 + 'px')
             $('.desc-size>div:first-child').css('width', w + 'px')
             $('.desc-size>div:last-child').css('width', descWidth - w -20 + 'px')
-          }))
+          })
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')
           if(props_name.length % 3){

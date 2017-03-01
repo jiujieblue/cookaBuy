@@ -9,23 +9,23 @@
 			</span>
 		</div>
 		<div class="receiptinfo-box-addr">
-      <div :class="{'da_active' : default_addr == addrIndex}" v-on:click="DefaultAddr($event)" :data-id="addrIndex" v-for="(addrItem, addrIndex) in this.data">
-        <i :class="{'icon-dibiao' : default_addr == addrIndex}"></i>
-        <input v-bind:id="addrIndex" name="radio" type="radio">
-        <label v-bind:for="addrIndex">
-          <span>{{addrItem.state}}</span>
-          <span>{{addrItem.city}}</span>
-          <span>{{addrItem.area}}</span>
-          <span>{{addrItem.address}}</span>
-          <span>{{addrItem.zipcode}}</span>
-          <span>（{{addrItem.receiver_name}}收</span>
-          <span>{{addrItem.mobile}}</span>
-          <span>{{addrItem.phone}}）</span>
-          <span v-bind:style="{'display':default_addr == addrIndex?'inline-block':'none'}"><a href="#" @click="setaddr_default(addrIndex)">默认地址</a></span>
-          <span><a @click="openEditModal(addrIndex,addrItem.id,addrItem.state,addrItem.city,addrItem.area)">修改地址</a></span>
-          <span><a @click="openDelModal(addrIndex,addrItem.id)">删除</a></span>
-        </label>
-      </div>
+			<div :class="{'da_active' : default_addr == addrIndex}" v-on:click="DefaultAddr($event)" :data-id="addrIndex" v-for="(addrItem, addrIndex) in this.data">
+				<i :class="{'icon-dibiao' : default_addr == addrIndex}"></i>
+				<input v-bind:id="addrIndex" name="radio" type="radio">
+				<label v-bind:for="addrIndex">
+		 			<span>{{addrItem.state}}</span>
+		 			<span>{{addrItem.city}}</span>
+		 			<span>{{addrItem.area}}</span>
+		 			<span>{{addrItem.address}}</span>
+		 			<span>{{addrItem.zipcode}}</span>
+		 			<span>（{{addrItem.receiver_name}}收</span>
+		 			<span>{{addrItem.mobile}}</span>
+		 			<span>{{addrItem.phone}}）</span>
+		 			<span v-bind:style="{'display':default_addr == addrIndex?'inline-block':'none'}"><a href="#" @click="setaddr_default(addrIndex)">默认地址</a></span>
+		 			<span><a @click="openEditModal(addrIndex,addrItem.id,addrItem.state,addrItem.city,addrItem.area)">修改地址</a></span>
+		 			<span><a @click="openDelModal(addrIndex,addrItem.id)">删除</a></span>
+				</label>
+			</div>
 			<!--<div :class="{'da_active' : default_addr == 0}" v-on:click="DefaultAddr($event)" data-id="0">
 				<i :class="{'icon-dibiao' : default_addr == 0}"></i>
 				<input id="1" name="radio" type="radio">
@@ -264,22 +264,22 @@ export default{
 			default_addr: true,
 			showDelModal: false,
 			showEditAddrModal: false,
-	        data:[],
-	        add_index: Number,
-	        addr_id: Number,
-	        states:[],
-	        cities:[],
-	        areas:[],
-	        default_stateId:'',
-	        default_cityId:'',
-	        default_areaId:'',
-	        state:'',
-	        city:'',
-	        area:'',
-	        zipcode:'',
-	        receiver_name:'',
-	        mobile:'',
-	        phone:''
+			data:[],
+			add_index: Number,
+			addr_id: Number,
+			states:[],
+			cities:[],
+			areas:[],
+			default_stateId:'',
+			default_cityId:'',
+			default_areaId:'',
+			state:'',
+			city:'',
+			area:'',
+			zipcode:'',
+			receiver_name:'',
+			mobile:'',
+			phone:''
 		}
 	},
 	components:{

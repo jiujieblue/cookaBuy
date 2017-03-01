@@ -109,7 +109,7 @@
 <template>
 	<div id="sellerClaimResults">
 			<div class="sellerClaimResults-details">
-				<sellerClaimStatus :status="2"></sellerClaimStatus>
+				<sellerClaimStatus :status="3"></sellerClaimStatus>
 				<div class="sellerClaimResults-details-situation">
 					<p>您已申请认领店铺：</p>
 					<div>

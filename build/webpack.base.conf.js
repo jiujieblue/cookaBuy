@@ -9,6 +9,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
+    'module/register': './src/module/register/register.js',
+    'module/login': './src/module/login/login.js',
     'module/index': './src/module/index/index.js',
     'module/hotSale': './src/module/hotSale/hotSale.js',
     'module/visitingMarket': './src/module/visitingMarket/visitingMarket.js',

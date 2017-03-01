@@ -183,16 +183,16 @@
 				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].store.id)
 			},
 			_toSliderDetail(t){
-				window.open("./detail.html?"+this.sliderData[t].num_iid)
+				window.open("./detail.html?"+this.sliderData[t].id)
 			},
 			_toRightDetail(t){
-				window.open("./detail.html?"+this.rightData[t].num_iid)
+				window.open("./detail.html?"+this.rightData[t].id)
 			},
 			_toGirlDetail(t){
-				window.open("./detail.html?"+this.girlData[t].num_iid)
+				window.open("./detail.html?"+this.girlData[t].id)
 			},
 			_toBoyDetail(t){
-				window.open("./detail.html?"+this.boyData[t].num_iid)
+				window.open("./detail.html?"+this.boyData[t].id)
 			}
 		},
 		mounted(){

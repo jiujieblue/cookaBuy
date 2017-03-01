@@ -160,7 +160,7 @@
 						>div{
 							float: left;
 							position: relative;
-							input{
+							>input{
 								&:first-child{
 									position: absolute;
 									width: 15px;
@@ -168,6 +168,18 @@
 									margin-top: 7px;
 									z-index: 10;
 									opacity: 0;
+								}
+							}
+							>div{
+								>input{
+									&:first-child{
+										position: absolute;
+										width: 15px;
+										height: 16px;
+										margin-top: 7px;
+										z-index: 10;
+										opacity: 0;
+									}
 								}
 							}
 							link{
@@ -772,7 +784,9 @@
 		<div class="sellerClaimSubData-sub">
 			<button>提<span class="em"></span>交</button>
 		</div>
-		<modal v-show="showModal.addModal" @changeImg="_changeImg" @closeModal='_closeModal'></modal>
+		<modal v-show="showModal.addModal" @changeImg="_changeImg" @closeModal='_closeModal'>
+			
+		</modal>
 		<div class="sellerClaimSubData-plusModal">
 			<modal v-show="showModal.plusModal" @closeModal='_closeModal' :isHeader="false">
 				<div slot="body">
@@ -942,7 +956,6 @@
 	  			this.img.img = imgkey
 		  		this.imgURL.img = imgkey
 	  			this.delImg = this.img[imgkey]
-	  			console.log(4)
 	  		}
 	  	},
 	  	_phoneYZ (e) {
