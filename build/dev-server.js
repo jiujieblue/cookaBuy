@@ -235,11 +235,25 @@ var proxyTable = {
       '^/api/categories':'/api/categories'
     }
   },
+  '/api/cats':{
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/cats':'/api/cats'
+    }
+  },
   'api/index':{
     target: 'http://119.29.224.238',
     changeOrigin: true,
     pathRewrite: {
       '^/api/index':'/api/index'
+    }
+  },
+  'api/recommends':{
+    target:'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/recommends':'/api/recommends'
     }
   }
 }

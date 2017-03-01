@@ -52,7 +52,7 @@
 								<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
 										<!-- Indicators -->
 									<ol class="carousel-indicators">
-										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
+										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" :data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
 										<!-- <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
@@ -60,8 +60,8 @@
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div :class="adsIndex? 'item':'item active'" @click="_goMore('#')" v-for="(adsItem, adsIndex) in ads">
-											<img :src="adsItem.pic_url" alt="adsItem.tip">
+										<div :class="adsIndex? 'item':'item active'" @click="_goMore(adsItem.tip)" v-for="(adsItem, adsIndex) in ads">
+											<img :src="adsItem.pic_url" :title="adsItem.tip" alt="adsItem.tip">
 										</div>
 										<!-- <div class="item active" @click="_goMore('女外套')">
 											<img src="../../assets/images/nvwaitao.jpg" alt="...">
@@ -194,7 +194,7 @@
 				                      {{storesItem.store_name}}
 				                    </div>
 				                    <div class="index-store-market">
-				                      {{storesItem.market}} {{storesItem.location}}
+				                      {{storesItem.location}}
 				                    </div>
 
 				                    <a class="index-store-link" @click="_toStore(storesIndex)">
