@@ -71,7 +71,7 @@
     }
     .carousel-inner{
       cursor: pointer;
-      height: 335px;
+      height: 100%;
     }
     &-item {
       > a {
@@ -238,7 +238,6 @@
       cursor: pointer;
       > img {
         width: 100%;
-        height: 267px;
       }
     }
 
@@ -264,6 +263,12 @@
     }
 
     &-store {
+      display: block;
+      float: left;
+      width: 80px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       color: #aaa;
       &:hover,
       &:focus,
@@ -275,6 +280,11 @@
     &-market {
       float: right;
       color: #a89d99;
+      width: 130px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: right;
     }
   }
 
@@ -380,6 +390,7 @@
         float: left;
         .index-product {
           width: 25%;
+          height: 319px;
         }
       }
       .right{
@@ -389,7 +400,7 @@
         width: 19.8%;
         float: right;
         .carousel{
-          margin: 13px 16px;
+          margin: 15px 16px;
           ul,li{
             list-style: none;
             margin: 0px;
@@ -463,8 +474,9 @@
           position: relative;
           &-link{
             overflow: hidden;
+            width: 230px;
+            height: 230px;
             img{
-              height: 230px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
@@ -504,8 +516,9 @@
           position: relative;
           &-link{
             overflow: hidden;
+            height: 230px;
+            height: 230px;
             img{
-              height: 230px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
@@ -540,8 +553,9 @@
           position: relative;
           &-link{
             overflow: hidden;
+            width: 230px;
+            height: 230px;
             img{
-              height: 230px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
@@ -576,8 +590,9 @@
           position: relative;
           &-link{
             overflow: hidden;
+            width: 230px;
+            height: 230px;
             img{
-              height: 230px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
@@ -612,8 +627,9 @@
           position: relative;
           &-link{
             overflow: hidden;
+            width: 230px;
+            height: 230px;
             img{
-              height: 230px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
