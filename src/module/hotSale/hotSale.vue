@@ -176,28 +176,28 @@
 				}
 			},
 			_toSliderStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].item.store.id)
 			},
 			_toRightStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.rightData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.rightData[t].item.store.id)
 			},
 			_toGirlStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.girlData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.girlData[t].item.store.id)
 			},
 			_toBoyStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].item.store.id)
 			},
 			_toSliderDetail(t){
-				window.open("./detail.html?"+this.sliderData[t].id)
+				window.open("./detail.html?"+this.sliderData[t].item.id)
 			},
 			_toRightDetail(t){
-				window.open("./detail.html?"+this.rightData[t].id)
+				window.open("./detail.html?"+this.rightData[t].item.id)
 			},
 			_toGirlDetail(t){
-				window.open("./detail.html?"+this.girlData[t].id)
+				window.open("./detail.html?"+this.girlData[t].item.id)
 			},
 			_toBoyDetail(t){
-				window.open("./detail.html?"+this.boyData[t].id)
+				window.open("./detail.html?"+this.boyData[t].item.id)
 			}
 		},
 		mounted(){
