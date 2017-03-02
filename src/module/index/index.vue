@@ -60,7 +60,7 @@
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div :class="adsIndex? 'item':'item active'" @click="_goMore(adsItem.tip)" v-for="(adsItem, adsIndex) in ads">
+										<div :class="adsIndex? 'item':'item active'" v-for="(adsItem, adsIndex) in ads" @click="_goAdsMore(adsItem.activity_url)">
 											<img :src="adsItem.pic_url" :title="adsItem.tip" alt="adsItem.tip">
 										</div>
 										<!-- <div class="item active" @click="_goMore('女外套')">
@@ -145,7 +145,7 @@
 												{{productsItem.store&&productsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store&&productsItem.store.location}}
+												{{productsItem.store.location.split("-").splice(0,1).concat(productsItem.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -161,7 +161,7 @@
 														</div>
 														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store&&sideproductsItem.store.location}}
+														{{sideproductsItem.store.location.split("-").splice(0,1).concat(sideproductsItem.store.location.split("-").splice(2,2)).join("-")}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -322,7 +322,7 @@
 												{{girlsItem.store&&girlsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.store&&girlsItem.store.location}}
+												{{girlsItem.store.location.split("-").splice(0,1).concat(girlsItem.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -359,7 +359,7 @@
 												{{boysItem.store&&boysItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.store&&boysItem.store.location}}
+												{{boysItem.store.location.split("-").splice(0,1).concat(boysItem.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -396,7 +396,7 @@
 												{{maternitsItem.store&&maternitsItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.store&&maternitsItem.store.location}}
+												{{maternitsItem.store.location.split("-").splice(0,1).concat(maternitsItem.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -433,7 +433,7 @@
 												{{childrensItem.store&&childrensItem.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.store&&childrensItem.store.location}}
+												{{childrensItem.store.location.split("-").splice(0,1).concat(childrensItem.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -522,12 +522,12 @@ export default {
 				return parseInt(subTime/60/24/30) + '个月前'
 			}
 	    },
+	    _goAdsMore(url){
+	    	window.open(url)
+	    },
 		_goMore(str){
 			window.open("./search.html?q="+ str)
 		},
-		// _toReStore(sid){
-		// 	window.open("./sellerAllProduct.html?store_id="+ sid)
-		// },
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
 		},

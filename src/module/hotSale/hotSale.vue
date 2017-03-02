@@ -22,10 +22,6 @@
 													<p>¥{{sliderItem.price}}</p>
 													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</a></p>
 												</div>
-												<!-- <div>
-													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>
-													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
-												</div> -->
 											</swiper-slide>
 											<div class="swiper-pagination" slot="pagination"></div>
 										</swiper>
@@ -123,16 +119,16 @@
 		name:'carrousel',
 		data(){
 			return{
-	      isStore: false,
+	      		isStore: false,
 				swiperOption: {
-		          pagination: '.swiper-pagination',
-		          slidesPerView: 4,
-		          paginationClickable: true,
-		          spaceBetween: 10,
-		          freeMode: true,
-		          autoplay: 3000,
-		          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
+					pagination: '.swiper-pagination',
+					slidesPerView: 4,
+					paginationClickable: true,
+					spaceBetween: 10,
+					freeMode: true,
+					autoplay: 3000,
+					prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next'
 		        },
 		        sliderData:[],
 		        rightData:[],
