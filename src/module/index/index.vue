@@ -116,20 +116,20 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :title="productsItem.title" :src="productsItem.pic_url" />
+											<img :title="productsItem.item.title" :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{productsItem.price}}
+											¥ {{productsItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-shoucang" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toProStore(productsIndex)">
-												{{productsItem.store&&productsItem.store.store_name}}
+												{{productsItem.item.store&&productsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store.location.split("-").splice(0,1).concat(productsItem.store.location.split("-").splice(2,2)).join("-")}}
+												{{productsItem.item.store.location.split("-").splice(0,1).concat(productsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -141,11 +141,11 @@
 												<a>
 													<div class="product">
 														<div class="img">
-															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
+															<img :title="sideproductsItem.item.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
+														<a><span class="store">{{sideproductsItem.item.store&&sideproductsItem.item.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store.location.split("-").splice(0,1).concat(sideproductsItem.store.location.split("-").splice(2,2)).join("-")}}
+														{{sideproductsItem.item.store.location.split("-").splice(0,1).concat(sideproductsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -431,37 +431,37 @@ export default {
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
 		},
 		_toProStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.products[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.products[t].item.store.id)
 		},
 		_toGirlStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.girls[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.girls[t].item.store.id)
 		},
 		_toBoyStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.boys[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.boys[t].item.store.id)
 		},
 		_toMaternitStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.maternits[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.maternits[t].item.store.id)
 		},
 		_toChildrenStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].item.store.id)
 		},
 		_toRecommendDetail(t){
-			window.open("./detail.html?"+this.products[t].id)
+			window.open("./detail.html?"+this.products[t].item.id)
 		},
 		_toSideProductDetail(t){
-			window.open("./detail.html?"+this.sideproducts[t].id)
+			window.open("./detail.html?"+this.sideproducts[t].item.id)
 		},
 		_toGirlDetail(t){
-			window.open("./detail.html?"+this.girls[t].id)
+			window.open("./detail.html?"+this.girls[t].item.id)
 		},
 		_toBoyDetail(t){
-			window.open("./detail.html?"+this.boys[t].id)
+			window.open("./detail.html?"+this.boys[t].item.id)
 		},
 		_toMaternitDetail(t){
-			window.open("./detail.html?"+this.maternits[t].id)
+			window.open("./detail.html?"+this.maternits[t].item.id)
 		},
 		_toChildrenDetail(t){
-			window.open("./detail.html?"+this.childrens[t].id)
+			window.open("./detail.html?"+this.childrens[t].item.id)
 		}
 	},
 	mounted(){
