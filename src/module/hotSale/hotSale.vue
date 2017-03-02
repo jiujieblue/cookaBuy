@@ -17,10 +17,10 @@
 									<div class="myswiper">
 										<swiper :options="swiperOption">
 											<swiper-slide v-for="(sliderItem, sliderIndex) in sliderData">
-												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :alt="sliderItem.title"></a>
+												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :alt="sliderItem.item.title"></a>
 												<div>
-													<p>¥{{sliderItem.price}}</p>
-													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</a></p>
+													<p>¥{{sliderItem.item.price}}</p>
+													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.item.title}}</a></p>
 												</div>
 											</swiper-slide>
 											<div class="swiper-pagination" slot="pagination"></div>
@@ -38,14 +38,18 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
-											<li><img src="../../assets/images/hotsale_women.jpg"/></li>
+											<li>
+												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
+												<img :src="hotAds[1]&&hotAds[1].pic_url"/>
+											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
-													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :alt="girlItem.title" /></a>
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
-													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.title}}</a></span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.store.store_name}}</a></span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
+													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :alt="girlItem.item.title" /></a>
+													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.item.price}}</span>
+													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.item.title}}</a></span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.item.store.store_name}}</a></span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.item.store.market}}
+													{{girlItem.item.store.location.split("-").splice(0,1).concat(girlItem.item.store.location.split("-").splice(2,2)).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -60,14 +64,18 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
-											<li><img src="../../assets/images/hotsale_man.jpg"/></li>
+											<li>
+												<!-- <img src="../../assets/images/hotsale_man.jpg"/> -->
+												<img :src="hotAds[0]&&hotAds[0].pic_url"/>
+											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
-													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :alt="boyItem.title"/></a>
-													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
-													<span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.title}}</a></span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.store.store_name}}</a></span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
+													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :alt="boyItem.item.title"/></a>
+													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.item.price}}</span>
+													<span :title="boyItem.item.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.item.title}}</a></span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.item.store.store_name}}</a></span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.item.store.market}}
+													{{boyItem.item.store.location.split("-").splice(0,1).concat(boyItem.item.store.location.split("-").splice(2,2)).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -87,10 +95,10 @@
 										<li v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
-												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.title"/></a>
-												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
-												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.title}}</a></span>
-												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.store.store_name}}</a></span>
+												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.item.title"/></a>
+												<span class="hotsalepage-right-links-item-price">¥{{rightItem.item.price}}</span>
+												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.item.title}}</a></span>
+												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.item.store.store_name}}</a></span>
 											</div>
 										</li>
 									</ul>
@@ -133,7 +141,8 @@
 		        sliderData:[],
 		        rightData:[],
 		        girlData:[],
-		        boyData:[]
+		        boyData:[],
+		        hotAds:[]
 			}
 		},
 		components:{
@@ -192,53 +201,61 @@
 			}
 		},
 		mounted(){
-			this.$http.get('/api/recommends'+'?page_name=hot&location=top&page_size=8')
+			this.$http.get('/api/active_rec_items'+'?page_name=hot&location=top')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.sliderData = res.data.data
-		          for(var i = 0 ; i < this.sliderData.length ; i++){
-	             	this.sliderData[i].pic_url += '_250x250.jpg'
-	              }
+		          // for(var i = 0 ; i < this.sliderData.length ; i++){
+	           //   	this.sliderData[i].pic_url += '_250x250.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=public&location=right&page_size=5')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=public&location=right')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.rightData = res.data.data
-		          for(var i = 0 ; i < this.rightData.length ; i++){
-	             	this.rightData[i].pic_url += '_180x180.jpg'
-	              }
+		          // for(var i = 0 ; i < this.rightData.length ; i++){
+	           //   	this.rightData[i].pic_url += '_180x180.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=hot&location=girl&page_size=6')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=girl')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.girlData = res.data.data
-		          for(var i = 0 ; i < this.girlData.length ; i++){
-	             	this.girlData[i].pic_url += '_220x220.jpg'
-	              }
+		          // for(var i = 0 ; i < this.girlData.length ; i++){
+	           //   	this.girlData[i].pic_url += '_220x220.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=hot&location=boy&page_size=6')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=boy')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.boyData = res.data.data
-		          for(var i = 0 ; i < this.boyData.length ; i++){
-	             	this.boyData[i].pic_url += '_220x220.jpg'
-	              }
+		          // for(var i = 0 ; i < this.boyData.length ; i++){
+	           //   	this.boyData[i].pic_url += '_220x220.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
+	    	)
+	    	this.$http.get('/api/active_cookaads'+'?page_name=market')
+	    	.then(
+	    		function(res){
+	    			this.hotAds = res.data.data
+	    		},function(err){
+	    			console.log(err)
+	    		}
 	    	)
 		}
 	}
