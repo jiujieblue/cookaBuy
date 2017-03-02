@@ -57,18 +57,18 @@
 			    	<div class="search-product-left-succee-grid" v-if='isGridOrList == 0'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
-			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
+			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
-			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
+			    						<span>￥&nbsp;{{ hit._source.price}}</b>
 			    						<p style="display:none">
 			    							<span rel="stylesheet" class="icon-liulan"></span>150
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.id" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
 			    						<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
@@ -82,12 +82,12 @@
 			    	<div class="search-product-left-succee-list" v-if='isGridOrList == 1'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
-			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
+			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
 			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul>
 			    					<li>
-			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a :href="'./detail.html?' + hit._source.id" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
 				    					<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
@@ -95,7 +95,7 @@
 			    					</li>
 			    				</ul>
 			    				<ul>
-			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
+			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
 			    					<li style="display:none">预留图片</li>
 			    				</ul>
 			    			</li>
@@ -122,12 +122,12 @@
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
 	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
-	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    				<a :href="'./detail.html?'+hot.id" target="_blank">
 		    				<img :src="hot.pic_url+'_180x180.jpg'" :alt="hot.title" :title="hot.title">
 		    			</a>
-	    				<span>￥{{ _priceEtc(hot.price) }}</span>
+	    				<span>￥{{ hot.price }}</span>
 	    				<p>
-	    					<a class="ie-11-a" :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-a" :href="'./detail.html?'+hot.id" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</p>
@@ -153,13 +153,13 @@
       	
       	<Slide :slideData="slideData">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
-      			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
+      			<a :href="'./detail.html?'+hot.id" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
 	    			</a>
 	    			<ul>
-	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
+	    				<li><span>￥{{ hot.price }}</span></li>
 	    				<li>
-	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.num_iid" target="_blank">
+	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.id" target="_blank">
 	    						{{ hot.title }}
 	    					</a>
 	    				</li>
@@ -317,6 +317,7 @@
 	  	}
 	  	if(this.keyword){
 	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  		console.log(hrefUrlStr)
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
