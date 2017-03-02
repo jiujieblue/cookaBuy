@@ -40,7 +40,7 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
-												<img :src="hotAds[1]&&hotAds[1].pic_url"/>
+												<img :src="hotAds[1]&&hotAds[1].pic_url" :title="hotAds[1]&&hotAds[1].tip" :alt="hotAds[1]&&hotAds[1].tip"/>
 											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
@@ -66,7 +66,7 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_man.jpg"/> -->
-												<img :src="hotAds[0]&&hotAds[0].pic_url"/>
+												<img :src="hotAds[0]&&hotAds[0].pic_url" :title="hotAds[0]&&hotAds[0].tip" :alt="hotAds[0]&&hotAds[0].tip"/>
 											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
