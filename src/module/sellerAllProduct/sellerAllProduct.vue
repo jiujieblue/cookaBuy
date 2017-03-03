@@ -31,14 +31,12 @@
 	</div> -->
 	<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
 	<div class="container sellerAllProduct-sellerInfo">
+		<p>
+			<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
+		</p>
 		<ul>
 			<li>
-				<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
-			</li>
-			<li>
 				<a :href="'./sellerAllProduct.html?store_id='+store_id">{{ storesInfo && storesInfo.store_name }}</a>
-			</li>
-			<li>
 				<button @click="subStor">+关注本店</button>
 			</li>
 			<li>
