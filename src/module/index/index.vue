@@ -510,7 +510,7 @@ export default {
 
 				//this.products = res.data.left 
 				if(res.data.left){
-					this.products = res.data.left // 左边
+					this.products = res.data.new_left// 左边
 					// for(var i = 0 ; i < this.products.length ; i++){
 					// 	this.products[i].pic_url += '_210x210.jpg'
 					// }
@@ -518,7 +518,7 @@ export default {
 
 				//this.sideproducts = res.data.right
 				if(res.data.right){	
-					this.sideproducts = res.data.right // 右边
+					this.sideproducts = res.data.new_right // 右边
 					// for(var i = 0 ; i < this.sideproducts.length ; i++){
 					// 	this.sideproducts[i].pic_url += '_80x80.jpg'
 					// }
