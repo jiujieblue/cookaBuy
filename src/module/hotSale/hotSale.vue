@@ -17,7 +17,7 @@
 									<div class="myswiper">
 										<swiper :options="swiperOption">
 											<swiper-slide v-for="(sliderItem, sliderIndex) in sliderData">
-												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :alt="sliderItem.item.title"></a>
+												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :title="sliderItem.item.title" :alt="sliderItem.item.title"></a>
 												<div>
 													<p>¥{{sliderItem.item.price}}</p>
 													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.item.title}}</a></p>
