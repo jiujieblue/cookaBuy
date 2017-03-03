@@ -573,7 +573,10 @@
 					color: #a89d99;
 					a, span{
 						width: 45%;
-				  	white-space: nowrap;
+				    text-overflow: ellipsis;
+				    -webkit-box-orient: vertical;
+				    -webkit-line-clamp: 1;
+				    display: -webkit-box;
 				    overflow: hidden;
 					}
 					a{
@@ -581,6 +584,7 @@
 					}
 					span{
 						float: right;
+						text-align: right;
 					}
 					width: 90%;
 					position: absolute;
