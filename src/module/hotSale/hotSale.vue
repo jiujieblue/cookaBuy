@@ -40,8 +40,8 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
-												<a @click="_goAct(hotAds[1].activity_url)">
-													<img :src="hotAds[1]&&hotAds[1].pic_url" :title="hotAds[1]&&hotAds[1].tip" :alt="hotAds[1]&&hotAds[1].tip"/>
+												<a @click="_goAct(hotGirlAds[1].activity_url)">
+													<img :src="hotGirlAds[1]&&hotGirlAds[1].pic_url" :title="hotGirlAds[1]&&hotGirlAds[1].tip" :alt="hotGirlAds[1]&&hotGirlAds[1].tip"/>
 												</a>
 											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
@@ -68,8 +68,8 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_man.jpg"/> -->
-												<a @click="_goAct(hotAds[0].activity_url)">
-													<img :src="hotAds[0]&&hotAds[0].pic_url" :title="hotAds[0]&&hotAds[0].tip" :alt="hotAds[0]&&hotAds[0].tip"/>
+												<a @click="_goAct(hotBoyAds[0].activity_url)">
+													<img :src="hotBoyAds[0]&&hotBoyAds[0].pic_url" :title="hotBoyAds[0]&&hotBoyAds[0].tip" :alt="hotBoyAds[0]&&hotBoyAds[0].tip"/>
 												</a>
 											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
@@ -147,7 +147,8 @@
 		        rightData:[],
 		        girlData:[],
 		        boyData:[],
-		        hotAds:[]
+		        hotGirlAds:[],
+		        hotBoyAds:[]
 			}
 		},
 		components:{
@@ -257,10 +258,18 @@
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/active_cookaads'+'?page_name=market')
+	    	this.$http.get('/api/active_cookaads'+'?page_name=hot&&location=girl')
 	    	.then(
 	    		function(res){
-	    			this.hotAds = res.data.data
+	    			this.hotGirlAds = res.data.data
+	    		},function(err){
+	    			console.log(err)
+	    		}
+	    	)
+	    	this.$http.get('/api/active_cookaads'+'?page_name=hot&&location=boy')
+	    	.then(
+	    		function(res){
+	    			this.hotBoyAds = res.data.data
 	    		},function(err){
 	    			console.log(err)
 	    		}
