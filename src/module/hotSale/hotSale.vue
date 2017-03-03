@@ -50,8 +50,8 @@
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.item.price}}</span>
 													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.item.title}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.item.store.store_name}}</a></span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.item.store.market}}
-													{{girlItem.item.store.location.split("-").splice(1,2).join("-")}}</span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanright">
+													{{girlItem.item.store.location.split("-").splice(0,1).concat(girlItem.item.store.location.split("-").splice(2,girlItem.item.store.location.split("-").length-2)).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -78,8 +78,9 @@
 													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.item.price}}</span>
 													<span :title="boyItem.item.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.item.title}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.item.store.store_name}}</a></span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.item.store.market}}
-													{{boyItem.item.store.location.split("-").splice(1,2).join("-")}}</span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanright">
+														{{boyItem.item.store.location.split("-").splice(0,1).concat(boyItem.item.store.location.split("-").splice(2,boyItem.item.store.location.split("-").length-2)).join("-")}}
+													</span>
 												</div>
 											</li>
 										</ul>
