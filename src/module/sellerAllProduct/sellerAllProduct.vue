@@ -29,7 +29,7 @@
 			</div>
 		</div>
 	</div> -->
-	<headerComponent pageName="indexPage" @subKeyword="_subkeyword"></headerComponent>
+	<headerComponent @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)" @subStor="_subStor"></headerComponent>
 	<div class="container sellerAllProduct-sellerInfo">
 		<p>
 			<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
@@ -188,7 +188,8 @@
 				isRequestReady: true,
 				isRequestYes: false,
 				isShowMore: false,
-				cid: ''
+				cid: '',
+				isStore: false
 	    }
 	  },
 	  updated () {
@@ -282,6 +283,13 @@
 	    })
 	  },
 	  methods : {
+	  	_subStor (n) {
+	  		if(n == 0){
+	  			this.isStore = false
+	  		}else{
+	  			this.isStore = true
+	  		}
+	  	},
 	  	_item_symbol (val) {
 	  		if(val.indexOf('#') == -1){
 	  			return val + '#'
@@ -444,23 +452,13 @@
 	  		}
 	  	},
 			// 搜索
-	  	_subkeyword (e,n) {
-	  		if(this.isDisabled){
-	  			return
+	  	_subkeyword (keyword) {
+	  		var keyStr = keyword && "?q=" + keyword
+	  		if(this.isStore){
+	  			window.location.href = './visitingMarket.html'+keyStr
+	  		}else{
+	  			window.location.href = './search.html?q='+ keyword +'&from=1'
 	  		}
-	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
-	  		var val = this.$refs.keyword.value
-	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
-	  		if(n && e.which != 13){
-	  			return
-	  		}
-	  		if(val.length >= 100){
-					return
-				}
-				val = encodeURIComponent(val)
-	  		val && (val = '&q='+ val)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
 	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {

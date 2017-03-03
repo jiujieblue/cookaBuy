@@ -151,7 +151,7 @@
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
-      	<Slide :slideData="slideData">
+      	<Slide :slideData="slideData" :isPropsMove="isPropsMove">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
       			<a :href="'./detail.html?'+hot.id" target="_blank">
 	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
@@ -249,14 +249,15 @@
   				num: 1,
   				moveTime: 2000,
   				marginR: 5,
-		  		isPropsMove: true,
 
   				parentReque: false
 		  	},
+		  	isPropsMove: false,
 	    }
 	  },
 	  mounted () {
 	  	var me = this
+
 	  	var hrefStr = window.location.href
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
@@ -317,7 +318,6 @@
 	  	}
 	  	if(this.keyword){
 	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
-	  		console.log(hrefUrlStr)
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
@@ -359,9 +359,10 @@
 	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.sentimentData = res.data
-	  		this.slideData.parentReque = true
 	  		if(res.data.data.length <= 5){
-	  			this.slideData.isPropsMove = false
+	  			this.isPropsMove = false
+	  		}else{
+	  			this.isPropsMove = true
 	  		}
 	  	},
 	  	function (res) {
