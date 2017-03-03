@@ -148,7 +148,7 @@
 														{{sideproductsItem.item.store.location.split("-").splice(0,1).concat(sideproductsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 														</div>
 														 <div class="time">
-														 {{_times(sideproductsItem.list_time)}}
+														 {{_times(sideproductsItem.item.list_time)}}
 														 </div>
 													</div>
 												</a>
