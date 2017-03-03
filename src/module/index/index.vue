@@ -53,28 +53,12 @@
 										<!-- Indicators -->
 									<ol class="carousel-indicators">
 										<li v-for="(adsItem, adsIndex) in ads" data-target="#carousel-example-generic" :data-slide-to="adsIndex" :class="adsIndex? '':'active'"></li>
-										<!-- <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li> -->
 									</ol>
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
-										<div :class="adsIndex? 'item':'item active'" @click="_goMore(adsItem.tip)" v-for="(adsItem, adsIndex) in ads">
+										<div :class="adsIndex? 'item':'item active'" v-for="(adsItem, adsIndex) in ads" @click="_goAdsMore(adsItem.activity_url)">
 											<img :src="adsItem.pic_url" :title="adsItem.tip" alt="adsItem.tip">
 										</div>
-										<!-- <div class="item active" @click="_goMore('女外套')">
-											<img src="../../assets/images/nvwaitao.jpg" alt="...">
-										</div>
-										<div class="item" @click="_goMore('男装卫衣')">
-											<img src="../../assets/images/indexBanner01.jpg" alt="...">
-										</div>
-										<div class="item" @click="_goMore('男装外套')">
-											<img src="../../assets/images/indexBanner02.jpg" alt="...">
-										</div>
-										<div class="item" @click="_goMore('女装针织毛衣')">
-											<img src="../../assets/images/indexBanner03.jpg" alt="...">
-										</div> -->
 									</div>
 									<!-- Controls -->
 									<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -132,20 +116,20 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :title="productsItem.title" :src="productsItem.pic_url" />
+											<img :title="productsItem.item.title" :src="productsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{productsItem.price}}
+											¥ {{productsItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-shoucang" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toProStore(productsIndex)">
-												{{productsItem.store&&productsItem.store.store_name}}
+												{{productsItem.item.store&&productsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{productsItem.store&&productsItem.store.location}}
+												{{productsItem.item.store.location.split("-").splice(0,1).concat(productsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -157,11 +141,11 @@
 												<a>
 													<div class="product">
 														<div class="img">
-															<img :title="sideproductsItem.title" :src="sideproductsItem.pic_url">
+															<img :title="sideproductsItem.item.title" :src="sideproductsItem.pic_url">
 														</div>
-														<a><span class="store">{{sideproductsItem.store&&sideproductsItem.store.store_name}}</span></a>
+														<a><span class="store">{{sideproductsItem.item.store&&sideproductsItem.item.store.store_name}}</span></a>
 														<div class="extra">
-														{{sideproductsItem.store&&sideproductsItem.store.location}}
+														{{sideproductsItem.item.store.location.split("-").splice(0,1).concat(sideproductsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 														</div>
 														 <div class="time">
 														 {{_times(sideproductsItem.list_time)}}
@@ -205,91 +189,6 @@
 				                    <img :src="storesItem.pic_url" />
 				                  </a>
 				                </div>
-				                <!-- <div class="index-store">
-				                  <div class="index-store-info">
-				                    <div class="index-store-name">
-				                      时尚芭拉
-				                    </div>
-				                    <div class="index-store-market">
-				                      大西豪 3F-309
-				                    </div>
-
-				                    <a class="index-store-link" @click="_toReStore(691)">
-				                      进店逛逛
-				                    </a>
-				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(691)">
-				                    <img src="../../assets/images/bala_3F_309.jpg" />
-				                  </a>
-				                </div>
-				                <div class="index-store">
-				                  <div class="index-store-info">
-				                    <div class="index-store-name">
-				                     柚儿韩国站2店
-				                    </div>
-				                    <div class="index-store-market">
-				                      大西豪 2F-217
-				                    </div>
-
-				                    <a class="index-store-link" @click="_toReStore(254)">
-				                      进店逛逛
-				                    </a>
-				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(254)">
-				                    <img src="../../assets/images/youer_2F_217_B.jpg" />
-				                  </a>
-				                </div>
-				                <div class="index-store">
-				                  <div class="index-store-info">
-				                    <div class="index-store-name">
-				                     洋气de店
-				                    </div>
-				                    <div class="index-store-market">
-				                      大西豪 3F-302
-				                    </div>
-
-				                    <a class="index-store-link" @click="_toReStore(386)">
-				                      进店逛逛
-				                    </a>
-				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(386)">
-				                    <img src="../../assets/images/yangqi_3F_302_B1.jpg"/>
-				                  </a>
-				                </div>
-				                <div class="index-store">
-				                  <div class="index-store-info">
-				                    <div class="index-store-name">
-				                     米莎服饰
-				                    </div>
-				                    <div class="index-store-market">
-				                      大西豪 6F-601B-1
-				                    </div>
-
-				                    <a class="index-store-link" @click="_toReStore(533)">
-				                      进店逛逛
-				                    </a>
-				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(533)">
-				                    <img src="../../assets/images/misha_6F_601B_1.jpg" />
-				                  </a>
-				                </div> 
-				                <div class="index-store">
-				                  <div class="index-store-info">
-				                    <div class="index-store-name">
-				                     红叶网络服饰
-				                    </div>
-				                    <div class="index-store-market">
-				                      大西豪 4F-409
-				                    </div>
-
-				                    <a class="index-store-link" @click="_toReStore(653)">
-				                      进店逛逛
-				                    </a>
-				                  </div>
-				                  <a class="index-store-product" @click="_toReStore(653)">
-				                    <img src="../../assets/images/hongye_4F_409.jpg" />
-				                  </a>
-				                </div>-->
 							</div>
 						</div>
 						<!-- girl -->
@@ -312,17 +211,17 @@
 											<img :title="girlsItem.title" :src="girlsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{girlsItem.price}}
+											¥ {{girlsItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toGirlStore(girlsIndex)">
-												{{girlsItem.store&&girlsItem.store.store_name}}
+												{{girlsItem.item.store&&girlsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.store&&girlsItem.store.location}}
+												{{girlsItem.item.store.location.split("-").splice(0,1).concat(girlsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -346,20 +245,20 @@
 								<div class="left">
 									<div class="index-product" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
-											<img :title="boysItem.title" :src="boysItem.pic_url" />
+											<img :title="boysItem.item.title" :src="boysItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{boysItem.price}}
+											¥ {{boysItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toBoyStore(boysIndex)">
-												{{boysItem.store&&boysItem.store.store_name}}
+												{{boysItem.item.store&&boysItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.store&&boysItem.store.location}}
+												{{boysItem.item.store.location.split("-").splice(0,1).concat(boysItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -386,17 +285,17 @@
 											<img :title="maternitsItem.title" :src="maternitsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{maternitsItem.price}}
+											¥ {{maternitsItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toMaternitStore(maternitsIndex)">
-												{{maternitsItem.store&&maternitsItem.store.store_name}}
+												{{maternitsItem.item.store&&maternitsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.store&&maternitsItem.store.location}}
+												{{maternitsItem.item.store.location.split("-").splice(0,1).concat(maternitsItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -423,17 +322,17 @@
 											<img :title="childrensItem.title" :src="childrensItem.pic_url" />
 										</a>
 										<div class="index-product-price">
-											¥ {{childrensItem.price}}
+											¥ {{childrensItem.item.price}}
 											<a class="index-product-fav" title="收藏商品" style="display:none">
 												<span class="icon-jiahao" />
 											</a>
 										</div>
 										<div class="index-product-extra">
 											<a class="index-product-store" @click="_toChildrenStore(childrensIndex)">
-												{{childrensItem.store&&childrensItem.store.store_name}}
+												{{childrensItem.item.store&&childrensItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.store&&childrensItem.store.location}}
+												{{childrensItem.item.store.location.split("-").splice(0,1).concat(childrensItem.item.store.location.split("-").splice(2,2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -522,47 +421,47 @@ export default {
 				return parseInt(subTime/60/24/30) + '个月前'
 			}
 	    },
+	    _goAdsMore(url){
+	    	window.open(url)
+	    },
 		_goMore(str){
 			window.open("./search.html?q="+ str)
 		},
-		// _toReStore(sid){
-		// 	window.open("./sellerAllProduct.html?store_id="+ sid)
-		// },
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
 		},
 		_toProStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.products[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.products[t].item.store.id)
 		},
 		_toGirlStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.girls[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.girls[t].item.store.id)
 		},
 		_toBoyStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.boys[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.boys[t].item.store.id)
 		},
 		_toMaternitStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.maternits[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.maternits[t].item.store.id)
 		},
 		_toChildrenStore(t){
-			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].store.id)
+			window.open("./sellerAllProduct.html?store_id="+this.childrens[t].item.store.id)
 		},
 		_toRecommendDetail(t){
-			window.open("./detail.html?"+this.products[t].id)
+			window.open("./detail.html?"+this.products[t].item.id)
 		},
 		_toSideProductDetail(t){
-			window.open("./detail.html?"+this.sideproducts[t].id)
+			window.open("./detail.html?"+this.sideproducts[t].item.id)
 		},
 		_toGirlDetail(t){
-			window.open("./detail.html?"+this.girls[t].id)
+			window.open("./detail.html?"+this.girls[t].item.id)
 		},
 		_toBoyDetail(t){
-			window.open("./detail.html?"+this.boys[t].id)
+			window.open("./detail.html?"+this.boys[t].item.id)
 		},
 		_toMaternitDetail(t){
-			window.open("./detail.html?"+this.maternits[t].id)
+			window.open("./detail.html?"+this.maternits[t].item.id)
 		},
 		_toChildrenDetail(t){
-			window.open("./detail.html?"+this.childrens[t].id)
+			window.open("./detail.html?"+this.childrens[t].item.id)
 		}
 	},
 	mounted(){
@@ -612,17 +511,17 @@ export default {
 				//this.products = res.data.left 
 				if(res.data.left){
 					this.products = res.data.left // 左边
-					for(var i = 0 ; i < this.products.length ; i++){
-						this.products[i].pic_url += '_210x210.jpg'
-					}
+					// for(var i = 0 ; i < this.products.length ; i++){
+					// 	this.products[i].pic_url += '_210x210.jpg'
+					// }
 				}
 
 				//this.sideproducts = res.data.right
 				if(res.data.right){	
 					this.sideproducts = res.data.right // 右边
-					for(var i = 0 ; i < this.sideproducts.length ; i++){
-						this.sideproducts[i].pic_url += '_80x80.jpg'
-					}
+					// for(var i = 0 ; i < this.sideproducts.length ; i++){
+					// 	this.sideproducts[i].pic_url += '_80x80.jpg'
+					// }
 				}
 
 				//this.recommend_data = res.data.stores
@@ -633,33 +532,33 @@ export default {
 				//this.girls = res.data.girl 
 				if(res.data.girl){
 					this.girls = res.data.girl // 女装
-					for(var i = 0 ; i < this.girls.length ; i++){
-						this.girls[i].pic_url += '_270x270.jpg'
-					}
+					// for(var i = 0 ; i < this.girls.length ; i++){
+					// 	this.girls[i].pic_url += '_270x270.jpg'
+					// }
 				}
 
 				//this.boys = res.data.boy
 				if(res.data.boy){
 					this.boys = res.data.boy //男装
-					for(var i = 0 ; i < this.boys.length ; i++){
-						this.boys[i].pic_url += '_270x270.jpg'
-					}
+					// for(var i = 0 ; i < this.boys.length ; i++){
+					// 	this.boys[i].pic_url += '_270x270.jpg'
+					// }
 				}
 
 				//this.maternits = res.data.maternit
 				if(res.data.maternit){
 					this.maternits = res.data.maternit //孕妇装
-					for(var i = 0 ; i < this.maternits.length ; i++){
-						this.maternits[i].pic_url += '_270x270.jpg'
-					}
+					// for(var i = 0 ; i < this.maternits.length ; i++){
+					// 	this.maternits[i].pic_url += '_270x270.jpg'
+					// }
 				}
 
 				//this.childrens = res.data.children
 				if(res.data.children){
 					this.childrens = res.data.children //童装
-					for(var i = 0 ; i < this.childrens.length ; i++){
-						this.childrens[i].pic_url += '_270x270.jpg'
-					}
+					// for(var i = 0 ; i < this.childrens.length ; i++){
+					// 	this.childrens[i].pic_url += '_270x270.jpg'
+					// }
 				}
 			},function(err){
 				console.log(err)

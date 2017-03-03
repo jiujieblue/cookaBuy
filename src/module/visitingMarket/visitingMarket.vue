@@ -762,18 +762,6 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
-			
-			// $('.swiper-container').hover(
-			// 		function(){
-			// 			$('.swiper-button-prev').css('left','0').fadeIn('slow')
-			// 			$('.swiper-button-next').css('right','0').fadeIn('slow')
-			// 		},
-			// 		function(){
-			// 			$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
-			// 			$('.swiper-button-next').css('right','-40px').fadeOut('slow')
-			// 		}
-			// 	)
-
 			$('.swiper-box-carousel').hover(
 				function(){
 					$('.icon-navqian').css('left','0').fadeIn('normal')
