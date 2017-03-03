@@ -836,7 +836,7 @@
 					}
 				)
 			}
-			this.$http.get('/api/active_cookaads'+'?page_name=rem_stroes')
+			this.$http.get('/api/active_cookaads'+'?page_name=market')
 			.then(
 				function(res){
 					this.storeAds = res.data.data

@@ -221,7 +221,7 @@
 												{{girlsItem.item.store&&girlsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{girlsItem.item.store.location.split("-").splice(0,1).concat(girlsItem.item.store.location.split("-").splice(2,2)).join("-")}}
+												{{girlsItem.item.store.location.split("-").splice(0,1).concat(girlsItem.item.store.location.split("-").splice(2,girlsItem.item.store.location.split("-").length-2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -258,7 +258,7 @@
 												{{boysItem.item.store&&boysItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{boysItem.item.store.location.split("-").splice(0,1).concat(boysItem.item.store.location.split("-").splice(2,2)).join("-")}}
+												{{boysItem.item.store.location.split("-").splice(0,1).concat(boysItem.item.store.location.split("-").splice(2,boysItem.item.store.location.split("-").length-2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -295,7 +295,7 @@
 												{{maternitsItem.item.store&&maternitsItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{maternitsItem.item.store.location.split("-").splice(0,1).concat(maternitsItem.item.store.location.split("-").splice(2,2)).join("-")}}
+												{{maternitsItem.item.store.location.split("-").splice(0,1).concat(maternitsItem.item.store.location.split("-").splice(2,maternitsItem.item.store.location.split("-").length-2)).join("-")}}
 											</span>
 										</div>
 									</div>
@@ -332,7 +332,7 @@
 												{{childrensItem.item.store&&childrensItem.item.store.store_name}}
 											</a>
 											<span class="index-product-market">
-												{{childrensItem.item.store.location.split("-").splice(0,1).concat(childrensItem.item.store.location.split("-").splice(2,2)).join("-")}}
+												{{childrensItem.item.store.location.split("-").splice(0,1).concat(childrensItem.item.store.location.split("-").splice(2,childrensItem.item.store.location.split("-").length-2)).join("-")}}
 											</span>
 										</div>
 									</div>
