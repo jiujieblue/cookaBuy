@@ -840,6 +840,7 @@
 			.then(
 				function(res){
 					this.storeAds = res.data.data
+					//console.log(this.storesAds)
 				},function(err){
 					console.log(err)
 				}
