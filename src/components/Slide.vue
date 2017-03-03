@@ -122,7 +122,6 @@ export default {
 	},
 	watch : {
 		isPropsMove : function(val, oldVal){
-			console.log(val +':'+ oldVal)
 			if(val){
 				this.autoMove()
 			}

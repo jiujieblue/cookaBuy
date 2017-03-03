@@ -155,7 +155,7 @@
       	<Slide :slideData="slideData" :isPropsMove="isPropsMove">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
       			<a :href="'./detail.html?'+hot.item.id" target="_blank">
-	    				<img :src="hot.item.pic_url" :alt="hot.item.title" :title="hot.item.title">
+	    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
 	    			</a>
 	    			<ul>
 	    				<li><span>￥{{ hot.item.price }}</span></li>
@@ -166,7 +166,7 @@
 	    				</li>
 	    				<li>
 	    					<a :href="'./sellerAllProduct.html?store_id='+hot.item.store.id" target="_blank">{{ hot.item.store.store_name }}</a>
-	    					<span>{{ hot.item.store.market }} {{ hot.item.store.store_number }}档</span>
+	    					<span>{{hot.item.store.location.split("-").splice(0,1).concat(hot.item.store.location.split("-").splice(2,hot.item.store.location.split("-").length-2)).join("-")}}档</span>
 	    				</li>
 	    			</ul>
       		</div>
