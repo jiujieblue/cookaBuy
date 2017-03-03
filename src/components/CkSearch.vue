@@ -3,9 +3,9 @@
 		<div class="ck-search-select">
 			<span>
 				<span class="ck-search-type" ref="type">{{ isStroe ? '店铺' :'商品'}}</span>
-				<link rel="stylesheet" :class="['icon-jiantoud', isShow ? 'active' : '']">
+				<link rel="stylesheet" :class="['icon-jiantoud', isShow ? 'active' : '']" v-show="isShowStroe">
 				<!-- 遮罩整个span -->
-				<i data_i="open" @click="_open"></i>
+				<i data_i="open" @click="_open" v-if="isShowStroe"></i>
 			</span>
 			<ul v-if="isShow">
 				<li @click="_sel($event, 0)">商品</li>
@@ -85,6 +85,9 @@ export default {
 		},
 		stroe: {
 			default: ''
+		},
+		isShowStroe: {
+			default: true
 		}
 	}
 }

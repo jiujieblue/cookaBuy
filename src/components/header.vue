@@ -46,7 +46,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<CkSearch :stroe="stroe" @subKeyword="_subkey" :keyword="keyword" @subStor="_subStor"></CkSearch>
+						<CkSearch :stroe="stroe" @subKeyword="_subkey" :keyword="keyword" @subStor="_subStor" :isShowStroe="isShowStroe"></CkSearch>
 					</div>
 				</div>
 			</div>
@@ -126,6 +126,9 @@ export default{
 		},
 		stroe: {
 			default: ''
+		},
+		isShowStroe: {
+			default: true
 		}
 	},
 	mounted(){
