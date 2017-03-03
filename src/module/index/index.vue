@@ -208,7 +208,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
-											<img :title="girlsItem.title" :src="girlsItem.pic_url" />
+											<img :title="girlsItem.item.title" :src="girlsItem.pic_url" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.item.price}}

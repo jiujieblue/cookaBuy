@@ -46,7 +46,7 @@
 											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
-													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :alt="girlItem.item.title" /></a>
+													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :title="girlItem.item.title" :alt="girlItem.item.title" /></a>
 													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.item.price}}</span>
 													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.item.title}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.item.store.store_name}}</a></span>
@@ -74,7 +74,7 @@
 											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
-													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :alt="boyItem.item.title"/></a>
+													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :title="boyItem.item.title" :alt="boyItem.item.title"/></a>
 													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.item.price}}</span>
 													<span :title="boyItem.item.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.item.title}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.item.store.store_name}}</a></span>
@@ -100,7 +100,7 @@
 										<li v-if="rightIndex < 8" v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
-												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.item.title"/></a>
+												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :title="rightItem.item.title" :alt="rightItem.item.title"/></a>
 												<span class="hotsalepage-right-links-item-price">¥{{rightItem.item.price}}</span>
 												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.item.title}}</a></span>
 												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.item.store.store_name}}</a></span>
