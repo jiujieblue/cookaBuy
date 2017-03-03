@@ -40,7 +40,9 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
-												<img :src="hotAds[1]&&hotAds[1].pic_url" :title="hotAds[1]&&hotAds[1].tip" :alt="hotAds[1]&&hotAds[1].tip"/>
+												<a @click="_goAct(hotAds[1].activity_url)">
+													<img :src="hotAds[1]&&hotAds[1].pic_url" :title="hotAds[1]&&hotAds[1].tip" :alt="hotAds[1]&&hotAds[1].tip"/>
+												</a>
 											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
@@ -66,7 +68,9 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_man.jpg"/> -->
-												<img :src="hotAds[0]&&hotAds[0].pic_url" :title="hotAds[0]&&hotAds[0].tip" :alt="hotAds[0]&&hotAds[0].tip"/>
+												<a @click="_goAct(hotAds[0].activity_url)">
+													<img :src="hotAds[0]&&hotAds[0].pic_url" :title="hotAds[0]&&hotAds[0].tip" :alt="hotAds[0]&&hotAds[0].tip"/>
+												</a>
 											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
@@ -92,7 +96,7 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li v-for="(rightItem, rightIndex) in rightData">
+										<li v-if="rightData.length > 5" v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
 												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.item.title"/></a>
@@ -152,18 +156,18 @@
 		},
 		methods:{
 			_subStor (n) {
-	  		if(n == 0){
-	  			this.isStore = false
-	  		}else{
-	  			this.isStore = true
-	  		}
-	  	},
+		  		if(n == 0){
+		  			this.isStore = false
+		  		}else{
+		  			this.isStore = true
+		  		}
+	  		},
 			_subkeyword(keyword){
 				if(this.isStore){
-	  			window.location.href = './visitingMarket.html?q='+keyword
-	  		}else{
-	  			window.location.href = './search.html?q='+ keyword +'&from=1'
-	  		}
+		  			window.location.href = './visitingMarket.html?q='+keyword
+		  		}else{
+		  			window.location.href = './search.html?q='+ keyword +'&from=1'
+		  		}
 			},
 			_reGirlCla (i) {
 				if(i > 1){
@@ -198,6 +202,9 @@
 			},
 			_toBoyDetail(t){
 				window.open("./detail.html?"+this.boyData[t].item.id)
+			},
+			_goAct(url){
+				window.open(url)
 			}
 		},
 		mounted(){
