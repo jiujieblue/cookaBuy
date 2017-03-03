@@ -51,7 +51,7 @@
 													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.item.title}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.item.store.store_name}}</a></span>
 													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.item.store.market}}
-													{{girlItem.item.store.location.split("-").splice(0,1).concat(girlItem.item.store.location.split("-").splice(2,2)).join("-")}}</span>
+													{{girlItem.item.store.location.split("-").splice(1,2).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -79,7 +79,7 @@
 													<span :title="boyItem.item.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.item.title}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.item.store.store_name}}</a></span>
 													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.item.store.market}}
-													{{boyItem.item.store.location.split("-").splice(0,1).concat(boyItem.item.store.location.split("-").splice(2,2)).join("-")}}</span>
+													{{boyItem.item.store.location.split("-").splice(1,2).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -96,7 +96,7 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li v-if="rightData.length > 5" v-for="(rightItem, rightIndex) in rightData">
+										<li v-if="rightIndex < 8" v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
 												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.item.title"/></a>
