@@ -29,7 +29,7 @@
 			</div>
 		</div>
 	</div> -->
-	<headerComponent @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)" @subStor="_subStor"></headerComponent>
+	<headerComponent @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)" :isShowStroe="isShowStroe"></headerComponent>
 	<div class="container sellerAllProduct-sellerInfo">
 		<p>
 			<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
@@ -37,7 +37,7 @@
 		<ul>
 			<li>
 				<a :href="'./sellerAllProduct.html?store_id='+store_id">{{ storesInfo && storesInfo.store_name }}</a>
-				<button @click="subStor">+关注本店</button>
+				<button @click="subStor" v-show="false">+关注本店</button>
 			</li>
 			<li>
 				<link rel="stylesheet" class="icon-dizhi">{{ storesInfo && storesInfo.location }}
@@ -99,7 +99,7 @@
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.id" target="_blank">
-    					<img :src="product.pic_url+'_200x200.jpg'" :alt="product.title" :title="product.title">
+    					<img :src="product.pic_url" :alt="product.title" :title="product.title">
     				</a>
     				<ul>
     					<li>
@@ -124,7 +124,7 @@
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.id" target="_blank">
-    					<img :src="showcase.pic_url+'_180x180.jpg'" :alt="showcase.title" :title="showcase.title"/>
+    					<img :src="showcase.pic_url" :alt="showcase.title" :title="showcase.title"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
@@ -189,7 +189,7 @@
 				isRequestYes: false,
 				isShowMore: false,
 				cid: '',
-				isStore: false
+				isShowStroe: false
 	    }
 	  },
 	  updated () {
@@ -283,13 +283,6 @@
 	    })
 	  },
 	  methods : {
-	  	_subStor (n) {
-	  		if(n == 0){
-	  			this.isStore = false
-	  		}else{
-	  			this.isStore = true
-	  		}
-	  	},
 	  	_item_symbol (val) {
 	  		if(val.indexOf('#') == -1){
 	  			return val + '#'
@@ -452,13 +445,27 @@
 	  		}
 	  	},
 			// 搜索
+	  	// _subkeyword (e,n) {
+	  	// 	if(this.isDisabled){
+	  	// 		return
+	  	// 	}
+	  	// 	var regH = /<[^>]*>/g
+	  	// 	var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
+	  	// 	var val = this.$refs.keyword.value
+	  	// 	val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
+	  	// 	if(n && e.which != 13){
+	  	// 		return
+	  	// 	}
+	  	// 	if(val.length >= 100){
+				// 	return
+				// }
+				// val = encodeURIComponent(val)
+	  	// 	val && (val = '&q='+ val)
+	  	// 	window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
+	  	// },
 	  	_subkeyword (keyword) {
-	  		var keyStr = keyword && "?q=" + keyword
-	  		if(this.isStore){
-	  			window.location.href = './visitingMarket.html'+keyStr
-	  		}else{
-	  			window.location.href = './search.html?q='+ keyword +'&from=1'
-	  		}
+	  		var keyStr = keyword && "&q=" + keyword
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+keyStr
 	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {

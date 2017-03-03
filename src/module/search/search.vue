@@ -58,7 +58,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" :alt="hit._source.title" :title="hit._source.title">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
@@ -83,7 +83,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
 			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" :alt="hit._source.title" :title="hit._source.title">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul>
 			    					<li>
@@ -118,20 +118,21 @@
 		    	</div>
 		    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
 	    	</div>
+	    	<!-- 热销商品 -->
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
-	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
-	    				<a :href="'./detail.html?'+hot.id" target="_blank">
-		    				<img :src="hot.pic_url+'_180x180.jpg'" :alt="hot.title" :title="hot.title">
+	    			<li v-for="(hot,index) in hotData.data">
+	    				<a :href="'./detail.html?'+hot.item.id" target="_blank">
+		    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
 		    			</a>
-	    				<span>￥{{ hot.price }}</span>
+	    				<span>￥{{ hot.item.price }}</span>
 	    				<p>
-	    					<a class="ie-11-a" :href="'./detail.html?'+hot.id" target="_blank">
-	    						{{ hot.title }}
+	    					<a class="ie-11-a" :href="'./detail.html?'+hot.item.id" target="_blank">
+	    						{{ hot.item.title }}
 	    					</a>
 	    				</p>
-	    				<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
+	    				<a :href="'./sellerAllProduct.html?store_id='+hot.item.store.id" target="_blank">{{ hot.item.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
@@ -153,19 +154,19 @@
       	
       	<Slide :slideData="slideData" :isPropsMove="isPropsMove">
       		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
-      			<a :href="'./detail.html?'+hot.id" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
+      			<a :href="'./detail.html?'+hot.item.id" target="_blank">
+	    				<img :src="hot.item.pic_url" :alt="hot.item.title" :title="hot.item.title">
 	    			</a>
 	    			<ul>
-	    				<li><span>￥{{ hot.price }}</span></li>
+	    				<li><span>￥{{ hot.item.price }}</span></li>
 	    				<li>
-	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.id" target="_blank">
-	    						{{ hot.title }}
+	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.item.id" target="_blank">
+	    						{{ hot.item.title }}
 	    					</a>
 	    				</li>
 	    				<li>
-	    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
-	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
+	    					<a :href="'./sellerAllProduct.html?store_id='+hot.item.store.id" target="_blank">{{ hot.item.store.store_name }}</a>
+	    					<span>{{ hot.item.store.market }} {{ hot.item.store.store_number }}档</span>
 	    				</li>
 	    			</ul>
       		</div>
@@ -348,7 +349,7 @@
 	  		this.isRequestYes = false
 	  	}
 	  	// 热销商品
-	  	this.$http.get('/api/recommends?page_name=public&location=right&page_size=10&page=1')
+	  	this.$http.get('/api/active_rec_items?page_name=public&location=right&page_size=6&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
 	  	},
@@ -356,7 +357,7 @@
 	  		console.log(res)
 	  	})
 	  	// 人气推荐商品
-	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
+	  	this.$http.get('/api/active_rec_items?page_name=public&location=bottom&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.sentimentData = res.data
 	  		if(res.data.data.length <= 5){
@@ -412,8 +413,8 @@
 	  	// 热销商品长度的控制
 	  	_hotLength (val) {
 	  		if(val){
-		  		if(val.length > 5){
-		  			return val.slice(0,5)
+		  		if(val.length > 6){
+		  			return val.slice(0,6)
 		  		}else{
 		  			return val
 		  		}
