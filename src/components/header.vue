@@ -110,8 +110,6 @@ export default{
 			$('.'+e.target.getAttribute('data_li')).addClass('active').siblings('.active').removeClass('active')
 		},
 		_cltwoover (e){
-			// $('.'+e.target.getAttribute('data_li')).prev().children('.icon-daohangonexianghou').removeClass('icon-daohangonexianghou')
-			// console.log($(e.target))
 			var tar = $(e.target)
 			if(tar.attr('data_li') === undefined){
 				tar = tar.parents('.header-category-lv-2')
