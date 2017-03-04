@@ -17,16 +17,17 @@
 	  				</span>
 	  			</li>
 	  		</ul>
+
 	  		<div v-if="isRequestYes">
 	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
 	  					<ul :ref="'aggregation'+index">
 	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets" v-if="_setKey(bucket.key)">
-	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}</span>
+	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}{{duoyu}}</span>
 	  						</li>
 	  					</ul>
-	  					{{ _isMore('aggregation'+index) }}
+	  					{{ _isMore('aggregation'+index) }}{{isMore['aggregation'+index]}}
 	  					<span v-if="isMore['aggregation'+index]" :class="{isMore : isShowMore}" @click="_moreClick($event, index)">更多</span>
 	  				</li>
 	  			</ul>
@@ -255,7 +256,18 @@
   				parentReque: false
 		  	},
 		  	isPropsMove: false,
+		  	duoyu: false
 	    }
+	  },
+	  // 组件加载完成之后
+	  updated () {
+	  	var me = this
+	  	for(var key in this.isMore){
+	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
+	  			this.$set(this.isMore, key, true)
+	  			console.log(this.isMore[key])
+	  		}
+	  	}
 	  },
 	  mounted () {
 	  	var me = this
@@ -309,6 +321,7 @@
 	  	// 获取page
 	  	this._aggUrl('page','&from',hrefStr)
 	  	this._aggUrl('cpath','&cpath',hrefStr)
+	  	this.cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
@@ -320,8 +333,7 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		var cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+cpath
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+this.cpath
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
@@ -373,15 +385,6 @@
 	  		console.log(res)
 	  	})
 
-	  },
-	  // 组件加载完成之后
-	  updated () {
-	  	var me = this
-	  	for(var key in this.isMore){
-	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
-	  			this.isMore[key] = true
-	  		}
-	  	}
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -522,7 +525,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl() + this.cpath
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -535,11 +538,11 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url + this.cpath
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -586,7 +589,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  		}
 	  		}
 	  	},
