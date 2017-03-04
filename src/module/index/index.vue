@@ -466,12 +466,29 @@ export default {
 	},
 	mounted(){
 
-		var as = $('.index-category-block a')
-		for(var i = 0; i < as.length;i++)
-			as[i].addEventListener('click',function(){
-			console.log($(this).html())
+		var as1 = $($('.index-category-block')[0]).find('a')
+		for(var i = 0; i < as1.length;i++)
+			as1[i].addEventListener('click',function(){
 			var str = $(this).html()
-			window.open("./search.html?q="+ str)
+			window.open("./search.html?q="+ str + '&cpath=16')
+		})
+		var as2 = $($('.index-category-block')[1]).find('a')
+		for(var i = 0; i < as2.length;i++)
+			as2[i].addEventListener('click',function(){
+			var str = $(this).html()
+			window.open("./search.html?q="+ str + '&cpath=30')
+		})
+		var as3 = $($('.index-category-block')[2]).find('a')
+		for(var i = 0; i < as3.length;i++)
+			as3[i].addEventListener('click',function(){
+			var str = $(this).html()
+			window.open("./search.html?q="+ str + '&cpath=50022517')
+		})
+		var as4 = $($('.index-category-block')[3]).find('a')
+		for(var i = 0; i < as4.length;i++)
+			as4[i].addEventListener('click',function(){
+			var str = $(this).html()
+			window.open("./search.html?q="+ str + '&cpath=50008165')
 		})
 		$('.index-carousel').hover(
 			function(){
