@@ -40,8 +40,8 @@
 										<ul>
 											<li>
 												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
-												<a @click="_goAct(hotGirlAds[1].activity_url)">
-													<img :src="hotGirlAds[1]&&hotGirlAds[1].pic_url" :title="hotGirlAds[1]&&hotGirlAds[1].tip" :alt="hotGirlAds[1]&&hotGirlAds[1].tip"/>
+												<a @click="_goAct(hotGirlAds[0].activity_url)">
+													<img :src="hotGirlAds[0]&&hotGirlAds[0].pic_url" :title="hotGirlAds[0]&&hotGirlAds[0].tip" :alt="hotGirlAds[0]&&hotGirlAds[0].tip"/>
 												</a>
 											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
@@ -97,7 +97,7 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li v-if="rightIndex < 8" v-for="(rightItem, rightIndex) in rightData">
+										<li v-if="rightIndex < 9" v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
 												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :title="rightItem.item.title" :alt="rightItem.item.title"/></a>
@@ -262,6 +262,7 @@
 	    	.then(
 	    		function(res){
 	    			this.hotGirlAds = res.data.data
+	    			console.log(this.hotGirlAds)
 	    		},function(err){
 	    			console.log(err)
 	    		}
