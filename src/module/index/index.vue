@@ -392,10 +392,10 @@ export default {
 	  	},
 		_subkeyword(keyword){
 			if(this.isStore){
-  			window.location.href = './visitingMarket.html?q='+keyword
-  		}else{
-  			window.location.href = './search.html?q='+ keyword +'&from=1'
-  		}
+	  			window.location.href = './visitingMarket.html?q='+keyword
+	  		}else{
+	  			window.location.href = './search.html?q='+ keyword +'&from=1'
+	  		}
 		},
 		_changePro(){
 			var p = this.products.splice(0,8)
@@ -500,20 +500,7 @@ export default {
 				$('.icon-xianghou').css('right','-50px').fadeOut('normal')
 			}
 		)
-		// this.$http.get('/api/recommend_stores')
-		// .then(
-		// 	function(res){
-		// 		//console.log(res.data.data)
-		// 		this.recommend_data = res.data.data
-		// 		console.log(res.data.data)
-	 //        	for (var i = 0 ; i < 5 ; i ++){
-	 //          		this.stores.push(this.recommend_data[i].store)
-	 //        	}
-		// 	},
-		// 	function(err){
-		// 		console.log(err)
-		// 	}
-		// )
+		
 		this.$http.get('/api/index')
 		.then(
 			function(res){
@@ -592,16 +579,6 @@ export default {
 			})
 	    },4000)
     	
-    	// this.$http.get('/api/bulletins'+'?type=0')
-    	// .then(
-     //    function(res){
-     //      //console.log(res)
-     //      this.announcements = res.data.data
-     //      //console.log(this.announcements)
-     //    },function(err){
-     //      console.log(err)
-     //    }
-     //  )
 	}
 }
 </script>
