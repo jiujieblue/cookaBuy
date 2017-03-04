@@ -244,7 +244,8 @@
 	      q: '',
 				// 轮播
 		    isStore: false,
-
+		    // 女装、男装、孕妇装、童装
+		    cpath: '',
 		    slideData: {
   				oneTime: '400ms',
   				num: 1,
@@ -307,6 +308,8 @@
 	  	this._obtainLHPriceUrl('&high_price',hrefStr)
 	  	// 获取page
 	  	this._aggUrl('page','&from',hrefStr)
+	  	this._aggUrl('cpath','&cpath',hrefStr)
+	  	console.log(this.cpath)
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
@@ -318,7 +321,7 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+'&cpath='+this.cpath
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
@@ -436,7 +439,7 @@
 	  	_aggUrl (str1, str2, hrefStr) {
 	  		var i = hrefStr.indexOf(str2)
 	  		if(i != -1){
-	  			if(str2 == '&from'){
+	  			if(str2 == '&from' || str2 == '&cpath'){
 		  			var urlStr = hrefStr.slice(i+1)
 		  			if((i = urlStr.indexOf('&')) != -1){
 		  				urlStr = urlStr.slice(0,i)
