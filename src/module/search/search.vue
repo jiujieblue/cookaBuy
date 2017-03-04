@@ -309,7 +309,6 @@
 	  	// 获取page
 	  	this._aggUrl('page','&from',hrefStr)
 	  	this._aggUrl('cpath','&cpath',hrefStr)
-	  	console.log(this.cpath)
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
@@ -321,7 +320,8 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+'&cpath='+this.cpath
+	  		var cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+cpath
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
