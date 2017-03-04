@@ -59,9 +59,9 @@
 					<ul class="header-category-lv-1">
 						<li @mouseover="_liover" :class="'li'+daohangoneIndex" v-for="(daohangoneItem, daohangoneIndex) in daohangone">
 							<a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangoneItem.name)"><span :class="{'icon-nanz':daohangoneItem.name=='男装','icon-nz':daohangoneItem.name=='女装','icon-yunfuz':daohangoneItem.name=='孕妇装','icon-tz':daohangoneItem.name=='童装'}" />{{daohangoneItem.name}}<span class="icon-xianghou"/></a>
-							<ul :data_li="'li'+daohangoneIndex" class="header-category-lv-2">
+							<ul @mouseover="_cltwoover" :data_li="'li'+daohangoneIndex" class="header-category-lv-2">
 								<li :data_li="'li'+daohangoneIndex" v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
-									<span class="line">-</span>
+									<span class="line"></span>
 									<a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
 									<ul :data_li="'li'+daohangoneIndex" class="header-category-lv-3">
 										<li :data_li="'li'+daohangoneIndex" v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.links"><a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangthreeItem.alias)">{{daohangthreeItem.alias}}</a></li>
@@ -104,9 +104,11 @@ export default{
 	},
 	methods: {
 		_liover (e) {
-			//console.log(e.target.getAttribute('data_li'))
 			$('.'+e.target.getAttribute('data_li')).addClass('active').siblings('.active').removeClass('active')
 		},
+		// _cltwoover (e){
+		// 	$('.'+e.target.getAttribute('data_li')).prev().find('a span:last-child').removeClass('icon-xianghou')
+		// },
 		_subStor (n) {
 			this.$emit('subStor',n)
 		},
