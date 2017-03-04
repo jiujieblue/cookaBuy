@@ -206,7 +206,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(girlsItem, girlsIndex) in girls" >
+									<div class="index-product" v-if="girlsIndex < 10" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
 											<img :title="girlsItem.item.title" :src="girlsItem.pic_url" />
 										</a>
@@ -243,7 +243,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(boysItem, boysIndex) in boys" >
+									<div class="index-product" v-if="boysIndex < 10" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
 											<img :title="boysItem.item.title" :src="boysItem.pic_url" />
 										</a>
@@ -280,7 +280,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(maternitsItem, maternitsIndex) in maternits" >
+									<div class="index-product" v-if="maternitsIndex < 10" v-for="(maternitsItem, maternitsIndex) in maternits" >
 										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
 											<img :title="maternitsItem.title" :src="maternitsItem.pic_url" />
 										</a>
@@ -317,7 +317,7 @@
 
 							<div class="index-block-body">
 								<div class="left">
-									<div class="index-product" v-for="(childrensItem, childrensIndex) in childrens" >
+									<div class="index-product" v-if="childrensIndex < 10" v-for="(childrensItem, childrensIndex) in childrens" >
 										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
 											<img :title="childrensItem.title" :src="childrensItem.pic_url" />
 										</a>
