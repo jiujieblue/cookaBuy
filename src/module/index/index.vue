@@ -405,7 +405,17 @@ export default {
 	    	window.open(url)
 	    },
 		_goMore(str){
-			window.open("./search.html?q="+ str)
+			var cpath = ''
+			if(str == '女装'){
+				cpath = '16'
+			}else if(str == '男装'){
+				cpath = '30'
+			}else if(str == '孕妇装'){
+				cpath = '50022517'
+			}else if(str == '童装'){
+				cpath = '50008165'
+			}
+			window.open("./search.html?q="+ str +'&cpath=' + cpath)
 		},
 		_toStore(t){
 			window.open("./sellerAllProduct.html?store_id="+this.stores[t].store_id)
