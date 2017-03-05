@@ -238,20 +238,7 @@
 
 	    	this.isRequestReady = false
 
-	    	// for(var i = 0;i < me.cats.length; i ++){
-	    	// 	if(!me.catsReal[me.cats[i].name]){
-	    	// 		me.catsReal[me.cats[i].name] = {}
-	    	// 		me.catsReal[me.cats[i].name].name = me.cats[i].name
-	    	// 		me.catsReal[me.cats[i].name].parent = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].name].cid = me.cats[i].cid
-	    	// 	}else{
-	    	// 		me.catsReal[me.cats[i].parent] = {}
-	    	// 		me.catsReal[me.cats[i].parent].name = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
-	    	// 		me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
-	    	// 	}
-	    	// }
+	    	
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
