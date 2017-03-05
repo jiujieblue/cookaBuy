@@ -57,17 +57,27 @@
 					<a href="#"> 全部商品分类 </a><span class="icon-daohangxianghou"/>
 
 					<ul class="header-category-lv-1">
+						<!-- @mouseover="_liover"-->
 						<li @mouseover="_liover" :class="'li'+daohangoneIndex" v-for="(daohangoneItem, daohangoneIndex) in daohangone">
-							<a :data_li="'li'+daohangoneIndex" @click="_goMore(daohangoneItem.name)">
-								<span :class="{'icon-nanz':daohangoneItem.name=='男装','icon-nz':daohangoneItem.name=='女装','icon-yunfuz':daohangoneItem.name=='孕妇装','icon-tz':daohangoneItem.name=='童装'}" />{{daohangoneItem.name}}
+							<a @click="_goMore(daohangoneItem.name)" :data_li="'li'+daohangoneIndex">
+								<span 
+									:class="{
+										'icon-nanz':daohangoneItem.name=='男装',
+										'icon-nz':daohangoneItem.name=='女装',
+										'icon-yunfuz':daohangoneItem.name=='孕妇装',
+										'icon-tz':daohangoneItem.name=='童装'
+									}" 
+								/>
+								{{daohangoneItem.name}}
 								<span class="icon-daohangonexianghou"/>
 							</a>
-							<ul @mouseover="_cltwoover" @mouseout="_cltwoout" :data_li="'li'+daohangoneIndex" class="header-category-lv-2">
+							<!-- @mouseover="_cltwoover" @mouseout="_cltwoout"-->
+							<ul :data_li="'li'+daohangoneIndex" class="header-category-lv-2">
 								<li v-for="(daohangtwoItem, daohangtwoIndex) in daohangoneItem.children">
 									<span class="line"></span>
-									<a @click="_goMore(daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
+									<a @click="_goMore(daohangoneItem.name,daohangtwoItem.name)">{{daohangtwoItem.name}}</a>
 									<ul class="header-category-lv-3">
-										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.links"><a @click="_goMore(daohangthreeItem.alias)">{{daohangthreeItem.alias}}</a></li>
+										<li v-for="(daohangthreeItem, daohangthreeIndex) in daohangtwoItem.links"><a @click="_goMore(daohangoneItem.name,daohangthreeItem.alias)">{{daohangthreeItem.alias}}</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -109,28 +119,62 @@ export default{
 		_liover (e) {
 			$('.'+e.target.getAttribute('data_li')).addClass('active').siblings('.active').removeClass('active')
 		},
-		_cltwoover (e){
-			var tar = $(e.target)
-			if(tar.attr('data_li') === undefined){
-				tar = tar.parents('.header-category-lv-2')
-			}
-			tar.prev('a').children('.icon-daohangonexianghou').css({display: 'none'})
-		},
-		_cltwoout (e){
-			var tar = $(e.target)
-			if(tar.attr('data_li') === undefined){
-				tar = tar.parents('.header-category-lv-2')
-			}
-			tar.prev('a').children('.icon-daohangonexianghou').css({display: 'block'})
-		},
+		// _cltwoover (e){
+		// 	var tar = $(e.target)
+		// 	if(tar.attr('data_li') === undefined){
+		// 		tar = tar.parents('.header-category-lv-2')
+		// 	}
+		// 	tar.prev('a').children('.icon-daohangonexianghou').css({display: 'none'})
+		// },
+		// _cltwoout (e){
+		// 	var tar = $(e.target)
+		// 	if(tar.attr('data_li') === undefined){
+		// 		tar = tar.parents('.header-category-lv-2')
+		// 	}
+		// 	tar.prev('a').children('.icon-daohangonexianghou').css({display: 'block'})
+		// },
 		_subStor (n) {
 			this.$emit('subStor',n)
 		},
 		_subkey (val) {
 			this.$emit('subKeyword',val)
 		},
-		_goMore(str){
-			window.open("./search.html?q="+ str)
+		_goMore(daohangone,daohangtwo,daohangthree){
+			var cpath = ''
+			if(!daohangtwo && !daohangthree){
+				if(daohangone == '女装'){
+					cpath = '16'
+				}else if(daohangone == '男装'){
+					cpath = '30'
+				}else if(daohangone == '孕妇装'){
+					cpath = '50022517'
+				}else if(daohangone == '童装'){
+					cpath = '50008165'
+				}
+				window.open("./search.html?q="+ daohangone + '&cpath=' + cpath)
+			}else if(daohangtwo){
+				if(daohangone == '女装'){
+					cpath = '16'
+				}else if(daohangone == '男装'){
+					cpath = '30'
+				}else if(daohangone == '孕妇装'){
+					cpath = '50022517'
+				}else if(daohangone == '童装'){
+					cpath = '50008165'
+				}
+				window.open("./search.html?q="+ daohangtwo + '&cpath=' + cpath)
+			}else if(daohangthree){
+				if(daohangone == '女装'){
+					cpath = '16'
+				}else if(daohangone == '男装'){
+					cpath = '30'
+				}else if(daohangone == '孕妇装'){
+					cpath = '50022517'
+				}else if(daohangone == '童装'){
+					cpath = '50008165'
+				}
+				window.open("./search.html?q="+ daohangthree + '&cpath=' + cpath)
+			}
 		}
 	},
 	props: {
