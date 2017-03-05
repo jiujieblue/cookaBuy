@@ -6,46 +6,22 @@
 				<div class="col-md-12 trim-col">
 					<div class="index">
 						<div class="index-top">
-							<div class="index-category">
-								<div class="index-category-block">
+							<div @click="_toLeftNav($event)"  class="index-category">
+								<div class="index-category-block" data-cpath="16">
 									<a class="index-category-lv-1">女装</a>
-									<a class="index-category-lv-2">毛呢外套</a>
-									<a class="index-category-lv-2">连衣裙</a>
-									<a class="index-category-lv-2">卫衣</a>
-									<a class="index-category-lv-2">毛衣</a>
-									<a class="index-category-lv-2">短外套</a>
-									<a class="index-category-lv-2">牛仔裤</a>
-									<a class="index-category-lv-2">T恤</a>
-									<a class="index-category-lv-2">衬衫</a>
+									<a v-for="(nvZItem, nvZIndex) in nvZ" class="index-category-lv-2">{{nvZItem}}</a>
 								</div>
-								<div class="index-category-block">
+								<div class="index-category-block" data-cpath="30">
 									<a class="index-category-lv-1">男装</a>
-									<a class="index-category-lv-2">羽绒服</a>
-									<a class="index-category-lv-2">毛呢大衣</a>
-									<a class="index-category-lv-2">棉衣</a>
-									<a class="index-category-lv-2">毛衣</a>
-									<a class="index-category-lv-2">牛仔裤</a>
-									<a class="index-category-lv-2">马甲</a>
-									<a class="index-category-lv-2">衬衫</a>
-									<a class="index-category-lv-2">T恤</a>
+									<a v-for="(nanZItem, nanZIndex) in nanZ" class="index-category-lv-2">{{nanZItem}}</a>
 								</div>
-								<div class="index-category-block">
+								<div class="index-category-block" data-cpath="50022517">
 									<a class="index-category-lv-1">孕妇装</a>
-									<a class="index-category-lv-2">孕妇装</a>
-									<a class="index-category-lv-2">防辐射</a>
-									<a class="index-category-lv-2">孕妇裤</a>
-									<a class="index-category-lv-2">孕妇袜</a>
-									<a class="index-category-lv-2">哺乳装</a>
-									<a class="index-category-lv-2">哺乳文胸</a>
-									<a class="index-category-lv-2">瘦身塑体衣</a>
+									<a v-for="(yunfuZItem, yunfuZIndex) in yunfuZ" class="index-category-lv-2">{{yunfuZItem}}</a>
 								</div>
-								<div class="index-category-block">
+								<div class="index-category-block" data-cpath="50008165">
 									<a class="index-category-lv-1">童装</a>
-									<a class="index-category-lv-2">童外套</a>
-									<a class="index-category-lv-2">棉衣/棉服</a>
-									<a class="index-category-lv-2">童卫衣</a>
-									<a class="index-category-lv-2">打底裤</a>
-									<a class="index-category-lv-2">童T恤</a>
+									<a v-for="(tongZItem, tongZIndex) in tongZ" class="index-category-lv-2">{{tongZItem}}</a>
 								</div>
 							</div>
 							<div class="index-carousel" >
@@ -374,7 +350,11 @@ export default {
 	        childrens:[],
 	        init_page: 1,
 	        total_pages:'',
-	        isStore: false
+	        isStore: false,
+	        nvZ: ['毛呢外套','连衣裙','卫衣','毛衣','短外套','牛仔裤','T恤','衬衫'],
+	        nanZ: ['羽绒服','毛呢大衣','棉衣','毛衣','牛仔裤','马甲','衬衫','T恤'],
+	        yunfuZ: ['孕妇装','防辐射','孕妇裤','孕妇袜','哺乳装','哺乳文胸','瘦身塑体衣'],
+	        tongZ: ['童外套','棉衣/棉服','童卫衣','打底裤','童T恤']
     	}
 	},
 	components:{
@@ -462,34 +442,19 @@ export default {
 		},
 		_toChildrenDetail(t){
 			window.open("./detail.html?"+this.childrens[t].item.id)
+		},
+		_toLeftNav (e){
+			console.log(e.target)
+			var tar = $(e.target)
+			var cpath = ''
+			if(tar[0].nodeName != 'A'){
+				return false
+			}
+			cpath = tar.parent('.index-category-block').attr('data-cpath')
+			window.open("./search.html?q="+ tar.html() + '&cpath=' + cpath)
 		}
 	},
 	mounted(){
-
-		var as1 = $($('.index-category-block')[0]).find('a')
-		for(var i = 0; i < as1.length;i++)
-			as1[i].addEventListener('click',function(){
-			var str = $(this).html()
-			window.open("./search.html?q="+ str + '&cpath=16')
-		})
-		var as2 = $($('.index-category-block')[1]).find('a')
-		for(var i = 0; i < as2.length;i++)
-			as2[i].addEventListener('click',function(){
-			var str = $(this).html()
-			window.open("./search.html?q="+ str + '&cpath=30')
-		})
-		var as3 = $($('.index-category-block')[2]).find('a')
-		for(var i = 0; i < as3.length;i++)
-			as3[i].addEventListener('click',function(){
-			var str = $(this).html()
-			window.open("./search.html?q="+ str + '&cpath=50022517')
-		})
-		var as4 = $($('.index-category-block')[3]).find('a')
-		for(var i = 0; i < as4.length;i++)
-			as4[i].addEventListener('click',function(){
-			var str = $(this).html()
-			window.open("./search.html?q="+ str + '&cpath=50008165')
-		})
 		$('.index-carousel').hover(
 			function(){
 				$('.icon-xiangqian').css('left','0').fadeIn('normal')
