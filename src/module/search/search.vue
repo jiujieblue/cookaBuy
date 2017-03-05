@@ -21,13 +21,13 @@
 	  		<div v-if="isRequestYes">
 	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
-	  				<li>
+	  				<li :class="{moreCat: isShowMore[index]}">
 	  					<ul :ref="'ul'+ index" :data-ref="key">
 	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets" v-if="_setKey(bucket.key)">
 	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}</span>
 	  						</li>
 	  					</ul>
-	  					<span @click="_moreClick($event, index)" v-if="isMore[index]">更多</span>
+	  					<span @click="_moreClick($event, index)" v-if="isMore[index]" :class="{active: isShowMore[index]}">更多</span>
 	  				</li>
 	  			</ul>
 	  		</div>
@@ -237,6 +237,7 @@
 				},
 
 				isMore: [],
+				isShowMore:[],
 				renqi: 5,
 				isRequestReady: true,
 				isRequestYes: false,
@@ -294,8 +295,6 @@
 	  			keyStr = keyStr.slice(0,qI)
 	  		}
 	  		keyStr = keyStr.slice(keyStr.indexOf('=')+1)
-
-	  		
 	  		try
 				{
 				  //在此运行代码
@@ -352,6 +351,7 @@
 		  		var num = 0
 		  		for(var key1 in this.aggregations){
 		  			this.isMore[num] = false
+		  			this.isShowMore[num] = false
 		  			var aggStr = ''
 		  			for(var key2 in this.aggregations[key1].buckets){
 		  				aggStr += this.aggregations[key1].buckets[key2].key
@@ -362,6 +362,18 @@
 		  			}
 		  			num ++
 		  		}
+
+		  		if(sessionStorage.showMore){
+			  		console.log(sessionStorage.showMore)
+			  		var showMore = JSON.parse(sessionStorage.showMore)
+			  		for(var i in showMore){
+			  			if(showMore[i]){
+			  				this.$set(this.isShowMore, i, true)
+			  				console.log(this.isShowMore[i])
+			  			}
+			  		}
+			  	}
+
 		  		this.hits = res.data[2].hits
 		  		this.pages = Math.ceil(res.data[2].hits.total/20) >= 500 ? 500 : Math.ceil(res.data[2].hits.total/20)
 	  			this.isRequestReady = false
@@ -400,7 +412,6 @@
 	  	function (res) {
 	  		console.log(res)
 	  	})
-
 	  },
 	  // 组件加载完成之前
 	  methods: {
@@ -453,14 +464,12 @@
 			},
 
 
-	  	// 分类更多鼠标进入
+	  	// 分类更多鼠标点击
 	  	_moreClick (e, index) {
-	  		$(e.target).toggleClass('active')
-	  		if(parseInt($(this.$refs['ul'+index]).parent().css('height')) > 72){
-					$(this.$refs['ul'+index]).parent().css({maxHeight: '72px'})
-	  		}else{
-					$(this.$refs['ul'+index]).parent().css({maxHeight: '300px'})
-	  		}
+	  		// $(e.target).toggleClass('active')
+	  		this.$set(this.isShowMore, index, !this.isShowMore[index])
+				var showMore = JSON.stringify(this.isShowMore)
+				sessionStorage.showMore = showMore
 	  	},
 	  	_setKey (key) {
 	  		var reg = /[#&%]/ig
