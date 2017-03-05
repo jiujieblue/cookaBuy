@@ -17,17 +17,17 @@
 	  				</span>
 	  			</li>
 	  		</ul>
+
 	  		<div v-if="isRequestYes">
 	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
 	  				<li>
-	  					<ul :ref="'aggregation'+index">
+	  					<ul :ref="'ul'+ index" :data-ref="key">
 	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets" v-if="_setKey(bucket.key)">
 	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}</span>
 	  						</li>
 	  					</ul>
-	  					{{ _isMore('aggregation'+index) }}
-	  					<span v-if="isMore['aggregation'+index]" :class="{isMore : isShowMore}" @click="_moreClick($event, index)">更多</span>
+	  					<span @click="_moreClick($event, index)" v-if="isMore[index]">更多</span>
 	  				</li>
 	  			</ul>
 	  		</div>
@@ -116,6 +116,7 @@
 		    			</ul>
 		    		</div>
 		    	</div>
+	    	<!-- 分页 -->
 		    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
 	    	</div>
 	    	<!-- 热销商品 -->
@@ -138,7 +139,6 @@
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<!-- 分页 -->
 	    	
 	    </div>
 	    <div class="row search-cookabuy">
@@ -234,7 +234,7 @@
 			      	sizes: undefined
 				},
 
-				isMore: {},
+				isMore: [],
 				renqi: 5,
 				isRequestReady: true,
 				isRequestYes: false,
@@ -255,7 +255,17 @@
   				parentReque: false
 		  	},
 		  	isPropsMove: false,
+		  	duoyu: false
 	    }
+	  },
+	  // 组件加载完成之后
+	  updated () {
+	  	var me = this
+	  	for(var key in this.isMore){
+	  		if(parseInt($(this.$refs['ul'+ key]).css('height')) >= 65){
+	  			this.$set(this.isMore, key, true)
+	  		}
+	  	}
 	  },
 	  mounted () {
 	  	var me = this
@@ -309,6 +319,7 @@
 	  	// 获取page
 	  	this._aggUrl('page','&from',hrefStr)
 	  	this._aggUrl('cpath','&cpath',hrefStr)
+	  	this.cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
@@ -320,8 +331,7 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		var cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+cpath
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+this.cpath
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
@@ -335,7 +345,11 @@
 		  		// }
 
 		  		// this.aggregationSize = res.data[2].aggregations.sizes
-
+		  		var num = 0
+		  		for(var key in this.aggregations){
+		  			this.isMore[num] = false
+		  			num ++
+		  		}
 		  		this.hits = res.data[2].hits
 		  		this.pages = Math.ceil(res.data[2].hits.total/20) >= 500 ? 500 : Math.ceil(res.data[2].hits.total/20)
 	  			this.isRequestReady = false
@@ -374,17 +388,20 @@
 	  	})
 
 	  },
-	  // 组件加载完成之后
-	  updated () {
-	  	var me = this
-	  	for(var key in this.isMore){
-	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
-	  			this.isMore[key] = true
-	  		}
-	  	}
-	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	// 分类更多鼠标进入
+	  	_moreClick (e, index) {
+	  		$(e.target).toggleClass('active')
+	  		if(parseInt($(this.$refs['ul'+index]).parent().css('height')) > 72){
+					$(this.$refs['ul'+index]).parent().css({maxHeight: '72px'})
+	  		}else{
+					$(this.$refs['ul'+index]).parent().css({maxHeight: '300px'})
+	  		}
+	  	},
+	  	_isMore (val) {
+	  		this.isMore[val] = false
+	  	},
 	  	_setKey (key) {
 	  		var reg = /[#&%]/ig
 	  		if(!reg.test(key)){
@@ -431,9 +448,6 @@
 	  		}else{
 	  			return val
 	  		}
-	  	},
-	  	_isMore (val) {
-	  		this.isMore[val] = false
 	  	},
 	  	// 获取风格等分类 href  page
 	  	_aggUrl (str1, str2, hrefStr) {
@@ -522,7 +536,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl() + this.cpath
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -535,11 +549,11 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url + this.cpath
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -586,7 +600,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  		}
 	  		}
 	  	},
@@ -681,15 +695,6 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
-	  	},
-	  	// 分类更多鼠标进入
-	  	_moreClick (e, i) {
-	  		$(e.target).toggleClass('active')
-	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
-	  		}else{
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
-	  		}
 	  	}
 	  },
 	  components: {

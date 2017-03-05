@@ -204,6 +204,10 @@
 	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
+	  	if(sessionStorage.getItem('isShowMore') == 2){
+	  		this.isShowMore = true
+	  		$(this.$refs.catsUl).parent().css({maxHeight: '500px'})
+	  	}
 	  	// 从链接中拿取 cid
 	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
@@ -542,8 +546,10 @@
 	  		this.isShowMore = !this.isShowMore
 	  		if(this.isShowMore){
 		  		$(e.target.parentNode).css({maxHeight: '500px'})
+	  			sessionStorage.setItem('isShowMore', 2)
 	  		}else{
 	  			$(e.target.parentNode).css({maxHeight: '87px'})
+	  			sessionStorage.setItem('isShowMore', 1)
 	  		}
 	  	}
 	  },
