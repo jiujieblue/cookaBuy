@@ -444,7 +444,6 @@ export default {
 			window.open("./detail.html?"+this.childrens[t].item.id)
 		},
 		_toLeftNav (e){
-			console.log(e.target)
 			var tar = $(e.target)
 			var cpath = ''
 			if(tar[0].nodeName != 'A'){
