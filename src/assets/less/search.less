@@ -401,7 +401,8 @@
 					margin-bottom: 15px;
 					background: #fff;
 					>a:first-child{
-						display: block;
+						display: table-cell;
+						vertical-align: middle;
 				    width: 180px;
 				    height: 180px;
 		        margin-bottom: 10px;
@@ -409,7 +410,6 @@
 						img{
 							max-width: 180px;
 							max-height: 180px;
-							vertical-align: middle;
 							&:hover{
 								opacity: 0.8;
 							}
@@ -546,14 +546,14 @@
 		position: relative;
 		border: 2px solid transparent;
 		>a{
-			display: block;
+			display: table-cell;
+			vertical-align: middle;
 			width: 213px;
 			height: 200px;
 			text-align: center;
 			>img{
 				max-width: 213px;
 				max-height: 200px;
-				vertical-align: middle;
 				transition: transform 0.6s  cubic-bezier(0.25, 0.46, 0.45, 0.94);
 			}
 		}
