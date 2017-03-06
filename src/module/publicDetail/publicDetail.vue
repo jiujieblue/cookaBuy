@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="public-detail-time">
-            <p>2016年12月16日</p>
+            <p>2017年03月05日</p>
             <p style="display: none">商城公告</p>
           </div>
           <div class="public-detail-indent">
