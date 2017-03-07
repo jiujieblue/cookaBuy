@@ -58,7 +58,6 @@
             text-align: center;
             font-size: 18px;
             margin-top: 1px;
-            line-height: 22px;
           }
         }
         .shop-name{
@@ -96,9 +95,6 @@
         .img-box{
           float: left;
           width: 480px;
-          height: 480px;
-          vertical-align: middle;
-          display: table-cell;
           .img-show{
             display: table-cell;
             vertical-align: middle;
@@ -432,7 +428,7 @@
         span{
           float:left;
           color:#fcc505;
-          font-size:24px;
+          font-size:22px;
           margin-top: 4px;
           margin-right:5px;
         }
@@ -457,6 +453,20 @@
             width: 167px;
             height: 167px;
             text-align: center;
+            &:hover{
+              img{
+                opacity: 0.8;
+              }
+              .price{
+                opacity: 0.8;
+                bottom: 0;
+                transition: bottom .5s;
+              }
+              p{
+                bottom: -10px;
+                transition: bottom .5s;
+              }
+            }
             .price,p{
               position: absolute;
               left: 0;
@@ -529,16 +539,14 @@
       margin-top:20px;
       .news-tit{
         overflow:hidden;
-        >div{
+        >span:first-child{
           float: left;
+          padding: 0 3px;
           background: #fe3c00;
           color: #fff;
           margin-top: 17px;
           margin-right: 10px;
           font-size: 18px;
-          div{
-            color: #fff;
-          }
         }
         p{
           float:left;
@@ -565,9 +573,6 @@
           overflow:hidden;
           margin-right:0.5%;
           padding-bottom: 20px;
-          height: 223px;
-          display: table-cell;
-          vertical-align: middle;
           a{
             display: table-cell;
             vertical-align: middle;
