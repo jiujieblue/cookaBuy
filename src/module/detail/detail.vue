@@ -156,9 +156,7 @@
       <div class="row">
         <div class="detail-news">
           <div class="news-tit">
-            <div>
-              <div>NEW</div>
-            </div>
+            <span>NEW</span>
             <p>最新上架</p>
             <a v-on:click="_more"><span class="icon-more"></span></a>
           </div>
