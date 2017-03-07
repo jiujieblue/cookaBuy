@@ -156,7 +156,9 @@
       <div class="row">
         <div class="detail-news">
           <div class="news-tit">
-            <span>NEW</span>
+            <div>
+              <div>NEW</div>
+            </div>
             <p>最新上架</p>
             <a v-on:click="_more"><span class="icon-more"></span></a>
           </div>
@@ -621,10 +623,10 @@
             var colorWidth = parseFloat($('.desc-color>div:first-child').css('width'))
             var sizeWidth = parseFloat($('.desc-size>div:first-child').css('width'))
             colorWidth > sizeWidth ? w = colorWidth : w = sizeWidth
-            $('.desc-color>div:first-child').css('width', w + 'px')
-            $('.desc-color>div:last-child').css('width', descWidth - w -20 + 'px')
-            $('.desc-size>div:first-child').css('width', w + 'px')
-            $('.desc-size>div:last-child').css('width', descWidth - w -20 + 'px')
+            $('.desc-color>div:first-child').css('width', w + 1 + 'px')
+            $('.desc-color>div:last-child').css('width', descWidth - w - 19 + 'px')
+            $('.desc-size>div:first-child').css('width', w + 1 + 'px')
+            $('.desc-size>div:last-child').css('width', descWidth - w - 19 + 'px')
           })
           this.sizeItem.reverse()
           var props_name = ret.data.props_name.split(';')

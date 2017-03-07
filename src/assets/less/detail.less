@@ -40,7 +40,7 @@
     .detail-shopping{
       float: left;
       padding: 0 15px;
-      width: 83.33337%;
+      width: 1000px;
       .shop-tit{
         overflow:hidden;
         padding-bottom: 8px;
@@ -52,15 +52,16 @@
           div{
             width:70px;
             height:22px;
+            line-height: 22px;
             background: #372f2c;
             color: #fff;
             text-align: center;
             font-size: 18px;
             margin-top: 1px;
+            line-height: 22px;
           }
         }
         .shop-name{
-          text-align: center;
           padding:0 30px 0 5px;
           border-right: 1px solid #ddd;
           h4{
@@ -95,11 +96,22 @@
         .img-box{
           float: left;
           width: 480px;
+          height: 480px;
+          vertical-align: middle;
+          display: table-cell;
           .img-show{
+<<<<<<< HEAD
+            display: table-cell;
+            vertical-align: middle;
+            width: 480px;
+            height: 480px;
+            text-align: center;
+            background: #f7f7f7;
+=======
             img{
               width: 480px;
-              height: 480px;
             }
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
           }
           .img-list{
             padding:20px 0px;
@@ -420,13 +432,17 @@
     .detail-recommend{
       float: left;
       padding: 0 15px;
-      width: 16.66663%;
+      width: 192px;
       .recommend-tit{
         overflow:hidden;
         span{
           float:left;
           color:#fcc505;
-          font-size:20px;
+<<<<<<< HEAD
+          font-size:22px;
+=======
+          font-size:24px;
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
           margin-top: 4px;
           margin-right:5px;
         }
@@ -445,23 +461,54 @@
           margin-bottom: 20px;
           border: 1px solid #ddd;
           overflow: hidden;
+<<<<<<< HEAD
+          a{
+            display: table-cell;
+            vertical-align: middle;
+            width: 167px;
+            height: 167px;
+            text-align: center;
+            &:hover{
+              img{
+                opacity: 0.8;
+              }
+              .price{
+                opacity: 0.8;
+                bottom: 0;
+                transition: bottom .5s;
+              }
+              p{
+                bottom: -10px;
+                transition: bottom .5s;
+              }
+=======
+          display: table-cell;
+          vertical-align: middle;
+          height: 163px;
           &:hover{
             img{
               opacity: 0.8;
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
             }
-            .price{
-              opacity: 0.8;
-              bottom: 0;
-              transition: bottom .5s;
+            .price,p{
+              position: absolute;
+              left: 0;
+              height: 40px;
+              bottom: -40px;
+              background: #fff;
+              width: 100%;
+              transform: all;
             }
             p{
-              bottom: -10px;
-              transition: bottom .5s;
+              padding-left: 15px;
+              color: #666;
+              background: transparent;
             }
           }
+<<<<<<< HEAD
+=======
           img{
             width:100%; 
-            height: 163px;
           }
           .price,p{
             position: absolute;
@@ -477,6 +524,7 @@
             color: #666;
             background: transparent;
           }
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
         }
       }
       .recommend-page{
@@ -534,17 +582,25 @@
       margin-top:20px;
       .news-tit{
         overflow:hidden;
-        >span:first-child{
+        >div{
           float: left;
-          padding: 0 3px;
           background: #fe3c00;
+<<<<<<< HEAD
           color: #fff;
+          margin-top: 17px;
+          margin-right: 10px;
+          font-size: 18px;
+=======
           margin-top: 18px;
           margin-right: 10px;
+          div{
+            color: #fff;
+          }
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
         }
         p{
           float:left;
-          margin-top:10px;
+          margin-top:12px;
           font-size: 24px;
         }
         a{
@@ -563,15 +619,25 @@
         .news-img{
           background: #fff;
           float:left;
-          width:19.6%;
+          width:229px;
           overflow:hidden;
           margin-right:0.5%;
           padding-bottom: 20px;
+          height: 223px;
+          display: table-cell;
+          vertical-align: middle;
           a{
+            display: table-cell;
+            vertical-align: middle;
+            width: 229px;
+            height: 229px;
+            text-align: center;
             img{
+<<<<<<< HEAD
+=======
               display: block;
               width: 100%;
-              height: 223px;
+>>>>>>> ccd6c95c9726077dbd6c84eec806748eeb9914ca
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;

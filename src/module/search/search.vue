@@ -62,7 +62,7 @@
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
-			    						<span>￥&nbsp;{{ hit._source.price}}</b>
+			    						<span>￥&nbsp;{{ hit._source.price}}</span>
 			    						<p style="display:none">
 			    							<span rel="stylesheet" class="icon-liulan"></span>150
 			    						</p>
