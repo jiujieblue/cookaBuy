@@ -40,7 +40,7 @@
     .detail-shopping{
       float: left;
       padding: 0 15px;
-      width: 83.33337%;
+      width: 1000px;
       .shop-tit{
         overflow:hidden;
         padding-bottom: 8px;
@@ -52,6 +52,7 @@
           div{
             width:70px;
             height:22px;
+            line-height: 22px;
             background: #372f2c;
             color: #fff;
             text-align: center;
@@ -60,7 +61,6 @@
           }
         }
         .shop-name{
-          text-align: center;
           padding:0 30px 0 5px;
           border-right: 1px solid #ddd;
           h4{
@@ -96,10 +96,12 @@
           float: left;
           width: 480px;
           .img-show{
-            img{
-              width: 480px;
-              height: 480px;
-            }
+            display: table-cell;
+            vertical-align: middle;
+            width: 480px;
+            height: 480px;
+            text-align: center;
+            background: #f7f7f7;
           }
           .img-list{
             padding:20px 0px;
@@ -420,13 +422,13 @@
     .detail-recommend{
       float: left;
       padding: 0 15px;
-      width: 16.66663%;
+      width: 192px;
       .recommend-tit{
         overflow:hidden;
         span{
           float:left;
           color:#fcc505;
-          font-size:20px;
+          font-size:22px;
           margin-top: 4px;
           margin-right:5px;
         }
@@ -445,37 +447,40 @@
           margin-bottom: 20px;
           border: 1px solid #ddd;
           overflow: hidden;
-          &:hover{
-            img{
-              opacity: 0.8;
+          a{
+            display: table-cell;
+            vertical-align: middle;
+            width: 167px;
+            height: 167px;
+            text-align: center;
+            &:hover{
+              img{
+                opacity: 0.8;
+              }
+              .price{
+                opacity: 0.8;
+                bottom: 0;
+                transition: bottom .5s;
+              }
+              p{
+                bottom: -10px;
+                transition: bottom .5s;
+              }
             }
-            .price{
-              opacity: 0.8;
-              bottom: 0;
-              transition: bottom .5s;
+            .price,p{
+              position: absolute;
+              left: 0;
+              height: 40px;
+              bottom: -40px;
+              background: #fff;
+              width: 100%;
+              transform: all;
             }
             p{
-              bottom: -10px;
-              transition: bottom .5s;
+              padding-left: 15px;
+              color: #666;
+              background: transparent;
             }
-          }
-          img{
-            width:100%; 
-            height: 163px;
-          }
-          .price,p{
-            position: absolute;
-            left: 0;
-            height: 40px;
-            bottom: -40px;
-            background: #fff;
-            width: 100%;
-            transform: all;
-          }
-          p{
-            padding-left: 15px;
-            color: #666;
-            background: transparent;
           }
         }
       }
@@ -539,12 +544,13 @@
           padding: 0 3px;
           background: #fe3c00;
           color: #fff;
-          margin-top: 18px;
+          margin-top: 17px;
           margin-right: 10px;
+          font-size: 18px;
         }
         p{
           float:left;
-          margin-top:10px;
+          margin-top:12px;
           font-size: 24px;
         }
         a{
@@ -563,15 +569,17 @@
         .news-img{
           background: #fff;
           float:left;
-          width:19.6%;
+          width:229px;
           overflow:hidden;
           margin-right:0.5%;
           padding-bottom: 20px;
           a{
+            display: table-cell;
+            vertical-align: middle;
+            width: 229px;
+            height: 229px;
+            text-align: center;
             img{
-              display: block;
-              width: 100%;
-              height: 223px;
               transition: transform 0.5s linear;
               -o-transition: transform 0.5s linear;
               -moz-transition: transform 0.5s linear;
