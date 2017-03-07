@@ -262,7 +262,6 @@
 	    	.then(
 	    		function(res){
 	    			this.hotGirlAds = res.data.data
-	    			console.log(this.hotGirlAds)
 	    		},function(err){
 	    			console.log(err)
 	    		}
