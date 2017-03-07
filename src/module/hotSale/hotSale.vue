@@ -17,15 +17,11 @@
 									<div class="myswiper">
 										<swiper :options="swiperOption">
 											<swiper-slide v-for="(sliderItem, sliderIndex) in sliderData">
-												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :alt="sliderItem.title"></a>
+												<a :title="sliderItem.title" @click="_toSliderDetail(sliderIndex)"><img :src="sliderItem.pic_url" :title="sliderItem.item.title" :alt="sliderItem.item.title"></a>
 												<div>
-													<p>¥{{sliderItem.price}}</p>
-													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.title}}</a></p>
+													<p>¥{{sliderItem.item.price}}</p>
+													<p><a @click="_toSliderDetail(sliderIndex)">{{sliderItem.item.title}}</a></p>
 												</div>
-												<!-- <div>
-													<span><a @click="_toSliderStore(sliderIndex)">{{sliderItem.store.store_name}}</a></span>
-													<span>{{sliderItem.store.market}} {{sliderItem.store.store_number}}</span>
-												</div> -->
 											</swiper-slide>
 											<div class="swiper-pagination" slot="pagination"></div>
 										</swiper>
@@ -42,14 +38,20 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-womenhotsale-links">
 										<ul>
-											<li><img src="../../assets/images/hotsale_women.jpg"/></li>
+											<li>
+												<!-- <img src="../../assets/images/hotsale_women.jpg"/> -->
+												<a @click="_goAct(hotGirlAds[0].activity_url)">
+													<img :src="hotGirlAds[0]&&hotGirlAds[0].pic_url" :title="hotGirlAds[0]&&hotGirlAds[0].tip" :alt="hotGirlAds[0]&&hotGirlAds[0].tip"/>
+												</a>
+											</li>
 											<li v-for="(girlItem, girlIndex) in girlData" :class="_reGirlCla(girlIndex)">
 												<div class="hotsalepage-left-womenhotsale-links-item">
-													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :alt="girlItem.title" /></a>
-													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.price}}</span>
-													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.title}}</a></span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.store.store_name}}</a></span>
-													<span class="hotsalepage-left-womenhotsale-links-item-spanright">{{girlItem.store.market}}{{girlItem.store.store_number}}</span>
+													<a :title="girlItem.title" @click="_toGirlDetail(girlIndex)"><img class="hotsalepage-left-womenhotsale-links-item-wimg" :src="girlItem.pic_url" :title="girlItem.item.title" :alt="girlItem.item.title" /></a>
+													<span class="hotsalepage-left-womenhotsale-links-item-price">¥{{girlItem.item.price}}</span>
+													<span :title="girlItem.title" class="hotsalepage-left-womenhotsale-links-item-title"><a @click="_toGirlDetail(girlIndex)">{{girlItem.item.title}}</a></span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanleft"><a @click="_toGirlStore(girlIndex)">{{girlItem.item.store.store_name}}</a></span>
+													<span class="hotsalepage-left-womenhotsale-links-item-spanright">
+													{{girlItem.item.store.location.split("-").splice(0,1).concat(girlItem.item.store.location.split("-").splice(2,girlItem.item.store.location.split("-").length-2)).join("-")}}</span>
 												</div>
 											</li>
 										</ul>
@@ -64,14 +66,21 @@
 									<hr class="ck-hr"/>
 									<div class="hotsalepage-left-manhotsale-links">
 										<ul>
-											<li><img src="../../assets/images/hotsale_man.jpg"/></li>
+											<li>
+												<!-- <img src="../../assets/images/hotsale_man.jpg"/> -->
+												<a @click="_goAct(hotBoyAds[0].activity_url)">
+													<img :src="hotBoyAds[0]&&hotBoyAds[0].pic_url" :title="hotBoyAds[0]&&hotBoyAds[0].tip" :alt="hotBoyAds[0]&&hotBoyAds[0].tip"/>
+												</a>
+											</li>
 											<li v-for="(boyItem, boyIndex) in boyData" :class="_reBoyCla(boyIndex)">
 												<div class="hotsalepage-left-manhotsale-links-item">
-													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :alt="boyItem.title"/></a>
-													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.price}}</span>
-													<span :title="boyItem.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.title}}</a></span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.store.store_name}}</a></span>
-													<span class="hotsalepage-left-manhotsale-links-item-spanright">{{boyItem.store.market}}{{boyItem.store.store_number}}</span>
+													<a :title="boyItem.title" @click="_toBoyDetail(boyIndex)"><img class="hotsalepage-left-manhotsale-links-item-mimg" :src="boyItem.pic_url" :title="boyItem.item.title" :alt="boyItem.item.title"/></a>
+													<span class="hotsalepage-left-manhotsale-links-item-price">¥{{boyItem.item.price}}</span>
+													<span :title="boyItem.item.title" class="hotsalepage-left-manhotsale-links-item-title"><a @click="_toBoyDetail(boyIndex)">{{boyItem.item.title}}</a></span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanleft"><a @click="_toBoyStore(boyIndex)">{{boyItem.item.store.store_name}}</a></span>
+													<span class="hotsalepage-left-manhotsale-links-item-spanright">
+														{{boyItem.item.store.location.split("-").splice(0,1).concat(boyItem.item.store.location.split("-").splice(2,boyItem.item.store.location.split("-").length-2)).join("-")}}
+													</span>
 												</div>
 											</li>
 										</ul>
@@ -88,13 +97,13 @@
 								<hr class="ck-hr"/>
 								<div class="hotsalepage-right-links">
 									<ul>
-										<li v-for="(rightItem, rightIndex) in rightData">
+										<li v-if="rightIndex < 9" v-for="(rightItem, rightIndex) in rightData">
 											<div class="hotsalepage-right-links-item">
 												<span class="hotsalepage-right-links-item-hotnum">{{rightIndex+1}}</span>
-												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :alt="rightItem.title"/></a>
-												<span class="hotsalepage-right-links-item-price">¥{{rightItem.price}}</span>
-												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.title}}</a></span>
-												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.store.store_name}}</a></span>
+												<a :title="rightItem.title" @click="_toRightDetail(rightIndex)"><img class="hotsalepage-right-links-item-himg" :src="rightItem.pic_url" :title="rightItem.item.title" :alt="rightItem.item.title"/></a>
+												<span class="hotsalepage-right-links-item-price">¥{{rightItem.item.price}}</span>
+												<span :title="rightItem.title" class="hotsalepage-right-links-item-title"><a @click="_toRightDetail(rightIndex)">{{rightItem.item.title}}</a></span>
+												<span class="hotsalepage-right-links-item-spanleft"><a @click="_toRightStore(rightIndex)">{{rightItem.item.store.store_name}}</a></span>
 											</div>
 										</li>
 									</ul>
@@ -123,21 +132,23 @@
 		name:'carrousel',
 		data(){
 			return{
-	      isStore: false,
+	      		isStore: false,
 				swiperOption: {
-		          pagination: '.swiper-pagination',
-		          slidesPerView: 4,
-		          paginationClickable: true,
-		          spaceBetween: 10,
-		          freeMode: true,
-		          autoplay: 3000,
-		          prevButton:'.swiper-button-prev',
-				  nextButton:'.swiper-button-next'
+					pagination: '.swiper-pagination',
+					slidesPerView: 4,
+					paginationClickable: true,
+					spaceBetween: 10,
+					freeMode: true,
+					autoplay: 3000,
+					prevButton:'.swiper-button-prev',
+					nextButton:'.swiper-button-next'
 		        },
 		        sliderData:[],
 		        rightData:[],
 		        girlData:[],
-		        boyData:[]
+		        boyData:[],
+		        hotGirlAds:[],
+		        hotBoyAds:[]
 			}
 		},
 		components:{
@@ -147,18 +158,18 @@
 		},
 		methods:{
 			_subStor (n) {
-	  		if(n == 0){
-	  			this.isStore = false
-	  		}else{
-	  			this.isStore = true
-	  		}
-	  	},
+		  		if(n == 0){
+		  			this.isStore = false
+		  		}else{
+		  			this.isStore = true
+		  		}
+	  		},
 			_subkeyword(keyword){
 				if(this.isStore){
-	  			window.location.href = './visitingMarket.html?q='+keyword
-	  		}else{
-	  			window.location.href = './search.html?q='+ keyword +'&from=1'
-	  		}
+		  			window.location.href = './visitingMarket.html?q='+keyword
+		  		}else{
+		  			window.location.href = './search.html?q='+ keyword +'&from=1'
+		  		}
 			},
 			_reGirlCla (i) {
 				if(i > 1){
@@ -171,78 +182,98 @@
 				}
 			},
 			_toSliderStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.sliderData[t].item.store.id)
 			},
 			_toRightStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.rightData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.rightData[t].item.store.id)
 			},
 			_toGirlStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.girlData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.girlData[t].item.store.id)
 			},
 			_toBoyStore(t){
-				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].store.id)
+				window.open("./sellerAllProduct.html?store_id="+this.boyData[t].item.store.id)
 			},
 			_toSliderDetail(t){
-				window.open("./detail.html?"+this.sliderData[t].id)
+				window.open("./detail.html?"+this.sliderData[t].item.id)
 			},
 			_toRightDetail(t){
-				window.open("./detail.html?"+this.rightData[t].id)
+				window.open("./detail.html?"+this.rightData[t].item.id)
 			},
 			_toGirlDetail(t){
-				window.open("./detail.html?"+this.girlData[t].id)
+				window.open("./detail.html?"+this.girlData[t].item.id)
 			},
 			_toBoyDetail(t){
-				window.open("./detail.html?"+this.boyData[t].id)
+				window.open("./detail.html?"+this.boyData[t].item.id)
+			},
+			_goAct(url){
+				window.open(url)
 			}
 		},
 		mounted(){
-			this.$http.get('/api/recommends'+'?page_name=hot&location=top&page_size=8')
+			this.$http.get('/api/active_rec_items'+'?page_name=hot&location=top')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.sliderData = res.data.data
-		          for(var i = 0 ; i < this.sliderData.length ; i++){
-	             	this.sliderData[i].pic_url += '_250x250.jpg'
-	              }
+		          // for(var i = 0 ; i < this.sliderData.length ; i++){
+	           //   	this.sliderData[i].pic_url += '_250x250.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=public&location=right&page_size=5')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=public&location=right')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.rightData = res.data.data
-		          for(var i = 0 ; i < this.rightData.length ; i++){
-	             	this.rightData[i].pic_url += '_180x180.jpg'
-	              }
+		          // for(var i = 0 ; i < this.rightData.length ; i++){
+	           //   	this.rightData[i].pic_url += '_180x180.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=hot&location=girl&page_size=6')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=girl')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.girlData = res.data.data
-		          for(var i = 0 ; i < this.girlData.length ; i++){
-	             	this.girlData[i].pic_url += '_220x220.jpg'
-	              }
+		          // for(var i = 0 ; i < this.girlData.length ; i++){
+	           //   	this.girlData[i].pic_url += '_220x220.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
 	    	)
-	    	this.$http.get('/api/recommends'+'?page_name=hot&location=boy&page_size=6')
+	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=boy')
 	    	.then(
 		        function(res){
 		          //console.log(res)
 		          this.boyData = res.data.data
-		          for(var i = 0 ; i < this.boyData.length ; i++){
-	             	this.boyData[i].pic_url += '_220x220.jpg'
-	              }
+		          // for(var i = 0 ; i < this.boyData.length ; i++){
+	           //   	this.boyData[i].pic_url += '_220x220.jpg'
+	           //    }
 		        },function(err){
 		          console.log(err)
 		        }
+	    	)
+	    	this.$http.get('/api/active_cookaads'+'?page_name=hot&&location=girl')
+	    	.then(
+	    		function(res){
+	    			this.hotGirlAds = res.data.data
+	    			console.log(this.hotGirlAds)
+	    		},function(err){
+	    			console.log(err)
+	    		}
+	    	)
+	    	this.$http.get('/api/active_cookaads'+'?page_name=hot&&location=boy')
+	    	.then(
+	    		function(res){
+	    			this.hotBoyAds = res.data.data
+	    		},function(err){
+	    			console.log(err)
+	    		}
 	    	)
 		}
 	}

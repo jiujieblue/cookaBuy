@@ -65,7 +65,7 @@
 				>li{
 					padding: 10px 15px;
 				 	>ul{
-				 		width: 93%;
+				 		width: 92%;
 				 		float: left;
 				 	}
 					&:first-child{
@@ -89,12 +89,16 @@
 						background: #fff;
 						overflow: hidden;
 						color: #a89d99;
+						&.moreCat{
+							max-height: 500px;
+						}
 						>ul{
 							>li{
 								margin-right: 15px;
 								margin-bottom: 10px;
 								span{
 									cursor: pointer;
+								color: #a89d99;
 									&:hover{
 										color: #fcc505;
 									}
@@ -102,9 +106,12 @@
 							}
 						}
 					 	>span{
+					 		display: inline-block;
 					 		position: relative;
-					 		padding: 0 20px;
+					 		width: 8%;
+					 		text-align: center;
 					 		cursor: pointer;
+							color: #372f2c;
 					 		&:before{
 					 			content: '';
 					 			width: 1px;
@@ -116,17 +123,17 @@
 					 		}
 					 		&:after{
 								content: '';
-								display: inline-block;
-								width: 8px;
-								height: 8px;
-								border-right: 1px solid #2e2e2e;
-								border-bottom: 1px solid #2e2e2e;
-								transform: rotate(45deg);
-								transition: transform 0.25s linear;
-								transform-origin: 75% 75%;
-								position: relative;
-								bottom: 3px;
-								left: 8px;
+						    display: inline-block;
+						    width: 8px;
+						    height: 8px;
+						    border-right: 1px solid #372f2c;
+						    border-bottom: 1px solid #372f2c;
+						    transform: rotate(45deg);
+						    transition: transform 0.25s linear;
+						    transform-origin: 75% 75%;
+						    position: absolute;
+						    bottom: 8px;
+						    right: 5px;
 							}
 							&:hover{
 								background: #fcc505;
@@ -135,10 +142,6 @@
 							&.active{
 								&:after{
 									transform: rotate(225deg);
-									border-color: #fff;
-								}
-								&:before{
-									background: #fcc505;
 								}
 							}
 					 	}
@@ -272,10 +275,12 @@
 								float: left;
 								width: 150px;
 								height: 150px;
+								text-align: center;
 								>img{
-									width: 100%;
-									height: 100%;
+									max-width: 100%;
+									max-height: 100%;
 									border: 1px solid #f7f7f7;
+									vertical-align: middle;
 									transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 									&:hover{
 										transform: scale(1.05);
@@ -390,16 +395,24 @@
 					font-weight: normal;
 				}
 			}
-			ul{
-				li{
+			>ul{
+				>li{
 					padding: 8px;
 					margin-bottom: 15px;
 					background: #fff;
-					img{
-						width: 100%;
-						margin-bottom: 10px;
-						&:hover{
-							opacity: 0.8;
+					>a:first-child{
+						display: table-cell;
+						vertical-align: middle;
+				    width: 180px;
+				    height: 180px;
+		        margin-bottom: 10px;
+				    text-align: center;
+						img{
+							max-width: 180px;
+							max-height: 180px;
+							&:hover{
+								opacity: 0.8;
+							}
 						}
 					}
 					span{
@@ -458,6 +471,12 @@
 	&-recommended{
 		width: 100%;
 		position: relative;
+		.slide{
+			overflow: hidden;
+			&-box{
+				.clearfix();
+			}
+		}
 		p{
 			padding-bottom: 10px;
 			border-bottom: 1px solid #1a1a1a;
@@ -479,6 +498,7 @@
 			width: 224px;
 			height: 350px;
 			padding: 2px;
+			margin-right: 5px;
 			>ul{
 				padding: 0 10px;
 				>li{
@@ -525,10 +545,17 @@
 		background: #fff;
 		position: relative;
 		border: 2px solid transparent;
-		>a>img{
-			width: 100%;
+		>a{
+			display: table-cell;
+			vertical-align: middle;
+			width: 213px;
 			height: 200px;
-			transition: transform 0.6s  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+			text-align: center;
+			>img{
+				max-width: 213px;
+				max-height: 200px;
+				transition: transform 0.6s  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+			}
 		}
 		ul{
 			margin: 15px 0 10px;
@@ -568,9 +595,20 @@
 					}
 				}
 				&:nth-child(3){
+					.clearfix();
 					color: #a89d99;
+					a, span{
+						width: 45%;
+						overflow: hidden;
+						white-space: nowrap;
+				    text-overflow: ellipsis;
+					}
+					a{
+						float: left;
+					}
 					span{
 						float: right;
+						text-align: right;
 					}
 					width: 90%;
 					position: absolute;

@@ -92,12 +92,12 @@ export default {
   				num: 1,
   				moveTime: 1000,
   				marginR: 0,
-  				slideSub: 0,
-  				isPropsMove: false,
-
-  				parentReque: false
+  				slideSub: 0
   			}
   		}
+  	},
+  	isPropsMove:{
+  		default: false
   	}
   },
   updated () {
@@ -119,13 +119,13 @@ export default {
 				me.move(1)
 			})
 		}
-
-		var timer = setInterval(function(){
-			if(me.slideData.parentReque){
-				clearInterval(timer)
-				me.autoMove()
+	},
+	watch : {
+		isPropsMove : function(val, oldVal){
+			if(val){
+				this.autoMove()
 			}
-		}, 500)
+		}
 	},
 	methods: {
 		_slideSub0 (e, i) {
@@ -168,13 +168,13 @@ export default {
 			this.timer1 = setInterval(this.move.bind(this,this.slideData.num),this.slideData.moveTime)
 		},
 		_over (e) {
-			if(this.slideData.isPropsMove){
+			if(this.isPropsMove){
 				clearInterval(this.timer1)
 				this.timer1 = null
 			}
 		},
 		_out (e) {
-			if(this.slideData.isPropsMove){
+			if(this.isPropsMove){
 				this.autoMove()
 			}
 		}

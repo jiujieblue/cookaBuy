@@ -17,29 +17,13 @@
 									<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="3000">
 											<!-- Indicators -->
 										<ol class="carousel-indicators">
-											<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-											<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-											<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-											<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-											<li data-target="#carousel-example-generic" data-slide-to="4"></li>
+											<li v-for="(storeAdsItem, storeAdsIndex) in storeAds" data-target="#carousel-example-generic" :data-slide-to="storeAdsIndex" :class="storeAdsIndex? '':'active'"></li>
 										</ol>
 										<!-- Wrapper for slides -->
 										<div class="carousel-inner" role="listbox">
-											<div class="item active" @click="_toBannerStore(735)">
-												<img src="../../assets/images/sanye.jpg" >
-											</div>
-											<div class="item" @click="_toBannerStore(233)">
-												<img src="../../assets/images/yirenzui.jpg" >
-											</div>
-											<div class="item" @click="_toBannerStore(556)">
-												<img src="../../assets/images/feiyiban.jpg" >
-											</div>
-											<div class="item" @click="_toBannerStore(94)">
-												<img src="../../assets/images/yuanyuanfushi02.jpg" >
-											</div>
-											<div class="item" @click="_toBannerStore(639)">
-												<img src="../../assets/images/hanfengriliufushi_3F_330.jpg" >
-											</div>
+											<div :class="storeAdsIndex? 'item':'item active'" v-for="(storeAdsItem, storeAdsIndex) in storeAds" @click="_goAdsMore(storeAdsItem.activity_url)">
+											<img :src="storeAdsItem.pic_url" :title="storeAdsItem.tip" alt="storeAdsItem.tip">
+										</div>
 										</div>
 										<!-- Controls -->
 										<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -258,6 +242,7 @@
 	export default{
 		data(){
 			return{
+				storeAds:[],
 		        markets:[],
 		        stores:[],
 		        floors:[],
@@ -326,6 +311,9 @@
 				var store_id = t._source ? t._source.id : t._id
 				window.open("./sellerAllProduct.html?store_id="+ store_id)
 			},
+			_goAdsMore(url){
+		    	window.open(url)
+		    },
 			subPage (val) {
 			  	this.page = val
 			  	var market = this.market && '&market=' + this.market
@@ -762,18 +750,6 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
-			
-			// $('.swiper-container').hover(
-			// 		function(){
-			// 			$('.swiper-button-prev').css('left','0').fadeIn('slow')
-			// 			$('.swiper-button-next').css('right','0').fadeIn('slow')
-			// 		},
-			// 		function(){
-			// 			$('.swiper-button-prev').css('left','-40px').fadeOut('slow')
-			// 			$('.swiper-button-next').css('right','-40px').fadeOut('slow')
-			// 		}
-			// 	)
-
 			$('.swiper-box-carousel').hover(
 				function(){
 					$('.icon-navqian').css('left','0').fadeIn('normal')
@@ -860,6 +836,15 @@
 					}
 				)
 			}
+			this.$http.get('/api/active_cookaads'+'?page_name=market')
+			.then(
+				function(res){
+					this.storeAds = res.data.data
+					//console.log(this.storesAds)
+				},function(err){
+					console.log(err)
+				}
+			)
 		}
 	}
 </script>

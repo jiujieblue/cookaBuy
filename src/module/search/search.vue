@@ -17,17 +17,17 @@
 	  				</span>
 	  			</li>
 	  		</ul>
+
 	  		<div v-if="isRequestYes">
 	  			<ul v-for="(aggregation,key,index) in aggregations" v-if="!aggUrl[key] && aggregation.buckets.length != 0">  				
 	  				<li v-html="product_nav(key)"></li>
-	  				<li>
-	  					<ul :ref="'aggregation'+index">
+	  				<li :class="{moreCat: isShowMore[index]}">
+	  					<ul :ref="'ul'+ index" :data-ref="key">
 	  						<li v-for="(bucket, bucketIndex) in aggregation.buckets" v-if="_setKey(bucket.key)">
 	  							<span @click="_urlTarget(key, bucket.key)">{{ _setKey(bucket.key) }}</span>
 	  						</li>
 	  					</ul>
-	  					{{ _isMore('aggregation'+index) }}
-	  					<span v-if="isMore['aggregation'+index]" :class="{isMore : isShowMore}" @click="_moreClick($event, index)">更多</span>
+	  					<span @click="_moreClick($event, index)" v-if="isMore[index]" :class="{active: isShowMore[index]}">更多</span>
 	  				</li>
 	  			</ul>
 	  		</div>
@@ -57,18 +57,18 @@
 			    	<div class="search-product-left-succee-grid" v-if='isGridOrList == 0'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
-			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_200x200.jpg'" :alt="hit._source.title" :title="hit._source.title">
+			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
-			    						<span>￥&nbsp;{{ _priceEtc(hit._source.price) }}</b>
+			    						<span>￥&nbsp;{{ hit._source.price}}</span>
 			    						<p style="display:none">
 			    							<span rel="stylesheet" class="icon-liulan"></span>150
 			    						</p>
 			    					</li>
 			    					<li>
-			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a class="ie-11-a" :href="'./detail.html?' + hit._source.id" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
 			    						<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
@@ -82,12 +82,12 @@
 			    	<div class="search-product-left-succee-list" v-if='isGridOrList == 1'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
-			    				<a :href="'./detail.html?' + hit._source.num_iid" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url+'_150x150.jpg'" :alt="hit._source.title" :title="hit._source.title">
+			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
+			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul>
 			    					<li>
-			    						<a :href="'./detail.html?' + hit._source.num_iid" target="_blank" v-html="_titleColor(hit._source.title)"></a>
+			    						<a :href="'./detail.html?' + hit._source.id" target="_blank" v-html="_titleColor(hit._source.title)"></a>
 			    					</li>
 			    					<li>
 				    					<a :href="'./sellerAllProduct.html?store_id='+hit._source.store_id" target="_blank">{{ hit._source.store_name }}</a>
@@ -95,7 +95,7 @@
 			    					</li>
 			    				</ul>
 			    				<ul>
-			    					<li><b>￥ {{ _priceEtc(hit._source.price) }}</b><span style="display:none">人气：2025</span></li>
+			    					<li><b>￥ {{ hit._source.price }}</b><span style="display:none">人气：2025</span></li>
 			    					<li style="display:none">预留图片</li>
 			    				</ul>
 			    			</li>
@@ -116,28 +116,29 @@
 		    			</ul>
 		    		</div>
 		    	</div>
+	    	<!-- 分页 -->
 		    	<CkPagination :pages="pages" :pageNum="page" @submitPage="subPage" v-if="isRequestYes"></CkPagination>
 	    	</div>
+	    	<!-- 热销商品 -->
 	    	<div class="search-product-right">
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
-	    			<li v-for="(hot,index) in _hotLength(hotData.data)">
-	    				<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-		    				<img :src="hot.pic_url+'_180x180.jpg'" :alt="hot.title" :title="hot.title">
+	    			<li v-for="(hot,index) in hotData.data">
+	    				<a :href="'./detail.html?'+hot.item.id" target="_blank">
+		    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
 		    			</a>
-	    				<span>￥{{ _priceEtc(hot.price) }}</span>
+	    				<span>￥{{ hot.item.price }}</span>
 	    				<p>
-	    					<a class="ie-11-a" :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    						{{ hot.title }}
+	    					<a class="ie-11-a" :href="'./detail.html?'+hot.item.id" target="_blank">
+	    						{{ hot.item.title }}
 	    					</a>
 	    				</p>
-	    				<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
+	    				<a :href="'./sellerAllProduct.html?store_id='+hot.item.store.id" target="_blank">{{ hot.item.store.store_name }}</a>
 	    			</li>
 	    		</ul>
 	    	</div>
 	    </div>
 	    <div class="row">
-	    	<!-- 分页 -->
 	    	
 	    </div>
 	    <div class="row search-cookabuy">
@@ -151,25 +152,29 @@
 	    <div class="search-recommended search-product-left-grid">
 	    	<p><span>HOT</span><b>人气推荐</b></p>
       	
-      	<Slide :slideData="slideData">
-      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
-      			<a :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    				<img :src="hot.pic_url+'_200x200.jpg'" :alt="hot.title" :title="hot.title">
-	    			</a>
-	    			<ul>
-	    				<li><span>￥{{ _priceEtc(hot.price) }}</span></li>
-	    				<li>
-	    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.num_iid" target="_blank">
-	    						{{ hot.title }}
-	    					</a>
-	    				</li>
-	    				<li>
-	    					<a :href="'./sellerAllProduct.html?store_id='+hot.store.id" target="_blank">{{ hot.store.store_name }}</a>
-	    					<span>{{ hot.store.market }} {{ hot.store.store_number }}档</span>
-	    				</li>
-	    			</ul>
-      		</div>
-      	</Slide>
+      	<!-- <Slide :slideData="slideData" :isPropsMove="isPropsMove"> -->
+      	<div class="slide" @mouseover="_over" @mouseout="_out">
+	      	<div class="slide-box">
+	      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
+	      			<a :href="'./detail.html?'+hot.item.id" target="_blank">
+		    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
+		    			</a>
+		    			<ul>
+		    				<li><span>￥{{ hot.item.price }}</span></li>
+		    				<li>
+		    					<a class="ie-11-lunbo" :href="'./detail.html?'+hot.item.id" target="_blank">
+		    						{{ hot.item.title }}
+		    					</a>
+		    				</li>
+		    				<li>
+		    					<a :href="'./sellerAllProduct.html?store_id='+hot.item.store.id" target="_blank">{{ hot.item.store.store_name }}</a>
+		    					<span>{{hot.item.store.location.split("-").splice(0,1).concat(hot.item.store.location.split("-").splice(2,hot.item.store.location.split("-").length-2)).join("-")}}档</span>
+		    				</li>
+		    			</ul>
+	      		</div>
+	      	</div>
+      	</div>
+      	<!-- </Slide> -->
 	    </div>
  	</div>
 	<goTop></goTop>
@@ -184,8 +189,6 @@
 	import CkSearch from 'components/CkSearch'
 	import goTop from 'components/goTop'
 	import CkPagination from 'components/CkPagination'
-	import Slide from 'components/Slide'
-	
 
 	export default {
 	  data () {
@@ -227,13 +230,14 @@
 
 				// 分类链接 url 关键字
 				aggUrl: {
-			      	markets: undefined,
-			      	style: undefined,
-			      	colors: undefined,
-			      	sizes: undefined
+	      	markets: undefined,
+	      	style: undefined,
+	      	colors: undefined,
+	      	sizes: undefined
 				},
 
-				isMore: {},
+				isMore: [],
+				isShowMore:[],
 				renqi: 5,
 				isRequestReady: true,
 				isRequestYes: false,
@@ -241,22 +245,42 @@
 				keyword: '',
 	      // 搜索关键字
 	      q: '',
-				// 轮播
 		    isStore: false,
-
+		    // 女装、男装、孕妇装、童装
+		    cpath: '',
 		    slideData: {
   				oneTime: '400ms',
   				num: 1,
   				moveTime: 2000,
-  				marginR: 5,
-		  		isPropsMove: true,
-
-  				parentReque: false
+  				marginR: 5
 		  	},
+		  	isPropsMove: false,
+		  	duoyu: false,
+
+		  	// 轮播变量
+		  	moveTime: 2000,
+				oneTime: '400ms',
+				liLength: 0,
+				isMove: true,
+				timer1: null,
+				timer2: null,
+				activeNum: 0,
+				_autoMove: false,
+				num: 1,
 	    }
+	  },
+	  // 组件加载完成之后
+	  updated () {
+	  	var me = this
+	  	// for(var key in this.isMore){
+	  	// 	if(parseInt($(this.$refs['ul'+ key]).css('height')) >= 65){
+	  	// 		this.$set(this.isMore, key, true)
+	  	// 	}
+	  	// }
 	  },
 	  mounted () {
 	  	var me = this
+
 	  	var hrefStr = window.location.href
 	  	// 获取本地储存
 	  	if(sessionStorage.getItem('browse')){
@@ -271,8 +295,6 @@
 	  			keyStr = keyStr.slice(0,qI)
 	  		}
 	  		keyStr = keyStr.slice(keyStr.indexOf('=')+1)
-
-	  		
 	  		try
 				{
 				  //在此运行代码
@@ -305,6 +327,8 @@
 	  	this._obtainLHPriceUrl('&high_price',hrefStr)
 	  	// 获取page
 	  	this._aggUrl('page','&from',hrefStr)
+	  	this._aggUrl('cpath','&cpath',hrefStr)
+	  	this.cpath = this.cpath ? ('&cpath=' + this.cpath) : ''
 	  	// 获取排序关键字
 	  	this._obtainSorUrl('&order',hrefStr)
 
@@ -316,20 +340,39 @@
 	  		this.isRequestReady = false
 	  	}
 	  	if(this.keyword){
-	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()
+	  		hrefUrlStr = 'q='+this.keyword+'&search_size=20&from='+(this.page-1)*20+this.sortingUrl+this.lHPrice_str.low_price+this.lHPrice_str.high_price+this._retAggUrl()+this.cpath
 		  	this.$http.get('/s1/searchs?' + hrefUrlStr)
 		  	.then(function (res) {
 		  		this.aggregations.markets = res.data[2].aggregations.markets
 		  		this.aggregations.style = res.data[2].aggregations.style
 		  		this.aggregations.colors = res.data[2].aggregations.colors
 		  		this.aggregations.sizes = res.data[2].aggregations.sizes
-		  		// for(var i in res.data[2].aggregations){
-		  		// 	if(i != 'sizes'){
-		  		// 		this.aggregations[i] = res.data[2].aggregations[i]
-		  		// 	}
-		  		// }
+		  		
+		  		var num = 0
+		  		for(var key1 in this.aggregations){
+		  			this.isMore[num] = false
+		  			this.isShowMore[num] = false
+		  			var aggStr = ''
+		  			for(var key2 in this.aggregations[key1].buckets){
+		  				aggStr += this.aggregations[key1].buckets[key2].key
+		  			}
+		  			var aggWidth = aggStr.length * 15.1 + this.aggregations[key1].buckets.length * 15
+		  			if(aggWidth > 956 * 2){
+		  				this.isMore[num] = true
+		  			}
+		  			num ++
+		  		}
 
-		  		// this.aggregationSize = res.data[2].aggregations.sizes
+		  		if(sessionStorage.showMore){
+			  		console.log(sessionStorage.showMore)
+			  		var showMore = JSON.parse(sessionStorage.showMore)
+			  		for(var i in showMore){
+			  			if(showMore[i]){
+			  				this.$set(this.isShowMore, i, true)
+			  				console.log(this.isShowMore[i])
+			  			}
+			  		}
+			  	}
 
 		  		this.hits = res.data[2].hits
 		  		this.pages = Math.ceil(res.data[2].hits.total/20) >= 500 ? 500 : Math.ceil(res.data[2].hits.total/20)
@@ -347,7 +390,7 @@
 	  		this.isRequestYes = false
 	  	}
 	  	// 热销商品
-	  	this.$http.get('/api/recommends?page_name=public&location=right&page_size=10&page=1')
+	  	this.$http.get('/api/active_rec_items?page_name=public&location=right&page_size=6&page=1')
 	  	.then(function (res) {
 	  		this.hotData = res.data
 	  	},
@@ -355,30 +398,79 @@
 	  		console.log(res)
 	  	})
 	  	// 人气推荐商品
-	  	this.$http.get('/api/recommends?page_name=public&location=bottom&page_size=10&page=1')
+	  	this.$http.get('/api/active_rec_items?page_name=public&location=bottom&page_size=10&page=1')
 	  	.then(function (res) {
 	  		this.sentimentData = res.data
-	  		this.slideData.parentReque = true
+	  		$('.slide-box').css({width: res.data.data.length * (224 + 5) + 'px'})
 	  		if(res.data.data.length <= 5){
-	  			this.slideData.isPropsMove = false
+	  			this.isPropsMove = false
+	  		}else{
+	  			this._autoMove()
+	  			this.isPropsMove = true
 	  		}
 	  	},
 	  	function (res) {
 	  		console.log(res)
 	  	})
-
-	  },
-	  // 组件加载完成之后
-	  updated () {
-	  	var me = this
-	  	for(var key in this.isMore){
-	  		if(parseInt($(this.$refs[key]).css('height')) >= 65){
-	  			this.isMore[key] = true
-	  		}
-	  	}
 	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	// 轮播循环
+	  	_move (n) {
+				var me =this
+				if(this.isMove){
+					this.isMove = false
+					if(n < 0){
+						$('.slide-box').prepend($('.slide-box div:eq('+(this.liLength-1)+')').clone(true)).css({transitionDuration: '0ms', transform: 'translate3d('+(n*229)+'px, 0px, 0px)'})
+
+						setTimeout(function(){
+							$('.slide-box').css({transitionDuration: '300ms', transform: 'translate3d(0px, 0px, 0px)'})
+							$('.slide-box div:eq('+(this.liLength-1)+')').remove()
+							setTimeout(function(){
+								me.isMove = true
+							},300)
+						},10)
+					}
+					if(n > 0){
+						$('.slide-box').css({width: 229*($('.slide-box div').length+n) + 'px'})
+						setTimeout(function(){
+							$('.slide-box').append($('.slide-box div:lt('+ n +')').clone(true))
+							$('.slide-box').css({transitionDuration:  300 + 'ms', transform: 'translate3d('+(-229)+'px, 0px, 0px)'})
+						},1)
+						setTimeout(function(){
+							$('.slide-box div:lt('+ n +')').remove()
+							$('.slide-box').css({transitionDuration: '0ms', transform: 'translate3d(0px, 0px, 0px)'})
+							
+							setTimeout(function(){
+								me.isMove = true
+							},10)
+						},301)
+					}
+				}
+			},
+			_autoMove () {
+				this.timer1 = setInterval(this._move.bind(this,this.num),this.moveTime)
+			},
+			_over (e) {
+				if(this.isPropsMove){
+					clearInterval(this.timer1)
+					this.timer1 = null
+				}
+			},
+			_out (e) {
+				if(this.isPropsMove){
+					this._autoMove()
+				}
+			},
+
+
+	  	// 分类更多鼠标点击
+	  	_moreClick (e, index) {
+	  		// $(e.target).toggleClass('active')
+	  		this.$set(this.isShowMore, index, !this.isShowMore[index])
+				var showMore = JSON.stringify(this.isShowMore)
+				sessionStorage.showMore = showMore
+	  	},
 	  	_setKey (key) {
 	  		var reg = /[#&%]/ig
 	  		if(!reg.test(key)){
@@ -410,8 +502,8 @@
 	  	// 热销商品长度的控制
 	  	_hotLength (val) {
 	  		if(val){
-		  		if(val.length > 5){
-		  			return val.slice(0,5)
+		  		if(val.length > 6){
+		  			return val.slice(0,6)
 		  		}else{
 		  			return val
 		  		}
@@ -426,14 +518,11 @@
 	  			return val
 	  		}
 	  	},
-	  	_isMore (val) {
-	  		this.isMore[val] = false
-	  	},
 	  	// 获取风格等分类 href  page
 	  	_aggUrl (str1, str2, hrefStr) {
 	  		var i = hrefStr.indexOf(str2)
 	  		if(i != -1){
-	  			if(str2 == '&from'){
+	  			if(str2 == '&from' || str2 == '&cpath'){
 		  			var urlStr = hrefStr.slice(i+1)
 		  			if((i = urlStr.indexOf('&')) != -1){
 		  				urlStr = urlStr.slice(0,i)
@@ -516,7 +605,7 @@
 	  	// 删除相应链接关键字
 	  	_delAggUrl (k) {
 	  		this.aggUrl[k] = undefined
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl()
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1'+this._retAggUrl() + this.cpath
 	  	},
 	  	// 风格等分类的跳转  添加到链接中
 	  	_urlTarget (key, total) {
@@ -529,11 +618,11 @@
 	  		}else{
 	  			url = '&'+ key.slice(0,key.length-1) +'=' + total
 	  		}
-	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url
+	  		window.location.href = './search.html?q='+ this.keyword +'&from=1' + this._retAggUrl() + url + this.cpath
 	  	},
 	  	// 分页跳转
 		  subPage (val) {
-		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  	window.location.href = './search.html?q='+ this.keyword +'&from='+ val + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  },
 	  	// 排序的切换
 		  _sorting (e, str) {
@@ -580,7 +669,7 @@
 		  					this.lHPrice_str.high_price = '&high_price='+this.$refs.high_price.value
 		  				}
 		  			}
-		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl()
+		  			window.location.href = "./search.html?q="+ this.keyword +'&from=1' + this.sortingUrl + this.lHPrice_str.low_price +this.lHPrice_str.high_price+this._retAggUrl() + this.cpath
 		  		}
 	  		}
 	  	},
@@ -675,15 +764,6 @@
 	  	_gridOrList (e,n) {
 	  		sessionStorage.setItem('browse',n)
 	  		this.isGridOrList = n
-	  	},
-	  	// 分类更多鼠标进入
-	  	_moreClick (e, i) {
-	  		$(e.target).toggleClass('active')
-	  		if(parseInt($(this.$refs['aggregation'+i]).css('height')) >= 65){
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '300px'})
-	  		}else{
-					$(this.$refs['aggregation'+i]).parent().css({maxHeight: '65px'})
-	  		}
 	  	}
 	  },
 	  components: {
@@ -691,8 +771,7 @@
 	  	footerComponent,
 	  	CkSearch,
 	  	CkPagination,
-	  	goTop,
-	  	Slide
+	  	goTop
 	  }
 	}
 </script>

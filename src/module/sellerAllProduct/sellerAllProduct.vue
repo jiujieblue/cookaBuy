@@ -5,7 +5,7 @@
 </style>
 <template>
 <div id='sellerAllProduct'>
-	<div class="sellerAllProduct-header">
+	<!-- <div class="sellerAllProduct-header">
 		<div class="sellerAllProduct-header-nav">
 			<div class="container">
 				<ul>
@@ -28,17 +28,16 @@
 				</p>
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<headerComponent @subKeyword="_subkeyword" :keyword="decodeURIComponent(keyword)" :isShowStroe="isShowStroe"></headerComponent>
 	<div class="container sellerAllProduct-sellerInfo">
+		<p>
+			<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
+		</p>
 		<ul>
 			<li>
-				<img :src="storesInfo && storesInfo.store_logo" :title="storesInfo.store_name" :alt="storesInfo.store_name" v-if="storesInfo">
-			</li>
-			<li>
 				<a :href="'./sellerAllProduct.html?store_id='+store_id">{{ storesInfo && storesInfo.store_name }}</a>
-			</li>
-			<li>
-				<button @click="subStor">+关注本店</button>
+				<button @click="subStor" v-show="false">+关注本店</button>
 			</li>
 			<li>
 				<link rel="stylesheet" class="icon-dizhi">{{ storesInfo && storesInfo.location }}
@@ -100,7 +99,7 @@
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.id" target="_blank">
-    					<img :src="product.pic_url+'_200x200.jpg'" :alt="product.title" :title="product.title">
+    					<img :src="product.pic_url" :alt="product.title" :title="product.title">
     				</a>
     				<ul>
     					<li>
@@ -125,7 +124,7 @@
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.id" target="_blank">
-    					<img :src="showcase.pic_url+'_180x180.jpg'" :alt="showcase.title" :title="showcase.title"/>
+    					<img :src="showcase.pic_url" :alt="showcase.title" :title="showcase.title"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
@@ -139,6 +138,7 @@
 
 <script>
 	import Vue from 'vue'
+	import headerComponent from 'components/header'
 	import footerComponent from 'components/footer'
 	import CkPagination from 'components/CkPagination'
 	
@@ -188,7 +188,8 @@
 				isRequestReady: true,
 				isRequestYes: false,
 				isShowMore: false,
-				cid: ''
+				cid: '',
+				isShowStroe: false
 	    }
 	  },
 	  updated () {
@@ -203,6 +204,10 @@
 	  	var me = this , keywordUrl = '', cidUrl = ''
 	  	var hrefStr = window.location.href
 	  	
+	  	if(sessionStorage.getItem('isShowMore') == 2){
+	  		this.isShowMore = true
+	  		$(this.$refs.catsUl).parent().css({maxHeight: '500px'})
+	  	}
 	  	// 从链接中拿取 cid
 	  	this._calcuInfo('&cid', hrefStr, 5)
 	  	// 从链接中拿取 store_id
@@ -233,20 +238,7 @@
 
 	    	this.isRequestReady = false
 
-	    	// for(var i = 0;i < me.cats.length; i ++){
-	    	// 	if(!me.catsReal[me.cats[i].name]){
-	    	// 		me.catsReal[me.cats[i].name] = {}
-	    	// 		me.catsReal[me.cats[i].name].name = me.cats[i].name
-	    	// 		me.catsReal[me.cats[i].name].parent = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].name].cid = me.cats[i].cid
-	    	// 	}else{
-	    	// 		me.catsReal[me.cats[i].parent] = {}
-	    	// 		me.catsReal[me.cats[i].parent].name = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].parent].parent = me.cats[i].parent
-	    	// 		me.catsReal[me.cats[i].parent].cid = me.cats[i].cid
-	    	// 		me.catsReal[me.cats[i].name].name = me.catsReal[me.cats[i].name].parent
-	    	// 	}
-	    	// }
+	    	
 	    	if(parseInt($(me.$refs.catsUl).css('height')) > 65) {
 	  			me.isHeiBig = true
 			  }
@@ -444,23 +436,27 @@
 	  		}
 	  	},
 			// 搜索
-	  	_subkeyword (e,n) {
-	  		if(this.isDisabled){
-	  			return
-	  		}
-	  		var regH = /<[^>]*>/g
-	  		var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
-	  		var val = this.$refs.keyword.value
-	  		val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
-	  		if(n && e.which != 13){
-	  			return
-	  		}
-	  		if(val.length >= 100){
-					return
-				}
-				val = encodeURIComponent(val)
-	  		val && (val = '&q='+ val)
-	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
+	  	// _subkeyword (e,n) {
+	  	// 	if(this.isDisabled){
+	  	// 		return
+	  	// 	}
+	  	// 	var regH = /<[^>]*>/g
+	  	// 	var regStr = /[`~!@$^&*()=|{}':;,\\[\].<>?~！@……&*（）——|{}【】‘；：”“'。，、？+_"]*/ig
+	  	// 	var val = this.$refs.keyword.value
+	  	// 	val = val.replace(/\s/g,'').replace(regH,'').replace(regStr,'')
+	  	// 	if(n && e.which != 13){
+	  	// 		return
+	  	// 	}
+	  	// 	if(val.length >= 100){
+				// 	return
+				// }
+				// val = encodeURIComponent(val)
+	  	// 	val && (val = '&q='+ val)
+	  	// 	window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+val
+	  	// },
+	  	_subkeyword (keyword) {
+	  		var keyStr = keyword && "&q=" + keyword
+	  		window.location.href = "./sellerAllProduct.html?store_id="+this.store_id+"&page=1"+keyStr
 	  	},
 	  	// 价格筛选区间的验证
 	  	_priceVal (e,str1,str2) {
@@ -537,13 +533,16 @@
 	  		this.isShowMore = !this.isShowMore
 	  		if(this.isShowMore){
 		  		$(e.target.parentNode).css({maxHeight: '500px'})
+	  			sessionStorage.setItem('isShowMore', 2)
 	  		}else{
 	  			$(e.target.parentNode).css({maxHeight: '87px'})
+	  			sessionStorage.setItem('isShowMore', 1)
 	  		}
 	  	}
 	  },
 	  components: {
 	  	CkPagination,
+	  	headerComponent,
 	  	footerComponent
 	  }
 	}

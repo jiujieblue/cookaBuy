@@ -218,6 +218,7 @@
 					<ul>
 						<li @click="_choose(key, 'all')" :class="{active: (navTitleChoose[key] + '').slice(0,2) == '全部'}">全部</li>
 						<li v-for="(nav,index) in navObj" @click="_choose(key, nav)" :class="{active: navTitleChoose[key] == nav}">{{ nav }}</li>
+					</ul>
 				</li>
 			</ul>
 		</div>

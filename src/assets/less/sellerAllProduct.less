@@ -85,29 +85,25 @@
 		}
 	}
 	&-sellerInfo{
-		padding: 0;
+		padding: 10px 20px;
+		>p{
+			float: left;
+			img{
+				width: 80px;
+    		height: 80px;
+			}
+		}
 		>ul{
-			.clearfix();
-			padding: 10px 0;
+			float: left;
+			margin-left: 15px;
 			>li{
-				float: left;
 				margin-right: 15px;
-				margin-top: 13px;
+				margin-top: 10px;
 				&:first-child{
-					img{
-						width: 50px;
-						height: 50px;
-						border-radius: 50%;
-					}
-					margin-top: 0;
-				}
-				&:nth-child(2){
-					font-size: 18px;
 					a{
 						color: #000;
+						font-size: 18px;
 					}
-				}
-				&:nth-child(3){
 					button{
 						padding: 3px 10px;
 				    border: none;
@@ -115,9 +111,10 @@
 				    background: red;
 				    color: #fff;
 				    outline: none;
+				    margin-left: 10px;
 					}
 				}
-				&:nth-child(4){
+				&:last-child{
 					link{
 						vertical-align: middle;
 						font-size: 23px;
@@ -184,7 +181,7 @@
 					&:last-child{
 						cursor: pointer;
 						position: relative;
-						width: 8%;
+						width: 7%;
 						float: right;
 						text-align: center;
 						position: relative;
@@ -211,7 +208,7 @@
 							transform: rotate(45deg);
 							transform-origin: 75% 75%;
 							top: 4px;
-							right: 12px;
+							right: 0;
 							transition: all 0.2s linear;
 						}
 						&.isMore{
@@ -325,9 +322,16 @@
 					border: 3px solid transparent;
 					background: #fff;
 					position: relative;
-					img{
-						width: 100%;
+					>a{
+						display: table-cell;
+						vertical-align: middle;
+						width: 226px;
 						height: 230px;
+						text-align: center;
+						img{
+							max-width: 226px;
+							max-height: 230px;
+						}
 					}
 					>ul{
 						padding: 10px 8px;
@@ -439,12 +443,19 @@
 					padding: 10px;
 					margin-bottom: 13px;
 					background: #fff;
-					img{
+					a{
+						display: table-cell;
+						vertical-align: middle;
 						width: 180px;
 						height: 180px;
 						margin-bottom: 10px;
-						&:hover{
-							opacity: 0.8;
+						text-align: center;
+						img{
+							max-width: 180px;
+							max-height: 180px;
+							&:hover{
+								opacity: 0.8;
+							}
 						}
 					}
 					span{
