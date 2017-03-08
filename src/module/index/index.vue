@@ -489,17 +489,21 @@ export default {
 				//this.products = res.data.left 
 				if(res.data.left){
 					this.products = res.data.new_left// 左边
-					// for(var i = 0 ; i < this.products.length ; i++){
-					// 	this.products[i].pic_url += '_210x210.jpg'
-					// }
+					for(var i = 0 ; i < this.products.length ; i++){
+						if(this.products[i].pic_url.match('img.alicdn.com') != null){
+							this.products[i].pic_url += '_210x210.jpg'
+						}
+					}
 				}
 
 				//this.sideproducts = res.data.right
 				if(res.data.right){	
 					this.sideproducts = res.data.new_right // 右边
-					// for(var i = 0 ; i < this.sideproducts.length ; i++){
-					// 	this.sideproducts[i].pic_url += '_80x80.jpg'
-					// }
+					for(var i = 0 ; i < this.sideproducts.length ; i++){
+						if(this.sideproducts[i].pic_url.match('img.alicdn.com') != null){
+							this.sideproducts[i].pic_url += '_80x80.jpg'
+						}
+					}
 				}
 
 				//this.recommend_data = res.data.stores
@@ -510,33 +514,41 @@ export default {
 				//this.girls = res.data.girl 
 				if(res.data.girl){
 					this.girls = res.data.girl // 女装
-					// for(var i = 0 ; i < this.girls.length ; i++){
-					// 	this.girls[i].pic_url += '_270x270.jpg'
-					// }
+					for(var i = 0 ; i < this.girls.length ; i++){
+						if(this.girls[i].pic_url.match('img.alicdn.com') != null){
+							this.girls[i].pic_url += '_270x270.jpg'
+						}
+					}
 				}
 
 				//this.boys = res.data.boy
 				if(res.data.boy){
 					this.boys = res.data.boy //男装
-					// for(var i = 0 ; i < this.boys.length ; i++){
-					// 	this.boys[i].pic_url += '_270x270.jpg'
-					// }
+					for(var i = 0 ; i < this.boys.length ; i++){
+						if(this.boys[i].pic_url.match('img.alicdn.com') != null){
+							this.boys[i].pic_url += '_270x270.jpg'
+						}
+					}
 				}
 
 				//this.maternits = res.data.maternit
 				if(res.data.maternit){
 					this.maternits = res.data.maternit //孕妇装
-					// for(var i = 0 ; i < this.maternits.length ; i++){
-					// 	this.maternits[i].pic_url += '_270x270.jpg'
-					// }
+					for(var i = 0 ; i < this.maternits.length ; i++){
+						if(this.maternits[i].pic_url.match('img.alicdn.com') != null){
+							this.maternits[i].pic_url += '_270x270.jpg'
+						}
+					}
 				}
 
 				//this.childrens = res.data.children
 				if(res.data.children){
 					this.childrens = res.data.children //童装
-					// for(var i = 0 ; i < this.childrens.length ; i++){
-					// 	this.childrens[i].pic_url += '_270x270.jpg'
-					// }
+					for(var i = 0 ; i < this.childrens.length ; i++){
+						if(this.childrens[i].pic_url.match('img.alicdn.com') != null){
+							this.childrens[i].pic_url += '_270x270.jpg'
+						}
+					}
 				}
 			},function(err){
 				console.log(err)

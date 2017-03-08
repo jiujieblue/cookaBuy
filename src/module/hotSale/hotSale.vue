@@ -213,11 +213,13 @@
 			this.$http.get('/api/active_rec_items'+'?page_name=hot&location=top')
 	    	.then(
 		        function(res){
-		          //console.log(res)
-		          this.sliderData = res.data.data
-		          // for(var i = 0 ; i < this.sliderData.length ; i++){
-	           //   	this.sliderData[i].pic_url += '_250x250.jpg'
-	           //    }
+					//console.log(res)
+					this.sliderData = res.data.data
+					for(var i = 0 ; i < this.sliderData.length ; i++){
+						if(this.sliderData[i].pic_url.match('img.alicdn.com') != null){
+							this.sliderData[i].pic_url += '_250x250.jpg'
+						}
+					}
 		        },function(err){
 		          console.log(err)
 		        }
@@ -225,11 +227,13 @@
 	    	this.$http.get('/api/active_rec_items'+'?page_name=public&location=right')
 	    	.then(
 		        function(res){
-		          //console.log(res)
-		          this.rightData = res.data.data
-		          // for(var i = 0 ; i < this.rightData.length ; i++){
-	           //   	this.rightData[i].pic_url += '_180x180.jpg'
-	           //    }
+					//console.log(res)
+					this.rightData = res.data.data
+					for(var i = 0 ; i < this.rightData.length ; i++){
+						if(this.rightData[i].pic_url.match('img.alicdn.com') != null){
+							this.rightData[i].pic_url += '_180x180.jpg'
+						}
+					}
 		        },function(err){
 		          console.log(err)
 		        }
@@ -237,11 +241,13 @@
 	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=girl')
 	    	.then(
 		        function(res){
-		          //console.log(res)
-		          this.girlData = res.data.data
-		          // for(var i = 0 ; i < this.girlData.length ; i++){
-	           //   	this.girlData[i].pic_url += '_220x220.jpg'
-	           //    }
+					//console.log(res)
+					this.girlData = res.data.data
+	    			for(var i = 0 ; i < this.girlData.length ; i++){
+						if(this.girlData[i].pic_url.match('img.alicdn.com') != null){
+							this.girlData[i].pic_url += '_220x220.jpg'
+						}
+					}
 		        },function(err){
 		          console.log(err)
 		        }
@@ -249,11 +255,13 @@
 	    	this.$http.get('/api/active_rec_items'+'?page_name=hot&location=boy')
 	    	.then(
 		        function(res){
-		          //console.log(res)
-		          this.boyData = res.data.data
-		          // for(var i = 0 ; i < this.boyData.length ; i++){
-	           //   	this.boyData[i].pic_url += '_220x220.jpg'
-	           //    }
+					//console.log(res)
+					this.boyData = res.data.data
+					for(var i = 0 ; i < this.boyData.length ; i++){
+						if(this.boyData[i].pic_url.match('img.alicdn.com') != null){
+							this.boyData[i].pic_url += '_220x220.jpg'
+						}
+					}
 		        },function(err){
 		          console.log(err)
 		        }
@@ -262,7 +270,6 @@
 	    	.then(
 	    		function(res){
 	    			this.hotGirlAds = res.data.data
-	    			console.log(this.hotGirlAds)
 	    		},function(err){
 	    			console.log(err)
 	    		}

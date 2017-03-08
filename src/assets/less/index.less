@@ -110,11 +110,12 @@
     .carousel-indicators{
       bottom: 0;
       >li{
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0,0,0,0.1);
         border: none;
+        margin: 1px 5px;
         &.active{
           width: 24px;
-          background-color: rgba(225,225,225,0.9);
+          background-color: #fff;
         }
       }
     }
@@ -300,8 +301,8 @@
 
     &-link {
       color: #fff;
-      background-color: #333;
-      padding: 6px 25px;
+      background-color: #372f2c;
+      padding: 5px 25px;
       display: inline-block;
       margin-top: 12px;
       margin-bottom: 30px;
@@ -337,17 +338,17 @@
       padding: 10px 10px 10px 0;
       border-bottom: 1px solid #333;
       &-label {
-        padding: 3px;
+        padding: 2px;
         background-color: @ck-main;
         color: #fff;
         display: inline-block;
         margin-right: 5px;
-        font-size: 18px;
+        font-size: 16px;
       }
 
       &-aside {
         position: absolute;
-        top: 2px;
+        top: -1px;
         right: 0px;
         margin-top: 5px;
         float: right;
@@ -370,7 +371,7 @@
         // sub-class
         &-lg {
           [class^="icon-"], [class*=" icon-"] {
-            font-size: 34px;
+            font-size: 36px;
           }
         }
       }
