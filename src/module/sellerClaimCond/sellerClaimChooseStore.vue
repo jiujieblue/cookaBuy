@@ -216,8 +216,16 @@
 				<li>市<span class="em"></span>场</li>
 				<li>
 					<ul>
+<<<<<<< HEAD
+						<li @click="_choose(key, 'all')" :class="{active: (navTitleChoose[key] + '').slice(0,2) == '全部'}">
+							全部
+						</li>
+						<li v-for="(nav,index) in navObj" @click="_choose(key, nav)" :class="{active: navTitleChoose[key] == nav}">{{ nav }
+						</li>
+=======
 						<li @click="_choose(key, 'all')" :class="{active: (navTitleChoose[key] + '').slice(0,2) == '全部'}">全部</li>
 						<li v-for="(nav,index) in navObj" @click="_choose(key, nav)" :class="{active: navTitleChoose[key] == nav}">{{ nav }}</li>
+>>>>>>> 61a4114d6df81ae5db32e8c3ac0cc0d993e71508
 					</ul>
 				</li>
 			</ul>
