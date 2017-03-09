@@ -162,7 +162,7 @@
 				                    </a>
 				                  </div>
 				                  <a class="index-store-product" @click="_toStore(storesIndex)">
-				                    <img :src="storesItem.pic_url" />
+				                    <img :src="_replaceImg(storesItem.pic_url, 230)" />
 				                  </a>
 				                </div>
 							</div>
@@ -184,7 +184,7 @@
 								<div class="left">
 									<div class="index-product" v-if="girlsIndex < 10" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
-											<img :title="girlsItem.item.title" :src="_replaceImg(girlsItem.pic_url,270)" />
+											<img :title="girlsItem.item.title" :src="_replaceImg(girlsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.item.price}}
@@ -221,7 +221,7 @@
 								<div class="left">
 									<div class="index-product" v-if="boysIndex < 10" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
-											<img :title="boysItem.item.title" :src="_replaceImg(boysItem.pic_url,270)" />
+											<img :title="boysItem.item.title" :src="_replaceImg(boysItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.item.price}}
@@ -258,7 +258,7 @@
 								<div class="left">
 									<div class="index-product" v-if="maternitsIndex < 10" v-for="(maternitsItem, maternitsIndex) in maternits" >
 										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
-											<img :title="maternitsItem.title" :src="_replaceImg(maternitsItem.pic_url,270)" />
+											<img :title="maternitsItem.title" :src="_replaceImg(maternitsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.item.price}}
@@ -295,7 +295,7 @@
 								<div class="left">
 									<div class="index-product" v-if="childrensIndex < 10" v-for="(childrensItem, childrensIndex) in childrens" >
 										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
-											<img :title="childrensItem.title" :src="_replaceImg(childrensItem.pic_url,270)" />
+											<img :title="childrensItem.title" :src="_replaceImg(childrensItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.item.price}}
