@@ -92,7 +92,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :title="productsItem.item.title" :src="productsItem.pic_url" />
+											<img :title="productsItem.item.title" :src="_replaceImg(productsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.item.price}}
@@ -117,7 +117,7 @@
 												<a>
 													<div class="product">
 														<div class="img">
-															<img :title="sideproductsItem.item.title" :src="sideproductsItem.pic_url">
+															<img :title="sideproductsItem.item.title" :src="_replaceImg(sideproductsItem.pic_url,80)">
 														</div>
 														<a><span class="store">{{sideproductsItem.item.store&&sideproductsItem.item.store.store_name}}</span></a>
 														<div class="extra">
@@ -162,7 +162,7 @@
 				                    </a>
 				                  </div>
 				                  <a class="index-store-product" @click="_toStore(storesIndex)">
-				                    <img :src="storesItem.pic_url" />
+				                    <img :src="_replaceImg(storesItem.pic_url, 230)" />
 				                  </a>
 				                </div>
 							</div>
@@ -184,7 +184,7 @@
 								<div class="left">
 									<div class="index-product" v-if="girlsIndex < 10" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
-											<img :title="girlsItem.item.title" :src="girlsItem.pic_url" />
+											<img :title="girlsItem.item.title" :src="_replaceImg(girlsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.item.price}}
@@ -221,7 +221,7 @@
 								<div class="left">
 									<div class="index-product" v-if="boysIndex < 10" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
-											<img :title="boysItem.item.title" :src="boysItem.pic_url" />
+											<img :title="boysItem.item.title" :src="_replaceImg(boysItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.item.price}}
@@ -258,7 +258,7 @@
 								<div class="left">
 									<div class="index-product" v-if="maternitsIndex < 10" v-for="(maternitsItem, maternitsIndex) in maternits" >
 										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
-											<img :title="maternitsItem.title" :src="maternitsItem.pic_url" />
+											<img :title="maternitsItem.title" :src="_replaceImg(maternitsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.item.price}}
@@ -295,7 +295,7 @@
 								<div class="left">
 									<div class="index-product" v-if="childrensIndex < 10" v-for="(childrensItem, childrensIndex) in childrens" >
 										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
-											<img :title="childrensItem.title" :src="childrensItem.pic_url" />
+											<img :title="childrensItem.title" :src="_replaceImg(childrensItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.item.price}}
@@ -461,6 +461,12 @@ export default {
 			}
 			cpath = tar.parent('.index-category-block').attr('data-cpath')
 			window.open("./search.html?q="+ tar.html() + '&cpath=' + cpath)
+		},
+		_replaceImg(url,num){
+			if(url.match('img.alicdn.com') != null){
+				url += '_'+ num + 'x' + num + '.jpg'
+			}
+			return url
 		}
 	},
 	mounted(){
@@ -490,7 +496,9 @@ export default {
 				if(res.data.left){
 					this.products = res.data.new_left// 左边
 					// for(var i = 0 ; i < this.products.length ; i++){
-					// 	this.products[i].pic_url += '_210x210.jpg'
+					// 	if(this.products[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.products[i].pic_url += '_210x210.jpg'
+					// 	}
 					// }
 				}
 
@@ -498,7 +506,9 @@ export default {
 				if(res.data.right){	
 					this.sideproducts = res.data.new_right // 右边
 					// for(var i = 0 ; i < this.sideproducts.length ; i++){
-					// 	this.sideproducts[i].pic_url += '_80x80.jpg'
+					// 	if(this.sideproducts[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.sideproducts[i].pic_url += '_80x80.jpg'
+					// 	}
 					// }
 				}
 
@@ -511,7 +521,9 @@ export default {
 				if(res.data.girl){
 					this.girls = res.data.girl // 女装
 					// for(var i = 0 ; i < this.girls.length ; i++){
-					// 	this.girls[i].pic_url += '_270x270.jpg'
+					// 	if(this.girls[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.girls[i].pic_url += '_270x270.jpg'
+					// 	}
 					// }
 				}
 
@@ -519,7 +531,9 @@ export default {
 				if(res.data.boy){
 					this.boys = res.data.boy //男装
 					// for(var i = 0 ; i < this.boys.length ; i++){
-					// 	this.boys[i].pic_url += '_270x270.jpg'
+					// 	if(this.boys[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.boys[i].pic_url += '_270x270.jpg'
+					// 	}
 					// }
 				}
 
@@ -527,7 +541,9 @@ export default {
 				if(res.data.maternit){
 					this.maternits = res.data.maternit //孕妇装
 					// for(var i = 0 ; i < this.maternits.length ; i++){
-					// 	this.maternits[i].pic_url += '_270x270.jpg'
+					// 	if(this.maternits[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.maternits[i].pic_url += '_270x270.jpg'
+					// 	}
 					// }
 				}
 
@@ -535,7 +551,9 @@ export default {
 				if(res.data.children){
 					this.childrens = res.data.children //童装
 					// for(var i = 0 ; i < this.childrens.length ; i++){
-					// 	this.childrens[i].pic_url += '_270x270.jpg'
+					// 	if(this.childrens[i].pic_url.match('img.alicdn.com') != null){
+					// 		this.childrens[i].pic_url += '_270x270.jpg'
+					// 	}
 					// }
 				}
 			},function(err){

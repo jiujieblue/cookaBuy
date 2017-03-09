@@ -58,7 +58,7 @@
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" class="search-product-left-gridRecommended">
 			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
+			    					<img :ref="'Img_'+index" :src="_returuIMGURL(hit._source.pic_url, 220)" :alt="hit._source.title" :title="hit._source.title">
 			    				</a>
 			    				<ul :data_ul="index">
 			    					<li>
@@ -82,9 +82,11 @@
 			    	<div class="search-product-left-succee-list" v-if='isGridOrList == 1'>
 			    		<ul>
 			    			<li v-for="(hit,index) in hits.hits" :data_id="hit._source.id"  class="asdfsdaf">
-			    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
-			    					<img :ref="'Img_'+index" :src="hit._source.pic_url" :alt="hit._source.title" :title="hit._source.title">
-			    				</a>
+			    				<div>
+				    				<a :href="'./detail.html?' + hit._source.id" target="_blank">
+				    					<img :ref="'Img_'+index" :src="_returuIMGURL(hit._source.pic_url, 150)" :alt="hit._source.title" :title="hit._source.title">
+				    				</a>
+			    				</div>
 			    				<ul>
 			    					<li>
 			    						<a :href="'./detail.html?' + hit._source.id" target="_blank" v-html="_titleColor(hit._source.title)"></a>
@@ -124,8 +126,9 @@
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
 	    			<li v-for="(hot,index) in hotData.data">
+	    				<span>热<b class="em_5"></b>销</span>
 	    				<a :href="'./detail.html?'+hot.item.id" target="_blank">
-		    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
+		    				<img :src="_returuIMGURL(hot.pic_url, 180)" :alt="hot.item.title" :title="hot.item.title">
 		    			</a>
 	    				<span>￥{{ hot.item.price }}</span>
 	    				<p>
@@ -157,7 +160,7 @@
 	      	<div class="slide-box">
 	      		<div class="search-product-left-gridRecommended" v-for="(hot,index) in sentimentData.data">
 	      			<a :href="'./detail.html?'+hot.item.id" target="_blank">
-		    				<img :src="hot.pic_url" :alt="hot.item.title" :title="hot.item.title">
+		    				<img :src="_returuIMGURL(hot.pic_url, 220)" :alt="hot.item.title" :title="hot.item.title">
 		    			</a>
 		    			<ul>
 		    				<li><span>￥{{ hot.item.price }}</span></li>
@@ -415,6 +418,13 @@
 	  },
 	  // 组件加载完成之前
 	  methods: {
+	  	_returuIMGURL (imgUrl, num) {
+	  		if(imgUrl.indexOf('img.alicdn.com') != -1){
+	  			return imgUrl + '_' + num + 'x' + num + '.jpg'
+	  		}else{
+	  			return imgUrl
+	  		}
+	  	},
 	  	// 轮播循环
 	  	_move (n) {
 				var me =this

@@ -99,7 +99,7 @@
     		<ul class="sellerAllProduct-product-left-success" v-if="isRequestYes">
     			<li v-for="(product,index) in productsAll" >
     				<a :href="'./detail.html?'+product.id" target="_blank">
-    					<img :src="product.pic_url" :alt="product.title" :title="product.title">
+    					<img :src="_returuIMGURL(product.pic_url, 230)" :alt="product.title" :title="product.title">
     				</a>
     				<ul>
     					<li>
@@ -124,7 +124,7 @@
     		<ul>
     			<li v-for="(showcase,index) in _noHot()">
     				<a :href="'./detail.html?'+showcase.id" target="_blank">
-    					<img :src="showcase.pic_url" :alt="showcase.title" :title="showcase.title"/>
+    					<img :src="_returuIMGURL(showcase.pic_url, 180)" :alt="showcase.title" :title="showcase.title"/>
     				</a>
     				<span>￥&nbsp;{{ showcase.price }}</span>
     			</li>
@@ -274,6 +274,13 @@
 	    })
 	  },
 	  methods : {
+	  	_returuIMGURL (imgUrl, num) {
+	  		if(imgUrl.indexOf('img.alicdn.com') != -1){
+	  			return imgUrl + '_' + num + 'x' + num + '.jpg'
+	  		}else{
+	  			return imgUrl
+	  		}
+	  	},
 	  	_item_symbol (val) {
 	  		if(val.indexOf('#') == -1){
 	  			return val + '#'
