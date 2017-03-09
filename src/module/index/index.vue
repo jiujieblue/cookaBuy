@@ -92,7 +92,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :title="productsItem.item.title" :src="_replaceImg(productsItem.pic_url,210)" />
+											<img :title="productsItem.item.title" :src="_replaceImg(productsItem.pic_url,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.item.price}}
