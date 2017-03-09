@@ -133,6 +133,7 @@ export default{
 		// 	}
 		// 	tar.prev('a').children('.icon-daohangonexianghou').css({display: 'block'})
 		// },
+		
 		_subStor (n) {
 			this.$emit('subStor',n)
 		},
@@ -192,6 +193,14 @@ export default{
 		}
 	},
 	mounted(){
+
+		$('.header-category-all').hover(
+			function(){
+				$('.icon-daohangxianghou').removeClass('out').addClass('hover')
+			},function(){
+				$('.icon-daohangxianghou').addClass('out').removeClass('hover')
+			}
+		)
 		this.$http.get('/api/cats')
 		.then(
 			function(res){

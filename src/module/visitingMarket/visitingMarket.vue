@@ -38,30 +38,30 @@
 							<div class="clearfix"></div>
 							<div class="market-box">
 								<table>
-									<tr>
+									<tr data_tr="1">
 										<td>市场</td>
 										<td>
 											<div @click="_clickAllM"><a :class="isAllM ? 'tagActive' : ''">全部</a></div>
-											<!-- <div><a>全部</a></div> -->
+										</td>
+										<td>
 											<div v-for="(marketItem, marketIndex) in markets" @click="_clickM(marketItem.key,marketIndex)"><a :class="mt == marketIndex ? 'tagActive' : ''">{{marketItem.key}}</a></div>
-											<!-- <div @click="_clickM('大西豪')"><a class="tagActive">大西豪</a></div>
-											<div><a>新潮都</a></div>
-											<div><a>灏丰(大西豪)</a></div>
-											<div><a>长运</a></div>
-											<div><a>长城</a></div> -->
 										</td>
 									</tr>
-									<tr>
+									<tr data_tr="2">
 										<td>楼层</td>
 										<td>
 											<div @click="_clickAllF"><a :class="isAllF ? 'tagActive' : ''">全部</a></div>
+										</td>
+										<td>
 											<div v-for="(floorItem, floorIndex) in sortF" @click="_clickF(floorItem.key)"><a :class="ft == floorItem.key ? 'tagActive' : ''">{{floorItem.key}}</a></div>
 										</td>
 									</tr>
-									<tr>
+									<tr data_tr="3">
 										<td>主营</td>
 										<td>
 											<div @click="_clickAllZ"><a :class="isAllZ ? 'tagActive' : ''">全部</a></div>
+										</td>
+										<td>
 											<div v-for="(catsItem, catsIndex) in cats" @click="_clickZ(catsItem.key,catsIndex)"><a :class="zt == catsIndex ? 'tagActive' : ''">{{catsItem.key}}</a></div>
 										</td>
 									</tr>
@@ -69,6 +69,8 @@
 										<td>类目</td>
 										<td>
 											<div @click="_clickAllC"><a :class="isAllC ? 'tagActive' : ''">全部</a></div>
+										</td>
+										<td>
 											<div v-for="(categoriesItem, categoriesIndex) in categories" @click="_clickC(categoriesItem.key,categoriesIndex)"><a :class="ct == categoriesIndex ? 'tagActive' : ''">{{categoriesItem.key}}</a></div>
 										</td>
 									</tr>
@@ -78,23 +80,23 @@
 								<ol class="breadcrumb">
 									<!-- <li><a>大西豪</a></li> -->
 									<li v-if="isAllM">
-										<a v-if="isAllM" class="isAllM ? active : ''">全部市场</a>
+										<a v-if="isAllM" :class="isAllM ? 'active' : ''">全部市场</a>
 									</li>
 									<li v-if="market">
-										<a class="market ? active : ''">{{market}}</a>
+										<a :class="market ? 'active' : ''">{{market}}</a>
 									</li>
 									<li v-if="isAllF">
-										<a v-if="isAllF" class="isAllF ? active : ''">全部楼层</a>
+										<a v-if="isAllF" :class="isAllF ? 'active' : ''">全部楼层</a>
 									</li>	
 									<li v-if="floor">
-										<a class="floor ? active : ''">{{floor}}</a>
+										<a :class="floor ? 'active' : ''">{{floor}}</a>
 									</li>
 
 									<li v-if="isAllZ">
-										<a v-if="isAllZ" class="isAllZ ? active : ''">全部主营</a>
+										<a v-if="isAllZ" :class="isAllZ ? 'active' : ''">全部主营</a>
 									</li>	
 									<li v-if="zhuying">
-										<a class="zhuying ? active : ''">{{zhuying}}</a>
+										<a :class="zhuying ? 'active' : ''">{{zhuying}}</a>
 									</li>
 
 									<!-- <li v-if="isAllC">
@@ -750,6 +752,7 @@
 		  		}
 		  		this.q = decodeURIComponent(this.q.slice(this.q.indexOf('=')+1))
 		  	}
+
 			$('.swiper-box-carousel').hover(
 				function(){
 					$('.icon-navqian').css('left','0').fadeIn('normal')
@@ -761,6 +764,19 @@
 				}
 			)
 
+			// this.$nextTick(function(){
+	  //           var trs = $('.market-box table tr')
+			// 	for (var i = 0; i < trs.length; i++) {
+			// 		console.log($(trs[i]).height())
+			// 		console.log($(trs[i]).css('min-height'))
+			// 		if(parseInt($(trs[i]).height()) > parseInt($(trs[i]).css('min-height'))) {
+						
+			// 			$('.market-box table tr:nth-child(' + i+1 +') td:nth-child(2)').addClass('overheight')
+
+			// 		} 
+			// 	}
+			// })
+			
 
 			!this.q && (this.isSearch = false)
 			if(this.q){

@@ -90,6 +90,7 @@ a{
 	}
 
 	&-category {
+
 		&-all {
 			background-color: @ck-main;
 			font-size: large;
@@ -137,7 +138,37 @@ a{
 				&:focus,
 				&:active {
 					color: #333;
+					text-decoration: none;
 				}
+			}
+
+			.hover{
+
+				transition: transform 0.25s linear;
+				-ms-transition: transform 0.25s linear;
+				-moz-transition: transform 0.25s linear;
+				-webkit-transition: transform 0.25s linear;
+				-o-transition: transform 0.25s linear;
+
+				transform:rotate(90deg);
+				-ms-transform:rotate(90deg);
+				-moz-transform:rotate(90deg);
+				-webkit-transform:rotate(90deg);
+				-o-transform:rotate(90deg);
+			}
+			.out{
+
+				transition: transform 0.25s linear;
+				-ms-transition: transform 0.25s linear;
+				-moz-transition: transform 0.25s linear;
+				-webkit-transition: transform 0.25s linear;
+				-o-transition: transform 0.25s linear;
+
+				transform:rotate(0deg);
+				-ms-transform:rotate(0deg);
+				-moz-transform:rotate(0deg);
+				-webkit-transform:rotate(0deg);
+				-o-transform:rotate(0deg);
 			}
 
 			&:hover,
@@ -191,6 +222,7 @@ a{
 						float: left;
 						font-size: 20px;
 						margin-right: 10px;
+						margin-top: 2px;
 						&:last-child{
 							float: right;
 							margin-top: 3px;

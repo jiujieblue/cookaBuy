@@ -95,6 +95,11 @@ module.exports = {
       name: "vendor",
       minChunks : Infinity
       }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"

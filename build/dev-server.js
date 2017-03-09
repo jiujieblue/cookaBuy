@@ -16,17 +16,10 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = {
   // detail
   '/api/items/': {
-    target: 'http://localhost:4000',
+    target: 'http://119.29.224.238',
     changeOrigin: true,
     pathRewrite: {
       '^/api/items/': '/api/items/'
-    }
-  },
-  '/api/items': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/items': '/api/items'
     }
   },
 
@@ -205,14 +198,6 @@ var proxyTable = {
       '^/api/searchs': '/api/searchs'
     }
   },
-  //  ybz_buyFootprint_sellerAllProduct
-  '/api': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api': '/api'
-    }
-  },
   //  ybz_searchs
   '/s1/searchs': {
     target: 'http://119.29.224.238',
@@ -222,7 +207,7 @@ var proxyTable = {
     }
   },
   '/api/stores':{
-    target: 'http://localhost:4000',
+    target: 'http://119.29.224.238',
     changeOrigin: true,
     pathRewrite:{
       '^/api/stores':'/api/stores'
@@ -236,7 +221,7 @@ var proxyTable = {
     }
   },
   '/api/cats':{
-    target: 'http://localhost:4000',
+    target: 'http://119.29.224.238',
     changeOrigin: true,
     pathRewrite:{
       '^/api/cats':'/api/cats'
@@ -268,6 +253,14 @@ var proxyTable = {
     changeOrigin: true,
     pathRewrite: {
       '^/api/active_rec_items':'/api/active_rec_items'
+    }
+  },
+  //  ybz_buyFootprint_sellerAllProduct
+  '/api': {
+    target: 'http://119.29.224.238',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '/api'
     }
   }
 }

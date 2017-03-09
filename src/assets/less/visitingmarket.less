@@ -3,7 +3,7 @@
 .visitingmarket{
 	.startstore-box{
 		.top{
-			margin-top: 30px;
+			margin-top: 20px;
 			position: relative;
 			border-bottom: 1px solid #000;
 			font-size: 18px;
@@ -16,7 +16,7 @@
 			>span{
 				float: left;
 				margin-bottom: 20px;
-				margin-left: 20px;
+				margin-left: 10px;
 			}
 		}
 		.swiper-box{
@@ -78,6 +78,7 @@
 				width: 100%;
 				color: #665c69;
 				>tr{
+					min-height:42px;
 					td:nth-child(1){
 						text-align: center;
 						font-size: 16px;
@@ -85,21 +86,52 @@
 						width: 10%;
 						background-color: #ECECEC;
 						border-bottom: 1px solid #fff;
+						text-indent: 20px;
+    					letter-spacing: 20px;
 					}
 					td:nth-child(2){
 						font-size: 14px;
-						width: 90%;
+						width: 5%;
 						background-color: #fff;
 						border: 1px solid #ECECEC;
+						border-right: none;
 						div{
-							float: left;
+							text-align: center;
 							margin:0 10px;
 							a{	
 								cursor: pointer;
 								text-decoration: none;
-								color: #665c59;
+								color: #a89d99;
+								letter-spacing: 4px;
 								&:hover{
-									color: @ck-main;
+									color: #5d5654;
+								}
+							}
+							.tagActive{
+								color: @ck-main;
+							}
+						}
+					}
+					.overheight{
+						vertical-align: top;
+						padding: 0;
+					}
+					td:nth-child(3){
+						font-size: 14px;
+						width: 85%;
+						background-color: #fff;
+						border: 1px solid #ECECEC;
+						border-left: none;
+						div{
+							float: left;
+							margin:0 20px 0 0;
+							a{	
+								cursor: pointer;
+								text-decoration: none;
+								color: #a89d99;
+								letter-spacing: 4px;
+								&:hover{
+									color: #5d5654;
 								}
 							}
 							.tagActive{
@@ -128,19 +160,27 @@
 			ol>li{
 				font-size: 16px;
 				a{
-					color: #A2A2A2;
+					color: #000;
 				}
 			}
 			margin: 20px 0;
 			padding: 0;
 			.breadcrumb{
 				background-color: transparent;
+				>li{
+					&:nth-child(2),
+					&:nth-child(3){
+						a{
+							color: #000;
+						}
+					}
+				}
 				.active{
-					color: @ck-sub;
+					color: #A2A2A2;
 				}
 			}
 			.breadcrumb > li + li:before {
-			    color: #000;
+			    color: #A2A2A2;
 			    content: "> ";
 			    padding: 0 2px;
 			}
@@ -228,7 +268,12 @@
 							box-shadow: 1px 5px 10px #989898;
 							text-decoration: none;
 							font-size: 14px;
-							&:focus{
+							&:hover,
+							&:focus,
+							&:active {
+								color: #fff;
+								background-color: #555;
+								text-decoration: none;
 								border: none;
 								outline: none;
 							}
