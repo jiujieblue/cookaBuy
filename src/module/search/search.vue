@@ -126,6 +126,7 @@
 	    		<p><span>HOT</span><b>热销商品</b></p>
 	    		<ul>
 	    			<li v-for="(hot,index) in hotData.data">
+	    				<span>热<b class="em_5"></b>销</span>
 	    				<a :href="'./detail.html?'+hot.item.id" target="_blank">
 		    				<img :src="_returuIMGURL(hot.pic_url, 180)" :alt="hot.item.title" :title="hot.item.title">
 		    			</a>
