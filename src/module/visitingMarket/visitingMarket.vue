@@ -786,7 +786,6 @@
 						this.stores = res.data[2]&&res.data[2].hits&&res.data[2].hits.hits
 						this.q_total = res.data[2]&&res.data[2].hits&&res.data[2].hits.total
 						this.pages = Math.ceil(this.q_total/10)
-						//console.log(this.pages)
 					},
 					function(err){
 						console.log(err)
