@@ -33,7 +33,7 @@
 									<!-- Wrapper for slides -->
 									<div class="carousel-inner" role="listbox">
 										<div :class="adsIndex? 'item':'item active'" v-for="(adsItem, adsIndex) in ads" @click="_goAdsMore(adsItem.activity_url)">
-											<img :src="adsItem.pic_url" :title="adsItem.tip" alt="adsItem.tip">
+											<img :src="_replaceImg(adsItem.pic_url,678,373)" :title="adsItem.tip" alt="adsItem.tip">
 										</div>
 									</div>
 									<!-- Controls -->
@@ -92,7 +92,7 @@
 								<div class="left">
 									<div class="index-product" v-for="(productsItem, productsIndex) in products" v-if="productsIndex < 8">
 										<a class="index-product-link" @click="_toRecommendDetail(productsIndex)">
-											<img :title="productsItem.item.title" :src="_replaceImg(productsItem.pic_url,230)" />
+											<img :title="productsItem.item.title" :src="_replaceImg(productsItem.pic_url,230,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{productsItem.item.price}}
@@ -117,7 +117,7 @@
 												<a>
 													<div class="product">
 														<div class="img">
-															<img :title="sideproductsItem.item.title" :src="_replaceImg(sideproductsItem.pic_url,80)">
+															<img :title="sideproductsItem.item.title" :src="_replaceImg(sideproductsItem.pic_url,80,80)">
 														</div>
 														<a><span class="store">{{sideproductsItem.item.store&&sideproductsItem.item.store.store_name}}</span></a>
 														<div class="extra">
@@ -162,7 +162,7 @@
 				                    </a>
 				                  </div>
 				                  <a class="index-store-product" @click="_toStore(storesIndex)">
-				                    <img :src="_replaceImg(storesItem.pic_url, 230)" />
+				                    <img :src="_replaceImg(storesItem.pic_url, 230,230)" />
 				                  </a>
 				                </div>
 							</div>
@@ -184,7 +184,7 @@
 								<div class="left">
 									<div class="index-product" v-if="girlsIndex < 10" v-for="(girlsItem, girlsIndex) in girls" >
 										<a class="index-product-link" @click="_toGirlDetail(girlsIndex)">
-											<img :title="girlsItem.item.title" :src="_replaceImg(girlsItem.pic_url,230)" />
+											<img :title="girlsItem.item.title" :src="_replaceImg(girlsItem.pic_url,230,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{girlsItem.item.price}}
@@ -221,7 +221,7 @@
 								<div class="left">
 									<div class="index-product" v-if="boysIndex < 10" v-for="(boysItem, boysIndex) in boys" >
 										<a class="index-product-link" @click="_toBoyDetail(boysIndex)">
-											<img :title="boysItem.item.title" :src="_replaceImg(boysItem.pic_url,230)" />
+											<img :title="boysItem.item.title" :src="_replaceImg(boysItem.pic_url,230,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{boysItem.item.price}}
@@ -258,7 +258,7 @@
 								<div class="left">
 									<div class="index-product" v-if="maternitsIndex < 10" v-for="(maternitsItem, maternitsIndex) in maternits" >
 										<a class="index-product-link" @click="_toMaternitDetail(maternitsIndex)">
-											<img :title="maternitsItem.title" :src="_replaceImg(maternitsItem.pic_url,230)" />
+											<img :title="maternitsItem.title" :src="_replaceImg(maternitsItem.pic_url,230,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{maternitsItem.item.price}}
@@ -295,7 +295,7 @@
 								<div class="left">
 									<div class="index-product" v-if="childrensIndex < 10" v-for="(childrensItem, childrensIndex) in childrens" >
 										<a class="index-product-link" @click="_toChildrenDetail(childrensIndex)">
-											<img :title="childrensItem.title" :src="_replaceImg(childrensItem.pic_url,230)" />
+											<img :title="childrensItem.title" :src="_replaceImg(childrensItem.pic_url,230,230)" />
 										</a>
 										<div class="index-product-price">
 											¥ {{childrensItem.item.price}}
@@ -462,9 +462,9 @@ export default {
 			cpath = tar.parent('.index-category-block').attr('data-cpath')
 			window.open("./search.html?q="+ tar.html() + '&cpath=' + cpath)
 		},
-		_replaceImg(url,num){
+		_replaceImg(url, numW, numH){
 			if(url.match('img.alicdn.com') != null){
-				url += '_'+ num + 'x' + num + '.jpg'
+				url += '_'+ numW + 'x' + numH + '.jpg'
 			}
 			return url
 		}
