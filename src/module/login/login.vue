@@ -45,7 +45,7 @@
             <form v-on:submit="_submit">
               <div class="form-zhanghao">
                 <span class="icon-zhanghao"></span>
-                <input type="text" name="username" placeholder="请输入您的手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                <input type="text" name="mobile" placeholder="请输入您的手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
               </div>
               <div class="form-err" v-bind:style="{visibility: error == '请输入正确的手机号码' || error == '手机号码不能为空' ? 'visible' : 'hidden'}">
                 {{error}}
@@ -116,14 +116,14 @@
       _submit (e) {
         e.preventDefault();
         var data = fto(e.target);
-        if (!data || !data.username) {
+        if (!data || !data.mobile) {
           this.error = '手机号码不能为空'
           return false;
         }
         else{
           this.error = '';
         }
-        if(!(/^1[\d]{10}$/.test(data.username))){
+        if(!(/^1[\d]{10}$/.test(data.mobile))){
           this.error = '请输入正确的手机号码'
           return false;
         }
@@ -137,7 +137,7 @@
         else{
           this.error = ''
         }
-        this.$http.post('/login',data)
+        this.$http.post('/jwt/sign_in',{'user': data})
           .then(function(ret){
             console.log(ret.data)
           },

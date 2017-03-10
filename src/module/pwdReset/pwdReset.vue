@@ -25,11 +25,11 @@
                 <div class="form-phone">
                   <label>手<span class="em"></span><span class="em"></span>机</label>
                   <span class="icon-zhanghao"></span>
-                  <input type="text" name="phone" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                  <input type="text" name="mobile" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
                 </div>
                 <div class="form-code">
                   <label>短信验证</label>
-                  <input type="text" name="mobileCode">
+                  <input type="text" name="code">
                   <button type="button" v-bind:class="sendMsg ? 'after' : 'before'" v-bind:disabled="sendMsg" v-on:click="_getCode">{{btnContent}}</button>
                 </div>
                 <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
@@ -105,20 +105,21 @@
           this.error = '请输入正确的手机号码'
         }
         else{
-          this.$http.get('/checkExist?phone=' + e.target.value)
+          this.$http.get('/jwt/check_exist?mobile=' + e.target.value)
             .then(
               function(ret){
-                if(ret.data.result == 'SUCCESS'){
-                  this.error = '';
+                if(!ret.data.msg){
+                  this.error = '该账号未注册';
                 }
                 else{
-                  this.error = ret.data.error;
+                  this.error = '';
                 }
               },
               function(err){
                 console.log(err)
             })
         }
+        
       },
       _writePhone () {
         this.error = ''
@@ -129,10 +130,9 @@
           this.error = '请输入正确的手机号码'
         }
         else{
-          this.$http.post('/verifyCode?phone='+this.$refs.phone.value)
+          this.$http.get('/jwt/send_code?mobile='+this.$refs.phone.value+'&type=reset_pw')
           .then(function (ret) {
-            this.error = ''
-            if(ret.data.result == 'SUCCESS'){
+            if(ret.data.msg == 'OK'){
               me.sendMsg = true;
               me.btnContent = '获取验证码(' + me.sendTime + ')'
               var timer = setInterval(function(){          
@@ -151,42 +151,40 @@
             console.log(err)
           })
         }
+        
       },
       _submitCode (e) {
         e.preventDefault();
         var me =this;
         var data = fto(e.target)
-        if (!data.phone) {
+        if (!data.mobile) {
           this.error = '手机号码不能为空'
           return false;
         }
         else{
           this.error = '';
         }
-        if(!(/^1[\d]{10}$/.test(data.phone))){
+        if(!(/^1[\d]{10}$/.test(data.mobile))){
           this.error = '请输入正确的手机号码'
           return false;
         }
         else{
           this.error = ''
         }
-        if (!data.mobileCode){          
+        if (!data.code){          
           this.error = '验证码不能为空'
           return false;
         }
-        else if (!(/^[\d]{6}$/.test(data.mobileCode))){
+        else if (!(/^[\d]{6}$/.test(data.code))){
           this.error = '验证码格式不正确'
           return false;
         }
         else{
           this.error = ''
         }
-        var formData = new FormData();
-        formData.append('phone',data.phone);
-        formData.append('mobileCode',data.mobileCode)
-        this.$http.post('/verifyPrincipal',formData)
+        this.$http.post('/jwt/validate',data)
           .then(function(ret){
-            if(ret.data.result == 'SUCCESS'){
+            if(ret.data.msg == 'OK'){
               this.step = 2
               this.error = ''
             }
