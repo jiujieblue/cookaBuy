@@ -62,10 +62,10 @@
 									<a href="./publicDetail.html" class="index-note-item">
 										[公告] 柯咔商城系统升级通知及活动优惠政策预告
 									</a>
-									<a href="./publicDetail.html" class="index-note-item">
+									<a class="index-note-item">
 										[公告] 柯咔免费帮您做店招
 									</a>
-									<a href="./publicDetail.html" class="index-note-item">
+									<a class="index-note-item">
 										[公告] 【帮助中心】-新手指引
 									</a>
 									<!-- <a :href="./publicDetail.html?announcementsIndex" target="_blank" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in this.announcements">
