@@ -19,7 +19,7 @@
         <div class="col-md-12">
           <div class="login-t-tit">
             <img src="../../assets/images/logo.svg" width="150">
-            <span>欢迎注册</span>
+            <span>欢迎登录</span>
           </div>          
         </div>
       </div>
@@ -54,7 +54,7 @@
                 <span class="icon-mima"></span>
                 <input type="password" name="password" placeholder="请输入密码">
               </div>
-              <div class="form-err" v-bind:style="{visibility: error=='密码不能为空' ? 'visible' : 'hidden'}">
+              <div class="form-err" v-bind:style="{visibility: error == '密码不能为空' ||　'密码不正确' || '密码至少为8个字符' ? 'visible' : 'hidden'}">
                 {{error}}
               </div>
               <div class="form-oth">
@@ -63,7 +63,7 @@
                   <label>记住账号</label>
                 </div>
                 <div class="form-oth-wjmima">
-                  <a href="#">忘记密码</a>
+                  <a href="./pwdReset.html">忘记密码</a>
                 </div>
               </div>
               <div class="form-login">
@@ -139,7 +139,15 @@
         }
         this.$http.post('/jwt/sign_in',{'user': data})
           .then(function(ret){
-            console.log(ret.data)
+            if(ret.data.msg == 'Mobile or password is error.'){
+              this.error = '密码不正确'
+            }
+            else if(ret.data.errors){
+              this.error = '密码至少为8个字符'
+            }
+            if(ret.data.jwt){
+              this.error = ''
+            }
           },
           function(err){
             console.log(err)
@@ -152,7 +160,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/login.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  @import "../../assets/less/login.less";
 </style>

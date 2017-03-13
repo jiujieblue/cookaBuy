@@ -51,7 +51,7 @@
                 <div class="form-pwd-conf">
                   <label>确认密码</label>
                   <span class="icon-mima"></span>
-                  <input type="password" name="confirmPassword">
+                  <input type="password" name="confirmation">
                 </div>
                 <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
                   {{error}}
@@ -203,19 +203,17 @@
           this.error = '密码不能为空'
           return false;
         }
-        else if (data.password !== data.confirmPassword) {
+        else if (data.password !== data.confirmation) {
           this.error = '两次密码输入不一致'
           return false;
         }
         else{
          this.error = ''
         }
-        var formData = new FormData();
-        formData.append('password',data.password)
-        formData.append('confirmPassword',data.confirmPassword)
-        this.$http.post('/modifyPassword',formData)
+        data.mobile = this.$refs.phone.value
+        this.$http.post('/jwt/reset_pw',data)
           .then(function(ret){
-            if(ret.data.result == 'SUCCESS'){
+            if(ret.data.msg == 'Reset password ok.'){
               this.error = ''
             }
             else{
@@ -232,7 +230,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/pwd_reset.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  @import "../../assets/less/pwd_reset.less";
 </style>

@@ -205,8 +205,7 @@
             }
             else{
               this.error = ret.data.error;
-            }
-            
+            } 
           },
           function (err) {
             console.log(err)
@@ -219,7 +218,7 @@
   }
 </script>
 <style lang="less">
-  @import "../../assets/less/register.less";
   @import '../../assets/css/icons.css';
   @import '../../assets/css/bootstrap.css';
+  @import "../../assets/less/register.less";
 </style>
