@@ -14,7 +14,31 @@ var port = process.env.PORT || config.dev.port
 
 
 var proxyTable = {
-  // detail
+
+  '/api': {
+    target: 'http://119.29.224.238',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '/api'
+    }
+  },
+
+  '/api/': {
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/': '/api/'
+    }
+  },
+
+  '/api/':{
+    target: 'http://119.29.224.238',
+    changeOrigin: true,
+    pathRewrite:{
+      '^/api/':'/api/'
+    }
+  },
+
   '/api/items/': {
     target: 'http://119.29.224.238',
     changeOrigin: true,
@@ -23,25 +47,6 @@ var proxyTable = {
     }
   },
 
-  // cart
-  '/api/carts': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/carts': '/api/carts'
-    }
-  },
-  
-  // favorites
-  '/api/favorites': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/favorites': '/api/favorites'
-    }
-  },
-
-  // collect
   '/api/favorites/deleteInvalid': {
     target: 'http://localhost:4000',
     changeOrigin: true,
@@ -49,94 +54,23 @@ var proxyTable = {
       '^/api/favorites/deleteInvalid': '/api/favorites/deleteInvalid'
     }
   },
-  // register
-  '/checkAvaiable': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/checkAvaiable': '/checkAvaiable'
-    }
-  },
-  '/registCode': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/registCode': '/registCode'
-    }
-  },
-  '/regist': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/regist': '/regist'
-    }
-  },
-  // login
-  '/login': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/login': '/login'
-    }
-  },
-  // passwordReset
-  '/checkExist': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/checkExist': '/checkExist'
-    }
-  },
-  '/verifyCode': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/verifyCode': '/verifyCode'
-    }
-  },
-  '/verifyPrincipal': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/verifyPrincipal': '/verifyPrincipal'
-    }
-  },
-  '/modifyPassword': {
-    target: 'http://localhost:8080',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/modifyPassword': '/modifyPassword'
-    }
-  },
-  // addresses
-  '/api/addresses': {
+
+  '/api/footprints/deleteInvalid': {
     target: 'http://localhost:4000',
     changeOrigin: true,
     pathRewrite: {
-      '^/api/addresses': '/api/addresses'
+      '^/api/footprints/deleteInvalid': '/api/footprints/deleteInvalid'
     }
   },
-  '/api/states': {
-    target: 'http://localhost:4000',
+
+  '/jwt/': {
+    target: 'http://119.29.224.238/',
     changeOrigin: true,
     pathRewrite: {
-      '^/api/states': '/api/states'
+      '^/jwt/': '/jwt/'
     }
   },
-  '/api/cities': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/cities': '/api/cities'
-    }
-  },
-  '/api/regions': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/regions': '/api/regions'
-    }
-  },
+
 
   '/cooka': {
 		target: 'http://localhost',
@@ -146,51 +80,6 @@ var proxyTable = {
 		}
 	},
 
-  '/api/footprints/deleteInvalid': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/footprints/deleteInvalid': '/api/footprints/deleteInvalid'
-    }
-  },
-	'/api/addresses':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/addresses':'/api/addresses'
-    }
-  },
-
-
-  '/api/states':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite:{
-      '^/api/states':'/api/states'
-     }
-    },
-  '/api/cities': {
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/cities': '/api/cities'
-      }
-    },
-  '/api/regions':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite:{
-      '^/api/regions':'/api/regions'
-      }
-    },
-  '/api/bulletins':{
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/bulletins':'/api/bulletins'
-      }
-    },
-  //  ybz_/api/searchs
   '/api/searchs': {
     target: 'http://localhost:4001',
     changeOrigin: true,
@@ -198,71 +87,15 @@ var proxyTable = {
       '^/api/searchs': '/api/searchs'
     }
   },
-  //  ybz_searchs
+
   '/s1/searchs': {
     target: 'http://119.29.224.238',
     changeOrigin: true,
     pathRewrite: {
       '^/api': '/api'
     }
-  },
-  '/api/stores':{
-    target: 'http://119.29.224.238',
-    changeOrigin: true,
-    pathRewrite:{
-      '^/api/stores':'/api/stores'
-    }
-  },
-  '/api/categories':{
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite:{
-      '^/api/categories':'/api/categories'
-    }
-  },
-  '/api/cats':{
-    target: 'http://119.29.224.238',
-    changeOrigin: true,
-    pathRewrite:{
-      '^/api/cats':'/api/cats'
-    }
-  },
-  'api/index':{
-    target: 'http://119.29.224.238',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/index':'/api/index'
-    }
-  },
-  'api/recommends':{
-    target:'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/recommends':'/api/recommends'
-    }
-  },
-  'api/active_cookaads':{
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/active_ads':'/api/active_ads'
-    }
-  },
-  'api/active_rec_items':{
-    target: 'http://localhost:4000',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api/active_rec_items':'/api/active_rec_items'
-    }
-  },
-  //  ybz_buyFootprint_sellerAllProduct
-  '/api': {
-    target: 'http://119.29.224.238',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api': '/api'
-    }
   }
+  
 }
 
 var app = express()

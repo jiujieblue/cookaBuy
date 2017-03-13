@@ -32,7 +32,7 @@
                 <label>手<span class="em"></span><span class="em"></span>机</label>
                 <div class="input-box">
                   <span class="icon-zhanghao"></span>
-                  <input type="text" name="phone" placeholder="请输入手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                  <input type="text" name="mobile" placeholder="请输入手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
                 </div>                        
               </div>
               <div class="form-psd">
@@ -46,13 +46,13 @@
                 <label>确认密码</label>
                 <div class="input-box">
                   <span class="icon-mima"></span>
-                  <input type="password" name="confirmPassword" placeholder="请确认密码" ref="confirmPassword">
+                  <input type="password" name="password_confirmation" placeholder="请确认密码" ref="confirmPassword">
                 </div>
               </div>
               <div class="form-verify">
                 <label>短信验证</label>
                 <div class="input-box">
-                  <input type="text" name="mobileCode" placeholder="请输入验证码">
+                  <input type="text" name="code" placeholder="请输入验证码">
                   <button type="button" v-bind:class="sendMsg ? 'after' : 'before'" v-bind:disabled="sendMsg" v-on:click="getCode">{{btnContent}}</button>
                 </div>            
               </div>
@@ -111,14 +111,14 @@
           this.error = '请输入正确的手机号码'
         }
         else{
-          this.$http.get('/checkAvaiable?phone=' + e.target.value)
+          this.$http.get('/jwt/check_exist?mobile=' + e.target.value)
             .then(
               function(ret){
-                if(ret.data.result == 'SUCCESS'){
+                if(!ret.data.msg){
                   this.error = '';
                 }
                 else{
-                  this.error = ret.data.error;
+                  this.error = '该账号已注册';
                 }
               },
               function(err){
@@ -136,9 +136,9 @@
           this.error = '请输入正确的手机号码'
         }
         else{
-          this.$http.post('/registCode?phone='+this.$refs.phone.value)
+          this.$http.get('/jwt/send_code?mobile='+this.$refs.phone.value+'&type=sign_up')
           .then(function (ret) {
-            if(ret.data.result == 'SUCCESS'){
+            if(ret.data.msg == 'OK'){
               me.sendMsg = true;
               me.btnContent = '获取验证码(' + me.sendTime + ')'
               var timer = setInterval(function(){          
@@ -162,14 +162,14 @@
       _submit (e) {
         e.preventDefault();
         var data = fto(e.target)
-        if (!data.phone) {
+        if (!data.mobile) {
           this.error = '手机号码不能为空'
           return false;
         }
         else{
           this.error = '';
         }
-        if(!(/^1[\d]{10}$/.test(data.phone))){
+        if(!(/^1[\d]{10}$/.test(data.mobile))){
           this.error = '请输入正确的手机号码'
           return false;
         }
@@ -180,33 +180,33 @@
           this.error = '密码不能为空'
           return false;
         }
-        else if (data.password !== data.confirmPassword) {
+        else if (data.password !== data.password_confirmation) {
           this.error = '两次密码输入不一致'
           return false;
         }
         else{
          this.error = ''
         }
-        if (!data.mobileCode){          
+        if (!data.code){          
           this.error = '验证码不能为空'
           return false;
         }
-        else if (!(/^[\d]{6}$/.test(data.mobileCode))){
+        else if (!(/^[\d]{6}$/.test(data.code))){
           this.error = '验证码格式不正确'
           return false;
         }
         else{
           this.error = ''
         }
-        this.$http.post('/regist',data)
+        this.$http.post('/jwt/sign_up',{'user': data})
           .then(function (ret) {
-            if(ret.data.result == 'SUCCESS'){
+            if(ret.data.msg == 'OK'){
               this.error = '';
             }
             else{
               this.error = ret.data.error;
             }
-
+            
           },
           function (err) {
             console.log(err)
