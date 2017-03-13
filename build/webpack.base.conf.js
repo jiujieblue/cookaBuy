@@ -19,6 +19,8 @@ module.exports = {
     'module/search': './src/module/search/search.js',
     'module/sellerAllProduct': './src/module/sellerAllProduct/sellerAllProduct.js',
     'module/publicDetail': './src/module/publicDetail/publicDetail.js',
+    'module/publicDetailHelp': './src/module/publicDetailHelp/publicDetailHelp.js',
+    'module/publicDetail_2': './src/module/publicDetail_2/publicDetail_2.js',
     'module/contactUs': './src/module/contactUs/contactUs.js',
     'module/aboutUs': './src/module/aboutUs/aboutUs.js',
     'module/buyerFootprint': './src/module/buyerFootprint/buyerFootprint.js',

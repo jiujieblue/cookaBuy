@@ -59,13 +59,13 @@
 									<p v-if="false">暂无公告</p>
 								</div> -->
 								<div class="index-note-items">
-									<a href="./publicDetail.html" class="index-note-item">
+									<a href="./publicDetail.html" target="_blank" class="index-note-item">
 										[公告] 柯咔商城系统升级通知及活动优惠政策预告
 									</a>
-									<a class="index-note-item">
+									<a href="./publicDetail_2.html" target="_blank" class="index-note-item">
 										[公告] 柯咔免费帮您做店招
 									</a>
-									<a class="index-note-item">
+									<a href="./publicDetailHelp.html" target="_blank" class="index-note-item">
 										[公告] 【帮助中心】-新手指引
 									</a>
 									<!-- <a :href="./publicDetail.html?announcementsIndex" target="_blank" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in this.announcements">
