@@ -66,7 +66,7 @@
 										[公告] 柯咔免费帮您做店招
 									</a>
 									<a href="./publicDetailHelp.html" target="_blank" class="index-note-item">
-										[公告] 【帮助中心】-新手指引
+										[帮助中心] 新手指引
 									</a>
 									<!-- <a :href="./publicDetail.html?announcementsIndex" target="_blank" class="index-note-item" v-for="(announcementsItem, announcementsIndex) in this.announcements">
 										[公告] {{announcementsItem}}

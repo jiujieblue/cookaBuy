@@ -43,6 +43,7 @@
           </div>
           <div class="public-detail-indent">
             <p>春节放假回来，您换档口了吗？是否没时间做店招？店招的设计不好看？让柯咔来帮您吧。只要您提供档口号（如：新潮都1008）、店名（如：圆缘服饰）、手机号、微信号给柯咔客服，柯咔帮您免费搞定，详情请联系客服QQ：2100505046</p>
+            <img src="../../assets/images/dianzhao.png" alt="">
           </div>
         </div>
       </div>
