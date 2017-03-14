@@ -82,7 +82,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="login-b-tit">
-            Copyright 2016 广州柯咔网络科技有限公司版权所有 粤ICP备XXXXXXXXX号 客服电话 : 400-020-xxxxxxx
+            Copyright©2017 广州柯咔网络科技有限公司  www.cookabuy.com  粤ICP备15091531号  客服热线:400-8868-900
           </div>          
         </div>
       </div>
@@ -147,6 +147,7 @@
             }
             if(ret.data.jwt){
               this.error = ''
+              location.href = './index.html'
             }
           },
           function(err){

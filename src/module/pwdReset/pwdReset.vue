@@ -73,7 +73,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pwd-foot-tit">
-            Copyright 2016 广州柯咔网络科技有限公司版权所有 粤ICP备XXXXXXXXX号 客服电话 : 400-020-xxxxxxx
+            Copyright©2017 广州柯咔网络科技有限公司  www.cookabuy.com  粤ICP备15091531号  客服热线:400-8868-900
           </div>          
         </div>
       </div>
@@ -188,8 +188,8 @@
               this.step = 2
               this.error = ''
             }
-            else{
-              this.error = ret.data.error
+            else if(ret.data.msg == 'Code not right.'){
+              this.error = '验证码不正确'
             }
           },function(err){
             console.log(err)
@@ -215,6 +215,7 @@
           .then(function(ret){
             if(ret.data.msg == 'Reset password ok.'){
               this.error = ''
+              location.href = './login.html'
             }
             else{
               this.error = ret.data.error
