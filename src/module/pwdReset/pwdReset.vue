@@ -6,7 +6,7 @@
         <div class="col-md-12">
           <div class="pwd-head-tit">
             <img src="../../assets/images/logo.svg" width="150">
-            <span>密码找回</span>
+            <span>密码重置</span>
           </div>          
         </div>
       </div>
@@ -18,14 +18,14 @@
         <div class="col-md-12">
           <div class="pwd-reset">
             <div class="pwd-reset-tit">
-              密码找回
+              密码重置
             </div>
-            <div class="pwd-reset-form" v-bind:style="{display: step == 1 ? 'block' : 'none'}">
+            <div class="pwd-reset-form" v-if="step == 1">
               <form v-on:submit="_submitCode" class="form-code">
                 <div class="form-phone">
                   <label>手<span class="em"></span><span class="em"></span>机</label>
                   <span class="icon-zhanghao"></span>
-                  <input type="text" name="mobile" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                  <input type="text" name="mobile" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone" v-model="mobile">
                 </div>
                 <div class="form-code">
                   <label>短信验证</label>
@@ -41,7 +41,7 @@
               </form>
             </div>
 
-            <div class="pwd-reset-form" v-bind:style="{display: step == 2 ? 'block' : 'none'}">
+            <div class="pwd-reset-form" v-if="step == 2">
               <form v-on:submit="_submitPwd" class="form-pwd">
                 <div class="form-pwd">
                   <label>新<span class="em_5"></span>密<span class="em_5"></span>码</label>
@@ -92,6 +92,7 @@
   export default{
     data () {
       return {
+        mobile: '',
         error: '',
         step: 1,
         btnContent: '获取短信验证码',
@@ -210,7 +211,7 @@
         else{
          this.error = ''
         }
-        data.mobile = this.$refs.phone.value
+        data.mobile = this.mobile
         this.$http.post('/jwt/reset_pw',data)
           .then(function(ret){
             if(ret.data.msg == 'Reset password ok.'){

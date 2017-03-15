@@ -47,15 +47,15 @@
                 <span class="icon-zhanghao"></span>
                 <input type="text" name="mobile" placeholder="请输入您的手机号码" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
               </div>
-              <div class="form-err" v-bind:style="{visibility: error == '请输入正确的手机号码' || error == '手机号码不能为空' ? 'visible' : 'hidden'}">
-                {{error}}
+              <div class="form-err" v-bind:style="{visibility: mobileError == '请输入正确的手机号码' || mobileError == '手机号码不能为空' ? 'visible' : 'hidden'}">
+                {{mobileError}}
               </div>
               <div class="form-psd">
                 <span class="icon-mima"></span>
                 <input type="password" name="password" placeholder="请输入密码">
               </div>
-              <div class="form-err" v-bind:style="{visibility: error == '密码不能为空' ||　'密码不正确' || '密码至少为8个字符' ? 'visible' : 'hidden'}">
-                {{error}}
+              <div class="form-err" v-bind:style="{visibility: passwordError == '密码不能为空' ||　'密码不正确' || '密码至少为8个字符' ? 'visible' : 'hidden'}">
+                {{passwordError}}
               </div>
               <div class="form-oth">
                 <div class="form-oth-member">
@@ -101,52 +101,53 @@
   export default{
     data () {
       return {
-        error: ''
+        mobileError: '',
+        passwordError: ''
       }
     },
     methods: {
       _checkPhone (e) {
         if((!e.target.value) || (e.target.value && !(/^1[\d]{10}$/.test(this.$refs.phone.value)))){
-          this.error = '请输入正确的手机号码'
+          this.mobileError = '请输入正确的手机号码'
         }
       },
       _writePhone () {
-        this.error = ''
+        this.mobileError = ''
       },
       _submit (e) {
         e.preventDefault();
         var data = fto(e.target);
         if (!data || !data.mobile) {
-          this.error = '手机号码不能为空'
+          this.mobileError = '手机号码不能为空'
           return false;
         }
         else{
-          this.error = '';
+          this.mobileError = '';
         }
         if(!(/^1[\d]{10}$/.test(data.mobile))){
-          this.error = '请输入正确的手机号码'
+          this.mobileError = '请输入正确的手机号码'
           return false;
         }
         else{
-          this.error = ''
+          this.mobileError = ''
         }
         if(!data.password){          
-          this.error = '密码不能为空'
+          this.passwordError = '密码不能为空'
           return false;
         }
         else{
-          this.error = ''
+          this.passwordError = ''
         }
         this.$http.post('/jwt/sign_in',{'user': data})
           .then(function(ret){
             if(ret.data.msg == 'Mobile or password is error.'){
-              this.error = '密码不正确'
+              this.passwordError = '手机号或者密码不正确'
             }
             else if(ret.data.errors){
-              this.error = '密码至少为8个字符'
+              this.passwordError = '密码至少为8个字符'
             }
             if(ret.data.jwt){
-              this.error = ''
+              this.passwordError = ''
               location.href = './index.html'
             }
           },
