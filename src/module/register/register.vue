@@ -5,7 +5,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="register-t-tit">
-            <img src="../../assets/images/logo.svg" width="150">
+            <a href="./index.html">
+              <img src="../../assets/images/logo.svg" width="150">
+            </a>
             <span>欢迎注册</span>
           </div>          
         </div>

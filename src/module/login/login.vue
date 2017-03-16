@@ -18,7 +18,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="login-t-tit">
-            <img src="../../assets/images/logo.svg" width="150">
+            <a href="./index.html">
+              <img src="../../assets/images/logo.svg" width="150">
+            </a>
             <span>欢迎登录</span>
           </div>          
         </div>
@@ -109,10 +111,12 @@
       _checkPhone (e) {
         if((!e.target.value) || (e.target.value && !(/^1[\d]{10}$/.test(this.$refs.phone.value)))){
           this.mobileError = '请输入正确的手机号码'
+          this.passwordError = ''
         }
       },
       _writePhone () {
         this.mobileError = ''
+        this.passwordError = ''
       },
       _submit (e) {
         e.preventDefault();

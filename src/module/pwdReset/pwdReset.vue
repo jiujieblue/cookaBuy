@@ -5,8 +5,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pwd-head-tit">
-            <img src="../../assets/images/logo.svg" width="150">
-            <span>密码重置</span>
+            <a href="./index.html">
+              <img src="../../assets/images/logo.svg" width="150">
+            </a>
+            <span>密码找回</span>
           </div>          
         </div>
       </div>
@@ -18,7 +20,7 @@
         <div class="col-md-12">
           <div class="pwd-reset">
             <div class="pwd-reset-tit">
-              密码重置
+              密码找回
             </div>
             <div class="pwd-reset-form" v-if="step == 1">
               <form v-on:submit="_submitCode" class="form-code">
