@@ -153,6 +153,7 @@
 							font-size: 18px;
 						}
 						>div{
+							position: relative;
 							padding: 10px 10px 30px;
 							text-align: center;
 							>span{
@@ -163,6 +164,9 @@
 								background: red;
 								color: #fff;
 								font-size: 12px;
+								&.claim{
+									background: #372f2c;
+								}
 							}
 							>ul{
 								>li{
@@ -184,6 +188,31 @@
 								color: #fff;
 								&:hover{
 									background: #554d49;
+								}
+								&.claim{
+									cursor: inherit;
+									background: #bcbcbc;
+									&:hover{
+										background: #bcbcbc;
+									}
+								}
+							}
+							>div{
+								position: absolute;
+								bottom: 70px;
+								left: 0;
+								display: none;
+								>div{
+									width: 80%;
+									margin: 0 auto;
+									padding: 10px;
+									background: #fff;
+									border: 1px solid #dedede;
+									border-radius: 3px;
+									z-index: 100;
+									span{
+										color: #fcc505;
+									}
 								}
 							}
 						}
@@ -212,14 +241,41 @@
 			</div>
 		</div>
 		<div class="sellerClaimChooseStore-nav">
-			<ul v-for="(navObj,key) in navTitle">
+			<ul>
 				<li>市<span class="em"></span>场</li>
 				<li>
 					<ul>
-						<li @click="_choose(key, 'all')" :class="{active: (navTitleChoose[key] + '').slice(0,2) == '全部'}">
+						<li @click="_choose('markets', 'all')" :class="{active: (navListChoose.markets + '').slice(0,2) == '全部'}">
 							全部
 						</li>
-						<li v-for="(nav,index) in navObj" @click="_choose(key, nav)" :class="{active: navTitleChoose[key] == nav}">{{ nav }
+						<li v-for="(navS,index) in navList.markets" @click="_choose('markets', nav)" :class="{active: navListChoose.markets == nav}">
+						{{ navS.market_name }}
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul v-show="navList.floors.length != 0">
+				<li>楼<span class="em"></span>层</li>
+				<li>
+					<ul>
+						<li @click="_choose('floors', 'all')" :class="{active: (navListChoose.floors + '').slice(0,2) == '全部'}">
+							全部
+						</li>
+						<li v-for="(navS,index) in navList.floors" @click="_choose('floors', nav)" :class="{active: navListChoose.floors == nav}">
+						{{ navS.floor }}
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul v-show="navList.categories.length != 0">
+				<li>主<span class="em"></span>营</li>
+				<li>
+					<ul>
+						<li @click="_choose('categories', 'all')" :class="{active: (navListChoose.categories + '').slice(0,2) == '全部'}">
+							全部
+						</li>
+						<li v-for="(navS,index) in navList.categories" @click="_choose('categories', nav)" :class="{active: navListChoose.categories == nav}">
+						{{ navS }}
 						</li>
 					</ul>
 				</li>
@@ -227,23 +283,29 @@
 		</div>
 		<div class="sellerClaimChooseStore-main">
 			<p>
-				<span v-for="(nav, key) in navTitleChoose">{{_navTitle(nav, key)}}</span>
+				<span v-for="(nav, key) in navListChoose">{{_navTitle(nav, key)}}</span>
 			</p>
 			<div class="sellerClaimChooseStore-main-list">
 				<ul>
-					<li v-for="item in 5">
-						<p>吴江市甜服饰</p>
+					<li v-for="(navData_O, navData_I) in navData">
+						<p>{{ navData_O.store_name }}</p>
 						<div>
 							<img src="../../assets/images/sellerClaimStore.png" alt="认领店铺logo"><br>
-							<span>未认领</span>
+							<span :class="{claim: navData_O.claim_status}">未认领</span>
 							<ul>
-								<li>长城</li>
+								<li>{{ navData_O.market }}</li>
 								<li>
-									主营：女装
+									主营：{{ navData_O.cat }}
 								</li>
-								<li>1F 522档</li>
+								<li>{{ navData_O.floor }}&nbsp;&nbsp;&nbsp;{{ navData_O.store_number }}档</li>
 							</ul>
-							<button >我要认领</button>
+							<button @mouseover="_claimOver($event, navData_O.claim_status)" @mouseout="_claimOut($event, navData_O.claim_status)" :class="{claim: navData_O.claim_status}">我要认领</button>
+							<div>
+								<div>
+									该店铺已被认领，如有疑问，请联系客服 <br>
+									<span>400-46541321</span>
+								</div>
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -262,14 +324,20 @@
 	    return {
 	    	status1: 1,
 	    	navTitle: {
-	    		market: ['新产犊','大西豪','长运'],
-	    		floor: [1,5,6,7,9,8,64],
-	    		theMain: ['女装','男装','童装']
+	    		markets: '市<span class="em"></span>场',
+	    		floors: '楼<span class="em"></span>层',
+	    		categories: '主<span class="em"></span>营'
 	    	},
-	    	navTitleChoose: {
-	    		market: '全部市场',
-	    		floor: '全部楼层',
-	    		theMain: '全部主营'
+	    	navData: '',
+	    	navList: {
+	    		markets: ['新产犊','大西豪','长运'],
+	    		floors: [1,5,6,7,9,8,64],
+	    		categories: ['女装','男装','童装']
+	    	},
+	    	navListChoose: {
+	    		markets: '全部市场',
+	    		floors: '全部楼层',
+	    		categories: '全部主营'
 	    	},
 	    	markeyShow: false
 	    }
@@ -285,13 +353,38 @@
 	  			}
 	  		})
 	  	})
+	  	this.$http.get('api/stores/list_stores')
+	  	.then(function (res) {
+	  		console.log(res.data)
+	  		this.navList.markets = res.data.markets
+	  		this.navList.floors = res.data.floors
+	  		this.navList.categories = res.data.categories
+	  		this.navData = res.data.data
+	  		console.log(this.navData)
+	  	},
+	  	function (res) {
+	  		console.log(res)
+	  	})
 	  },
 	  methods: {
+	  	_claimOver (e, status) {
+	  		if(status){
+	  			$(e.target).next().css({display: 'block'})
+	  		}
+	  	},
+	  	_claimOut (e, status) {
+	  		if(status){
+	  			$(e.target).next().css({display: 'none'})
+	  		}
+	  	},
+	  	_returName (key) {
+
+	  	},
 	  	_choose (key, str) {
 	  		if(str == 'all'){
-	  			key == 'market' ? str = '全部市场' : key == 'floor' ? str = '全部楼层' : str = '全部主营'
+	  			key == 'markets' ? str = '全部市场' : key == 'floors' ? str = '全部楼层' : str = '全部主营'
 	  		}
-	  		this.navTitleChoose[key] = str
+	  		this.navListChoose[key] = str
 	  	},
 	  	_openMarkey (e, n) {
 	  		if(this.markeyShow && n == 1){
@@ -300,8 +393,8 @@
 	  		this.markeyShow = !this.markeyShow
 	  	},
 	  	_navTitle (nav, key) {
-	  		if (nav && key != 'market') {
-	  			return '>' + nav
+	  		if (nav && key != 'markets') {
+	  			return ' > ' + nav
 	  		}else{
 	  			return nav
 	  		}
