@@ -5,7 +5,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pwd-head-tit">
-            <img src="../../assets/images/logo.svg" width="150">
+            <a href="./index.html">
+              <img src="../../assets/images/logo.svg" width="150">
+            </a>
             <span>密码找回</span>
           </div>          
         </div>
@@ -20,12 +22,12 @@
             <div class="pwd-reset-tit">
               密码找回
             </div>
-            <div class="pwd-reset-form" v-bind:style="{display: step == 1 ? 'block' : 'none'}">
+            <div class="pwd-reset-form" v-if="step == 1">
               <form v-on:submit="_submitCode" class="form-code">
                 <div class="form-phone">
                   <label>手<span class="em"></span><span class="em"></span>机</label>
                   <span class="icon-zhanghao"></span>
-                  <input type="text" name="mobile" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone">
+                  <input type="text" name="mobile" ref="phone" v-on:blur="_checkPhone($event)" v-on:focus="_writePhone" v-model="mobile">
                 </div>
                 <div class="form-code">
                   <label>短信验证</label>
@@ -41,7 +43,7 @@
               </form>
             </div>
 
-            <div class="pwd-reset-form" v-bind:style="{display: step == 2 ? 'block' : 'none'}">
+            <div class="pwd-reset-form" v-if="step == 2">
               <form v-on:submit="_submitPwd" class="form-pwd">
                 <div class="form-pwd">
                   <label>新<span class="em_5"></span>密<span class="em_5"></span>码</label>
@@ -73,7 +75,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="pwd-foot-tit">
-            Copyright 2016 广州柯咔网络科技有限公司版权所有 粤ICP备XXXXXXXXX号 客服电话 : 400-020-xxxxxxx
+            Copyright©2017 广州柯咔网络科技有限公司  www.cookabuy.com  粤ICP备15091531号  客服热线:400-8868-900
           </div>          
         </div>
       </div>
@@ -92,6 +94,7 @@
   export default{
     data () {
       return {
+        mobile: '',
         error: '',
         step: 1,
         btnContent: '获取短信验证码',
@@ -188,8 +191,8 @@
               this.step = 2
               this.error = ''
             }
-            else{
-              this.error = ret.data.error
+            else if(ret.data.msg == 'Code not right.'){
+              this.error = '验证码不正确'
             }
           },function(err){
             console.log(err)
@@ -210,11 +213,12 @@
         else{
          this.error = ''
         }
-        data.mobile = this.$refs.phone.value
+        data.mobile = this.mobile
         this.$http.post('/jwt/reset_pw',data)
           .then(function(ret){
             if(ret.data.msg == 'Reset password ok.'){
               this.error = ''
+              location.href = './login.html'
             }
             else{
               this.error = ret.data.error

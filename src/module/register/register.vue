@@ -5,7 +5,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="register-t-tit">
-            <img src="../../assets/images/logo.svg" width="150">
+            <a href="./index.html">
+              <img src="../../assets/images/logo.svg" width="150">
+            </a>
             <span>欢迎注册</span>
           </div>          
         </div>
@@ -64,7 +66,7 @@
                 {{error}}
               </div>
               <div class="form-submit">
-                <button v-bind:disabled="!agree">注<span class="em"></span><span class="em"></span>册</button>
+                <button v-bind:disabled="!agree" v-bind:class="!agree ? 'disabled' : ''">注<span class="em"></span><span class="em"></span>册</button>
               </div>
             </form>
           </div>
@@ -79,7 +81,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="register-b-tit">
-            Copyright 2016 广州柯咔网络科技有限公司版权所有 粤ICP备XXXXXXXXX号 客服电话 : 400-020-xxxxxxx
+            Copyright©2017 广州柯咔网络科技有限公司  www.cookabuy.com  粤ICP备15091531号  客服热线:400-8868-900
           </div>          
         </div>
       </div>
@@ -201,10 +203,11 @@
         this.$http.post('/jwt/sign_up',{'user': data})
           .then(function (ret) {
             if(ret.data.msg == 'OK'){
-              this.error = '';
+              this.error = ''
+              location.href = './login.html'
             }
-            else{
-              this.error = ret.data.error;
+            else if(ret.data.errors == 'Sms code is error.'){
+              this.error = '验证码错误'
             } 
           },
           function (err) {
