@@ -32,13 +32,13 @@
                 <div class="form-code">
                   <label>短信验证</label>
                   <input type="text" name="code">
-                  <button type="button" v-bind:class="sendMsg ? 'after' : 'before'" v-bind:disabled="sendMsg" v-on:click="_getCode">{{btnContent}}</button>
+                  <button type="button" v-bind:class="sendMsg || vitified ? 'after' : 'before'" v-bind:disabled="sendMsg || vitified" v-on:click="_getCode">{{btnContent}}</button>
                 </div>
                 <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
                   {{error}}
                 </div>
                 <div class="form-submit">
-                  <button type="submit">提<span class="em"></span>交</button>
+                  <button v-bind:class="vitified ? 'disabled' : ''" v-bind:disabled="vitified" type="submit">提<span class="em"></span>交</button>
                 </div>
               </form>
             </div>
@@ -99,7 +99,8 @@
         step: 1,
         btnContent: '获取短信验证码',
         sendMsg: false,
-        sendTime: 60
+        sendTime: 60,
+        vitified: true
       }
     },
     methods: {
@@ -112,10 +113,12 @@
             .then(
               function(ret){
                 if(!ret.data.msg){
-                  this.error = '该账号未注册';
+                  this.error = '该账号未注册'
+                  this.vitified = true
                 }
                 else{
                   this.error = '';
+                  this.vitified = false
                 }
               },
               function(err){
@@ -149,6 +152,7 @@
                 }
               },1000)
             }
+            
           },
           function (err) {
             console.log(err)
@@ -187,7 +191,7 @@
         }
         this.$http.post('/jwt/validate',data)
           .then(function(ret){
-            if(ret.data.msg == 'OK'){
+            if(ret.data.msg == 'OK.'){
               this.step = 2
               this.error = ''
             }
