@@ -192,7 +192,7 @@
               this.error = ''
             }
             else if(ret.data.msg == 'Code not right.'){
-              this.error = '验证码不正确'
+              this.error = '手机号码或验证码不正确'
             }
           },function(err){
             console.log(err)
