@@ -8,7 +8,7 @@
             <a href="./index.html">
               <img src="../../assets/images/logo.svg" width="150">
             </a>
-            <span>密码找回</span>
+            <span>{{pwdContent}}</span>
           </div>          
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div class="col-md-12">
           <div class="pwd-reset">
             <div class="pwd-reset-tit">
-              密码找回
+              {{pwdContent}}
             </div>
             <div class="pwd-reset-form" v-if="step == 1">
               <form v-on:submit="_submitCode" class="form-code">
@@ -32,7 +32,7 @@
                 <div class="form-code">
                   <label>短信验证</label>
                   <input type="text" name="code">
-                  <button type="button" v-bind:class="sendMsg || vitified ? 'after' : 'before'" v-bind:disabled="sendMsg || vitified" v-on:click="_getCode">{{btnContent}}</button>
+                  <button type="button" v-bind:class="sendMsg ? 'after' : 'before'" v-bind:disabled="sendMsg" v-on:click="_getCode">{{btnContent}}</button>
                 </div>
                 <div class="form-err" v-bind:style="{display: error ? 'block' : 'none'}">
                   {{error}}
@@ -94,6 +94,7 @@
   export default{
     data () {
       return {
+        pwdContent: '密码找回',
         mobile: '',
         error: '',
         step: 1,
@@ -193,6 +194,7 @@
           .then(function(ret){
             if(ret.data.msg == 'OK.'){
               this.step = 2
+              this.pwdContent = '密码重置'
               this.error = ''
             }
             else if(ret.data.msg == 'Code not right.'){
