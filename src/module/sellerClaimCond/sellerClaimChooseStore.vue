@@ -58,9 +58,18 @@
 						border: 1px solid #ccc;
 						background: #fff;
 						z-index: 10;
+						max-height: 215px;
+						overflow: auto;
 						>li{
 							padding: 5px 10px;
 							cursor: pointer;
+							&.active{
+								background: #30c2ff;
+								color: #fff;
+								&:hover{
+									background: #1cafed;
+								}
+							}
 							&:hover{
 								background: #30c2ff;
 								color: #fff;
@@ -90,27 +99,42 @@
 			margin: 20px 0;
 			>ul{
 				.clearfix();
+				background: #ececec;
+				position: relative;
+				&:before{
+					content: '';
+					display: inline-block;
+					width: 8%;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					border-bottom: 1px solid #fff;
+				}
+				&:last-child{
+					&:before{
+						display: none;
+					}
+				}
 				>li{
 					float: left;
-					height: 40px;
-					line-height: 40px;
-					border-bottom: 1px solid #ececec;
+					padding-top: 9px;
 					&:first-child{
 						width: 8%;
 						border-color: #fff;
-						background: #ececec;
 						text-align: center;
 						font-size: 16px;
 					}
 					&:last-child{
 						width: 92%;
 						background: #fff;
+						border-bottom: 1px solid #ececec;
 						>ul{
 							.clearfix();
 							padding-left: 20px;
 							>li{
 								float: left;
 								margin-right: 20px;
+							    margin-bottom: 10px;
 								cursor: pointer;
 								&.active,&:hover{
 									color: #fcc505;
@@ -230,14 +254,13 @@
 			<div class="sellerClaimChooseStore-header-choose">
 				<span class="sellerClaimChooseStore-text">*</span>
 				<div class="sellerClaimChooseStore-show">
-					<span @click="_openMarkey" ref='markeyBox' :class="{'active': markeyShow}" data_open="openMarkey">请选择市场</span>
-					<ul v-if="markeyShow">
-						<li @click='_openMarkey($event, 1)'>大西豪</li>
-						<li @click='_openMarkey($event, 1)'>你妹</li>
+					<span @click="_openMarkey" ref='markeyBox' :class="{'active': markeyShow}" data_open="openMarkey">{{searchMarket || '请选择市场'}}</span>
+					<ul v-show="markeyShow">
+						<li @click='_openMarkey($event, 1)' :class='{active : marketS.market_name == searchMarket}' v-for="(marketS, marketI) in navList.markets">{{ marketS.market_name }}</li>
 					</ul>
 				</div>
-				<input type="text" placeholder="请输入店铺名称">
-				<button>搜&nbsp;索</button>
+				<input type="text" placeholder="请输入店铺名称" ref="storeName">
+				<button @click="_searchStore">搜&nbsp;索</button>
 			</div>
 		</div>
 		<div class="sellerClaimChooseStore-nav">
@@ -248,7 +271,7 @@
 						<li @click="_choose('markets', 'all')" :class="{active: (navListChoose.markets + '').slice(0,2) == '全部'}">
 							全部
 						</li>
-						<li v-for="(navS,index) in navList.markets" @click="_choose('markets', nav)" :class="{active: navListChoose.markets == nav}">
+						<li v-show="navS.market_name != '全部'" v-for="(navS,index) in navList.markets" @click="_choose('markets', navS.market_name)" :class="{active: navListChoose.markets == navS.market_name}">
 						{{ navS.market_name }}
 						</li>
 					</ul>
@@ -261,8 +284,8 @@
 						<li @click="_choose('floors', 'all')" :class="{active: (navListChoose.floors + '').slice(0,2) == '全部'}">
 							全部
 						</li>
-						<li v-for="(navS,index) in navList.floors" @click="_choose('floors', nav)" :class="{active: navListChoose.floors == nav}">
-						{{ navS.floor }}
+						<li v-show="navS != '全部'" v-for="(navS,index) in navList.floors" @click="_choose('floors', navS)" :class="{active: navListChoose.floors == navS}">
+						{{ navS }}
 						</li>
 					</ul>
 				</li>
@@ -274,7 +297,7 @@
 						<li @click="_choose('categories', 'all')" :class="{active: (navListChoose.categories + '').slice(0,2) == '全部'}">
 							全部
 						</li>
-						<li v-for="(navS,index) in navList.categories" @click="_choose('categories', nav)" :class="{active: navListChoose.categories == nav}">
+						<li v-show="navS != '全部'" v-for="(navS,index) in navList.categories" @click="_choose('categories', navS)" :class="{active: navListChoose.categories == navS}">
 						{{ navS }}
 						</li>
 					</ul>
@@ -311,7 +334,7 @@
 				</ul>
 			</div>
 		</div>
-		<CkPagination :pages='5' :pageNum='1' @submitPage='_subPage'></CkPagination>
+		<CkPagination :pages='pages' :pageNum='pageNum' @submitPage='_subPage'></CkPagination>
 	</div>
 </template>
 
@@ -339,7 +362,16 @@
 	    		floors: '全部楼层',
 	    		categories: '全部主营'
 	    	},
-	    	markeyShow: false
+	    	markeyShow: false,
+	    	urlList: {
+	    		markets: '',
+	    		floors: '',
+	    		categories: ''
+	    	},
+	    	searchMarket: '',
+	    	issearch: false,
+	    	pages: 0,
+	    	pageNum: 0
 	    }
 	  },
 	  mounted () {
@@ -353,13 +385,14 @@
 	  			}
 	  		})
 	  	})
-	  	this.$http.get('api/stores/list_stores')
+	  	this.$http.get('api/stores/list_stores?page_size=20')
 	  	.then(function (res) {
-	  		console.log(res.data)
 	  		this.navList.markets = res.data.markets
 	  		this.navList.floors = res.data.floors
 	  		this.navList.categories = res.data.categories
 	  		this.navData = res.data.data
+	  		this.pageNum = res.data.page_number
+	  		this.pages = res.data.total_pages
 	  		console.log(this.navData)
 	  	},
 	  	function (res) {
@@ -367,6 +400,26 @@
 	  	})
 	  },
 	  methods: {
+	  	_searchStore () {
+	  		var val = this.$refs.storeName.value
+	  		if(!val){
+	  			return false
+	  		}
+	  		if(this.issearch){
+	  			this.$http.get('api/stores/list_stores?page_size=20&page=1&market=' + this.searchMarket + '&sn=' + val)
+			  	.then(function (res) {
+			  		this.navList.markets = res.data.markets
+			  		this.navList.floors = res.data.floors
+			  		this.navList.categories = res.data.categories
+			  		this.navData = res.data.data
+			  		this.pageNum = res.data.page_number
+			  		this.pages = res.data.total_pages
+			  	},
+			  	function (res) {
+			  		console.log(res)
+			  	})
+	  		}
+	  	},
 	  	_claimOver (e, status) {
 	  		if(status){
 	  			$(e.target).next().css({display: 'block'})
@@ -381,14 +434,54 @@
 
 	  	},
 	  	_choose (key, str) {
-	  		if(str == 'all'){
-	  			key == 'markets' ? str = '全部市场' : key == 'floors' ? str = '全部楼层' : str = '全部主营'
+	  		if(key == 'markets'){
+	  			this.urlList.floors = ''
+	  			this.urlList.categories = ''
+
+	  			this.navListChoose.floors = '全部楼层'
+	  			this.navListChoose.categories = '全部主营'
+	  			if(str == 'all'){
+	  				this.urlList[key] = ''
+	  				str = '全部市场'
+	  			}else{
+	  				this.urlList[key] = '&market=' + str
+	  			}
+	  		}else if(key == 'floors'){
+	  			this.urlList.categories = ''
+	  			
+	  			this.navListChoose.categories = '全部主营'
+	  			if(str == 'all'){
+	  				this.urlList[key] = ''
+	  				str = '全部楼层'
+	  			}else{
+	  				this.urlList[key] = '&floor=' + str
+	  			}
+	  		}else if(key == 'categories'){
+	  			if(str == 'all'){
+	  				this.urlList[key] = ''
+	  				str = '全部主营'
+	  			}else{
+	  				this.urlList[key] = '&cat=' + str
+	  			}
 	  		}
 	  		this.navListChoose[key] = str
+	  		this.$http.get('api/stores/list_stores?page_size=20&page=1'+this.urlList.markets+this.urlList.floors+this.urlList.categories)
+		  	.then(function (res) {
+		  		this.navList.markets = res.data.markets
+		  		this.navList.floors = res.data.floors
+		  		this.navList.categories = res.data.categories
+		  		this.navData = res.data.data
+		  		this.pageNum = res.data.page_number
+		  		this.pages = res.data.total_pages
+		  	},
+		  	function (res) {
+		  		console.log(res)
+		  	})
 	  	},
 	  	_openMarkey (e, n) {
 	  		if(this.markeyShow && n == 1){
-	  			this.$refs.markeyBox.textContent = e.target.textContent
+	  			this.searchMarket = e.target.textContent
+	  			this.issearch = true
 	  		}
 	  		this.markeyShow = !this.markeyShow
 	  	},
@@ -399,8 +492,21 @@
 	  			return nav
 	  		}
 	  	},
-	  	_subPage (page) {
-	  		console.log(page)
+	  	_subPage (page) { 
+	  		var pTop = $('.sellerClaimChooseStore-main p')[0].offsetTop
+	  		$("body").scrollTop(pTop-20)
+	  		this.$http.get('api/stores/list_stores?page_size=20'+this.urlList.markets+this.urlList.floors+this.urlList.categories+'&page='+page)
+		  	.then(function (res) {
+		  		this.navList.markets = res.data.markets
+		  		this.navList.floors = res.data.floors
+		  		this.navList.categories = res.data.categories
+		  		this.navData = res.data.data
+		  		this.pageNum = res.data.page_number
+		  		this.pages = res.data.total_pages
+		  	},
+		  	function (res) {
+		  		console.log(res)
+		  	})
 	  	}
 	  },
 	 	components: {

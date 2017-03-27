@@ -2,6 +2,14 @@
 	@import '../../assets/css/icons.css';
 	@import '../../assets/css/bootstrap.css';
 	@import '../../assets/less/sellerClaimCond.less';
+
+	.fade-enter-active, .fade-leave-active {
+	  transition: opacity .5s
+	}
+	.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+	  opacity: 0
+	}
+
 </style>
 
 <template>
@@ -32,7 +40,9 @@
 					</li>
 				</ul>
 			</div>
-			<router-view></router-view>
+  			<transition name="fade">
+				<router-view v-show="show"></router-view>
+  			</transition>
 		</div>
 		<footerComponent></footerComponent>
 	</div>
@@ -50,7 +60,8 @@
 	    	status1: 3,
 	    	details1: 1,
 	    	status2: 1,
-	    	details2: null
+	    	details2: null,
+	    	show: true
 	    }
 	  },
 	  methods: {
