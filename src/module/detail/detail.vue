@@ -48,7 +48,7 @@
                   <p>50件以上</p>
                 </div> -->
               </div>
-              <div class="desc-trans" style="display:none">
+              <div class="desc-trans" v-if="false">
                 配<b class="em_5"></b>送 : 广东广州 至
                 <select class="trans-addr">
                   <option>aaa</option>
@@ -75,21 +75,21 @@
                   </div>
                 </div>
               </div>
-              <div class="sku-alert" v-bind:style="{display: isSku ? 'block' : 'none'}">
+              <div class="sku-alert" v-if="isSku">
                 <span>!</span>请选择规格
               </div>
-              <div class="desc-num" style="display:none">
+              <div class="desc-num" v-if="false">
                 <p>数<b class="em_5"></b>量 : </p>
                 <button class="num-del" v-on:click="_chooseNum(-1)">-</button>
                 <input type="text" v-on:change="_chooseNum($event)" v-model="chooseNum">
                 <button class="num-add" v-on:click="_chooseNum(1)">+</button>
                 <p style="margin-left:55px;">(库存 {{totalAmount}} 件)</p>
               </div>              
-              <div class="desc-action" style="display:none">
+              <div class="desc-action" v-if="false">
                 <button v-on:click="_addCart">加入进货单</button>
                 <button>去购物车结算</button>
               </div>
-              <div class="desc-oth" style="display:none">
+              <div class="desc-oth" v-if="false">
                 <div>收藏</div>
                 <div class="renqi">(人气<b class="em_5"></b>:<b class="em_5"></b>4000)</div>
                 <div>
@@ -98,12 +98,12 @@
                   <a href=""><img src="../../assets/images/icons/xinlang.png" height="20" width="20"></a>
                 </div>
               </div>
-              <div class="desc-choosed" style="display:none">
+              <div class="desc-choosed" v-if="false">
                 <div class="choosed-tishi">
                   <div class="yixuan" v-on:click="_showChooseList">已选清单(共<span>{{chooseShopping.length}}</span>件)</div>
                   <div class="sanjiao"></div>
                 </div>
-                <div class="choosed-list" v-bind:style="{display: showChooseList ? 'block' : 'none'}">                  
+                <div class="choosed-list" v-if="showChooseList">                  
                   <div v-show="chooseList.length > 0" class="list-self" v-for="(item,index) in chooseList">
                     <div class="list-self-color">{{item[0].prop_name.split(';')[1].split(':')[1]}}</div>
                     <div class="list-self-oth">

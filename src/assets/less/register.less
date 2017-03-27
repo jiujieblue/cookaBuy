@@ -10,6 +10,81 @@ body{
   font-family: "Microsoft Yahei";
   background: #f7f7f7;
 }
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  .modal-wrapper {
+    margin: 50px auto;
+    height: 100%;
+  }
+  .modal-container {
+    width: 900px;
+    height: 80%;
+    max-height: 620px;
+    margin: 0px auto;
+    padding: 15px 35px;
+    background-color: #fff;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #999;
+    position: relative;
+    .icon-cha{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 36px;
+      color: #ddd;
+      cursor: pointer;
+      &:hover{
+        color: #999;
+      }
+    }
+  }
+  .modal-header{
+    padding: 0;
+    padding-bottom: 10px;
+  }
+  .modal-body {
+    height: 80%;
+    overflow: auto;
+    margin-top: 20px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    h3,h4,p{
+      font-size: 16px;
+      line-height: 24px;
+    }
+    h3{
+      color: #666;
+      font-weight: bold;
+    }
+    p{
+      text-indent: 2em;
+    }
+  }
+  .modal-footer{
+    border: none;
+    text-align: center;
+    padding-bottom: 0;
+    button{
+      color: #666;
+      font-size: 20px;
+      background: #fcc505;
+      border: none;
+      border-radius: 3px;
+      padding: 10px 50px;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+}
+
 .register-t{
   padding: 30px;
   background: #f7f7f7;
@@ -78,6 +153,8 @@ body{
           input{
             float: left;          
             width: 290px;
+            border: 1px solid #a89d99;
+            height: 40px;
           }
         }
         label{

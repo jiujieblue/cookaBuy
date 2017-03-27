@@ -8,7 +8,7 @@
             <a href="./index.html">
               <img src="../../assets/images/logo.svg" width="150">
             </a>
-            <span>密码找回</span>
+            <span>{{pwdContent}}</span>
           </div>          
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div class="col-md-12">
           <div class="pwd-reset">
             <div class="pwd-reset-tit">
-              密码找回
+              {{pwdContent}}
             </div>
             <div class="pwd-reset-form" v-if="step == 1">
               <form v-on:submit="_submitCode" class="form-code">
@@ -38,7 +38,7 @@
                   {{error}}
                 </div>
                 <div class="form-submit">
-                  <button type="submit">提<span class="em"></span>交</button>
+                  <button v-bind:class="vitified ? 'disabled' : ''" v-bind:disabled="vitified" type="submit">提<span class="em"></span>交</button>
                 </div>
               </form>
             </div>
@@ -94,12 +94,14 @@
   export default{
     data () {
       return {
+        pwdContent: '密码找回',
         mobile: '',
         error: '',
         step: 1,
         btnContent: '获取短信验证码',
         sendMsg: false,
-        sendTime: 60
+        sendTime: 60,
+        vitified: true
       }
     },
     methods: {
@@ -112,10 +114,12 @@
             .then(
               function(ret){
                 if(!ret.data.msg){
-                  this.error = '该账号未注册';
+                  this.error = '该账号未注册'
+                  this.vitified = true
                 }
                 else{
                   this.error = '';
+                  this.vitified = false
                 }
               },
               function(err){
@@ -149,6 +153,7 @@
                 }
               },1000)
             }
+            
           },
           function (err) {
             console.log(err)
@@ -187,12 +192,13 @@
         }
         this.$http.post('/jwt/validate',data)
           .then(function(ret){
-            if(ret.data.msg == 'OK'){
+            if(ret.data.msg == 'OK.'){
               this.step = 2
+              this.pwdContent = '密码重置'
               this.error = ''
             }
             else if(ret.data.msg == 'Code not right.'){
-              this.error = '验证码不正确'
+              this.error = '手机号码或验证码不正确'
             }
           },function(err){
             console.log(err)
