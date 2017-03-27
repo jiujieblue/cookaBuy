@@ -393,7 +393,6 @@
 	  		this.navData = res.data.data
 	  		this.pageNum = res.data.page_number
 	  		this.pages = res.data.total_pages
-	  		console.log(this.navData)
 	  	},
 	  	function (res) {
 	  		console.log(res)
